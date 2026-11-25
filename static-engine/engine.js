@@ -5,9 +5,9 @@
 export const SIZES = {
   "4x5": { w: 1080, h: 1350, pad: [70, 72, 64, 72], fs: 10, pack: 430, label: "Feed", ratio: "4x5" },
   "1x1": { w: 1080, h: 1080, pad: [52, 60, 48, 60], fs: 8.6, pack: 345, label: "Square", ratio: "1x1" },
-  // Stories/Reels: keep every word between ~270 px and ~1580 px (Sanya's safe zone: top ~250, bottom ~300).
-  // Stories / Reels: every word and the pack sit between 230 and 1165 px from the top; the lower part stays plain.
-  "9x16": { w: 1080, h: 1920, pad: [230, 80, 755, 80], fs: 7.7, pack: 330, label: "Stories", ratio: "9x16" }
+  // Stories / Reels: every word and the pack sit between 269 and 1165 px from the top (Meta covers the top 269 px with the
+  // profile row, and the bottom 269 px in Stories / 672 px in Reels); the lower part stays plain.
+  "9x16": { w: 1080, h: 1920, pad: [269, 80, 755, 80], fs: 7.4, pack: 316, label: "Stories", ratio: "9x16" }
 };
 
 export const THEMES = {
@@ -50,9 +50,6 @@ export const SCENES = {
   "clay-tired":    { file: "WA0027.jpg", pos: "bottom", mood: "clay figure sitting tired in bed, zombie-like" }
 };
 const scene = (A, k) => A + "scenes/" + (SCENES[k] || SCENES["night-phone"]).file;
-// The supplement bottles in a "jars" problem panel: the separate pills each pack replaces (facts from the pack only).
-const JARS = { mornings: ["COFFEE", "FOCUS", "FIBRE", "PROBIOTICS", "MULTIVITAMIN", "VITAMIN D3"], nights: ["MAGNESIUM", "ASHWAGANDHA", "GLYCINE", "L-THEANINE", "SLEEP AID"], combo: ["FIBRE", "PROBIOTICS", "FOCUS", "MAGNESIUM", "ASHWAGANDHA", "GLYCINE"] };  // house rule 23
-const jarLabels = p => JARS[p] || JARS.combo;
 // A photo made for this static (e.g. by ChatGPT from the static's photo brief) and uploaded to the site replaces the
 // library scene photo. Only the site's own file URLs are used.
 const okPhoto = p => typeof p === "string" && /^\/api\/file\/F[0-9a-z]+$/.test(p);
@@ -70,12 +67,15 @@ const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)
 // PRODUCT PLACEMENT (Abhishek, 25 Nov): the pack is the hero. Closed box + 1 stick together (the *_boxstick cut-outs),
 // about a third of the image height, lower right on a soft contact shadow; never a lone stick or a corner sticker.
 // Combo shows both packs, Mornings left and Nights right. Only shot: "none" leaves it out (the back-of-pack panel).
+const PLINE = { mornings: 'SILT Mornings · <b>DAILY</b> energy and nutrition', nights: 'SILT Nights · <b>NIGHTLY</b> sleep and recovery', combo: 'SILT Combo · <b>DAILY</b> energy, <b>NIGHTLY</b> sleep' };
+const bottles = (A, p) => `<div class="psimg bottles" style="background-image:url('${A}bottles_${p === "mornings" || p === "nights" ? p : "combo"}.jpg')"></div>`;
 function packHTML(product, A, cls = "") {
   const img = p => `<img src="${A}${PRODUCTS[p].boxstick}" alt="SILT ${p[0].toUpperCase() + p.slice(1)} box and stick">`;
   return product === "combo" ? `<div class="pack duo ${cls}">${img("mornings")}${img("nights")}</div>` : `<div class="pack ${cls}">${img(product === "nights" ? "nights" : "mornings")}</div>`;
 }
 function productImgs(spec, A) {
   if (spec.shot === "none") return "";
+  if ((spec.shot === "stick" || spec.shot === "sticks") && !["scene", "statement", "offer", "review"].includes(spec.t)) { const st = p => `<img src="${A}${PRODUCTS[p].stick}" alt="SILT ${p} stick">`; return spec.product === "combo" ? `<div class="pack duo sticks">${st("mornings")}${st("nights")}</div>` : `<div class="pack sticks">${st(spec.product === "nights" ? "nights" : "mornings")}</div>`; }
   return packHTML(spec.product, A);
 }
 
@@ -111,7 +111,7 @@ const T = {
   // 24 The mistakes ad
   mistakes: s => `<h1 class="top">${rich(s.headline)}</h1><div class="mist">${s.items.map((i, n) => `<div class="mi"><span class="n">0${n + 1}</span><span>${rich(i)}</span></div>`).join("")}</div>${s.turn ? `<p class="turn">${rich(s.turn)}</p>` : ""}`,
   // 27 Expectation vs reality, flipped / before-after of the routine
-  beforeafter: s => `<h1 class="top">${rich(s.headline)}</h1><div class="ba"><div class="half before"><span class="lab">${esc(s.left || "BEFORE")}</span><div class="jars">${"<i></i>".repeat(6)}</div><p>${rich(s.before)}</p></div>
+  beforeafter: s => `<h1 class="top">${rich(s.headline)}</h1><div class="ba"><div class="half before"><span class="lab">${esc(s.left || "BEFORE")}</span><div class="bimg" style="background-image:url('${s._A}bottles_${s.product === "mornings" || s.product === "nights" ? s.product : "combo"}.jpg')"></div><p>${rich(s.before)}</p></div>
     <div class="half after"><span class="lab">${esc(s.right || "AFTER")}</span>${packHTML(s.product, s._A, "inpanel")}<p>${rich(s.after)}</p></div></div>`,
   // Big statement (pattern interrupt)
   statement: s => `<div class="statement">${s.kicker ? `<div class="kick">${esc(s.kicker)}</div>` : ""}<h1 class="huge">${rich(s.headline)}</h1>${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`,
@@ -140,7 +140,7 @@ const T = {
   // AM / PM split ritual
   // Relatable scene: a real-life moment, words on the photo; the pack stands beside the person, lower right, as the answer
   scene: s => { const pos = s.product === "combo" ? "top" : (SCENES[s.scene] || {}).pos === "bottom" ? "bottom" : "top"; return `<div class="scenebg" style="background-image:url('${photoOr(s, s._A, s.scene)}')"></div><div class="scenefade ${pos === "bottom" ? "b" : "t"}"></div>
-    <div class="scenetext ${pos === "bottom" ? "b" : "t"}"><h1 class="huge">${rich(s.headline)}</h1>${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`; },
+    <div class="scenetext ${pos === "bottom" ? "b" : "t"}"><h1 class="huge">${rich(s.headline)}</h1>${s.sub ? `<p class="lede sol">${rich(s.sub)}</p>` : ""}<div class="pline big">${PLINE[s.product] || PLINE.combo}</div></div>`; },
   // PROBLEM | SOLUTION (our take on the before/after split): a relatable problem moment next to the SILT ritual.
   // A side can be a scene photo, or "product" (brand colour + the stick) or "jars" (the supplement shelf).
   problemsolution: s => {
@@ -148,9 +148,9 @@ const T = {
       const p = s.product === "combo" ? null : s.product;
       const inner = sc === "product" ? `<div class="pspanel ${s.product}">${packHTML(s.product, s._A, "inpanel")}</div>`
         : okPhoto(s.photo) && kind === "prob" ? `<div class="psimg" style="background-image:url('${s.photo}')"></div>`
-        : sc === "jars" ? `<div class="pspanel jarsbg"><div class="jars">${jarLabels(s.product).map(l => `<i><b>${esc(l)}</b></i>`).join("")}</div></div>`
+        : sc === "jars" ? bottles(s._A, s.product)
         : `<div class="psimg" style="background-image:url('${scene(s._A, sc)}')"></div>`;
-      return `<div class="ps ${kind}">${inner}<span class="pstag ${kind}">${esc(lab)}</span><div class="psline">${rich(line)}</div></div>`;
+      return `<div class="ps ${kind}">${inner}<span class="pstag ${kind}">${esc(lab)}</span><div class="psline">${rich(line)}${kind === "sol" ? `<div class="pline">${PLINE[s.product] || PLINE.combo}</div>` : ""}</div></div>`;
     };
     return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "Problem", s.problem)}${side("sol", "product", s.label_solution || "Solution", s.solution)}</div>`;
   },
@@ -216,13 +216,11 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 /* parts */.parts{display:flex;flex-direction:column;gap:1.4em}.part{display:flex;gap:1.6em;align-items:center;padding:1.6em 2em}.part .n{font-size:5em;font-weight:700;color:var(--acc);width:1em}.part b{font-size:3.4em;display:block}.part span{font-size:2.6em;color:var(--sub);line-height:1.3}
 /* mistakes */.mist{display:flex;flex-direction:column;gap:1.5em}.mi{display:flex;gap:1.2em;font-size:3.4em;line-height:1.25;align-items:baseline}.mi .n{color:var(--acc);font-weight:700;font-size:1.3em}.turn{font-size:3.4em;font-weight:700;color:var(--acc)}
 /* before after */.ba{flex:1;min-height:0;display:flex;gap:2em}.half{flex:1;border-radius:2em;padding:2em;display:flex;flex-direction:column;gap:1.4em;align-items:center;text-align:center}
-.half .lab{font-weight:700;letter-spacing:.2em;font-size:2.3em}.half p{font-size:2.8em;line-height:1.25}.before{background:#E7E3DA;color:#555}.after{background:var(--card)}
-.jars{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:4.6em 1.2em;align-content:center;width:100%;min-height:0}.jars i{display:block;position:relative;aspect-ratio:3/5;max-height:17em;width:52%;margin:auto;border-radius:.9em .9em .7em .7em;background:linear-gradient(90deg,#d9d6cf,#fff 40%,#e6e2da);box-shadow:0 .6em 1.2em rgba(0,0,0,.18)}
+.half .lab{font-weight:700;letter-spacing:.2em;font-size:2.3em}.half p{font-size:2.8em;line-height:1.25}.before{background:#E7E3DA;color:#555}.bimg{flex:1;width:100%;min-height:0;border-radius:1.2em;background-size:cover;background-position:center 60%}.after{background:var(--card)}
+.jars{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:3em 1.2em;align-content:center;width:100%;min-height:0}.jars i{display:block;position:relative;aspect-ratio:3/5;max-height:17em;width:52%;margin:auto;border-radius:.9em .9em .7em .7em;background:linear-gradient(90deg,#d9d6cf,#fff 40%,#e6e2da);box-shadow:0 .6em 1.2em rgba(0,0,0,.18)}
 .jars i:before{content:"";position:absolute;left:16%;right:16%;top:-11%;height:14%;border-radius:.4em;background:var(--cap,#6b7a99)}.jars i:after{content:"";position:absolute;left:0;right:0;top:34%;height:30%;background:var(--lab,#9aa6c2);opacity:.85}
 .jars i:nth-child(1){--cap:#2f8f5b;--lab:#a7d9b9}.jars i:nth-child(2){--cap:#d9534f;--lab:#f3b7b5}.jars i:nth-child(3){--cap:#3b6fd4;--lab:#b5c9f2}.jars i:nth-child(4){--cap:#e0a526;--lab:#f6dc9c}.jars i:nth-child(5){--cap:#7b4fb8;--lab:#d3c1ee}.jars i:nth-child(6){--cap:#333;--lab:#cfcfcf}
 .jars i:nth-child(2),.jars i:nth-child(5){transform:rotate(4deg)}.jars i:nth-child(3){transform:rotate(-3deg)}
-.jars i b{position:absolute;left:50%;top:104%;transform:translateX(-50%);white-space:nowrap;font-size:2.3em;font-weight:700;font-style:normal;color:#2a2622;letter-spacing:-.01em;z-index:2}
-.jars:has(i:nth-child(4):last-child){grid-template-columns:repeat(2,1fr)}
 .after .pack{width:100%}
 /* statement */.statement{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2em}.kick{font-size:2.4em;letter-spacing:.22em;color:var(--acc);font-weight:700;text-transform:uppercase}
 /* vs */table.vs{width:100%;border-collapse:separate;border-spacing:0;padding:1.4em 2em;font-size:3em}.vs th{font-size:.8em;letter-spacing:.12em;color:var(--sub);padding:.5em;text-align:center}.vs th:nth-child(2){color:var(--acc)}
@@ -245,7 +243,7 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .scenefade{position:absolute;left:0;right:0;height:62%}.scenefade.t{top:0;background:linear-gradient(180deg,rgba(8,12,30,.86),rgba(8,12,30,.55) 55%,rgba(8,12,30,0))}.scenefade.b{bottom:0;background:linear-gradient(0deg,rgba(8,12,30,.9),rgba(8,12,30,.6) 55%,rgba(8,12,30,0))}
 .frame.full .safe{z-index:2}.frame.full main{justify-content:flex-start}.scenetext{display:flex;flex-direction:column;gap:1.4em;max-width:92%}.scenetext.b{margin-top:auto}.scenetext h1{color:#fff;text-shadow:0 .1em .6em rgba(0,0,0,.35)}.scenetext .lede{color:#E8ECF7}
 .frame.full em.acc{color:#EBB858}.frame.full .url{color:#D9DEEB}.frame.full main{position:relative}.frame.full .pack{position:absolute;right:0;bottom:0;margin:0}.frame.full .scenetext.b{max-width:56%}
-/* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
+/* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps.prob{flex:.8}.ps.sol{flex:1.25}.ps.prob .psline{font-size:2.9em}.ps.sol .psline{font-size:4.1em}.pline{margin-top:.45em;font-size:.5em;font-weight:400;letter-spacing:.01em;background:rgba(255,255,255,.95);color:#17245C;border-radius:.6em;padding:.35em .6em;display:inline-block}.pline b{font-weight:800;letter-spacing:.04em}.psimg.bottles{background-size:cover;background-position:center 60%}.pack.sticks img{max-width:24%}.scenetext h1.huge{font-size:6.4em}.scenetext .lede.sol{font-size:4.6em;font-weight:700;color:#fff;line-height:1.15}.pline.big{font-size:2.2em;align-self:flex-start}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
 .psimg{position:absolute;inset:0;background-size:cover;background-position:center 35%}.ps.prob .psimg{filter:saturate(.75) brightness(.92)}
 .pspanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6%}.pspanel.mornings{background:radial-gradient(circle at 50% 40%,#FFE3A8,#F2A541 70%)}.pspanel.nights{background:radial-gradient(circle at 50% 40%,#5C7EE6,#1C2C7A 75%)}.pspanel.combo{background:linear-gradient(90deg,#F7C66E 50%,#3E5BD0 50%)}
 .pspanel .psstick{height:66%;filter:drop-shadow(0 1.4em 1.6em rgba(0,0,0,.3));margin-top:-8%}.jarsbg{background:#E4DFD4}.jarsbg .jars{width:80%;margin-top:-14%}
@@ -273,7 +271,7 @@ export function render(spec, sizeId, base = "") {
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
 <div class="frame${full ? " full" : ""}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
-<footer><span class="cta">${esc(spec.cta || (spec.funnel === "RET" ? "Your 60-second ritual" : "Extra 10% off the Combo · COMBO10"))}</span>${spec.note ? `<span class="note">${esc(spec.note)}</span>` : `<span class="url">siltnutrition.com</span>`}</footer></div></div></body></html>`;
+<footer><span class="cta">${esc(spec.cta || (spec.funnel === "RET" ? "Your 60-second ritual" : spec.product === "nights" ? "SILT Nights · NIGHTLY sleep and recovery" : spec.product === "mornings" ? "SILT Mornings · DAILY energy and nutrition" : "Extra 10% off the Combo · COMBO10"))}</span>${spec.note ? `<span class="note">${esc(spec.note)}</span>` : `<span class="url">siltnutrition.com</span>`}</footer></div></div></body></html>`;
 }
 
 export function fileName(spec, sizeId) {

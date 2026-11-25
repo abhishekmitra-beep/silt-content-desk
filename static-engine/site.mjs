@@ -7,7 +7,7 @@ const rendered = fs.existsSync(path.join(here, "out")) ? fs.readdirSync(path.joi
 if (rendered.length < 120) { console.error(`Only ${rendered.length} rendered PNGs in out/. Run "npm run render" first, or the site would go live without its statics.`); process.exit(1); }
 for (const f of ["engine.js", "statics.js", "library.js"]) cp(path.join(here, f), path.join(pub, f));
 const engine = fs.readFileSync(path.join(here, "engine.js"), "utf8");
-const used = new Set([...engine.matchAll(/"([a-z_\-0-9]+\.(?:png|jpg))"/g)].map(m => m[1]).concat(["logo_white.png", "logo_dark.png", "mornings-back-2k.jpg"]));
+const used = new Set([...engine.matchAll(/"([a-z_\-0-9]+\.(?:png|jpg))"/g)].map(m => m[1]).concat(["logo_white.png", "logo_dark.png", "mornings-back-2k.jpg", "bottles_combo.jpg", "bottles_mornings.jpg", "bottles_nights.jpg"]));
 for (const f of used) if (fs.existsSync(path.join(here, "assets", f))) cp(path.join(here, "assets", f), path.join(pub, "assets", f));
 for (const f of fs.readdirSync(path.join(here, "assets", "scenes"))) cp(path.join(here, "assets", "scenes", f), path.join(pub, "assets", "scenes", f));
 for (const d of ["png", "thumb"]) { fs.rmSync(path.join(pub, "library", d), { recursive: true, force: true }); for (const f of fs.readdirSync(path.join(here, "library", d))) cp(path.join(here, "library", d, f), path.join(pub, "library", d, f)); }
