@@ -19,7 +19,12 @@ Both sites sit on the Cloudflare account ashutosh.gaurav@drinksilt.com.
    - ffmpeg is optional. Without it, the Static Engine makes its JPG previews with macOS `sips`.
    - Google Chrome must be installed in /Applications. The Static Engine renders statics with it.
 
-3. **Copy the project folder** `SILT_Content_Desk` to your Mac, for example into `~/SILT_Content_Desk`.
+3. **Get the project from GitHub** (Ashutosh adds you to the private repo first):
+   ```
+   git clone <the repo URL> ~/SILT_Content_Desk
+   ```
+   - Secrets are never in the repo: the team password, the rules key and `.dev.vars`.
+   - Generated files are not in the repo either: rendered statics, previews and the site build. `npm run build-and-deploy` makes them.
 
 4. **Install the Content Desk dependencies and sign in to Cloudflare:**
    ```
@@ -59,11 +64,11 @@ npm run build-and-deploy
 
 That command does three things:
 
-1. Renders all 30 statics in 3 sizes into `out/`. This takes about 3 to 5 minutes.
+1. Renders all 46 built-in statics in 3 sizes into `out/`. This takes about 5 minutes.
 2. Builds the site.
 3. Deploys it.
 
-To deploy without re-rendering (only if `out/` already has the 90 PNGs), use `npm run deploy`. The deploy refuses to run if the renders are missing, so the site never goes live empty.
+On a fresh clone, always use `build-and-deploy`. `npm run deploy` skips rendering and only works once `out/` has the renders; it refuses to run without them, so the site never goes live empty.
 
 **Where to change things:**
 
@@ -93,12 +98,11 @@ Each deploy replaces the whole site with the files on that computer. The Windows
 - the 6 PM daily drafts
 - the Monday competitor refresh
 
-So if the Mac and the PC have different copies of `cloudflare/public/index.html` or the static-engine files, the last deploy wins. Before you change anything:
+So if the Mac and the PC have different code, the last deploy wins. GitHub is the one source of truth:
 
-- copy the latest folder from the PC first, and
-- send your changes back after deploying,
-
-or keep the project in one shared Git repository.
+- **Before changing anything:** run `git pull`.
+- **After a change works and is deployed:** run `git add -A`, then `git commit -m "what changed"`, then `git push`.
+- **Never deploy** from a copy that's behind GitHub.
 
 The daily drafts don't need this. They go into the database, not into the site files.
 
