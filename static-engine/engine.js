@@ -88,6 +88,7 @@ export const POINTERS = { mornings: [["bolt", "Steady Energy"], ["leaf", "Gut He
 export const PLUS = { mornings: ["Steady energy", "Gut health", "Daily vitamins"], nights: ["Deep sleep", "Recovery", "Stress relief"], combo: ["DAILY energy and nutrition", "NIGHTLY sleep and recovery"] };
 const ticks = p => `<ul class="plus">${(PLUS[p] || PLUS.combo).map((t, i) => (i ? '<li class="pl">+</li>' : "") + `<li>${esc(t)}</li>`).join("")}</ul>`;
 const pointers = p => `<ul class="ptr">${(POINTERS[p] || POINTERS.combo).map(([i, t]) => `<li><span class="pi"><svg viewBox="0 0 24 24">${ICON[i]}</svg></span>${esc(t)}</li>`).join("")}</ul>`;
+const packTop = s => s.t === "photoad" && (s.pack_top ?? s.product === "combo");
 function packHTML(product, A, cls = "") {
   const img = p => `<img src="${A}${PRODUCTS[p].boxstick}" alt="SILT ${p[0].toUpperCase() + p.slice(1)} box and stick">`;
   return product === "combo" ? `<div class="pack duo ${cls}">${img("mornings")}${img("nights")}</div>` : `<div class="pack ${cls}">${img(product === "nights" ? "nights" : "mornings")}</div>`;
@@ -185,7 +186,9 @@ const T = {
     <div class="osall">${rich(s.sub || "All in one stick pack.")}</div><div class="ostag"><b>${esc(s.price || "Rs. 900")}</b><small>${esc(s.price_note || "for a box of 15 sticks")}</small></div></div></div>`; },
   photoad: s => { const light = s.product === "mornings";
     return `<div class="scenebg" style="background-image:url('${photoOr(s, s._A, s.scene || "night-phone")}');background-position:center ${s.photo_y ?? 55}%"></div><div class="scenefade t pafade${light ? " light" : ""}"></div>
-    <div class="scenetext t pa${light ? " light" : ""}"><h1 class="pah">${rich(s.headline)}</h1>${s.solution ? `<p class="pas">${rich(s.solution)}</p>` : ""}${s.plus === false ? "" : ticks(s.product)}<span class="patag">${esc(s.price || (s.product === "combo" ? "SILT Combo · Rs. 1,800 for 15 + 15 sticks" : "Rs. 900 for a box of 15 sticks"))}</span><span class="cta pacta">${esc(s.cta || (s.product === "nights" ? "Try SILT Nights" : s.product === "mornings" ? "Try SILT Mornings" : "Extra 10% off the Combo · COMBO10"))}</span></div>`; },
+    <div class="scenetext t pa${light ? " light" : ""}"><h1 class="pah">${rich(s.headline)}</h1>${s.solution ? `<p class="pas">${rich(s.solution)}</p>` : ""}${(() => { const col = `${s.plus === false ? "" : ticks(s.product)}<span class="patag">${esc(s.price || (s.product === "combo" ? "Rs. 1,800 for 15 + 15 sticks" : "Rs. 900 for a box of 15 sticks"))}</span><span class="cta pacta">${esc(s.cta || (s.product === "nights" ? "Try SILT Nights" : s.product === "mornings" ? "Try SILT Mornings" : "Extra 10% off the Combo · COMBO10"))}</span>`;
+      // Combo (or pack_top): two packs and the people can't share the bottom of the photo, so the packs sit up with the words
+      return packTop(s) ? `<div class="parow"><div class="pacol">${col}</div>${packHTML(s.product, s._A, "patop")}</div>` : col; })()}</div>`; },
   ritual: s => `<h1 class="top c">${rich(s.headline)}</h1><div class="split"><div class="am"><span class="lab">${esc(s.am)}</span><img src="${s._A}mornings_boxstick_cut.png" alt="SILT Mornings box and stick"><p>${rich(s.amline)}</p></div><div class="pm"><span class="lab">${esc(s.pm)}</span><img src="${s._A}nights_boxstick_cut.png" alt="SILT Nights box and stick"><p>${rich(s.pmline)}</p></div></div>`
 };
 // Templates that draw their own product (no separate product shot)
@@ -307,7 +310,9 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .scenefade.pafade{height:66%}.scenefade.pafade.light{background:linear-gradient(180deg,rgba(251,244,230,.94),rgba(251,244,230,.7) 50%,rgba(251,244,230,0))}
 .t-photoad .cta{background:rgba(10,16,40,.35);border:.12em solid #E9C46A;color:#F7E3A6}.t-photoad .url{color:#E8ECF7}
 /* photo ad: the CTA sits with the words, never down on the person's face; the footer goes */.t-photoad footer{display:none}
-.pacta{font-size:2.5em;margin-top:-.2em}.pa.light .acc{color:#C8620A!important;text-shadow:none}.pa.light .pacta{background:#2A1E14;border-color:#2A1E14;color:#FBE3A6}
+.pacta{font-size:2.5em;margin-top:-.2em}.patag,.pacta{white-space:nowrap}
+.parow{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5em;width:100%}.pacol{display:flex;flex-direction:column;align-items:flex-start;gap:1.1em;min-width:0}
+.frame.full .pack.patop{position:relative;right:auto;bottom:auto;height:${Math.round(z.pack * .6)}px;flex:none;margin:0}.pa.light .acc{color:#C8620A!important;text-shadow:none}.pa.light .pacta{background:#2A1E14;border-color:#2A1E14;color:#FBE3A6}
 .t-photoad.full .pack{height:${Math.round(z.pack * 1.05)}px}
 /* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps.prob{flex:.8}.ps.sol{flex:1.25}.ps.prob .psline{font-size:2.9em}.ps.sol .psline{font-size:4.1em}.pline{margin-top:.45em;font-size:.5em;font-weight:400;letter-spacing:.01em;background:rgba(255,255,255,.95);color:#17245C;border-radius:.6em;padding:.35em .6em;display:inline-block}.pline b{font-weight:800;letter-spacing:.04em}.psimg.bottles{background-size:cover;background-position:center 60%}.pack.sticks img{max-width:24%}.scenetext h1.huge{font-size:6.4em}.scenetext .lede.sol{font-size:4.6em;font-weight:700;color:#fff;line-height:1.15}.pline.big{font-size:2.2em;align-self:flex-start}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
 .psimg{position:absolute;inset:0;background-size:cover;background-position:center 35%}.ps.prob .psimg{filter:saturate(.75) brightness(.92)}
@@ -333,7 +338,7 @@ export function render(spec, sizeId, base = "") {
   const s = { ...spec, _A: A };
   const body = T[spec.t](s);
   const full = FULL_BLEED.has(spec.t), logo = full && !(spec.t === "photoad" && spec.product === "mornings") ? "logo_white.png" : th.logo;
-  const pk = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
+  const pk = OWN_PRODUCT.has(spec.t) || packTop(spec) ? "" : productImgs(spec, A);
   const solPack = spec.shot === "none" || OWN_PRODUCT.has(spec.t) ? "" : packHTML(spec.product, A, "insol");   // room for the box + stick here (rule 33 only shrinks to a stick when space is tight)
   // newscard already says its solution (GOOD NEWS), so it gets the ticks without a second line.
   const solveIt = (SOLVE.has(spec.t) || spec.t === "newscard") && spec.solution !== false;
