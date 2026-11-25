@@ -50,6 +50,9 @@ export const SCENES = {
   "clay-tired":    { file: "WA0027.jpg", pos: "bottom", mood: "clay figure sitting tired in bed, zombie-like" }
 };
 const scene = (A, k) => A + "scenes/" + (SCENES[k] || SCENES["night-phone"]).file;
+// The supplement bottles in a "jars" problem panel: the separate pills each pack replaces (facts from the pack only).
+const JARS = { mornings: ["L-theanine", "Fibre", "Probiotic", "Vitamin D3", "Vitamin B12", "Vitamin C"], nights: ["Magnesium", "Ashwagandha", "Glycine", "L-theanine"], combo: ["Probiotic", "Fibre", "Vitamin D3", "Magnesium", "Ashwagandha", "Glycine"] };
+const jarLabels = p => JARS[p] || JARS.combo;
 // A photo made for this static (e.g. by ChatGPT from the static's photo brief) and uploaded to the site replaces the
 // library scene photo. Only the site's own file URLs are used.
 const okPhoto = p => typeof p === "string" && /^\/api\/file\/F[0-9a-z]+$/.test(p);
@@ -79,7 +82,7 @@ function productImgs(spec, A) {
 const T = {
   // 01 The bad news ad
   newscard: s => `<div class="news card"><div class="newsbar"><span class="tag">BAD NEWS</span><span class="date">${esc(s.dateline || "")}</span></div>
-    <h1>${rich(s.headline)}</h1><p class="good"><b>GOOD NEWS:</b> ${rich(s.good)}</p></div>`,
+    <h1>${rich(s.headline)}</h1><div class="goodbar"><span class="tag good">GOOD NEWS</span></div><p class="good">${rich(s.good)}</p></div>`,
   // 05 The search result ad
   search: s => `<div class="search"><div class="bar"><span class="glass"></span>${esc(s.query)}</div>
     <div class="result card"><div class="url">siltnutrition.com › ${esc(s.slug)}</div><h2>${rich(s.title)}</h2><p>${rich(s.snippet)}</p></div></div>
@@ -145,7 +148,7 @@ const T = {
       const p = s.product === "combo" ? null : s.product;
       const inner = sc === "product" ? `<div class="pspanel ${s.product}">${packHTML(s.product, s._A, "inpanel")}</div>`
         : okPhoto(s.photo) && kind === "prob" ? `<div class="psimg" style="background-image:url('${s.photo}')"></div>`
-        : sc === "jars" ? `<div class="pspanel jarsbg"><div class="jars">${"<i></i>".repeat(6)}</div></div>`
+        : sc === "jars" ? `<div class="pspanel jarsbg"><div class="jars">${jarLabels(s.product).map(l => `<i><b>${esc(l)}</b></i>`).join("")}</div></div>`
         : `<div class="psimg" style="background-image:url('${scene(s._A, sc)}')"></div>`;
       return `<div class="ps ${kind}">${inner}<span class="pstag ${kind}">${esc(lab)}</span><div class="psline">${rich(line)}</div></div>`;
     };
@@ -190,14 +193,14 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .meme{flex:1;min-height:0;display:flex;gap:1.4em;align-items:flex-end}.mcol{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;gap:1.4em}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 /* newscard */.news{padding:3.2em 3.4em;color:#1d1d1f;background:#fff}.newsbar{display:flex;justify-content:space-between;align-items:center;border-bottom:.3em solid #1d1d1f;padding-bottom:1.2em;margin-bottom:2em}
-.news .tag{background:#D42A1F;color:#fff;font-weight:700;font-size:2.2em;padding:.25em .7em;letter-spacing:.1em}.news .date{font-size:2em;color:#666}.news h1{font-size:5.6em}.news .good{font-size:3em;margin-top:1.1em;line-height:1.3;color:#333}
+.news .tag{background:#D42A1F;color:#fff;font-weight:700;font-size:2.2em;padding:.25em .7em;letter-spacing:.1em}.news .date{font-size:2em;color:#666}.news h1{font-size:5.6em}.news .goodbar{display:flex;align-items:center;border-top:.3em solid #1d1d1f;margin-top:1.8em;padding-top:1.4em;margin-bottom:1em}.news .tag.good{background:#1E8E4E}.news .good{font-size:3.4em;line-height:1.25;color:#1d1d1f;font-weight:600}
 /* search */.search{display:flex;flex-direction:column;gap:2em}.search .bar{background:#fff;color:#222;border-radius:99em;padding:1.1em 1.6em;font-size:3em;display:flex;align-items:center;gap:.7em;box-shadow:0 .6em 2em rgba(0,0,0,.12)}
 .glass{width:.8em;height:.8em;border:.13em solid #666;border-radius:50%;position:relative;flex:none}.glass:after{content:"";position:absolute;width:.35em;height:.13em;background:#666;right:-.32em;bottom:-.12em;transform:rotate(45deg)}
 .result{padding:2.6em 3em;color:#1d1d1f;background:#fff}.result .url{font-size:2.1em;color:#2a6b3f}.result h2{font-size:3.8em;color:#1a3fbf;margin:.3em 0;line-height:1.15}.result p{font-size:2.7em;color:#444;line-height:1.35}
 /* notes */.notes{background:#FFFDF6;color:#222;padding:2.4em 3.2em 3em}.notesbar{display:flex;justify-content:space-between;color:#D9A200;font-size:2.6em;margin-bottom:1.2em}.notes h2{font-size:4.2em;line-height:1.1;margin-bottom:.6em}
 .notes ol{font-size:3.1em;line-height:1.45;padding-left:1.2em}.notes .last{font-size:3.1em;font-weight:700;margin-top:.7em}
 /* tweet */.tweet{background:#fff;color:#0f1419;padding:3em 3.4em}.who{display:flex;gap:1.4em;align-items:center;font-size:2.6em}.who div{display:flex;flex-direction:column}.who span:not(.av){color:#536471;font-size:.85em}
-.av{width:2.6em;height:2.6em;border-radius:50%;background:#16245E;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}.av img{width:200%;}
+.av{width:2.6em;height:2.6em;border-radius:50%;background:#16245E;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}.av img{width:80%;height:auto;object-fit:contain;transform:translateY(4%)}
 .tw{font-size:4.3em;line-height:1.25;margin:.7em 0 .5em}.time{font-size:2.2em;color:#536471}
 /* forward */.fwd{background:linear-gradient(180deg,#FF9A3C,#FFD45C 55%,#FFF1B8);border-radius:2.2em;padding:2.6em 3em;text-align:center;color:#5a1a00;box-shadow:0 1.2em 3em rgba(0,0,0,.15)}
 .fwdlabel{text-align:left;font-size:2.1em;color:#6b4a2a;font-style:italic}.flowers{font-size:6em;margin:.1em 0}.glitter{font-family:Corm,serif;font-style:italic;font-weight:700;font-size:10.5em;line-height:1;color:#B0124F;text-shadow:0 .03em 0 #fff,0 -.03em 0 #fff,.03em 0 0 #fff,-.03em 0 0 #fff,0 .08em .2em rgba(120,0,40,.35)}
@@ -214,10 +217,12 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 /* mistakes */.mist{display:flex;flex-direction:column;gap:1.5em}.mi{display:flex;gap:1.2em;font-size:3.4em;line-height:1.25;align-items:baseline}.mi .n{color:var(--acc);font-weight:700;font-size:1.3em}.turn{font-size:3.4em;font-weight:700;color:var(--acc)}
 /* before after */.ba{flex:1;min-height:0;display:flex;gap:2em}.half{flex:1;border-radius:2em;padding:2em;display:flex;flex-direction:column;gap:1.4em;align-items:center;text-align:center}
 .half .lab{font-weight:700;letter-spacing:.2em;font-size:2.3em}.half p{font-size:2.8em;line-height:1.25}.before{background:#E7E3DA;color:#555}.after{background:var(--card)}
-.jars{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:3em 1.2em;align-content:center;width:100%;min-height:0}.jars i{display:block;position:relative;aspect-ratio:3/5;max-height:17em;width:52%;margin:auto;border-radius:.9em .9em .7em .7em;background:linear-gradient(90deg,#d9d6cf,#fff 40%,#e6e2da);box-shadow:0 .6em 1.2em rgba(0,0,0,.18)}
+.jars{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:4.6em 1.2em;align-content:center;width:100%;min-height:0}.jars i{display:block;position:relative;aspect-ratio:3/5;max-height:17em;width:52%;margin:auto;border-radius:.9em .9em .7em .7em;background:linear-gradient(90deg,#d9d6cf,#fff 40%,#e6e2da);box-shadow:0 .6em 1.2em rgba(0,0,0,.18)}
 .jars i:before{content:"";position:absolute;left:16%;right:16%;top:-11%;height:14%;border-radius:.4em;background:var(--cap,#6b7a99)}.jars i:after{content:"";position:absolute;left:0;right:0;top:34%;height:30%;background:var(--lab,#9aa6c2);opacity:.85}
 .jars i:nth-child(1){--cap:#2f8f5b;--lab:#a7d9b9}.jars i:nth-child(2){--cap:#d9534f;--lab:#f3b7b5}.jars i:nth-child(3){--cap:#3b6fd4;--lab:#b5c9f2}.jars i:nth-child(4){--cap:#e0a526;--lab:#f6dc9c}.jars i:nth-child(5){--cap:#7b4fb8;--lab:#d3c1ee}.jars i:nth-child(6){--cap:#333;--lab:#cfcfcf}
 .jars i:nth-child(2),.jars i:nth-child(5){transform:rotate(4deg)}.jars i:nth-child(3){transform:rotate(-3deg)}
+.jars i b{position:absolute;left:50%;top:104%;transform:translateX(-50%);white-space:nowrap;font-size:2.3em;font-weight:700;font-style:normal;color:#2a2622;letter-spacing:-.01em;z-index:2}
+.jars:has(i:nth-child(4):last-child){grid-template-columns:repeat(2,1fr)}
 .after .pack{width:100%}
 /* statement */.statement{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2em}.kick{font-size:2.4em;letter-spacing:.22em;color:var(--acc);font-weight:700;text-transform:uppercase}
 /* vs */table.vs{width:100%;border-collapse:separate;border-spacing:0;padding:1.4em 2em;font-size:3em}.vs th{font-size:.8em;letter-spacing:.12em;color:var(--sub);padding:.5em;text-align:center}.vs th:nth-child(2){color:var(--acc)}

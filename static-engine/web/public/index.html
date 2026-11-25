@@ -34,7 +34,9 @@ details.own{margin-top:6px}details.own summary{cursor:pointer;font-size:13px;col
 .inote{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.istat .check{font-size:11.5px;padding:4px 6px}
 .tick{gap:5px;flex-wrap:wrap}.tick button,.tick .btn{padding:4px 10px;font-size:13px}.tick .ok{background:var(--ok-bg);color:var(--ok);font-weight:700}.tick .no{background:var(--warn-bg);color:var(--warn);font-weight:700}
 .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:12px 0 4px}.flow span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px}.flow b{display:block;font-size:14px}
-.qst{color:var(--acc)}.pastebox{margin-top:8px}.pastebox textarea{width:100%}.strip .thumb{border-radius:10px;cursor:pointer}
+.qst{color:var(--acc)}
+#connectAI.connected{background:var(--ok-bg);color:var(--ok);border-color:var(--ok);font-weight:600}
+.cstate{font-size:14px}.cstate.on{color:var(--ok)}.code{font-family:ui-monospace,Consolas,monospace;font-size:20px;letter-spacing:.12em;background:var(--chip);padding:2px 10px;border-radius:8px}.pastebox{margin-top:8px}.pastebox textarea{width:100%}.strip .thumb{border-radius:10px;cursor:pointer}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:12px}.panel h2{margin:0;font-size:18px}
 .rule{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.rule b{min-width:24px}
 dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:95vh;background:var(--card);color:var(--ink)}dialog::backdrop{background:rgba(5,10,25,.6)}
@@ -461,27 +463,48 @@ $("del").addEventListener("click", async () => { if (!confirm("Delete this stati
 async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (const z of sizes) save(await pngBlob({ ...cur, _dirty: true }, z), fileName(cur, z) + ".png"); $("edMsg").textContent = "Downloaded."; } catch (e) { $("edMsg").textContent = "Export failed: " + e.message; } }
 $("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
 
-draw(); load().then(sweepIdeas); welcome();
 $("connectAI").addEventListener("click", () => welcome(true));
-// The pop-up shows on every browser that hasn't said "Got it" / "I've already connected" (per browser, not per network:
-// the whole office shares one IP, so an IP check hid it from everyone after the first person). ✕ hides it until the next visit.
+// Connected or not is VERIFIED, never self-reported (user, 25 Nov: "be smart enough to know when you are connected").
+// This browser has a pairing code; the person's Claude / SILT GPT proves the connection by calling /api/connect with it.
+let myCode = "";
+const newCode = () => Array.from(crypto.getRandomValues(new Uint8Array(6)), b => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[b % 32]).join("");
+try { myCode = localStorage.getItem("silt-se-code") || ""; if (!/^[A-Z2-9]{6}$/.test(myCode)) { myCode = newCode(); localStorage.setItem("silt-se-code", myCode); } } catch { myCode = newCode(); }
+let conn = { claude: null, chatgpt: null, team: {} };
+const ago = t => { if (!t) return ""; const m = Math.round((Date.now() - new Date(t)) / 60000); return m < 1 ? "just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " days ago"; };
+async function checkConn() {
+  try { conn = await (await fetch("/api/connect?code=" + myCode, { cache: "no-store" })).json(); } catch {}
+  const c = !!conn.claude, g = !!conn.chatgpt, b = $("connectAI");
+  b.textContent = c && g ? "✓ Claude & ChatGPT connected" : c ? "✓ Claude connected · ChatGPT not yet" : g ? "✓ ChatGPT connected · Claude not yet" : "🔌 Connect Claude / ChatGPT";
+  b.classList.toggle("connected", c || g);
+  b.title = c || g ? "Verified: your AI reached the site with this browser's code. Click for details." : "Not connected yet. Click to connect your Claude and ChatGPT.";
+  const box = $("wState"); if (box) box.innerHTML = connRows();
+  return conn;
+}
+const connRows = () => [["claude", "Claude (the thinker)"], ["chatgpt", "ChatGPT (the generator)"]].map(([k, n]) =>
+  `<div class="cstate ${conn[k] ? "on" : ""}">${conn[k] ? "✓" : "○"} <b>${n}</b>: ${conn[k] ? "connected, verified " + ago(conn[k]) : "not connected yet"}${conn.team?.[k] ? ` <span class="sub">(team last used ${ago(conn.team[k])})</span>` : ""}</div>`).join("");
+draw(); load().then(sweepIdeas); checkConn().then(c => { if (!c.claude && !c.chatgpt) welcome(); });
+setInterval(checkConn, 60000);
 async function welcome(force = false) {
   if ($("welcome")) return;
-  let done = false; try { done = localStorage.getItem("silt-se-connected") === "1" || sessionStorage.getItem("silt-se-later") === "1"; } catch {}
-  if (done && !force) return;
+  let later = false; try { later = sessionStorage.getItem("silt-se-later") === "1"; } catch {}
+  if (later && !force) return;
   fetch("/api/visit").catch(() => {});
+  const say = `connect SILT ${myCode}`;
   const d = document.createElement("dialog"); d.id = "welcome";
-  d.innerHTML = '<div style="padding:22px;max-width:560px;display:flex;flex-direction:column;gap:12px">'
-    + '<div class="row"><b style="font-size:20px">Welcome to the SILT Static Engine</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
-    + '<p class="sub" style="margin:0">Connect your own Claude and ChatGPT once. <b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images from those prompts. Everything follows SILT\'s rules and Abhishek\'s house rules and waits for the team\'s ✓.</p>'
-    + '<div class="panel" style="margin:0"><b>Claude (the thinker)</b><span class="sub">Download the SILT skill, then in Claude say “make the waiting SILT ideas”. To install: Claude → Settings → Capabilities → Skills, upload the zip (in Claude Code, unzip it into ~/.claude/skills).</span><div class="row"><a class="btn primary" href="/team-ai/silt-static-engine-skill.zip" download>Download the Claude skill</a></div></div>'
-    + '<div class="panel" style="margin:0"><b>ChatGPT (the generator)</b><span class="sub">Create the SILT GPT once (paste our instructions, add the action file). Then ask it “make the images for the waiting SILT statics”, or paste any static\'s “Copy for ChatGPT” prompt into ChatGPT. Upload each image onto its static with ⬆ Image.</span><div class="row"><a class="btn primary" href="/team-ai/GPT_SETUP.md" target="_blank">Open the GPT setup</a><a class="btn" href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">Instructions</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
-    + '<div class="row"><button id="wDone">I\'ve already connected</button><span class="spacer"></span><button class="primary" id="wLater">Got it</button></div></div>';
+  d.innerHTML = '<div style="padding:22px;max-width:580px;display:flex;flex-direction:column;gap:12px">'
+    + '<div class="row"><b style="font-size:20px">Connect your Claude and ChatGPT</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
+    + '<p class="sub" style="margin:0"><b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images. Everything waits for the team\'s ✓.</p>'
+    + '<div id="wState" class="panel" style="margin:0;gap:6px">' + connRows() + '</div>'
+    + `<div class="panel" style="margin:0"><b>Your code: <span class="code">${myCode}</span></b><span class="sub">Once each AI is set up, tell it: <b>“${say}”</b>. It calls the site with this code, and this window ticks as soon as the site hears from it.</span><div class="row"><button id="wCopy">Copy “${say}”</button></div></div>`
+    + '<div class="panel" style="margin:0"><b>Claude: set up once</b><span class="sub">Download the SILT skill. In Claude, go to Settings → Capabilities → Skills and upload the zip; in Claude Code, unzip it into ~/.claude/skills. Then tell Claude the line above. After that, say “make the waiting SILT ideas”.</span><div class="row"><a class="btn primary" href="/team-ai/silt-static-engine-skill.zip" download>Download the Claude skill</a></div></div>'
+    + '<div class="panel" style="margin:0"><b>ChatGPT: set up once</b><span class="sub">Create the SILT GPT: paste our instructions, add the action file, and turn on Image Generation. Then tell it the line above. After that, say “make the images for the waiting SILT statics”.</span><div class="row"><a class="btn primary" href="/team-ai/GPT_SETUP.md" target="_blank">Open the GPT setup</a><a class="btn" href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">Instructions</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
+    + '<div class="row"><span class="sub">This window checks every few seconds.</span><span class="spacer"></span><button class="primary" id="wLater">Close</button></div></div>';
   document.body.appendChild(d); d.showModal();
-  const close = remember => { try { if (remember) localStorage.setItem("silt-se-connected", "1"); else sessionStorage.setItem("silt-se-later", "1"); } catch {} d.close(); d.remove(); };
-  d.addEventListener("cancel", () => { try { sessionStorage.setItem("silt-se-later", "1"); } catch {} setTimeout(() => d.remove(), 0); });
-  d.querySelector("#wX").onclick = () => close(false);
-  d.querySelector("#wLater").onclick = () => close(true);
-  d.querySelector("#wDone").onclick = () => close(true);
+  const poll = setInterval(checkConn, 4000);
+  const close = () => { clearInterval(poll); try { sessionStorage.setItem("silt-se-later", "1"); } catch {} if (d.open) d.close(); d.remove(); };
+  d.addEventListener("cancel", () => { clearInterval(poll); try { sessionStorage.setItem("silt-se-later", "1"); } catch {} setTimeout(() => d.remove(), 0); });
+  d.querySelector("#wX").onclick = close;
+  d.querySelector("#wLater").onclick = close;
+  d.querySelector("#wCopy").onclick = async () => { try { await navigator.clipboard.writeText(say); d.querySelector("#wCopy").textContent = "Copied"; } catch { prompt("Copy this:", say); } };
 }
 </script></body></html>

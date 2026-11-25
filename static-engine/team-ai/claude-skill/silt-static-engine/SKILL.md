@@ -1,6 +1,6 @@
 ---
 name: silt-static-engine
-description: The thinker for SILT Nutrition's Meta ad statics. Picks up the ideas waiting in the team's SILT Static Engine (https://silt-static-engine.pages.dev), thinks each one through against everything already made, writes every static with a ChatGPT image prompt, reviews its own work, and saves it under the idea. Use when someone says "make the waiting SILT ideas", asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
+description: The thinker for SILT Nutrition's Meta ad statics, with a ChatGPT connector. Picks up the ideas waiting in the team's SILT Static Engine (https://silt-static-engine.pages.dev), thinks each one through against everything already made, writes every static with a ChatGPT image prompt, reviews its own work, saves it under the idea, then hands each prompt to ChatGPT (browser or desktop app) and uploads the image back. Use when someone says "connect SILT <code>", "make the waiting SILT ideas", "make the images", asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
 ---
 
 # SILT Static Engine: Claude is the thinker
@@ -15,10 +15,22 @@ The SILT Static Engine is the team's website for Meta ad statics: https://silt-s
 
 Take your time. Quality beats speed: think about the person, the moment, the joke and the line before writing.
 
+**Always send `-H "x-silt-client: claude"` on every call to the site**, so the site knows Claude is connected.
+
+## 0. Connect (once per browser)
+
+When the person says **"connect SILT ABC234"** (any 6-letter code from the site's Connect window), run:
+
+```
+curl -s -X POST https://silt-static-engine.pages.dev/api/connect -H "content-type: application/json" -H "x-silt-client: claude" -d '{"code":"ABC234","client":"claude"}'
+```
+
+Then tell them: "Connected. The site now shows ✓ Claude connected." If the call fails, you can't reach the site from here; say so, and offer the copy / paste route (see step 3).
+
 ## 1. Read the house rules and what already exists
 
 ```
-curl -s https://silt-static-engine.pages.dev/api/queue
+curl -s -H "x-silt-client: claude" https://silt-static-engine.pages.dev/api/queue
 ```
 
 The reply has:
@@ -30,14 +42,14 @@ The reply has:
 No ideas waiting? Ask the person for one, or pick an angle from the brief nobody has covered, and send it to the queue yourself:
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-name: <your name>" \
+curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" \
   -d '{"kind":"idea","status":"waiting","doc":{"text":"<the idea>","count":6,"funnel":"auto","product":"auto","made":[]}}'
 ```
 
 ## 2. Claim the idea, so nobody else works on it
 
 ```
-curl -s -X PUT https://silt-static-engine.pages.dev/api/items/<idea id> -H "content-type: application/json" -H "x-silt-name: <your name>" -d '{"status":"working"}'
+curl -s -X PUT https://silt-static-engine.pages.dev/api/items/<idea id> -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" -d '{"status":"working"}'
 ```
 
 ## 3. Think, then write each static
@@ -47,7 +59,7 @@ Make `count` statics (default 6). Each one is a **different moment, a different 
 Save each static under the idea (`idea_id`). Your review is the `status`: `"approved"` if it's good (it shows as **AI approved**), `"rejected"` if it isn't (**AI rejected**). Put the reason in `ai_note`.
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-name: <your name>" -d '{
+curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" -d '{
   "kind":"static", "status":"approved",
   "doc":{
     "idea_id":"<idea id>",
@@ -69,13 +81,46 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type:
 
   The site adds a download link for the real pack image when the team copies the prompt.
 
-After the last static, the idea shows as briefed on the site. Tell the person:
+After the last static, the idea shows as briefed on the site. Then hand the prompts to ChatGPT yourself (step 4), if you can. Otherwise tell the person:
 - how many statics you made
 - that they are on the Ideas tab
 - that they now go to ChatGPT: *Copy for ChatGPT* on each static, then *⬆ Image* to upload the result
 - that they then tick ✓ or cross ✕
 
 **No network from your Claude?** On the site, an idea's *Copy for Claude* button gives you the same brief as one prompt. Reply with `{"statics":[...]}`, each static with the fields above plus `"review": {"ok": true|false, "note": "..."}`. The person pastes your reply with *Paste Claude's reply*.
+
+## 4. The ChatGPT connector: hand each prompt to ChatGPT and bring the image back
+
+ChatGPT is the generator. If you can control a browser or the desktop, do the handover yourself, one static at a time. The list is `need_images` from `/api/queue`.
+
+**Through the browser** (Claude in Chrome, or any browser tool you have):
+1. Open https://chatgpt.com in a new tab. If the GPT "SILT Statics" exists in the sidebar, use it; otherwise use a normal chat with image generation.
+2. The person must already be signed in to ChatGPT. **Never type a password or sign in for them**; if it asks, stop and ask the person to sign in.
+3. Attach the official SILT pack image. Download it first, then attach it with the upload button:
+   - Mornings: https://silt-static-engine.pages.dev/assets/mornings_boxstick_cut.png
+   - Nights: https://silt-static-engine.pages.dev/assets/nights_boxstick_cut.png
+   - Combo: attach both.
+4. Paste the static's `chatgpt_prompt` and send. Wait until the image is finished. Generation can take a minute or two, so don't rush.
+5. Look at the image before keeping it:
+   - every quoted word is spelled exactly right
+   - the person matches the prompt (Indian, man or woman as asked)
+   - the pack is the real one, not redrawn, and nothing covers a face or the headline
+   - no invented text, ratings or claims
+
+   If something is wrong, ask ChatGPT to fix that one thing; at most two retries.
+6. Download the image, then upload it onto its static:
+
+```
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<downloaded image>
+```
+
+   Images over 1.9 MB: save as JPG first.
+
+**Through the ChatGPT desktop app** (computer use): same steps in the app. Open it, start a chat (or the SILT Statics GPT), attach the pack image, paste the prompt, wait, save the image, upload it as above.
+
+**Can't control a browser or the desktop?** Tell the person to press *Copy for ChatGPT* on each static on the Ideas tab, paste it into ChatGPT, and upload the result with *⬆ Image*.
+
+When the images are on, tell the person how many are ready and that each static now needs their ✓ or ✕ on the Ideas tab.
 
 ## Formats and their text keys (for the preview)
 
@@ -110,7 +155,7 @@ Scene keys for the preview photo: tired-3pm, ceiling-2am, mug-calm, jar-january,
 Upload them as they are. One static takes up to 3 files (its 4:5, 1:1 and 9:16 versions), each at most 1.9 MB as a JPG. They go to Team Approval.
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-name: <your name>" -F title="Pillow not office" -F funnel=TOFU -F product=nights -F file=@pillow_4x5.jpg -F file=@pillow_9x16.jpg
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F title="Pillow not office" -F funnel=TOFU -F product=nights -F file=@pillow_4x5.jpg -F file=@pillow_9x16.jpg
 ```
 
 To put ChatGPT's image onto a static you wrote, add `-F static_id=<static id>`. It then becomes that static's image.

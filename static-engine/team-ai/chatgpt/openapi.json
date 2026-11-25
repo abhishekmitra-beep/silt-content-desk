@@ -96,6 +96,58 @@
           }
         }
       }
+    },
+    "/api/connect": {
+      "post": {
+        "operationId": "connectBrowser",
+        "summary": "Pair this ChatGPT with a browser on the SILT Static Engine, using the 6-character code shown in its Connect window",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "code",
+                  "client"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "The 6-character code the person gives you"
+                  },
+                  "client": {
+                    "type": "string",
+                    "enum": [
+                      "chatgpt"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Connected",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

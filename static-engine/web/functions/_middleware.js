@@ -16,6 +16,18 @@ export async function onRequest(ctx) {
   // Who is acting: a person clicking on the site ("team") or an AI over the API ("ai").
   // Only team clicks can make a static live; AI verdicts go to the AI Approval tab (user, 25 Nov).
   ctx.data.actor = request.headers.get("x-silt-actor") === "team" && request.headers.get("origin") === url.origin ? "team" : "ai";
+  // Remember when the team's Claude / ChatGPT last used the API (for the "connected" status on the site).
+  // Only real AI calls count: the skill's x-silt-client header, or the official ChatGPT / Claude fetchers. Never a page
+  // open in a browser (the Claude desktop app's own browser has "Claude" in its user agent).
+  if (url.pathname.startsWith("/api/") && ctx.env.DB && request.headers.get("sec-fetch-site") !== "same-origin" && !request.headers.get("x-silt-actor")) {
+    const ua = request.headers.get("user-agent") || "", h = String(request.headers.get("x-silt-client") || "").toLowerCase();
+    const client = h === "chatgpt" || /ChatGPT-User|OpenAI/i.test(ua) ? "chatgpt" : h === "claude" || /Claude-User|ClaudeBot|Anthropic/i.test(ua) ? "claude" : "";
+    if (client) {
+      const now = new Date().toISOString();
+      ctx.waitUntil(ctx.env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'visitor', '{}', 'active', ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET updated_at = excluded.updated_at, status = 'active'`).bind("S-" + client, client, client, now, now).run().catch(() => {}));
+    }
+  }
   const res = await ctx.next();
   const out = new Response(res.body, res);
   out.headers.set("x-robots-tag", "noindex, nofollow");
