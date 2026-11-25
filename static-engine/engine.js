@@ -84,10 +84,16 @@ const ICON = {
   lotus: '<path d="M12 20c-4 0-8-3-8-7 3 0 6 2 8 5 2-3 5-5 8-5 0 4-4 7-8 7zM12 18c-2-3-2-8 0-12 2 4 2 9 0 12z"/>'
 };
 export const POINTERS = { mornings: [["bolt", "Steady Energy"], ["leaf", "Gut Health"], ["sun", "Daily Vitamins"]], nights: [["moon", "Deep Sleep"], ["cycle", "Recovery"], ["lotus", "Stress Relief"]], combo: [["sun", "DAILY energy and nutrition"], ["moon", "NIGHTLY sleep and recovery"]] };
+// Site icons (cut from the siltnutrition.com PDP infographics) so ads and the landing page match (founder, 25 Nov).
+const SITE_ICON = { mornings: { bolt: "icon_energy.png", leaf: "icon_gut.png", sun: "icon_vitamins.png" }, nights: { moon: "icon_sleep.png", cycle: "icon_recovery.png", lotus: "icon_stress.png" } };
+const PRICE_PILL = { mornings: "<b>Rs. 900</b> for a box of 15 sticks", nights: "<b>Rs. 900</b> for a box of 15 sticks", combo: "<b>Rs. 1,800</b> for both" };
+const pointers = (p, A = "") => `<ul class="ptr">${(POINTERS[p] || POINTERS.combo).map(([i, t]) => { const f = SITE_ICON[p] && SITE_ICON[p][i]; return `<li>${f ? `<img class="sic" src="${A}${f}" alt="">` : `<span class="pi"><svg viewBox="0 0 24 24">${ICON[i]}</svg></span>`}${esc(t)}</li>`; }).join("")}</ul><div class="ppill ${p}">${PRICE_PILL[p] || PRICE_PILL.combo}</div>`;
 // The solution's benefits stacked with a "+" between them (user's example, 25 Nov): Steady energy + Gut health + Daily vitamins.
 export const PLUS = { mornings: ["Steady energy", "Gut health", "Daily vitamins"], nights: ["Deep sleep", "Recovery", "Stress relief"], combo: ["DAILY energy and nutrition", "NIGHTLY sleep and recovery"] };
-const ticks = p => `<ul class="plus">${(PLUS[p] || PLUS.combo).map((t, i) => (i ? '<li class="pl">+</li>' : "") + `<li>${esc(t)}</li>`).join("")}</ul>`;
-const pointers = p => `<ul class="ptr">${(POINTERS[p] || POINTERS.combo).map(([i, t]) => `<li><span class="pi"><svg viewBox="0 0 24 24">${ICON[i]}</svg></span>${esc(t)}</li>`).join("")}</ul>`;
+// The + list carries the siltnutrition.com icon per benefit when an asset path is given (PR #5 merged into the + format).
+const ticks = (p, A) => `<ul class="plus">${(PLUS[p] || PLUS.combo).map((t, i) => { const k = ((POINTERS[p] || [])[i] || [])[0], f = A !== undefined && SITE_ICON[p] && SITE_ICON[p][k];
+  return (i ? '<li class="pl">+</li>' : "") + `<li>${f ? `<img class="sic" src="${A}${f}" alt="">` : ""}${esc(t)}</li>`; }).join("")}</ul>`;
+const pill = p => `<div class="ppill ${p}">${PRICE_PILL[p] || PRICE_PILL.combo}</div>`;
 const packTop = s => s.t === "photoad" && (s.pack_top ?? s.product === "combo");
 function packHTML(product, A, cls = "") {
   const img = p => `<img src="${A}${PRODUCTS[p].boxstick}" alt="SILT ${p[0].toUpperCase() + p.slice(1)} box and stick">`;
@@ -148,7 +154,7 @@ const T = {
   // Real review card (no stars unless the rating is known)
   review: s => `<div class="review card"><div class="q">“</div><p>${rich(s.quote)}</p><div class="by">${esc(s.by)}</div></div>${s.headline ? `<h1 class="mid">${rich(s.headline)}</h1>` : ""}`,
   // Unboxing flat lay
-  unbox: s => `<h1 class="top">${rich(s.headline)}</h1><div class="unbox"><img class="b1" src="${s._A}mornings_box_cut.png" alt=""><img class="b2" src="${s._A}nights_box_cut.png" alt=""><img class="s1" src="${s._A}mornings_stick_cut.png" alt=""><img class="s2" src="${s._A}nights_stick_cut.png" alt=""></div><div class="labels">${s.labels.map(l => `<span>${rich(l)}</span>`).join("")}</div>`,
+  unbox: s => `<h1 class="top">${rich(s.headline)}</h1>${s.product === "combo" ? `<div class="unbox"><img class="b1" src="${s._A}mornings_box_cut.png" alt=""><img class="b2" src="${s._A}nights_box_cut.png" alt=""><img class="s1" src="${s._A}mornings_stick_cut.png" alt=""><img class="s2" src="${s._A}nights_stick_cut.png" alt=""></div>` : `<div class="unboxone">${packHTML(s.product, s._A, "big")}</div>`}<div class="labels">${s.labels.map(l => `<span>${rich(l)}</span>`).join("")}</div>`,
   // 21 The objection ad
   objection: s => `<h1 class="quote">${rich(s.quote)}</h1>${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}<div class="ticks">${s.ticks.map(t => `<div><span>✓</span>${rich(t)}</div>`).join("")}</div>`,
   // 20 The "don't buy this" ad
@@ -175,7 +181,8 @@ const T = {
     return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "Problem", s.problem)}${side("sol", "product", s.label_solution || "Solution", s.solution)}</div>`;
   },
   // Two-panel meme: two moments, two captions
-  meme: s => `<div class="meme"><div class="mcol">${[["a", s.top, s.scene_a], ["b", s.bottom, s.scene_b]].map(([k, cap, sc]) => `<div class="mp"><div class="mimg" style="background-image:url('${photoOr(s, s._A, sc, k === "a" ? "photo" : "photo_b")}')"></div><div class="mcap">${rich(cap)}</div></div>`).join("")}</div></div>`,
+  // ONE IMAGE PER CREATIVE (founder rule, 25 Nov): one problem photo; setup + punchline as text on it. img:"a" picks the first scene.
+  meme: s => { const useA = s.img === "a"; const ph = photoOr(s, s._A, useA ? s.scene_a : s.scene_b, useA ? "photo" : "photo_b"); return `<div class="meme one"><div class="mp"><div class="mimg" style="background-image:url('${ph}')"></div><div class="mcap"><span class="mset">${rich(s.top)}</span><span class="mpun">${rich(s.bottom)}</span></div></div>${SOLVE.has("meme") ? "" : packHTML(s.product, s._A, "beside")}</div>`; },
   // Relatable poll / quiz (no product): a question and 3 or 4 answers
   poll: s => `<div class="poll"><div class="kick">${esc(s.kicker || "Be honest")}</div><h1 class="top">${rich(s.question)}</h1>${s.options.map((o, i) => `<div class="opt"><span>${"ABCD"[i]}</span>${rich(o)}</div>`).join("")}${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`,
   // ONE STICK (Abhishek's playbook example): your problems switched off in red, the stick, the benefits switched on in green.
@@ -229,11 +236,11 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 .solrow{flex:none;display:flex;align-items:flex-end;gap:2em;margin-top:auto;min-height:0}.solrow .pack{margin-top:0;height:${Math.round(z.pack * .82)}px;flex:none}.solrow .pack.duo{height:${Math.round(z.pack * .58)}px}
 .solb{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.3em;padding-bottom:.4em}.soll{font-size:4.6em;font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
-.plus{list-style:none;display:flex;flex-direction:column;gap:0}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
+.plus{list-style:none;display:flex;flex-direction:column;gap:0}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12;display:flex;align-items:center;gap:.4em}.plus li .sic{width:1.3em;height:1.3em}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
 .pa .plus li{color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}.pa.light .plus li{color:#2A1E14;text-shadow:none}.pa .plus li.pl{color:#E9C46A}.pa.light .plus li.pl{color:#E2801A}
 .tk{width:1.25em;height:1.25em;border-radius:50%;background:#2FA84F;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 .1em .3em rgba(0,0,0,.2)}.tk svg{width:72%;height:72%;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .mside{flex:none;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:2.2em}
-.ptr{list-style:none;display:flex;flex-direction:column;gap:1em;align-self:stretch}.ptr li{display:flex;align-items:center;gap:.6em;font-size:2.7em;font-weight:700;color:var(--ink);white-space:nowrap}
+.meme.one .mp{flex:1;height:100%}.mset{display:block;font-size:.72em;font-weight:600;opacity:.9;margin-bottom:.25em}.mpun{display:block;font-size:1.3em;font-weight:800}.unboxone{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}.unboxone .pack.big{height:100%;max-height:72em;align-self:center;margin:0}.sic{width:1.75em;height:1.75em;border-radius:50%;flex:none}.ppill{align-self:flex-start;margin-top:.9em;font-size:2.4em;font-weight:500;padding:.45em 1em;border-radius:99em;background:#17245C;color:#fff;white-space:nowrap}.ppill b{font-weight:800;font-size:1.12em}.ppill.nights{background:#fff;color:#17245C}.ptr{list-style:none;display:flex;flex-direction:column;gap:1em;align-self:stretch}.ptr li{display:flex;align-items:center;gap:.6em;font-size:2.7em;font-weight:700;color:var(--ink);white-space:nowrap}
 .pi{width:1.75em;height:1.75em;border-radius:50%;border:.09em solid var(--acc);display:flex;align-items:center;justify-content:center;flex:none}.pi svg{width:60%;height:60%;fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 /* one stick */.os{flex:1;min-height:0;display:flex;gap:0;border-radius:2.2em;overflow:hidden;box-shadow:0 1.2em 3em rgba(0,0,0,.18)}
 .osl{flex:1 1 46%;background:rgba(8,14,40,.55);padding:3em 2.6em;display:flex;flex-direction:column;justify-content:space-around;gap:1.4em}
@@ -342,7 +349,7 @@ export function render(spec, sizeId, base = "") {
   const solPack = spec.shot === "none" || OWN_PRODUCT.has(spec.t) ? "" : packHTML(spec.product, A, "insol");   // room for the box + stick here (rule 33 only shrinks to a stick when space is tight)
   // newscard already says its solution (GOOD NEWS), so it gets the ticks without a second line.
   const solveIt = (SOLVE.has(spec.t) || spec.t === "newscard") && spec.solution !== false;
-  const prod = solveIt ? `<div class="solrow"><div class="solb">${spec.t === "newscard" ? "" : `<div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>`}${ticks(spec.product)}</div>${solPack}</div>` : pk;
+  const prod = solveIt ? `<div class="solrow"><div class="solb">${spec.t === "newscard" ? "" : `<div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>`}${ticks(spec.product, A)}${pill(spec.product)}</div>${solPack}</div>` : pk;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
 <div class="frame${full ? " full" : ""} t-${spec.t}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
