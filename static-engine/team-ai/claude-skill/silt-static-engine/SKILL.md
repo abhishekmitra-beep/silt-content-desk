@@ -1,6 +1,6 @@
 ---
 name: silt-static-engine
-description: Make SILT Nutrition Meta ad statics and put them straight into the team's SILT Static Engine (https://silt-static-engine.pages.dev). Use when someone asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
+description: Make SILT Nutrition Meta ad statics (new ideas that build on what the engine already has, never repeats) and put them straight into the team's SILT Static Engine (https://silt-static-engine.pages.dev). Use when someone asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
 ---
 
 # SILT Static Engine
@@ -15,6 +15,20 @@ curl -s https://silt-static-engine.pages.dev/api/rules
 ```
 
 Every rule in that list overrides anything below. Follow all of them.
+
+## Then read what the engine already has, and explore new ground
+
+```
+curl -s https://silt-static-engine.pages.dev/api/brief
+```
+
+It lists every static and idea made so far, what the team **approved** (works: keep the spirit, find new situations), what was **rejected** (avoid anything like it), the formats used least and most, how few statics feature women, and `suggested_angles` (new personas, moments, Indian cultural moments, emotions, metaphors). Its `prompt` field is the same brief as one text block.
+
+- Never repeat a line or an idea that is already there. Build on what works; go somewhere new.
+- No idea from the person? Explore: pick one of the `suggested_angles` that nothing covers yet, name the idea in one line, and make every static around it.
+- Lean on the least-used formats and put Indian women in the lead more often.
+
+On the site, the same thing is the **✨ Explore something new** button. Over the API: `{"explore": true, "count": 6, "funnel": "auto", "product": "auto"}` to `/api/generate` with no idea.
 
 ## Quick option: let the site write the statics (lower quality)
 

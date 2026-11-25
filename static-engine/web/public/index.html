@@ -41,7 +41,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head><body>
 <header class="top">
-  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><label class="lab" for="name">Your name</label><input id="name" placeholder="e.g. Sanya" autocomplete="name"><button id="zipAll">Download everything (ZIP)</button></div>
+  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><label class="lab" for="name">Your name</label><input id="name" placeholder="e.g. Sanya" autocomplete="name"><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="zipAll">Download everything (ZIP)</button></div>
   <div class="tabs" id="tabs"></div>
 </header>
 <main id="view"></main>
@@ -151,8 +151,9 @@ function drawIdeas() {
     <select id="gCount" aria-label="How many"><option value="6">6 statics</option><option value="12">12</option><option value="30">30</option></select>
     <select id="gFunnel" aria-label="Funnel"><option value="auto">Any funnel</option><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
     <select id="gProd" aria-label="Product"><option value="auto">Any product</option><option>mornings</option><option>nights</option><option>combo</option></select>
-    <button class="primary go" id="gen">Generate</button></div>
-  <p class="status" id="genMsg">Type to search past ideas and statics. Press Generate to make new statics from the idea. They follow the Plan of Action, the brand facts and the ${st.rules.length} house rules.</p>
+    <button class="primary go" id="gen">Generate</button>
+    <button class="go" id="explore" title="No idea needed. The AI reads every static and idea already made, sees what the team approved and rejected, and invents a new angle nobody has tried yet.">✨ Explore something new</button></div>
+  <p class="status" id="genMsg">Type to search past ideas and statics. Press Generate to make new statics from the idea, or ✨ Explore something new to let the AI find a fresh angle. Either way it first reads every static and idea already made (what the team approved, what was rejected) so it builds on them and never repeats one. It follows the Plan of Action, the brand facts and the ${st.rules.length} house rules.</p>
   <div class="panel"><h2>Upload finished statics</h2>
     <p class="sub">Already made a static in Canva, ChatGPT or Photoshop? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. Everything goes to Approval.</p>
     <div class="row"><label class="btn attach">⬆ Choose images<input type="file" id="upIn" accept="image/png,image/jpeg,image/webp" multiple></label>
@@ -187,14 +188,14 @@ async function shrink(file, max, q) {
   return c.toDataURL("image/jpeg", q);
 }
 async function generate(text, opts) {
-  const btn = $("gen"); if (btn) btn.disabled = true;
-  const n = +opts.count; status(`Writing ${n} statics${st.img ? " from your image" : ""}… about ${n > 10 ? "a minute" : "20 seconds"}.`);
+  for (const k of ["gen", "explore"]) { const b = $(k); if (b) b.disabled = true; }
+  const n = +opts.count; status(`${opts.explore ? "Reading everything made so far and exploring a new angle…" : "Writing " + n + " statics" + (st.img ? " from your image" : "") + "…"} about ${n > 10 ? "a minute" : "20 seconds"}.`);
   try {
-    const r = await api("/api/generate", { method: "POST", body: JSON.stringify({ idea: text, image: st.img, thumb: st.thumb, count: n, funnel: opts.funnel, product: opts.product }) });
+    const r = await api("/api/generate", { method: "POST", body: JSON.stringify({ idea: text, image: st.img, thumb: st.thumb, count: n, funnel: opts.funnel, product: opts.product, explore: !!opts.explore }) });
     st.img = st.thumb = null; st.q = ""; await load();
-    status(`Made ${r.statics.length} statics. They're waiting in the Approval tab${r.statics.some(s => s.doc.flags) ? " (the Checker left notes on some)" : ""}.`);
+    status(`Made ${r.statics.length} statics${r.idea?.doc?.explored && r.idea.doc.text ? " around a new idea: “" + r.idea.doc.text.replace(/^Explored: /, "") + "”" : ""}. They're waiting in the Approval tab${r.statics.some(s => s.doc.flags) ? " (the Checker left notes on some)" : ""}.`);
   } catch (e) { status("Couldn't generate: " + e.message); }
-  finally { const b = $("gen"); if (b) b.disabled = false; }
+  finally { for (const k of ["gen", "explore"]) { const b = $(k); if (b) b.disabled = false; } }
 }
 
 // ---------- Approval: every new or edited static waits here (TOFU / MOFU / BOFU / Retention inside) ----------
@@ -292,9 +293,11 @@ $("view").addEventListener("click", async e => {
   if (id === "imgX") { st.img = st.thumb = null; return draw(); }
   if (id === "upGo") { if (!myName) { $("name").focus(); return ($("upMsg").textContent = "Type your name at the top first."); } t.disabled = true; try { await uploadGroups(); } catch (er) { $("upMsg").textContent = "Upload failed: " + er.message; t.disabled = false; } return; }
   if (id === "gen") { const text = $("idea").value.trim(); if (!text && !st.img) return status("Type an idea or add an image first."); if (!myName) { $("name").focus(); return status("Type your name at the top first."); } return generate(text, { count: $("gCount").value, funnel: $("gFunnel").value, product: $("gProd").value }); }
+  if (id === "explore") { if (!myName) { $("name").focus(); return status("Type your name at the top first."); } return generate($("idea").value.trim(), { count: $("gCount").value, funnel: $("gFunnel").value, product: $("gProd").value, explore: true }); }
   const more = b("[data-more]"); if (more) { const i = ideas().find(x => x.id === more.dataset.more); if (i) { $("idea").value = i.doc.text; return generate(i.doc.text, { count: 6, funnel: i.doc.funnel || "auto", product: i.doc.product || "auto" }); } }
   if (id === "ownCopy") { const SK = {}; for (const s of STATICS) if (!SK[s.t]) SK[s.t] = Object.fromEntries(Object.entries(s).filter(([k]) => (!META_FIELDS.includes(k) || ["scene", "scene_a", "scene_b", "scene_problem", "scene_solution"].includes(k)) && !["note", "check"].includes(k)));
-    const p = batchPrompt({ count: +$("gCount").value, focus: ($("idea").value.trim() || "") + (st.rules.length ? "\nHOUSE RULES (must follow): " + st.rules.map(r => r.text).join(" | ") : "") + "\nScene keys for scene/meme: " + Object.entries(SCENES).map(([k, v]) => k + " (" + v.mood + ")").join("; ") }, SK, []);
+    let brief = ""; try { brief = (await api("/api/brief")).prompt || ""; } catch {}
+    const p = (brief ? brief + "\n\n" : "") + batchPrompt({ count: +$("gCount").value, focus: ($("idea").value.trim() || "Explore: pick one new angle from the list above that no existing static covers") + (st.rules.length ? "\nHOUSE RULES (must follow): " + st.rules.map(r => r.text).join(" | ") : "") + "\nScene keys for scene/meme: " + Object.entries(SCENES).map(([k, v]) => k + " (" + v.mood + ")").join("; ") }, SK, []);
     try { await navigator.clipboard.writeText(p); status("Prompt copied. Paste it into Claude or ChatGPT, then paste the reply below."); } catch { $("ownReply").value = p; status("Copy the prompt from the box below."); } return; }
   if (id === "ownAdd") { try { const m = $("ownReply").value.match(/[\[{][\s\S]*[\]}]/); let arr = JSON.parse(m[0]); if (!Array.isArray(arr)) arr = arr.statics || [];
       let n = 0; for (const x of arr.slice(0, 30)) { const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "scene"); const doc = { ...JSON.parse(JSON.stringify(base)), ...Object.fromEntries(Object.entries(x).filter(([k, v]) => k in base && typeof v === typeof base[k])), t: base.t, format: base.format, id: "new", slug: "own-ai", concept: String(x.concept || "Idea").slice(0, 50), funnel: ["TOFU", "MOFU", "BOFU", "RET"].includes(x.funnel) ? x.funnel : base.funnel, product: ["mornings", "nights", "combo"].includes(x.product) ? x.product : base.product }; delete doc.check; const f = checkCopy(doc); if (f.length) doc.flags = f;
@@ -369,11 +372,14 @@ async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (
 $("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
 
 draw(); load(); welcome();
-async function welcome() {
-  let done = false; try { done = localStorage.getItem("silt-se-connected") === "1"; } catch {}
-  if (done) return;
-  let first = false; try { first = (await (await fetch("/api/visit")).json()).first; } catch {}
-  if (!first) return;
+$("connectAI").addEventListener("click", () => welcome(true));
+// The pop-up shows on every browser that hasn't said "Got it" / "I've already connected" (per browser, not per network:
+// the whole office shares one IP, so an IP check hid it from everyone after the first person). ✕ hides it until the next visit.
+async function welcome(force = false) {
+  if ($("welcome")) return;
+  let done = false; try { done = localStorage.getItem("silt-se-connected") === "1" || sessionStorage.getItem("silt-se-later") === "1"; } catch {}
+  if (done && !force) return;
+  fetch("/api/visit").catch(() => {});
   const d = document.createElement("dialog"); d.id = "welcome";
   d.innerHTML = '<div style="padding:22px;max-width:560px;display:flex;flex-direction:column;gap:12px">'
     + '<div class="row"><b style="font-size:20px">Welcome to the SILT Static Engine</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
@@ -383,7 +389,8 @@ async function welcome() {
     + '<p class="sub" style="margin:0">Also type your name at the top right, so the team can see who made or approved what.</p>'
     + '<div class="row"><button id="wDone">I\'ve already connected</button><span class="spacer"></span><button class="primary" id="wLater">Got it</button></div></div>';
   document.body.appendChild(d); d.showModal();
-  const close = remember => { if (remember) { try { localStorage.setItem("silt-se-connected", "1"); } catch {} } d.close(); d.remove(); };
+  const close = remember => { try { if (remember) localStorage.setItem("silt-se-connected", "1"); else sessionStorage.setItem("silt-se-later", "1"); } catch {} d.close(); d.remove(); };
+  d.addEventListener("cancel", () => { try { sessionStorage.setItem("silt-se-later", "1"); } catch {} setTimeout(() => d.remove(), 0); });
   d.querySelector("#wX").onclick = () => close(false);
   d.querySelector("#wLater").onclick = () => close(true);
   d.querySelector("#wDone").onclick = () => close(true);

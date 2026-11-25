@@ -6,6 +6,7 @@
 import { ensure } from "./_db.js";
 import { BRAND_BRIEF, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, META_FIELDS } from "../../public/engine.js";
 import { STATICS } from "../../public/statics.js";
+import { buildBrief, briefText, pickLenses } from "./_brief.js";
 
 const TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 const FALLBACK_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
@@ -74,17 +75,17 @@ async function describeImage(env, dataUrl) {
   }
 }
 
-async function writeStatics(env, { idea, imageNote, n, funnel, product, rules }) {
+async function writeStatics(env, { idea, imageNote, n, funnel, product, rules, brief }) {
   const sys = `${BRAND_BRIEF}\n\n${PLAN}\n\n${rules.length ? "HOUSE RULES (from Abhishek; these override everything above):\n" + rules.map((r, i) => `${i + 1}. ${r}`).join("\n") + "\n" : ""}`;
-  const user = `IDEA: ${idea || "(see the reference image)"}\n${imageNote ? "REFERENCE IMAGE (borrow the idea, never copy a brand's words or logo):\n" + imageNote + "\n" : ""}
-Make ${n} different statics from this idea. ${funnel === "auto" ? "Spread them across TOFU, MOFU, BOFU and RET." : "All for funnel " + funnel + "."} ${product === "auto" ? "Pick mornings, nights or combo to fit each one." : "All for product " + product + "."}
+  const user = `${brief ? brief + "\n\n" : ""}IDEA: ${idea || (imageNote ? "(see the reference image)" : "NONE GIVEN. Explore: invent one fresh idea from the angles above that no existing static covers, and make every static around it. Put that idea, in under 12 words, in a top-level field \"idea\".")}\n${imageNote ? "REFERENCE IMAGE (borrow the idea, never copy a brand's words or logo):\n" + imageNote + "\n" : ""}
+Make ${n} different statics from this idea, each a NEW take that no existing static already has. ${funnel === "auto" ? "Spread them across TOFU, MOFU, BOFU and RET." : "All for funnel " + funnel + "."} ${product === "auto" ? "Pick mornings, nights or combo to fit each one." : "All for product " + product + "."}
 Each static is a JSON object with "t" (the format), "funnel", "product", "concept" (2 to 4 words), optional "cta" (max 5 words), and EXACTLY the text keys of its format:
 ${Object.entries(SKEL).map(([t, k]) => t + ": " + JSON.stringify(k)).join("\n")}
 For "problemsolution" set scene_problem and scene_solution to a scene key, "product" or "jars". For "scene" and "meme" pick scene keys from this list:\n${sceneList}
 GOOD EXAMPLES (match this quality: specific, witty, short, every text key filled with NEW words about the idea):
 ${EXAMPLES}
 Every static must be clearly about the IDEA. Write fresh words for every text key; never reuse the example lines. The product named in the copy must match "product".
-Reply with ONLY {"statics": [ ...${n} objects... ]}.`;
+Reply with ONLY {"idea": "...", "statics": [ ...${n} objects... ]}.`;
   const call = model => env.AI.run(model, { messages: [{ role: "system", content: sys }, { role: "user", content: user }], max_tokens: Math.min(4096, 300 * n + 500), temperature: 0.7, response_format: { type: "json_object" } });
   let out, used = TEXT_MODEL;
   try { out = await call(TEXT_MODEL); } catch (e) { used = FALLBACK_MODEL + " (main model failed: " + String(e.message || e).slice(0, 80) + ")"; out = await call(FALLBACK_MODEL); }
@@ -92,16 +93,19 @@ Reply with ONLY {"statics": [ ...${n} objects... ]}.`;
   let j;
   try { j = extractJson(out?.response ?? out); }
   catch (e) { const out2 = await call(FALLBACK_MODEL); j = extractJson(out2?.response ?? out2); }
-  return Array.isArray(j) ? j : (j.statics || []);
+  const list = Array.isArray(j) ? j : (j.statics || []);
+  list.idea = !Array.isArray(j) && j.idea ? String(j.idea).replace(/\s+/g, " ").trim().slice(0, 140) : "";
+  return list;
 }
 
 export async function onRequestPost({ request, env, data }) {
   await ensure(env);
   if (!env.AI) return Response.json({ error: "Cloudflare AI isn't connected to this site." }, { status: 503 });
   let body; try { body = await request.json(); } catch { return Response.json({ error: "Bad JSON" }, { status: 400 }); }
-  const idea = String(body.idea || "").replace(/\s+/g, " ").trim().slice(0, 600);
+  let idea = String(body.idea || "").replace(/\s+/g, " ").trim().slice(0, 600);
+  const explore = body.explore === true;
   const image = typeof body.image === "string" && body.image.startsWith("data:image/") && body.image.length < 1_800_000 ? body.image : null;
-  if (!idea && !image) return Response.json({ error: "Type an idea or add an image." }, { status: 400 });
+  if (!idea && !image && !explore) return Response.json({ error: "Type an idea, add an image, or press Explore something new." }, { status: 400 });
   const count = Math.max(1, Math.min(30, parseInt(body.count, 10) || 6));
   const funnel = FUNNELS.includes(body.funnel) ? body.funnel : "auto", product = PRODUCTS.includes(body.product) ? body.product : "auto";
   const who = data.name || "team", now = new Date().toISOString();
@@ -109,16 +113,22 @@ export async function onRequestPost({ request, env, data }) {
   const rulesRow = await env.DB.prepare("SELECT doc FROM se_items WHERE id = 'house-rules'").first();
   const rules = rulesRow ? (JSON.parse(rulesRow.doc).rules || []).map(r => r.text) : [];
 
+  // What already exists (approved, rejected, every line, past ideas, format use) + new angles to explore.
+  let briefTxt = "", lenses = pickLenses(explore ? 4 : 3);
+  try { briefTxt = briefText(await buildBrief(env, { maxLines: 90 }), lenses); } catch (e) { briefTxt = ""; }
+  let explored = "";
   let imageNote = "";
   if (image) { try { imageNote = await describeImage(env, image); } catch (e) { imageNote = ""; } }
 
   // Write in batches of up to 10 so long lists don't get cut off.
   const raw = [];
   for (let left = count; left > 0; left -= 10) {
-    try { raw.push(...await writeStatics(env, { idea, imageNote, n: Math.min(10, left), funnel, product, rules })); }
+    // Explore: the first batch invents the idea; later batches build on that same idea.
+    try { const got = await writeStatics(env, { idea: idea || explored, imageNote, n: Math.min(10, left), funnel, product, rules, brief: briefTxt }); raw.push(...got); if (explore && !idea && !explored && got.idea) explored = got.idea; }
     catch (e) { if (!raw.length && left === count) return Response.json({ error: "The AI couldn't write statics this time (" + String(e.message || e).slice(0, 160) + "). Try again, or use your own Claude / ChatGPT below." }, { status: 502 }); }
   }
 
+  if (!idea && explore) idea = "Explored: " + (explored || "something new");
   const ideaId = "I" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   const made = [];
   for (const x of raw.slice(0, count)) {
@@ -138,7 +148,7 @@ export async function onRequestPost({ request, env, data }) {
     made.push({ id, kind: "static", doc: s, status: "approval", created_by: who, updated_by: who, updated_at: now });
   }
   const thumb = typeof body.thumb === "string" && body.thumb.startsWith("data:image/") && body.thumb.length < 120_000 ? body.thumb : null;
-  const ideaDoc = { id: ideaId, text: idea, image: thumb, image_note: imageNote.slice(0, 1200), count, funnel, product, made: made.map(m => m.id), rules_used: rules.length };
+  const ideaDoc = { id: ideaId, text: idea, image: thumb, image_note: imageNote.slice(0, 1200), count, funnel, product, made: made.map(m => m.id), rules_used: rules.length, lenses, explored: explore };
   await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'idea', ?, 'active', ?, ?, ?, ?)")
     .bind(ideaId, JSON.stringify(ideaDoc), who, who, now, now).run();
   return Response.json({ idea: { id: ideaId, kind: "idea", doc: ideaDoc, status: "active", created_by: who, updated_at: now }, statics: made, info: { model: writeStatics.lastModel, written: raw.length, kept: made.length, raw: body.debug ? raw.slice(0, 4) : undefined } });

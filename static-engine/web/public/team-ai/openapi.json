@@ -55,9 +55,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "idea"
-                ],
+                "required": [],
                 "properties": {
                   "idea": {
                     "type": "string",
@@ -89,6 +87,10 @@
                       "combo"
                     ],
                     "default": "auto"
+                  },
+                  "explore": {
+                    "type": "boolean",
+                    "description": "true with no idea: the site's AI reads everything already made and explores a new angle"
                   }
                 }
               }
@@ -154,6 +156,77 @@
               "application/json": {
                 "schema": {
                   "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/brief": {
+      "get": {
+        "operationId": "getBrief",
+        "summary": "Read what the engine already has (approved, rejected, every line, past ideas, format use) and suggested new angles, so new statics never repeat and explore new ground",
+        "responses": {
+          "200": {
+            "description": "The brief",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "approved": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "rejected": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "existing": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ideas": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "least_used_formats": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "most_used_formats": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "women_share": {
+                      "type": "string"
+                    },
+                    "suggested_angles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "prompt": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
