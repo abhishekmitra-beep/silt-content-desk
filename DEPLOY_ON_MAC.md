@@ -19,9 +19,9 @@ Both sites sit on the Cloudflare account ashutosh.gaurav@drinksilt.com.
    - ffmpeg is optional. Without it, the Static Engine makes its JPG previews with macOS `sips`.
    - Google Chrome must be installed in /Applications. The Static Engine renders statics with it.
 
-3. **Get the project from GitHub** (Ashutosh adds you to the private repo first):
+3. **Get the project from GitHub** (public repo; to push changes, Ashutosh adds you as a collaborator):
    ```
-   git clone <the repo URL> ~/SILT_Content_Desk
+   git clone https://github.com/ashutoshgauravsilt/silt-content-desk.git ~/SILT_Content_Desk
    ```
    - Secrets are never in the repo: the team password, the rules key and `.dev.vars`.
    - Generated files are not in the repo either: rendered statics, previews and the site build. `npm run build-and-deploy` makes them.
