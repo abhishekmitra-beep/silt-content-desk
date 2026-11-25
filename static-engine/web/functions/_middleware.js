@@ -24,6 +24,10 @@ export async function onRequest(ctx) {
     const client = h === "chatgpt" || /ChatGPT-User|OpenAI/i.test(ua) ? "chatgpt" : h === "claude" || /Claude-User|ClaudeBot|Anthropic/i.test(ua) ? "claude" : "";
     if (client) {
       const now = new Date().toISOString();
+      // A personal skill / GPT carries its browser's code: every call keeps that browser's "connected" tick fresh.
+      const code = String(request.headers.get("x-silt-code") || url.searchParams.get("silt_code") || "").toUpperCase();
+      if (/^[A-Z2-9]{6}$/.test(code)) ctx.waitUntil(ctx.env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'visitor', json_object(?, ?), 'active', ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET doc = json_set(se_items.doc, ?, ?), updated_at = excluded.updated_at`).bind("C-" + code, client, now, client, client, now, now, "$." + client, now).run().catch(() => {}));
       ctx.waitUntil(ctx.env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'visitor', '{}', 'active', ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET updated_at = excluded.updated_at, status = 'active'`).bind("S-" + client, client, client, now, now).run().catch(() => {}));
     }

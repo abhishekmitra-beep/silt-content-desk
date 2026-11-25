@@ -35,6 +35,13 @@ details.own{margin-top:6px}details.own summary{cursor:pointer;font-size:13px;col
 .tick{gap:5px;flex-wrap:wrap}.tick button,.tick .btn{padding:4px 10px;font-size:13px}.tick .ok{background:var(--ok-bg);color:var(--ok);font-weight:700}.tick .no{background:var(--warn-bg);color:var(--warn);font-weight:700}
 .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:12px 0 4px}.flow span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px}.flow b{display:block;font-size:14px}
 .qst{color:var(--acc)}
+.metaprev{max-width:min(1180px,96vw);width:96vw;padding:0}.mpwrap{padding:20px;display:flex;flex-direction:column;gap:10px}.mpapp{margin:12px 0 0;font-size:17px}
+.mpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.mpcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.mpchip{color:#fff;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:600}.mpuse{color:#9a5b00;font-weight:600}.mpimg{position:relative;border-radius:8px;overflow:hidden}.mpimg .thumb{border-radius:0}
+.mpz{position:absolute;left:0;right:0;background:rgba(196,30,45,.62);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;font-weight:600;padding:2px 8px;z-index:3}
+.mpz.crop{background:repeating-linear-gradient(135deg,rgba(196,30,45,.55) 0 8px,rgba(196,30,45,.25) 8px 16px)}.mps{position:absolute;top:0;bottom:0;width:6%;background:rgba(196,30,45,.25);z-index:2}.mps.l{left:0}.mps.r{right:0}
+.mpok{color:var(--ok);font-weight:600}.mpbad{color:#b3261e;font-weight:600}.mpred{color:#b3261e}.mpmiss{display:flex;align-items:center;justify-content:center;background:var(--chip);text-align:center;padding:10px;font-size:12px}
+.ainote{font-size:12.5px;margin-top:4px}
 #connectAI.connected{background:var(--ok-bg);color:var(--ok);border-color:var(--ok);font-weight:600}
 .cstate{font-size:14px}.cstate.on{color:var(--ok)}.code{font-family:ui-monospace,Consolas,monospace;font-size:20px;letter-spacing:.12em;background:var(--chip);padding:2px 10px;border-radius:8px}.pastebox{margin-top:8px}.pastebox textarea{width:100%}.strip .thumb{border-radius:10px;cursor:pointer}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:12px}.panel h2{margin:0;font-size:18px}
@@ -144,7 +151,7 @@ function card(s) {
   const aiNote = s.ai_note || s._dec?.doc?.ai_note || (decisions()[s.id] ? (st.items.find(i => i.id === "D-" + s.id)?.doc?.ai_note || "") : "");
   return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib && s.title ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
     <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}${aiNote ? `<div class="sub ainote"><b>AI:</b> ${esc(aiNote)}</div>` : ""}</div>
-    <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}</div></article>`;
+    <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}<button data-metaprev="${esc(id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button></div></article>`;
 }
 
 // ---------- Ideas (home): Claude thinks, ChatGPT makes, the team ticks ----------
@@ -174,7 +181,7 @@ function ideaStatic(s) {
     ${s.ai_note ? `<div class="sub inote" title="${esc(s.ai_note)}">${esc(s.ai_note)}</div>` : ""}
     ${s.flags?.length ? `<div class="check" title="${esc(s.flags.join(" · "))}">${esc(s.flags[0])}</div>` : ""}
     <div class="row tick">${done ? "" : `<button class="ok" data-tick="${esc(id)}" title="Good: send to Team Approval">✓</button><button class="no" data-cross="${esc(id)}" title="Drop it">✕</button>`}
-      ${s.chatgpt_prompt ? `<button data-gpt="${esc(id)}" title="Copy Claude's prompt, paste it into ChatGPT">Copy for ChatGPT</button><label class="btn attach" title="Upload the image ChatGPT made">⬆ Image<input type="file" data-attach="${esc(id)}" accept="image/png,image/jpeg,image/webp"></label>` : ""}</div></div>`;
+      ${s.chatgpt_prompt ? `<button data-gpt="${esc(id)}" title="Copy Claude's prompt, paste it into ChatGPT">Copy for ChatGPT</button><label class="btn attach" title="Upload the image ChatGPT made">⬆ Image<input type="file" data-attach="${esc(id)}" accept="image/png,image/jpeg,image/webp"></label>` : ""}<button data-metaprev="${esc(id)}" title="See it in every Meta placement">📱</button></div></div>`;
 }
 function drawIdeas() {
   const q = st.q.toLowerCase();
@@ -290,6 +297,39 @@ async function pasteReply(ideaId) {
 }
 const copyText = async (t, msg) => { try { await navigator.clipboard.writeText(t); status(msg); } catch { prompt("Copy this:", t); } };
 
+// ---------- Meta preview: one static in every Meta placement, with the no-go zones (Abhishek's placement chart, 25 Nov) ----------
+// Red = the app puts its own buttons, names or captions there, so text, price or pack placed in it gets hidden.
+// Striped = the image can be cropped there. Side strips = Meta's 6% margin (65 px).
+const Z_STORY = [{ y: 0, h: 269, t: "No text: profile name, progress bar, top 269 px" }, { y: 1651, h: 269, t: "No text: Shop now, reply bar, bottom 269 px" }];
+const Z_REELS = [{ y: 0, h: 269, t: "No text: profile name, close, top 269 px" }, { y: 1248, h: 672, t: "No text: caption, Shop now card, music, like and share row, bottom 672 px" }];
+const Z_NOTIF = [{ y: 0, h: 135, t: "Cropped if shown square, top 135 px", crop: true }, { y: 1215, h: 135, t: "Cropped if shown square, bottom 135 px", crop: true }];
+const PLACEMENTS = [
+  ["Instagram", "#8a3ab9", [["Feed", "4x5", [], "Name row above the image, Shop now bar and caption below."], ["Explore", "4x5", [], "Opens like the feed: nothing sits on the image."], ["Explore home", "1x1", [], "A grid tile: a square image in a square tile, nothing cut."], ["Profile feed", "4x5", [], "Same as the feed."], ["Search results", "1x1", [], "A grid tile: a square image in a square tile."], ["Stories", "9x16", Z_STORY, "Profile name and progress bar on top; Shop now and the reply bar at the bottom."], ["Reels", "9x16", Z_REELS, "Profile on top; caption, Shop now card and buttons at the bottom; like, comment and share down the right edge."], ["Profile Reels", "9x16", Z_REELS, "Same as Reels."]]],
+  ["Facebook", "#1877f2", [["Feed", "4x5", [], "Page name and text above, headline and Shop now below."], ["Video feeds", "4x5", [], "Same as the feed."], ["Profile feed", "4x5", [], "Same as the feed."], ["Notifications", "4x5", Z_NOTIF, "Shown small inside the notifications list and can be cropped to a square."], ["Right column", "1x1", [], "Desktop only. A small square next to the headline; small text will not read.", true], ["Marketplace", "1x1", [], "A Marketplace tile; headline and price sit under the image."], ["Search results", "1x1", [], "A small square in the results list.", true], ["Business explore", "1x1", [], "Shown in full with the headline under it."], ["Stories", "9x16", Z_STORY, "Page name on top, Shop now at the bottom."], ["Reels", "9x16", Z_REELS, "Same no-go zones as Instagram Reels."]]],
+  ["Messenger", "#0a7cff", [["Inbox", "1x1", [], "A small square among the chats, with headline and text beside it.", true]]],
+  ["Threads", "#000", [["Feed", "4x5", [], "Name above, text and Shop now below."]]],
+  ["WhatsApp", "#25d366", [["Status", "9x16", Z_STORY, "Same no-go zones as Stories."]]]
+];
+const anyStatic = id => findAny(id) || [...pending(), ...aiList(), ...allStatics()].find(s => (s._item ? s._item.id : s.id) === id || s.id === id);
+function metaPreview(s) {
+  const img = isImg(s), has = z => !img || !!s.files?.[z];
+  const missing = ["4x5", "1x1", "9x16"].filter(z => !has(z));
+  const pic = z => img ? (s.files[z] ? thumb({ ...s }, z) : `<div class="thumb mpmiss" style="aspect-ratio:${SIZES[z].w}/${SIZES[z].h}"><span>No ${z.replace("x", ":")} image. Meta will crop or fit another size.</span></div>`) : thumb(s, z);
+  const zone = (z, a) => { const H = SIZES[z].h; return `<div class="mpz${a.crop ? " crop" : ""}" style="top:${(a.y / H * 100).toFixed(2)}%;height:${(a.h / H * 100).toFixed(2)}%"><span>${esc(a.t)}</span></div>`; };
+  const side = z => z === "9x16" ? `<div class="mps l"></div><div class="mps r"></div>` : "";
+  const d = document.createElement("dialog"); d.id = "metaprev"; d.className = "metaprev";
+  d.innerHTML = `<div class="mpwrap"><div class="row"><b style="font-size:20px">Meta preview: ${esc((s.headline || s.problem || s.title || s.question || s.top || s.concept || s.id || "").replace(/\*/g, ""))}</b><span class="spacer"></span><button id="mpX" aria-label="Close">✕</button></div>
+    <p class="sub">Meta picks one image per placement: 4:5 for feeds, 1:1 for squares and thumbnails, 9:16 for Stories, Reels and Status. <b class="mpred">Red</b> is a no-go zone: the app puts its own buttons, names or captions there, so text, price or pack placed in it gets hidden. Striped is where the image can be cropped.
+    ${img ? (missing.length ? ` <b class="mpred">This static has no ${missing.map(z => z.replace("x", ":")).join(" or ")} image, so Meta will crop or fit another size there.</b>` : " Check that no words, price or pack sit in the red zones.") : " The engine keeps every word and the pack out of the red zones by design (9:16: between 269 and 1165 px)."}</p>
+    ${PLACEMENTS.map(([app, col, list]) => `<h3 class="mpapp">${app}</h3><div class="mpgrid">${list.map(([name, z, zones, note, small]) => `<div class="mpcard"><div><span class="mpchip" style="background:${col}">${app}</span> <b>${name}</b></div>
+      <div class="sub mpuse">Uses the ${z === "9x16" ? "9:16" : z.replace("x", ":")} image, ${SIZES[z].w} x ${SIZES[z].h}</div>
+      <div class="mpimg">${pic(z)}${zones.map(a => zone(z, a)).join("")}${side(z)}</div>
+      <div class="sub ${zones.length ? "mpbad" : "mpok"}">${zones.length ? (zones[0].crop ? "Can be cropped" : "Red no-go zones") : small ? "No red zone, but shown as a small thumbnail" : "No red zone: the whole image shows"}</div><div class="sub">${note}</div></div>`).join("")}</div>`).join("")}</div>`;
+  document.body.appendChild(d); d.showModal(); hydrate();
+  d.querySelector("#mpX").onclick = () => { d.close(); d.remove(); };
+  d.addEventListener("close", () => d.remove());
+}
+
 // ---------- Approval: every new or edited static waits here (TOFU / MOFU / BOFU / Retention inside) ----------
 function drawApproval(mode) {
   const ai = mode === "AI", base = ai ? aiList().filter(s => s._verdict === st.aiv) : pending();
@@ -311,8 +351,9 @@ function drawApproval(mode) {
       return '<article class="card">' + thumb(s) + '<div class="meta"><div class="t">' + esc(isImg(s) ? s.title : head(s)) + '</div>'
         + '<div class="chips"><span class="chip">' + esc(s.funnel) + '</span><span class="chip">' + esc(s.product) + '</span><span class="chip">' + esc(s.concept || "") + '</span><span class="chip team">' + who + '</span>' + verdict + '</div>'
         + (warn.length ? '<div class="check"><b>Checker:</b> ' + warn.map(esc).join("<br>") + '</div>' : '<div class="sub" style="color:var(--ok)">Checker: no problems found.</div>')
-        + (s.source ? '<div class="sub">Idea: ' + esc(s.source) + '</div>' : "") + '</div>'
-        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? "" : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button></div></article>'; }).join("")
+        + (s.source ? '<div class="sub">Idea: ' + esc(s.source) + '</div>' : "")
+        + ((s.ai_note || s._dec?.doc?.ai_note) ? '<div class="sub ainote"><b>AI:</b> ' + esc(s.ai_note || s._dec.doc.ai_note) + '</div>' : "") + '</div>'
+        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? "" : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button><button data-metaprev="' + esc(s._item ? s._item.id : s.id) + '" title="See it in every Meta placement, with the no-go zones">📱 Meta</button></div></article>'; }).join("")
       || '<p class="sub">' + (ai ? "Nothing here. When Claude or ChatGPT reviews statics over the API, its verdicts land here." : "Nothing waiting. New statics from the Ideas tab land here.") + '</p>') + '</div>';
 }
 
@@ -387,6 +428,7 @@ $("view").addEventListener("click", async e => {
   if (id === "send") { const text = $("idea").value.trim(); if (!text) return status("Type an idea first (or press ✨ New angle)."); return sendToClaude(text); }
   if (id === "angle") { try { const br = await api("/api/brief"); const ang = (br.suggested_angles || [])[0] || ""; st.q = "Explore " + ang.replace(/^an? (new )?/i, ""); draw(); status("An angle nothing covers yet. Edit it if you like, then Send to Claude."); } catch (er) { status(er.message); } return; }
   if (id === "connectAI2") { e.preventDefault(); return welcome(true); }
+  const mp = b("[data-metaprev]"); if (mp) { const sx = anyStatic(mp.dataset.metaprev); if (sx) metaPreview(sx); return; }
   const tk = b("[data-tick]"); if (tk) { tk.disabled = true; await api("/api/items/" + encodeURIComponent(tk.dataset.tick), { method: "PUT", body: JSON.stringify({ status: "approval" }) }).catch(er => alert(er.message)); await load(); return status("Sent to Team Approval."); }
   const cr = b("[data-cross]"); if (cr) { cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected" }) }).catch(er => alert(er.message)); await load(); await sweepIdeas(); return; }
   const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt); const pk = p => location.origin + "/assets/" + p + "_boxstick_cut.png";
@@ -496,9 +538,9 @@ async function welcome(force = false) {
     + '<div class="row"><b style="font-size:20px">Connect your Claude and ChatGPT</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
     + '<p class="sub" style="margin:0"><b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images. Everything waits for the team\'s ✓.</p>'
     + '<div id="wState" class="panel" style="margin:0;gap:6px">' + connRows() + '</div>'
-    + `<div class="panel" style="margin:0"><b>Your code: <span class="code">${myCode}</span></b><span class="sub">Once each AI is set up, tell it: <b>“${say}”</b>. It calls the site with this code, and this window ticks as soon as the site hears from it.</span><div class="row"><button id="wCopy">Copy “${say}”</button></div></div>`
-    + '<div class="panel" style="margin:0"><b>Claude: set up once</b><span class="sub">Download the SILT skill. In Claude, go to Settings → Capabilities → Skills and upload the zip; in Claude Code, unzip it into ~/.claude/skills. Then tell Claude the line above. After that, say “make the waiting SILT ideas”.</span><div class="row"><a class="btn primary" href="/team-ai/silt-static-engine-skill.zip" download>Download the Claude skill</a></div></div>'
-    + '<div class="panel" style="margin:0"><b>ChatGPT: set up once</b><span class="sub">Create the SILT GPT: paste our instructions, add the action file, and turn on Image Generation. Then tell it the line above. After that, say “make the images for the waiting SILT statics”.</span><div class="row"><a class="btn primary" href="/team-ai/GPT_SETUP.md" target="_blank">Open the GPT setup</a><a class="btn" href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">Instructions</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
+    + '<div class="panel" style="margin:0"><b>1 · Claude</b><span class="sub">Download <b>your</b> Claude skill (it already has your code inside). In Claude: Settings → Capabilities → Skills → upload the zip. In Claude Code, unzip it into ~/.claude/skills. That\'s it: the first time you use it, this window ticks ✓ by itself.</span><div class="row"><button class="primary" id="wSkill">⬇ Download my Claude skill</button></div></div>'
+    + '<div class="panel" style="margin:0"><b>2 · ChatGPT</b><span class="sub">Copy <b>your</b> GPT instructions (your code is inside). Paste them into your SILT GPT: Configure → Instructions. New to the GPT? The setup guide has the 4 steps. The first chat ticks ✓ here by itself.</span><div class="row"><button class="primary" id="wGpt">Copy my ChatGPT instructions</button><a class="btn" href="/team-ai/GPT_SETUP.md" target="_blank">GPT setup guide</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
+    + `<p class="sub" style="margin:0">Already set up with the old skill or GPT? Just tell it <b>“${say}”</b> <button id="wCopy" style="padding:2px 10px">Copy</button>. Your code: <span class="code">${myCode}</span></p>`
     + '<div class="row"><span class="sub">This window checks every few seconds.</span><span class="spacer"></span><button class="primary" id="wLater">Close</button></div></div>';
   document.body.appendChild(d); d.showModal();
   const poll = setInterval(checkConn, 4000);
@@ -507,5 +549,22 @@ async function welcome(force = false) {
   d.querySelector("#wX").onclick = close;
   d.querySelector("#wLater").onclick = close;
   d.querySelector("#wCopy").onclick = async () => { try { await navigator.clipboard.writeText(say); d.querySelector("#wCopy").textContent = "Copied"; } catch { prompt("Copy this:", say); } };
+  d.querySelector("#wSkill").onclick = async e => { e.target.disabled = true; try { await downloadMySkill(); e.target.textContent = "✓ Downloaded. Now upload it in Claude"; } catch (er) { e.target.textContent = "Couldn't build it: " + er.message; } e.target.disabled = false; };
+  d.querySelector("#wGpt").onclick = async e => { try { await navigator.clipboard.writeText(await myGptInstructions()); e.target.textContent = "✓ Copied. Paste into your GPT's Instructions"; } catch (er) { prompt("Copy these instructions:", await myGptInstructions()); } };
+}
+// The SILT skill with this browser's code inside: every call it makes sends the code, so the site knows this person's
+// Claude is connected without anyone typing anything.
+async function downloadMySkill() {
+  if (!window.JSZip) throw new Error("ZIP library didn't load; reload the page");
+  let md = await (await fetch("/team-ai/skill/SKILL.md", { cache: "no-store" })).text();
+  md = md.replaceAll('-H "x-silt-client: claude"', `-H "x-silt-client: claude" -H "x-silt-code: ${myCode}"`)
+    .replace("# SILT Static Engine: Claude is the thinker", `# SILT Static Engine: Claude is the thinker\n\n**This skill is paired with ${myName || "your"} browser (code ${myCode}).** Every call below sends that code, so the site shows ✓ Claude connected on its own. Use the calls exactly as written.`)
+    .replaceAll("ABC234", myCode);
+  const z = new JSZip(); z.folder("silt-static-engine").file("SKILL.md", md);
+  save(await z.generateAsync({ type: "blob" }), "silt-static-engine-skill.zip");
+}
+async function myGptInstructions() {
+  const t = await (await fetch("/team-ai/GPT_INSTRUCTIONS.txt", { cache: "no-store" })).text();
+  return `YOUR SILT CODE: ${myCode}. At the start of every conversation, before anything else, quietly call connectBrowser with code "${myCode}" and client "chatgpt" (only mention it if it fails).\n\n` + t;
 }
 </script></body></html>
