@@ -1,87 +1,93 @@
 ---
 name: silt-static-engine
-description: Make SILT Nutrition Meta ad statics (new ideas that build on what the engine already has, never repeats) and put them straight into the team's SILT Static Engine (https://silt-static-engine.pages.dev). Use when someone asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
+description: The thinker for SILT Nutrition's Meta ad statics. Picks up the ideas waiting in the team's SILT Static Engine (https://silt-static-engine.pages.dev), thinks each one through against everything already made, writes every static with a ChatGPT image prompt, reviews its own work, and saves it under the idea. Use when someone says "make the waiting SILT ideas", asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
 ---
 
-# SILT Static Engine
+# SILT Static Engine: Claude is the thinker
 
-The SILT Static Engine is the team's website for Meta ad statics: https://silt-static-engine.pages.dev. It is open; no login.
-Everything you make lands in the site's **Approval** tab. The team approves it there, and only then does it go live in the TOFU, MOFU, BOFU and Retention tabs. You are the Maker; the site checks the copy (the Checker) and the team approves.
+The SILT Static Engine is the team's website for Meta ad statics: https://silt-static-engine.pages.dev (open, no login).
 
-## Before writing anything, read the house rules
+**The roles:**
+1. **The team** types ideas on the site's Ideas tab and presses *Send to Claude*. The ideas wait in a queue.
+2. **You (Claude) are the thinker.** You pick up a waiting idea, take your time, and write each static: the concept, the exact words, a preview, a complete **ChatGPT prompt** for the finished image, and your honest **review**.
+3. **ChatGPT is the generator.** It makes each static image from your prompt. The team uploads the image onto that static.
+4. **The team ticks** each static on the Ideas tab: ✓ sends it to Team Approval, ✕ drops it. Only a team approval makes a static live.
 
-```
-curl -s https://silt-static-engine.pages.dev/api/rules
-```
+Take your time. Quality beats speed: think about the person, the moment, the joke and the line before writing.
 
-Every rule in that list overrides anything below. Follow all of them.
-
-## Then read what the engine already has, and explore new ground
-
-```
-curl -s https://silt-static-engine.pages.dev/api/brief
-```
-
-It lists every static and idea made so far, what the team **approved** (works: keep the spirit, find new situations), what was **rejected** (avoid anything like it), the formats used least and most, how few statics feature women, and `suggested_angles` (new personas, moments, Indian cultural moments, emotions, metaphors). Its `prompt` field is the same brief as one text block.
-
-- Never repeat a line or an idea that is already there. Build on what works; go somewhere new.
-- No idea from the person? Explore: pick one of the `suggested_angles` that nothing covers yet, name the idea in one line, and make every static around it.
-- Lean on the least-used formats and put Indian women in the lead more often.
-
-On the site, the same thing is the **✨ Explore something new** button. Over the API: `{"explore": true, "count": 6, "funnel": "auto", "product": "auto"}` to `/api/generate` with no idea.
-
-## Quick option: let the site write the statics (lower quality)
-
-Send the idea and the site writes the statics with its own AI, following the brand facts, the Plan of Action and the house rules:
+## 1. Read the house rules and what already exists
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/generate \
-  -H "content-type: application/json" -H "x-silt-name: <your name>" \
-  -d '{"idea":"<the idea>","count":6,"funnel":"auto","product":"auto"}'
+curl -s https://silt-static-engine.pages.dev/api/queue
 ```
 
-- `count`: 1 to 30.
-- `funnel`: auto, TOFU, MOFU, BOFU or RET.
-- `product`: auto, mornings, nights or combo.
+The reply has:
+- `ideas`: the ideas waiting (oldest first), each with `id`, `idea`, `count`, `funnel`, `product`, `asked_by`, and `already_made_for_this_idea`.
+- `house_rules`: Abhishek's rules. **They override everything below.**
+- `brief`: what the engine already has. It lists what the team approved (keep the spirit, find new situations) and what was rejected (avoid anything like it). It also gives every existing line (never repeat one), past ideas, the least-used formats, and new angles to explore.
+- `need_images`: statics that already have your prompt but still need ChatGPT's image (for the person to hand to ChatGPT).
 
-The reply lists the statics it made. Tell the person to open the Approval tab to review them.
-
-Writing them yourself (below) gives better statics: prefer that.
-
-## Preferred: write the statics yourself
-
-Post each static as JSON:
+No ideas waiting? Ask the person for one, or pick an angle from the brief nobody has covered, and send it to the queue yourself:
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/items \
-  -H "content-type: application/json" -H "x-silt-name: <your name>" \
-  -d '{"kind":"static","status":"approval","doc":{ ... }}'
+curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-name: <your name>" \
+  -d '{"kind":"idea","status":"waiting","doc":{"text":"<the idea>","count":6,"funnel":"auto","product":"auto","made":[]}}'
 ```
 
-A doc always has these fields:
-
-- `t`: the format
-- `funnel`: TOFU, MOFU, BOFU or RET
-- `product`: mornings, nights or combo
-- `concept`: 2 to 4 words
-- `slug`: short-words-with-dashes
-- an optional `cta` of up to 5 words
-- the text keys of its format
-
-**Our signature format is `problemsolution`, our version of a before/after.** Use it for about half of everything.
+## 2. Claim the idea, so nobody else works on it
 
 ```
-{"t":"problemsolution","funnel":"TOFU","product":"nights","concept":"Late nights","slug":"late-nights",
- "scene_problem":"night-phone","scene_solution":"product","problem":"1 AM. Still wide awake.","solution":"SILT Nights. Log off."}
+curl -s -X PUT https://silt-static-engine.pages.dev/api/items/<idea id> -H "content-type: application/json" -H "x-silt-name: <your name>" -d '{"status":"working"}'
 ```
 
-- `scene_problem` and `scene_solution` take one of the scene keys below, or `product` (the stick on brand colour), or `jars` (the supplement shelf).
-- The solution side shows the SILT ritual. Never show a promised result.
+## 3. Think, then write each static
 
-**Other formats and their text keys:**
+Make `count` statics (default 6). Each one is a **different moment, a different person and a different format**, and nothing on the brief's lists may repeat. Use Indian characters, with Indian women as the lead in many of them. Never invent a customer quote, review, rating or result.
+
+Save each static under the idea (`idea_id`). Your review is the `status`: `"approved"` if it's good (it shows as **AI approved**), `"rejected"` if it isn't (**AI rejected**). Put the reason in `ai_note`.
+
+```
+curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-name: <your name>" -d '{
+  "kind":"static", "status":"approved",
+  "doc":{
+    "idea_id":"<idea id>",
+    "t":"scene", "funnel":"TOFU", "product":"nights", "concept":"Tax season", "cta":"Try Nights",
+    "scene":"ceiling-2am", "headline":"ITR filed. *Mind still filing.*", "sub":"SILT Nights. Log off properly.",
+    "chatgpt_prompt":"<the full prompt for ChatGPT, see below>",
+    "ai_note":"New persona (CA in tax season), new line, on brand."
+  }}'
+```
+
+- `t` and its text keys (the table below) make the site's **preview** of the static until ChatGPT's image arrives. Wrap a word in `*stars*` to highlight it.
+- `chatgpt_prompt` must be complete enough for ChatGPT to make the **finished** static on its own:
+  - the size: 1080 x 1350 (4:5)
+  - every word to print, in quotes, exactly as written
+  - who is in the picture: Indian; age; man or woman; what they wear; where they are; their expression
+  - the layout: where the words and the person go
+  - SILT's look: clean and warm. Mornings is sunrise yellow and orange, Nights is deep navy blue.
+  - always end it with: *"Place the SILT pack from the attached image in the lower right, about a third of the image height, on a soft shadow. Don't redraw the logo or add any other text."*
+
+  The site adds a download link for the real pack image when the team copies the prompt.
+
+After the last static, the idea shows as briefed on the site. Tell the person:
+- how many statics you made
+- that they are on the Ideas tab
+- that they now go to ChatGPT: *Copy for ChatGPT* on each static, then *⬆ Image* to upload the result
+- that they then tick ✓ or cross ✕
+
+**No network from your Claude?** On the site, an idea's *Copy for Claude* button gives you the same brief as one prompt. Reply with `{"statics":[...]}`, each static with the fields above plus `"review": {"ok": true|false, "note": "..."}`. The person pastes your reply with *Paste Claude's reply*.
+
+## Formats and their text keys (for the preview)
+
+**Our signature format is `problemsolution`, our version of a before / after.** Use it often, but not for every static.
+
+```
+{"t":"problemsolution","scene_problem":"night-phone","scene_solution":"product","problem":"1 AM. Still wide awake.","solution":"SILT Nights. Log off."}
+```
 
 | Format | Text keys |
 |---|---|
+| problemsolution | problem, solution, scene_problem (a scene key or "jars"), scene_solution ("product") |
 | scene | headline, sub, scene |
 | meme | top, bottom, scene_a, scene_b |
 | poll | kicker, question, options (3 or 4) |
@@ -89,46 +95,25 @@ A doc always has these fields:
 | notes | title, items (list), last |
 | chat | with, msgs (list of {t, me}) |
 | email | from, subject, lines (list), sig |
+| calendar | title, items |
+| checklist | title, items |
 | statement | kicker, headline, sub |
 | newscard | dateline, headline, good |
 | offer | kicker, headline, code, sub |
 | mistakes | headline, items, turn |
 | vs | headline, us, them, rows ([label, 1/0, 1/0]) |
 
-**Scene keys:**
+Scene keys for the preview photo: tired-3pm, ceiling-2am, mug-calm, jar-january, founder-2am, night-phone, pillow-office, bear, awake-eyes, peek-blanket, eye-bw, pillow-hug, ugly-sleep, onesie, cloud, morning-light, deep-dark, outdoors, eye-mask, brain-glow, line-drawn, blinds, curled-night, peek-blinds, purple-top, clay-tired. These are all men or nobody. When your static needs a woman, say so in the ChatGPT prompt; ChatGPT's image replaces the preview photo.
 
-| Key | Shows |
-|---|---|
-| night-phone | doomscrolling at night |
-| pillow-office | working on a pillow |
-| bear | curled up under a blanket |
-| yawn-duvet | tired morning |
-| tired-sitting | woke up exhausted |
-| awake-eyes | lying awake |
-| peek-blanket | can't sleep |
-| pillow-hug | funny |
-| ugly-sleep | deep sleep |
-| onesie | funny |
-| cloud | calm |
-| morning-light | not ready for the day |
-| deep-dark | deep sleep |
-| city-sunset | letting go |
-| eye-mask | — |
-| blinds | — |
-| curled-night | — |
-| brain-glow | — |
-| baby-sleep | — |
-| outdoors | — |
+## Publishing finished images you already have
 
-## Publishing finished images (made in Canva, ChatGPT, Photoshop, or by you)
-
-Upload them as they are; no AI rewrite. One static takes up to 3 files, its 4:5, 1:1 and 9:16 versions. Each image can be at most 1.9 MB; use JPG. Everything goes to the Approval tab.
+Upload them as they are. One static takes up to 3 files (its 4:5, 1:1 and 9:16 versions), each at most 1.9 MB as a JPG. They go to Team Approval.
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-name: <your name>"   -F title="Pillow not office" -F funnel=TOFU -F product=nights -F concept="Relatable"   -F file=@pillow_4x5.jpg -F file=@pillow_9x16.jpg
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-name: <your name>" -F title="Pillow not office" -F funnel=TOFU -F product=nights -F file=@pillow_4x5.jpg -F file=@pillow_9x16.jpg
 ```
 
-The site reads each image's size itself. To add new scene photos for the engine's own statics, ask Ashutosh: they live in static-engine/assets/scenes and SCENES in engine.js, and need a deploy.
+To put ChatGPT's image onto a static you wrote, add `-F static_id=<static id>`. It then becomes that static's image.
 
 ## The rules every static follows
 
@@ -145,7 +130,7 @@ The site reads each image's size itself. To add new scene photos for the engine'
 - Pillars: Adherence and Trust.
 - TOFU, MOFU and BOFU say "Replaces the stack". RET (existing customers) is about the ritual, with no discount push.
 
-**Product placement (Abhishek's rules):** the engine places the pack for you. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. In 9:16 everything stays between 230 and 1165 px from the top.
+**Product placement (Abhishek's rules):** the engine places the pack in its previews, and your ChatGPT prompt must ask for the same. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. In 9:16 everything stays between 230 and 1165 px from the top.
 
 **People:** every person, name and setting is Indian: Indian faces, names like Priya, Rohan, Ananya or Arjun, and Indian moments (chai, autos, Bengaluru traffic, Diwali, wedding season, back-to-back calls).
 

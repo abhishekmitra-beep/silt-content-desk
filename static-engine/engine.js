@@ -50,6 +50,10 @@ export const SCENES = {
   "clay-tired":    { file: "WA0027.jpg", pos: "bottom", mood: "clay figure sitting tired in bed, zombie-like" }
 };
 const scene = (A, k) => A + "scenes/" + (SCENES[k] || SCENES["night-phone"]).file;
+// A photo made for this static (e.g. by ChatGPT from the static's photo brief) and uploaded to the site replaces the
+// library scene photo. Only the site's own file URLs are used.
+const okPhoto = p => typeof p === "string" && /^\/api\/file\/F[0-9a-z]+$/.test(p);
+const photoOr = (s, A, k, which = "photo") => okPhoto(s[which]) ? s[which] : scene(A, k);
 
 export const PRODUCTS = {
   mornings: { box: "mornings_box_cut.png", boxstick: "mornings_boxstick_cut.png", stick: "mornings_stick_cut.png" },
@@ -132,7 +136,7 @@ const T = {
   offer: s => `<div class="offer"><div class="kick">${esc(s.kicker)}</div><h1 class="huge">${rich(s.headline)}</h1><div class="code"><span>CODE</span><b>${esc(s.code)}</b></div>${s.sub ? `<p class="lede c">${rich(s.sub)}</p>` : ""}</div>`,
   // AM / PM split ritual
   // Relatable scene: a real-life moment, words on the photo; the pack stands beside the person, lower right, as the answer
-  scene: s => { const pos = s.product === "combo" ? "top" : (SCENES[s.scene] || {}).pos === "bottom" ? "bottom" : "top"; return `<div class="scenebg" style="background-image:url('${scene(s._A, s.scene)}')"></div><div class="scenefade ${pos === "bottom" ? "b" : "t"}"></div>
+  scene: s => { const pos = s.product === "combo" ? "top" : (SCENES[s.scene] || {}).pos === "bottom" ? "bottom" : "top"; return `<div class="scenebg" style="background-image:url('${photoOr(s, s._A, s.scene)}')"></div><div class="scenefade ${pos === "bottom" ? "b" : "t"}"></div>
     <div class="scenetext ${pos === "bottom" ? "b" : "t"}"><h1 class="huge">${rich(s.headline)}</h1>${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`; },
   // PROBLEM | SOLUTION (our take on the before/after split): a relatable problem moment next to the SILT ritual.
   // A side can be a scene photo, or "product" (brand colour + the stick) or "jars" (the supplement shelf).
@@ -140,6 +144,7 @@ const T = {
     const side = (kind, sc, lab, line) => {
       const p = s.product === "combo" ? null : s.product;
       const inner = sc === "product" ? `<div class="pspanel ${s.product}">${packHTML(s.product, s._A, "inpanel")}</div>`
+        : okPhoto(s.photo) && kind === "prob" ? `<div class="psimg" style="background-image:url('${s.photo}')"></div>`
         : sc === "jars" ? `<div class="pspanel jarsbg"><div class="jars">${"<i></i>".repeat(6)}</div></div>`
         : `<div class="psimg" style="background-image:url('${scene(s._A, sc)}')"></div>`;
       return `<div class="ps ${kind}">${inner}<span class="pstag ${kind}">${esc(lab)}</span><div class="psline">${rich(line)}</div></div>`;
@@ -147,7 +152,7 @@ const T = {
     return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "Problem", s.problem)}${side("sol", "product", s.label_solution || "Solution", s.solution)}</div>`;
   },
   // Two-panel meme: two moments, two captions
-  meme: s => `<div class="meme"><div class="mcol">${[["a", s.top, s.scene_a], ["b", s.bottom, s.scene_b]].map(([k, cap, sc]) => `<div class="mp"><div class="mimg" style="background-image:url('${scene(s._A, sc)}')"></div><div class="mcap">${rich(cap)}</div></div>`).join("")}</div>${packHTML(s.product, s._A, "beside")}</div>`,
+  meme: s => `<div class="meme"><div class="mcol">${[["a", s.top, s.scene_a], ["b", s.bottom, s.scene_b]].map(([k, cap, sc]) => `<div class="mp"><div class="mimg" style="background-image:url('${photoOr(s, s._A, sc, k === "a" ? "photo" : "photo_b")}')"></div><div class="mcap">${rich(cap)}</div></div>`).join("")}</div>${packHTML(s.product, s._A, "beside")}</div>`,
   // Relatable poll / quiz (no product): a question and 3 or 4 answers
   poll: s => `<div class="poll"><div class="kick">${esc(s.kicker || "Be honest")}</div><h1 class="top">${rich(s.question)}</h1>${s.options.map((o, i) => `<div class="opt"><span>${"ABCD"[i]}</span>${rich(o)}</div>`).join("")}${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`,
   ritual: s => `<h1 class="top c">${rich(s.headline)}</h1><div class="split"><div class="am"><span class="lab">${esc(s.am)}</span><img src="${s._A}mornings_boxstick_cut.png" alt="SILT Mornings box and stick"><p>${rich(s.amline)}</p></div><div class="pm"><span class="lab">${esc(s.pm)}</span><img src="${s._A}nights_boxstick_cut.png" alt="SILT Nights box and stick"><p>${rich(s.pmline)}</p></div></div>`
@@ -276,7 +281,7 @@ export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
 export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66"];
-const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source"]);
+const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.
 export function checkCopy(s) {

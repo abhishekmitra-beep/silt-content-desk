@@ -40,9 +40,10 @@ export async function buildBrief(env, { maxLines = 90 } = {}) {
   const ideas = [...new Set(ideaRows.map(r => { try { const d = JSON.parse(r.doc); return String(d.text || d.title || "").trim(); } catch { return ""; } }).filter(Boolean))].slice(0, 40);
   const decided = Object.fromEntries(items.filter(i => i.kind === "decision").map(i => [i.doc.id, i.status]));
   const all = [];
+  // Newest first: what the team and the AI made lately matters most for "don't repeat".
+  for (const i of items.filter(i => i.kind !== "decision")) all.push({ src: i.kind, t: i.doc.t || "image", funnel: i.doc.funnel, product: i.doc.product, line: line(i.doc), status: i.status });
   for (const s of STATICS) all.push({ src: "built-in", t: s.t, funnel: s.funnel, product: s.product, line: line(s), status: decided[s.id] || "pending" });
   for (const l of LIBRARY) all.push({ src: "library", t: "image", funnel: l.funnel, product: l.product, line: l.title, status: decided[l.id] || "pending" });
-  for (const i of items.filter(i => i.kind !== "decision")) all.push({ src: i.kind, t: i.doc.t || "image", funnel: i.doc.funnel, product: i.doc.product, line: line(i.doc), status: i.status });
   const good = all.filter(x => x.status === "approved" || x.status === "ai_approved");
   const bad = all.filter(x => x.status === "rejected" || x.status === "ai_rejected");
   const seen = new Set(), existing = [];
@@ -56,6 +57,7 @@ export async function buildBrief(env, { maxLines = 90 } = {}) {
     approved: good.slice(0, 25).map(x => `[${x.funnel}/${x.product}/${x.t}${x.status === "ai_approved" ? ", AI-approved" : ""}] ${x.line}`),
     rejected: bad.slice(0, 20).map(x => `[${x.funnel}/${x.t}${x.status === "ai_rejected" ? ", AI-rejected" : ""}] ${x.line}`),
     existing: existing.slice(0, maxLines),
+    all_lines: existing,
     least_used_formats: byUse.slice(0, 6).map(([t, n]) => `${t} (${n})`),
     most_used_formats: byUse.slice(-4).reverse().map(([t, n]) => `${t} (${n})`),
     ideas,
@@ -63,6 +65,29 @@ export async function buildBrief(env, { maxLines = 90 } = {}) {
     lenses: LENSES
   };
 }
+
+// Near-copy check: two lines that share most of their meaningful words are the same idea.
+const STOP = new Set("the a an and or of to in on for is it you your with ek ka ki ke ko se hai ho bas aur me main".split(" "));
+export const words = t => new Set(String(t || "").toLowerCase().replace(/\*/g, "").replace(/[^a-z0-9ऀ-ॿ ]+/g, " ").split(/\s+/).filter(w => w.length > 1 && !STOP.has(w)).map(w => w.length > 3 ? w.replace(/s$/, "") : w));
+// Moments the AI keeps falling back on. One static per moment in a batch, so a batch can't be four "3 PM slump"s.
+export const TOPICS = {
+  "the 3 PM slump": /\b3\s*(pm|baje)\b|3 o.?clock|afternoon slump|post.?lunch/i,
+  "1-2 AM awake": /\b(1|2|3)\s*am\b|\b(1|2)\s*baje raat|midnight|raat ke (1|2|do|ek)/i,
+  "the supplement jars / bottles": /supplement|\bjars?\b|bottles?|\bpills?\b|tablets?/i,
+  "the snooze button / alarm": /snooze|alarm/i,
+  "phone scrolling in bed": /scroll|phone|reels?\b|sleep mode/i,
+  "chai / coffee": /\bchai\b|coffee/i,
+  "doses on the pack / label": /\bdoses?\b|label|pack pe|blend/i,
+  "melatonin": /melatonin/i,
+  "the discount / COMBO10": /\d+\s*%|combo10|discount/i
+};
+export const topicsOf = t => Object.keys(TOPICS).filter(k => TOPICS[k].test(String(t || "")));
+export function similar(a, b) {
+  const A = words(a), B = words(b); if (!A.size || !B.size) return false;
+  let n = 0; for (const w of A) if (B.has(w)) n++;
+  return n / Math.max(A.size, B.size) >= 0.6 && n >= 2;   // most of BOTH lines is the same words
+}
+export { line as headLine };
 
 export function pickLenses(n = 3) {
   const a = [...LENSES]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }

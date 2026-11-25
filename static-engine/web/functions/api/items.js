@@ -1,6 +1,7 @@
 import { ensure } from "./_db.js";
 import { asActor } from "./items/[id].js";
 import { checkCopy, wordCount, TEXT_LIMIT } from "../../public/engine.js";
+import { buildBrief, similar, headLine } from "./_brief.js";
 // The Checker: every static saved here (from the site, or from someone's own Claude / ChatGPT) gets the copy rules applied.
 function checker(doc) {
   try { const f = checkCopy(doc); const w = wordCount(doc); if (w > TEXT_LIMIT.max) f.push(w + " words: too texty, trim it."); if (f.length) doc.flags = f; else delete doc.flags; } catch {}
@@ -27,6 +28,15 @@ export async function onRequestPost({ request, env, data }) {
   const kind = String(body.kind || ""), doc = body.doc;
   if (!KINDS.has(kind) || !doc || typeof doc !== "object" || Array.isArray(doc)) return Response.json({ error: "Need kind and doc" }, { status: 400 });
   if (kind === "static" || kind === "override") checker(doc);
+  // A static written for an idea (by someone's Claude) is filed under that idea, and flagged if it repeats an existing line.
+  let idea = null;
+  if (kind === "static" && doc.idea_id) {
+    const row = await env.DB.prepare("SELECT id, doc, status FROM se_items WHERE id = ? AND kind = 'idea'").bind(String(doc.idea_id)).first();
+    if (!row) return Response.json({ error: "No idea with id " + doc.idea_id + ". Read GET /api/queue for the ideas waiting." }, { status: 400 });
+    idea = { ...row, doc: JSON.parse(row.doc) };
+    if (!doc.source) doc.source = String(idea.doc.text || "").slice(0, 200);
+    try { const b = await buildBrief(env, { maxLines: 10 }); const l = headLine(doc); const hit = l && b.all_lines.find(x => similar(x, l)); if (hit) (doc.flags = doc.flags || []).push("Close to an existing static: " + hit); } catch {}
+  }
   const text = JSON.stringify(doc);
   if (text.length > MAX) return Response.json({ error: "Too long" }, { status: 413 });
   let id;
@@ -42,7 +52,8 @@ export async function onRequestPost({ request, env, data }) {
     doc.id = kind === "idea" ? id : (doc.id && /^N[0-9a-z]+$/.test(doc.id) ? doc.id : id);
     if (kind === "static") id = doc.id;
   }
-  let status = ["draft", "changes", "approval", "approved", "ai_approved"].includes(body.status) || (kind === "decision" && ["rejected", "ai_rejected"].includes(body.status)) ? body.status : (kind === "idea" ? "active" : "draft");
+  let status = kind === "idea" ? (["waiting", "working", "briefed", "active"].includes(body.status) ? body.status : "active")
+    : ["draft", "changes", "approval", "approved", "ai_approved"].includes(body.status) || ((kind === "decision" || kind === "static") && ["rejected", "ai_rejected"].includes(body.status)) ? body.status : "draft";
   if (kind !== "idea") status = asActor(status, data.actor);
   if (data.actor !== "team" && (kind === "decision" || kind === "override")) {
     const prev = await env.DB.prepare("SELECT status FROM se_items WHERE id = ?").bind(id).first();
@@ -52,5 +63,10 @@ export async function onRequestPost({ request, env, data }) {
   await env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET doc = excluded.doc, status = excluded.status, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
     .bind(id, kind, JSON.stringify(doc), status, who, who, now, now).run();
+  if (idea) {
+    const made = [...new Set([...(idea.doc.made || []), id])];
+    await env.DB.prepare("UPDATE se_items SET doc = ?, status = ?, updated_by = ?, updated_at = ? WHERE id = ?")
+      .bind(JSON.stringify({ ...idea.doc, made, briefed_by: who }), "briefed", who, now, idea.id).run();
+  }
   return Response.json({ id, kind, doc, status, created_by: who, updated_by: who, updated_at: now });
 }

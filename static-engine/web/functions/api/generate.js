@@ -6,7 +6,7 @@
 import { ensure } from "./_db.js";
 import { BRAND_BRIEF, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, META_FIELDS } from "../../public/engine.js";
 import { STATICS } from "../../public/statics.js";
-import { buildBrief, briefText, pickLenses } from "./_brief.js";
+import { buildBrief, briefText, pickLenses, similar, topicsOf, headLine } from "./_brief.js";
 
 const TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 const FALLBACK_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
@@ -26,8 +26,10 @@ const PLAN = `PLAN OF ACTION (SILT's own):
 - LESS TEXT: about ${TEXT_LIMIT.good} words per static, ${TEXT_LIMIT.max} at most, call to action included.
 - Tone: friend, not parent. Tongue-in-cheek, corporate puns welcome. Never fear-based.`;
 
-const EXAMPLES = ["T15", "T17", "T16", "T10", "T12", "T13", "R11", "B08"].map(id => STATICS.find(s => s.id === id)).filter(Boolean)
-  .map(s => JSON.stringify(Object.fromEntries(Object.entries(s).filter(([k]) => !["id", "slug", "format", "check", "theme", "shot"].includes(k))))).join("\n");
+// A different handful of examples each call, so the AI doesn't keep echoing the same few.
+const EXAMPLE_POOL = ["T15", "T17", "T16", "T10", "T12", "T13", "R11", "B08", "T14", "M03", "M07", "R03", "R07", "B03"].map(id => STATICS.find(s => s.id === id)).filter(Boolean)
+  .map(s => JSON.stringify(Object.fromEntries(Object.entries(s).filter(([k]) => !["id", "slug", "format", "check", "theme", "shot"].includes(k)))));
+const examples = (n = 5) => [...EXAMPLE_POOL].sort(() => Math.random() - 0.5).slice(0, n).join("\n");
 const sceneList = Object.entries(SCENES).map(([k, v]) => `${k}: ${v.mood}`).join("\n");
 
 function extractJson(t) {
@@ -83,10 +85,10 @@ Each static is a JSON object with "t" (the format), "funnel", "product", "concep
 ${Object.entries(SKEL).map(([t, k]) => t + ": " + JSON.stringify(k)).join("\n")}
 For "problemsolution" set scene_problem and scene_solution to a scene key, "product" or "jars". For "scene" and "meme" pick scene keys from this list:\n${sceneList}
 GOOD EXAMPLES (match this quality: specific, witty, short, every text key filled with NEW words about the idea):
-${EXAMPLES}
+${examples()}
 Every static must be clearly about the IDEA. Write fresh words for every text key; never reuse the example lines. The product named in the copy must match "product".
 Reply with ONLY {"idea": "...", "statics": [ ...${n} objects... ]}.`;
-  const call = model => env.AI.run(model, { messages: [{ role: "system", content: sys }, { role: "user", content: user }], max_tokens: Math.min(4096, 300 * n + 500), temperature: 0.7, response_format: { type: "json_object" } });
+  const call = model => env.AI.run(model, { messages: [{ role: "system", content: sys }, { role: "user", content: user }], max_tokens: Math.min(4096, 300 * n + 500), temperature: 0.85, response_format: { type: "json_object" } });
   let out, used = TEXT_MODEL;
   try { out = await call(TEXT_MODEL); } catch (e) { used = FALLBACK_MODEL + " (main model failed: " + String(e.message || e).slice(0, 80) + ")"; out = await call(FALLBACK_MODEL); }
   writeStatics.lastModel = used;
@@ -113,43 +115,103 @@ export async function onRequestPost({ request, env, data }) {
   const rulesRow = await env.DB.prepare("SELECT doc FROM se_items WHERE id = 'house-rules'").first();
   const rules = rulesRow ? (JSON.parse(rulesRow.doc).rules || []).map(r => r.text) : [];
 
-  // What already exists (approved, rejected, every line, past ideas, format use) + new angles to explore.
-  let briefTxt = "", lenses = pickLenses(explore ? 4 : 3);
-  try { briefTxt = briefText(await buildBrief(env, { maxLines: 90 }), lenses); } catch (e) { briefTxt = ""; }
-  let explored = "";
+  // What already exists (approved, rejected, every line newest first, past ideas, format use) + new angles to explore.
+  let brief = null; try { brief = await buildBrief(env, { maxLines: 120 }); } catch (e) { brief = null; }
+  const lenses = pickLenses(explore ? 4 : 3);
+  const briefTxt = brief ? briefText(brief, lenses) : "";
+
+  // The same idea typed again, or "Generate more" on an idea: add to that idea, and show the AI what it already made for it.
+  const ideaRows = (await env.DB.prepare("SELECT id, doc FROM se_items WHERE kind = 'idea' AND status != 'archived' ORDER BY updated_at DESC LIMIT 300").all()).results.map(r => ({ id: r.id, doc: JSON.parse(r.doc) }));
+  const norm = t => String(t || "").toLowerCase().replace(/\s+/g, " ").trim();
+  let target = body.more_of ? ideaRows.find(r => r.id === body.more_of) || null : null;
+  if (!target && idea && !image) target = ideaRows.find(r => norm(r.doc.text) === norm(idea)) || null;
+  if (target && !idea) idea = target.doc.text;
+  const prevIds = target ? (target.doc.made || []).slice(-90) : [];
+  const prev = prevIds.length ? (await env.DB.prepare(`SELECT doc FROM se_items WHERE id IN (${prevIds.map(() => "?").join(",")})`).bind(...prevIds).all()).results.map(r => JSON.parse(r.doc)) : [];
+
   let imageNote = "";
   if (image) { try { imageNote = await describeImage(env, image); } catch (e) { imageNote = ""; } }
 
-  // Write in batches of up to 10 so long lists don't get cut off.
-  const raw = [];
-  for (let left = count; left > 0; left -= 10) {
-    // Explore: the first batch invents the idea; later batches build on that same idea.
-    try { const got = await writeStatics(env, { idea: idea || explored, imageNote, n: Math.min(10, left), funnel, product, rules, brief: briefTxt }); raw.push(...got); if (explore && !idea && !explored && got.idea) explored = got.idea; }
-    catch (e) { if (!raw.length && left === count) return Response.json({ error: "The AI couldn't write statics this time (" + String(e.message || e).slice(0, 160) + "). Try again, or use your own Claude / ChatGPT below." }, { status: 502 }); }
+  // Repeat guard. Drops a static that (a) copies a line the engine already has, (b) reuses a scene already used in this
+  // run, (c) repeats a format + scene pair already made for this idea, or (d) is a second static about the same moment
+  // (3 PM, 1 AM, the supplement jars...) in this run. Then asks the AI again for the missing ones.
+  const sceneKey = s => { const k = s.scene || s.scene_problem || s.scene_a || ""; return k === "product" ? "" : k; };
+  const existingLines = brief ? brief.all_lines : [];
+  const prevCombos = new Set(prev.filter(sceneKey).map(s => s.t + "|" + sceneKey(s)));
+  const prevTopics = [...new Set(prev.flatMap(s => topicsOf(headLine(s) + " " + sceneKey(s))))];
+  const prevScenes = [...new Set(prev.map(sceneKey).filter(Boolean))];
+  const usedTopics = new Set(), usedScenes = new Set(), runLines = [];
+  const whyDrop = s => {
+    const l = headLine(s), sk = sceneKey(s);
+    // No made-up proof: a customer quote, review or "verified customer" line is only allowed if it's the one real review.
+    const all = JSON.stringify(s);
+    if ((s.t === "review" || /verified (customer|buyer)|customer review|helped me|real people, real results/i.test(all)) && !/taste of silt night is really amazing/i.test(all)) return "made-up customer review";
+    if (l && [...runLines, ...existingLines].some(x => similar(x, l))) return "repeated a line that already exists";
+    if (sk && usedScenes.has(sk)) return "same photo twice in one batch";
+    if (sk && prevCombos.has(s.t + "|" + sk)) return "same format and photo as before for this idea";
+    if (topicsOf(l + " " + sk).some(t => usedTopics.has(t))) return "same moment twice in one batch";
+    return "";
+  };
+  const avoidText = () => [
+    prev.length ? `ALREADY MADE FOR THIS IDEA (${prev.length} statics). Make completely DIFFERENT ones: new situations, new formats, new photos, new words:\n  ${prev.map(s => `[${s.t}${sceneKey(s) ? ", " + sceneKey(s) : ""}] ${headLine(s)}`).join("\n  ")}` : "",
+    prevTopics.length ? `Moments this idea already covered (pick OTHER moments): ${prevTopics.join(", ")}.` : "",
+    prevScenes.length ? `Scene photos this idea already used (pick other scene keys): ${prevScenes.join(", ")}.` : "",
+    runLines.length ? `ALREADY WRITTEN IN THIS RUN (don't repeat any): ${runLines.join(" | ")}` : "",
+    usedTopics.size ? `Moments already taken in this run: ${[...usedTopics].join(", ")}.` : "",
+    "NEVER invent a customer quote, review, testimonial, rating or result. Don't use the review format.",
+    "IN THIS BATCH every static is a different moment, a different situation and a different scene photo. Never two about the same moment (no two about 3 PM, no two about supplement jars, no two about 1 AM scrolling). Mix the formats."
+  ].filter(Boolean).join("\n");
+
+  const ideaId = target ? target.id : "I" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const made = [], dropped = [];
+  let explored = "", written = 0, attempts = 0;
+  const maxAttempts = Math.ceil(count / 10) + 4;
+  while (made.length < count && attempts < maxAttempts) {
+    attempts++;
+    const need = count - made.length, ask = Math.min(10, need + 3);   // ask for a few extra: repeats get dropped
+    let got;
+    try { got = await writeStatics(env, { idea: idea || explored, imageNote, n: ask, funnel, product, rules, brief: briefTxt + "\n\n" + avoidText() }); }
+    catch (e) {
+      if (!made.length && attempts === 1) return Response.json({ error: "The AI couldn't write statics this time (" + String(e.message || e).slice(0, 160) + "). Try again, or use your own Claude / ChatGPT below." }, { status: 502 });
+      break;
+    }
+    written += got.length;
+    if (explore && !idea && !explored && got.idea) explored = got.idea;
+    const source = idea || "Explored: " + (explored || "something new");
+    for (const x of got) {
+      if (made.length >= count) break;
+      const s = normalise(x, { funnel, product });
+      const base = STATICS.find(b => b.t === s.t);
+      const textKeys = Object.keys(SKEL[s.t] || {}).filter(k => typeof base[k] === "string" && !k.startsWith("scene"));
+      if (textKeys.length && textKeys.every(k => s[k] === base[k])) { dropped.push("left the example text"); continue; }
+      const why = whyDrop(s); if (why) { dropped.push(why); continue; }
+      const l = headLine(s), sk = sceneKey(s);
+      if (l) runLines.push(l); if (sk) usedScenes.add(sk); for (const t of topicsOf(l + " " + sk)) usedTopics.add(t);
+      if (product === "auto") { const txt = JSON.stringify(x); const m = /mornings/i.test(txt), ni = /nights/i.test(txt); if (m && !ni) s.product = "mornings"; else if (ni && !m) s.product = "nights"; else if (m && ni) s.product = "combo"; }
+      const id = "G" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      s.id = id; s.slug = (s.concept || "idea").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 30) || "idea";
+      s.idea_id = ideaId; s.source = source.slice(0, 200);
+      const flags = checkCopy(s), w = wordCount(s);
+      if (w > TEXT_LIMIT.max) flags.push(`${w} words: too texty, trim it.`);
+      if (flags.length) s.flags = flags;
+      await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'static', ?, 'approval', ?, ?, ?, ?)")
+        .bind(id, JSON.stringify(s), who, who, now, now).run();
+      made.push({ id, kind: "static", doc: s, status: "approval", created_by: who, updated_by: who, updated_at: now });
+    }
   }
 
   if (!idea && explore) idea = "Explored: " + (explored || "something new");
-  const ideaId = "I" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-  const made = [];
-  for (const x of raw.slice(0, count)) {
-    const s = normalise(x, { funnel, product });
-    const base = STATICS.find(b => b.t === s.t);
-    const textKeys = Object.keys(SKEL[s.t] || {}).filter(k => typeof base[k] === "string" && !k.startsWith("scene"));
-    if (textKeys.length && textKeys.every(k => s[k] === base[k])) continue;   // the AI left the example text in place
-    if (product === "auto") { const txt = JSON.stringify(x); const m = /mornings/i.test(txt), ni = /nights/i.test(txt); if (m && !ni) s.product = "mornings"; else if (ni && !m) s.product = "nights"; else if (m && ni) s.product = "combo"; }
-    const id = "G" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-    s.id = id; s.slug = (s.concept || "idea").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 30) || "idea";
-    s.idea_id = ideaId; s.source = idea.slice(0, 200);
-    const flags = checkCopy(s), w = wordCount(s);
-    if (w > TEXT_LIMIT.max) flags.push(`${w} words: too texty, trim it.`);
-    if (flags.length) s.flags = flags;
-    await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'static', ?, 'approval', ?, ?, ?, ?)")
-      .bind(id, JSON.stringify(s), who, who, now, now).run();
-    made.push({ id, kind: "static", doc: s, status: "approval", created_by: who, updated_by: who, updated_at: now });
-  }
   const thumb = typeof body.thumb === "string" && body.thumb.startsWith("data:image/") && body.thumb.length < 120_000 ? body.thumb : null;
-  const ideaDoc = { id: ideaId, text: idea, image: thumb, image_note: imageNote.slice(0, 1200), count, funnel, product, made: made.map(m => m.id), rules_used: rules.length, lenses, explored: explore };
-  await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'idea', ?, 'active', ?, ?, ?, ?)")
-    .bind(ideaId, JSON.stringify(ideaDoc), who, who, now, now).run();
-  return Response.json({ idea: { id: ideaId, kind: "idea", doc: ideaDoc, status: "active", created_by: who, updated_at: now }, statics: made, info: { model: writeStatics.lastModel, written: raw.length, kept: made.length, raw: body.debug ? raw.slice(0, 4) : undefined } });
+  let ideaDoc;
+  if (target) {
+    ideaDoc = { ...target.doc, made: [...(target.doc.made || []), ...made.map(m => m.id)], count: (target.doc.count || 0) + count, rules_used: rules.length, lenses };
+    await env.DB.prepare("UPDATE se_items SET doc = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(ideaDoc), who, now, ideaId).run();
+  } else {
+    ideaDoc = { id: ideaId, text: idea, image: thumb, image_note: imageNote.slice(0, 1200), count, funnel, product, made: made.map(m => m.id), rules_used: rules.length, lenses, explored: explore };
+    await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'idea', ?, 'active', ?, ?, ?, ?)")
+      .bind(ideaId, JSON.stringify(ideaDoc), who, who, now, now).run();
+  }
+  const skipped = dropped.reduce((a, r) => (a[r] = (a[r] || 0) + 1, a), {});
+  return Response.json({ idea: { id: ideaId, kind: "idea", doc: ideaDoc, status: "active", created_by: target ? undefined : who, updated_at: now }, added_to_existing: !!target, statics: made,
+    info: { model: writeStatics.lastModel, written, kept: made.length, skipped, calls: attempts } });
 }

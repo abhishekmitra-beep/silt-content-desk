@@ -44,7 +44,7 @@ export async function onRequestPost({ request, env, data }) {
   try {
     if (ct.includes("multipart/form-data")) {
       const fd = await request.formData();
-      for (const k of ["title", "funnel", "product", "concept"]) meta[k] = fd.get(k) || "";
+      for (const k of ["title", "funnel", "product", "concept", "static_id"]) meta[k] = fd.get(k) || "";
       for (const f of fd.getAll("file")) if (f && typeof f.arrayBuffer === "function") files.push({ name: f.name, mime: f.type || "image/png", bytes: new Uint8Array(await f.arrayBuffer()) });
     } else {
       const body = await request.json();
@@ -72,6 +72,14 @@ export async function onRequestPost({ request, env, data }) {
     await env.DB.prepare("INSERT INTO se_files (id, mime, w, h, size, name, data, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
       .bind(fid, f.mime, d.w || null, d.h || null, f.bytes.length, String(f.name || fid).slice(0, 120), f.bytes, who, now).run();
     doc.files[key] = fid; doc.names[key] = String(f.name || fid).slice(0, 120);
+  }
+  // static_id: this image IS that static (ChatGPT made it from Claude's prompt). The static keeps its idea, copy and status.
+  if (meta.static_id) {
+    const row = await env.DB.prepare("SELECT id, doc, status FROM se_items WHERE id = ? AND kind = 'static'").bind(String(meta.static_id)).first();
+    if (!row) return Response.json({ error: "No static " + meta.static_id }, { status: 404 });
+    const sd = JSON.parse(row.doc); sd.files = doc.files; sd.names = doc.names; sd.made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
+    await env.DB.prepare("UPDATE se_items SET doc = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(sd), who, now, row.id).run();
+    return Response.json({ id: row.id, kind: "static", doc: sd, status: row.status, updated_by: who, updated_at: now });
   }
   const id = rid("U"); doc.id = id;
   await env.DB.prepare("INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'upload', ?, 'approval', ?, ?, ?, ?)")

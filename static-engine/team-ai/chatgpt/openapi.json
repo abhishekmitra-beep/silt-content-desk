@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "SILT Static Engine",
+    "title": "SILT Static Engine (generator)",
     "version": "1.0.0",
-    "description": "Make SILT Nutrition Meta ad statics and save them to the team's Static Engine."
+    "description": "Read the house rules and the statics Claude wrote that need an image."
   },
   "servers": [
     {
@@ -45,186 +45,49 @@
         }
       }
     },
-    "/api/generate": {
-      "post": {
-        "operationId": "generateStatics",
-        "summary": "Turn an idea into finished statics (the site writes them with its own AI and saves them for the team)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [],
-                "properties": {
-                  "idea": {
-                    "type": "string",
-                    "description": "The idea, in a sentence"
-                  },
-                  "count": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 30,
-                    "default": 6
-                  },
-                  "funnel": {
-                    "type": "string",
-                    "enum": [
-                      "auto",
-                      "TOFU",
-                      "MOFU",
-                      "BOFU",
-                      "RET"
-                    ],
-                    "default": "auto"
-                  },
-                  "product": {
-                    "type": "string",
-                    "enum": [
-                      "auto",
-                      "mornings",
-                      "nights",
-                      "combo"
-                    ],
-                    "default": "auto"
-                  },
-                  "explore": {
-                    "type": "boolean",
-                    "description": "true with no idea: the site's AI reads everything already made and explores a new angle"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The statics that were made",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/items": {
-      "post": {
-        "operationId": "saveStatic",
-        "summary": "Save one static you wrote yourself (it goes to the Approval tab)",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "kind",
-                  "doc"
-                ],
-                "properties": {
-                  "kind": {
-                    "type": "string",
-                    "enum": [
-                      "static"
-                    ]
-                  },
-                  "status": {
-                    "type": "string",
-                    "enum": [
-                      "approval"
-                    ],
-                    "default": "approval"
-                  },
-                  "doc": {
-                    "type": "object",
-                    "description": "The static: t (format), funnel, product, concept, slug, optional cta, and the format's text keys (see the GPT instructions)",
-                    "additionalProperties": true
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Saved",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/brief": {
+    "/api/queue": {
       "get": {
-        "operationId": "getBrief",
-        "summary": "Read what the engine already has (approved, rejected, every line, past ideas, format use) and suggested new angles, so new statics never repeat and explore new ground",
+        "operationId": "getQueue",
+        "summary": "The ideas waiting for Claude, and the statics Claude wrote that still need their image (need_images: static_id, headline, chatgpt_prompt, funnel, product)",
         "responses": {
           "200": {
-            "description": "The brief",
+            "description": "The queue",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "total": {
-                      "type": "integer"
+                    "need_images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "static_id": {
+                            "type": "string"
+                          },
+                          "idea_id": {
+                            "type": "string"
+                          },
+                          "headline": {
+                            "type": "string"
+                          },
+                          "chatgpt_prompt": {
+                            "type": "string"
+                          },
+                          "funnel": {
+                            "type": "string"
+                          },
+                          "product": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     },
-                    "approved": {
+                    "house_rules": {
                       "type": "array",
                       "items": {
                         "type": "string"
                       }
-                    },
-                    "rejected": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "existing": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "ideas": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "least_used_formats": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "most_used_formats": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "women_share": {
-                      "type": "string"
-                    },
-                    "suggested_angles": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "prompt": {
-                      "type": "string"
                     }
                   }
                 }

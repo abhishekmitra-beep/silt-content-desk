@@ -1,7 +1,7 @@
 import { ensure } from "../_db.js";
 // PUT /api/items/<id> {doc?, status?}  -> update a team static or idea (status: active | approved | made | archived)
 // DELETE /api/items/<id>               -> archive it (nothing is hard-deleted; an archived override restores the built-in static)
-const STATUSES = new Set(["active", "draft", "changes", "approval", "approved", "rejected", "ai_approved", "ai_rejected", "made", "archived"]);
+const STATUSES = new Set(["active", "draft", "changes", "approval", "approved", "rejected", "ai_approved", "ai_rejected", "made", "archived", "waiting", "working", "briefed"]);
 // An AI (any API caller that isn't a click on the site) can only give a verdict; it can't make a static live.
 export const asActor = (status, actor) => actor === "team" ? status : status === "approved" ? "ai_approved" : status === "rejected" ? "ai_rejected" : status;
 const MAX = 24000;

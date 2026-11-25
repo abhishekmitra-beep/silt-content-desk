@@ -29,7 +29,12 @@ details.own{margin-top:6px}details.own summary{cursor:pointer;font-size:13px;col
 .check{font-size:12.5px;background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:6px 8px}
 .dl{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}.dl .btn,.dl button{font-size:13px;padding:5px 10px}
 .idea{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:14px}.idea h3{margin:0 0 4px;font-size:17px}.idea .head{display:flex;gap:12px;align-items:flex-start}.idea .head img{width:64px;height:64px;object-fit:cover;border-radius:10px}
-.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}.strip .thumb{border-radius:10px;cursor:pointer}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:10px}
+.istat{display:flex;flex-direction:column;gap:5px}.istat.dropped{opacity:.45}.ist{font-size:12.5px;font-weight:600}.ist.ai_approved,.ist.approved{color:var(--ok)}.ist.ai_rejected,.ist.rejected{color:var(--warn)}
+.inote{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.istat .check{font-size:11.5px;padding:4px 6px}
+.tick{gap:5px;flex-wrap:wrap}.tick button,.tick .btn{padding:4px 10px;font-size:13px}.tick .ok{background:var(--ok-bg);color:var(--ok);font-weight:700}.tick .no{background:var(--warn-bg);color:var(--warn);font-weight:700}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:12px 0 4px}.flow span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px}.flow b{display:block;font-size:14px}
+.qst{color:var(--acc)}.pastebox{margin-top:8px}.pastebox textarea{width:100%}.strip .thumb{border-radius:10px;cursor:pointer}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:12px}.panel h2{margin:0;font-size:18px}
 .rule{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.rule b{min-width:24px}
 dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:95vh;background:var(--card);color:var(--ink)}dialog::backdrop{background:rgba(5,10,25,.6)}
@@ -41,7 +46,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head><body>
 <header class="top">
-  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><label class="lab" for="name">Your name</label><input id="name" placeholder="e.g. Sanya" autocomplete="name"><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="zipAll">Download everything (ZIP)</button></div>
+  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="zipAll">Download everything (ZIP)</button></div>
   <div class="tabs" id="tabs"></div>
 </header>
 <main id="view"></main>
@@ -54,7 +59,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 </div></dialog>
 
 <script type="module">
-import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS } from "/engine.js";
+import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS, BRAND_BRIEF } from "/engine.js";
 import { STATICS } from "/statics.js";
 import { LIBRARY } from "/library.js";
 
@@ -65,7 +70,6 @@ try { const p = JSON.parse(localStorage.getItem("silt-se-ui") || "{}"); if (p.ta
 const saveUi = () => { try { localStorage.setItem("silt-se-ui", JSON.stringify({ tab: st.tab, size: st.size })); } catch {} };
 const $ = id => document.getElementById(id), esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 let myName = ""; try { myName = localStorage.getItem("silt-se-name") || ""; } catch {}
-$("name").value = myName; $("name").addEventListener("change", () => { myName = $("name").value.trim().slice(0, 40); try { localStorage.setItem("silt-se-name", myName); } catch {} });
 let rulesKey = ""; try { rulesKey = localStorage.getItem("silt-se-rules-key") || ""; } catch {}
 async function api(path, opts = {}) {
   const r = await fetch(path, { ...opts, headers: { "content-type": "application/json", "x-silt-name": encodeURIComponent(myName || "team"), "x-silt-actor": "team", ...(opts.headers || {}) } });
@@ -74,7 +78,7 @@ async function api(path, opts = {}) {
 
 // ---------- data ----------
 const LIVE = i => i.status === "approved";
-const PENDING = i => ["approval", "draft", "changes", "active"].includes(i.status);
+const PENDING = i => ["approval", "changes", "active"].includes(i.status) || (i.status === "draft" && !i.doc?.idea_id);
 const team = () => st.items.filter(i => i.kind === "static" && LIVE(i)).map(i => ({ ...i.doc, _item: i }));
 const overrides = () => Object.fromEntries(st.items.filter(i => i.kind === "override" && LIVE(i)).map(i => [i.id, i]));
 // Built-in and library statics start unapproved too (user, 25 Nov: "nothing is approved yet"). A decision item records the team's call.
@@ -97,7 +101,7 @@ function allStatics() { const o = overrides(), d = decisions(); return [...team(
 const ideas = () => st.items.filter(i => i.kind === "idea" && i.status !== "archived");
 // Uploaded finished statics (kind "upload"): images stored as they are, files = { "4x5": fileId, "9x16": fileId, ... }
 const uploads = test => st.items.filter(i => i.kind === "upload" && test(i)).map(i => ({ ...i.doc, kind: "upload", _item: i }));
-const isImg = s => s.kind === "library" || s.kind === "upload";
+const isImg = s => s.kind === "library" || s.kind === "upload" || !!(s.files && Object.keys(s.files).length);
 const imgUrl = (s, k, small) => s.kind === "library" ? (small ? "/library/thumb/" + s.files[k] + ".jpg" : "/library/png/" + s.files[k] + ".png") : "/api/file/" + s.files[k];
 const imgName = (s, k) => s.kind === "library" ? s.files[k] + ".png" : (s.names?.[k] || s.files[k] + ".jpg");
 const findAny = id => { const it = st.items.find(i => i.id === id && (i.kind === "static" || i.kind === "override")); return it ? { ...it.doc, _item: it } : allStatics().find(s => s.id === id); };
@@ -135,49 +139,68 @@ function card(s) {
     : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${k.replace("x", ":")}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${k.replace("x", ":")}</a>`).join("");
   const tag = lib ? `<span class="chip${s.kind === "upload" ? " team" : ""}">${s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : "Library"}</span>` : gen ? `<span class="chip team">${s._item.kind === "override" ? "Edited" : "From an idea"} · ${esc(s._item.updated_by || s._item.created_by || "")}</span>` : "";
   const warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
-  return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
+  return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib && s.title ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
     <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}</div>
     <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}</div></article>`;
 }
 
-// ---------- Ideas (home) ----------
+// ---------- Ideas (home): Claude thinks, ChatGPT makes, the team ticks ----------
+// 1. Someone types an idea and sends it to Claude (it waits in the queue).
+// 2. Someone's Claude (SILT skill, or copy / paste) thinks it through and writes each static: the words, a preview, a
+//    ChatGPT prompt, and its own review (AI Approval).
+// 3. ChatGPT makes each image from its prompt; it's uploaded onto that static.
+// 4. The team ticks (Team Approval) or crosses (dropped) each static right here.
+const ISTATE = { waiting: "⏳ Waiting for Claude", working: "✍️ Claude is working on it", briefed: "", active: "" };
+const SLABEL = { draft: "Draft", ai_approved: "AI ✓ approved", ai_rejected: "AI ✕ rejected", approval: "In Team Approval", changes: "In Team Approval", approved: "✓ Live", rejected: "✕ Dropped" };
+const hasImg = s => !!(s.files && Object.keys(s.files).length);
+function ideaStatic(s) {
+  const it = s._item, id = it.id, stt = it.status, done = stt === "approved" || stt === "rejected";
+  return `<div class="istat${stt === "rejected" ? " dropped" : ""}"><div data-edit="${esc(id)}" title="Open">${thumb(s, "4x5")}</div>
+    <div class="ist ${stt}">${SLABEL[stt] || stt}${hasImg(s) ? " · ChatGPT image" : s.chatgpt_prompt ? " · needs image" : ""}</div>
+    ${s.ai_note ? `<div class="sub inote" title="${esc(s.ai_note)}">${esc(s.ai_note)}</div>` : ""}
+    ${s.flags?.length ? `<div class="check" title="${esc(s.flags.join(" · "))}">${esc(s.flags[0])}</div>` : ""}
+    <div class="row tick">${done ? "" : `<button class="ok" data-tick="${esc(id)}" title="Good: send to Team Approval">✓</button><button class="no" data-cross="${esc(id)}" title="Drop it">✕</button>`}
+      ${s.chatgpt_prompt ? `<button data-gpt="${esc(id)}" title="Copy Claude's prompt, paste it into ChatGPT">Copy for ChatGPT</button><label class="btn attach" title="Upload the image ChatGPT made">⬆ Image<input type="file" data-attach="${esc(id)}" accept="image/png,image/jpeg,image/webp"></label>` : ""}</div></div>`;
+}
 function drawIdeas() {
   const q = st.q.toLowerCase();
-  const xs = ideas().filter(i => !q || (i.doc.text || "").toLowerCase().includes(q) || (i.doc.image_note || "").toLowerCase().includes(q));
+  const xs = ideas().filter(i => !q || (i.doc.text || "").toLowerCase().includes(q));
   const hits = q ? [...allStatics(), ...pending()].filter(s => JSON.stringify([s.headline, s.sub, s.title, s.question, s.top, s.bottom, s.concept, s.quote, s.text, s.items, s.options]).toLowerCase().includes(q)).slice(0, 24) : [];
   $("view").innerHTML = `
-  <div class="ideabar"><input type="text" id="idea" placeholder="Type an idea, or add an image… e.g. Monday standups after a bad night" value="${esc(st.q)}" aria-label="Idea or search">
-    <span id="imgSlot">${st.img ? `<span class="imgchip"><img src="${st.thumb}" alt="">image added <button id="imgX" style="padding:0 6px">✕</button></span>` : `<label class="btn attach">🖼 Image<input type="file" id="imgIn" accept="image/*"></label>`}</span>
+  <div class="ideabar"><input type="text" id="idea" placeholder="Type an idea for Claude… e.g. a CA during tax season" value="${esc(st.q)}" aria-label="Idea or search">
+    <span id="imgSlot">${st.img ? `<span class="imgchip"><img src="${st.thumb}" alt="">reference added <button id="imgX" style="padding:0 6px">✕</button></span>` : `<label class="btn attach" title="Add a reference image for Claude">🖼 Reference<input type="file" id="imgIn" accept="image/*"></label>`}</span>
     <select id="gCount" aria-label="How many"><option value="6">6 statics</option><option value="12">12</option><option value="30">30</option></select>
     <select id="gFunnel" aria-label="Funnel"><option value="auto">Any funnel</option><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
     <select id="gProd" aria-label="Product"><option value="auto">Any product</option><option>mornings</option><option>nights</option><option>combo</option></select>
-    <button class="primary go" id="gen">Generate</button>
-    <button class="go" id="explore" title="No idea needed. The AI reads every static and idea already made, sees what the team approved and rejected, and invents a new angle nobody has tried yet.">✨ Explore something new</button></div>
-  <p class="status" id="genMsg">Type to search past ideas and statics. Press Generate to make new statics from the idea, or ✨ Explore something new to let the AI find a fresh angle. Either way it first reads every static and idea already made (what the team approved, what was rejected) so it builds on them and never repeats one. It follows the Plan of Action, the brand facts and the ${st.rules.length} house rules.</p>
+    <button class="primary go" id="send">Send to Claude</button>
+    <button class="go" id="angle" title="Fills in an angle the engine hasn't covered yet (from everything already made)">✨ New angle</button></div>
+  <div class="flow"><span><b>1 · Claude thinks</b> Reads everything made so far, takes its time, writes each static, a ChatGPT prompt for it, and reviews its own work (AI Approval).</span>
+    <span><b>2 · ChatGPT makes</b> Paste each static's prompt into ChatGPT and upload the image onto the static (⬆ Image).</span>
+    <span><b>3 · You tick</b> ✓ sends it to Team Approval, ✕ drops it.</span></div>
+  <p class="status" id="genMsg">Claude runs on your own computer: in Claude (with the SILT skill) say <b>“make the waiting SILT ideas”</b>. No skill? Use <i>Copy for Claude</i> on an idea and paste the reply back. Setup: <a href="#" id="connectAI2">connect Claude / ChatGPT</a>.</p>
+  ${hits.length ? `<div class="panel"><h2>Statics matching “${esc(st.q)}”</h2><div class="grid">${hits.map(card).join("")}</div></div>` : ""}
+  ${xs.map(i => { const d = i.doc, made = (d.made || []).map(id => findAny(id)).filter(s => s && s._item), live = made.filter(s => s._item.status !== "rejected"), drop = made.length - live.length;
+    return `<div class="idea"><div class="head">${d.image ? `<img src="${d.image}" alt="">` : ""}<div style="flex:1"><h3>${esc(d.text || "Image idea")}</h3>
+      <div class="sub">${ISTATE[i.status] ? `<b class="qst">${ISTATE[i.status]}${i.status === "working" && i.updated_by ? " (" + esc(i.updated_by) + ")" : ""}</b> · ` : ""}asked by ${esc(i.created_by || "")} · ${new Date(i.updated_at).toLocaleString()} · ${live.length} statics${drop ? ` (${drop} dropped)` : ""} · ${esc(d.funnel || "auto")} · ${esc(d.product || "auto")}</div></div>
+      <div class="row"><button data-cl="${esc(i.id)}" title="Copy a full prompt for Claude (everything already made + this idea)">Copy for Claude</button><button data-paste="${esc(i.id)}">Paste Claude's reply</button>${["waiting", "working"].includes(i.status) ? "" : `<button data-again="${esc(i.id)}" title="Put it back in the queue for more statics">Ask Claude for more</button>`}</div></div>
+      ${st.paste === i.id ? `<div class="pastebox"><textarea id="pasteTxt" rows="5" placeholder="Paste Claude's whole reply here"></textarea><div class="row"><button class="primary" data-pasteadd="${esc(i.id)}">Add these statics</button><button data-paste="">Cancel</button></div></div>` : ""}
+      <div class="strip">${live.map(ideaStatic).join("")}</div></div>`; }).join("") || (q ? "" : `<p class="sub">No ideas yet. Type one above and send it to Claude.</p>`)}
   <div class="panel"><h2>Upload finished statics</h2>
-    <p class="sub">Already made a static in Canva, ChatGPT or Photoshop? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. Everything goes to Approval.</p>
+    <p class="sub">Already have a finished static (Canva, ChatGPT, Photoshop)? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. They go to Team Approval.</p>
     <div class="row"><label class="btn attach">⬆ Choose images<input type="file" id="upIn" accept="image/png,image/jpeg,image/webp" multiple></label>
       <select id="upFunnel" aria-label="Funnel"><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
       <select id="upProd" aria-label="Product"><option>nights</option><option>mornings</option><option>combo</option></select>
-      <button class="primary" id="upGo" ${st.up?.length ? "" : "disabled"}>Upload ${st.up?.length || ""} to Approval</button></div>
-    ${(st.up || []).map(g => `<div class="sub">• ${esc(g.title)}: ${g.files.map(f => esc(f.name)).join(", ")}</div>`).join("")}<p class="status" id="upMsg"></p></div>
-  <details class="own"><summary>The free AI is out for today? Use your own Claude or ChatGPT instead</summary><div class="inner">
-    <p class="sub">Set up once on your own computer so your AI saves statics straight into this site and follows the house rules: <a href="/team-ai/silt-static-engine-skill.zip" download>Claude skill (zip)</a> · <a href="/team-ai/GPT_SETUP.md" target="_blank">ChatGPT GPT setup</a> (<a href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">instructions</a>, <a href="/team-ai/openapi.json" target="_blank">action</a>). Or copy a prompt here:</p>
-    <div class="row"><button id="ownCopy">Copy the prompt for this idea</button><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude ↗</a><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT ↗</a></div>
-    <textarea id="ownReply" rows="4" placeholder="Paste the AI's JSON reply here"></textarea><div class="row"><button id="ownAdd">Add these statics</button></div></div></details>
-  ${hits.length ? `<div class="panel"><h2>Statics matching “${esc(st.q)}”</h2><div class="grid">${hits.map(card).join("")}</div></div>` : ""}
-  ${xs.map(i => { const d = i.doc, made = (d.made || []).map(id => findAny(id)).filter(Boolean);
-    return `<div class="idea"><div class="head">${d.image ? `<img src="${d.image}" alt="">` : ""}<div style="flex:1"><h3>${esc(d.text || "Image idea")}</h3><div class="sub">by ${esc(i.created_by || "")} · ${new Date(i.updated_at).toLocaleString()} · ${made.length} statics${d.rules_used ? ` · ${d.rules_used} house rules` : ""}</div></div>
-      <button data-more="${esc(i.id)}">Generate more</button></div>
-      <div class="strip">${made.map(s => `<div data-edit="${esc(s._item.id)}" title="Edit">${thumb(s, "4x5")}<div class="sub" style="text-align:center">${s._item.status === "approved" ? "✓ approved" : s._item.status === "rejected" ? "rejected" : "in Approval"}</div></div>`).join("")}</div></div>`; }).join("") || (q ? "" : `<p class="sub">No ideas yet. Type one above and press Generate.</p>`)}`;
+      <button class="primary" id="upGo" ${st.up?.length ? "" : "disabled"}>Upload ${st.up?.length || ""} to Team Approval</button></div>
+    ${(st.up || []).map(g => `<div class="sub">• ${esc(g.title)}: ${g.files.map(f => esc(f.name)).join(", ")}</div>`).join("")}<p class="status" id="upMsg"></p></div>`;
   for (const k of ["gCount", "gFunnel", "gProd"]) $(k).value = st[k];
-  const i = $("idea"); i.focus(); i.setSelectionRange(i.value.length, i.value.length);
+  if (!st.paste) { const i = $("idea"); i.focus(); i.setSelectionRange(i.value.length, i.value.length); } else $("pasteTxt")?.focus();
 }
 $("view").addEventListener("input", e => { if (e.target.id === "idea") { st.q = e.target.value; clearTimeout(st.t); st.t = setTimeout(() => { draw(); }, 350); } });
-$("view").addEventListener("keydown", e => { if (e.target.id === "idea" && e.key === "Enter") $("gen").click(); });
+$("view").addEventListener("keydown", e => { if (e.target.id === "idea" && e.key === "Enter") $("send").click(); });
 $("view").addEventListener("change", async e => {
   if (e.target.id === "upIn") { st.up = groupFiles([...e.target.files]); return draw(); }
   if (["gCount", "gFunnel", "gProd"].includes(e.target.id)) { st[e.target.id] = e.target.value; return; }
+  if (e.target.dataset.attach && e.target.files[0]) return attachImage(e.target.dataset.attach, e.target.files[0]);
   if (e.target.id !== "imgIn" || !e.target.files[0]) return;
   const f = e.target.files[0]; const [big, small] = await Promise.all([shrink(f, 1024, .85), shrink(f, 160, .7)]);
   st.img = big; st.thumb = small; draw();
@@ -187,16 +210,71 @@ async function shrink(file, max, q) {
   const c = document.createElement("canvas"); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
   return c.toDataURL("image/jpeg", q);
 }
-async function generate(text, opts) {
-  for (const k of ["gen", "explore"]) { const b = $(k); if (b) b.disabled = true; }
-  const n = +opts.count; status(`${opts.explore ? "Reading everything made so far and exploring a new angle…" : "Writing " + n + " statics" + (st.img ? " from your image" : "") + "…"} about ${n > 10 ? "a minute" : "20 seconds"}.`);
+// ChatGPT's image becomes the static (it keeps the idea, the words and the AI review).
+async function attachImage(id, file) {
+  status("Uploading the image…");
   try {
-    const r = await api("/api/generate", { method: "POST", body: JSON.stringify({ idea: text, image: st.img, thumb: st.thumb, count: n, funnel: opts.funnel, product: opts.product, explore: !!opts.explore }) });
-    st.img = st.thumb = null; st.q = ""; await load();
-    status(`Made ${r.statics.length} statics${r.idea?.doc?.explored && r.idea.doc.text ? " around a new idea: “" + r.idea.doc.text.replace(/^Explored: /, "") + "”" : ""}. They're waiting in the Approval tab${r.statics.some(s => s.doc.flags) ? " (the Checker left notes on some)" : ""}.`);
-  } catch (e) { status("Couldn't generate: " + e.message); }
-  finally { for (const k of ["gen", "explore"]) { const b = $(k); if (b) b.disabled = false; } }
+    const fd = new FormData(); fd.append("static_id", id); fd.append("made_with", "ChatGPT");
+    fd.append("file", file.size > 1_800_000 ? await (await fetch(await shrink(file, 2160, .9))).blob() : file, file.name);
+    const r = await fetch("/api/upload", { method: "POST", body: fd, headers: { "x-silt-name": encodeURIComponent(myName || "team"), "x-silt-actor": "team" } });
+    const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || r.statusText);
+    await load(); status("Image added. Tick ✓ to send it to Team Approval.");
+  } catch (er) { status("Upload failed: " + er.message); }
 }
+async function sendToClaude(text) {
+  const b = $("send"); if (b) b.disabled = true;
+  try {
+    const doc = { text, image: st.thumb || null, count: +st.gCount, funnel: st.gFunnel, product: st.gProd, made: [] };
+    await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "idea", doc, status: "waiting" }) });
+    st.img = st.thumb = null; st.q = ""; await load();
+    status("Sent. It's waiting for Claude: in Claude (with the SILT skill) say “make the waiting SILT ideas”, or press Copy for Claude on the idea.");
+  } catch (e) { status("Couldn't send: " + e.message); }
+  finally { const x = $("send"); if (x) x.disabled = false; }
+}
+// The full prompt for Claude (works in any Claude, even without the skill): what exists, the rules, the idea, the format.
+async function claudePrompt(idea) {
+  const q = await api("/api/queue").catch(() => ({}));
+  const d = idea.doc, made = (d.made || []).map(id => findAny(id)).filter(Boolean).map(s => (s.headline || s.problem || s.question || s.top || s.title || s.text || "").replace(/\*/g, ""));
+  const SK = {}; for (const s of STATICS) if (!SK[s.t]) SK[s.t] = Object.fromEntries(Object.entries(s).filter(([k]) => (!META_FIELDS.includes(k) || ["scene", "scene_problem"].includes(k)) && !["note", "check"].includes(k)));
+  return `You are the THINKER for SILT Nutrition's Meta ad statics. Take your time: think about the idea, the people, the moment and the joke before writing. ChatGPT will make the images from your prompts, so be precise.
+
+${BRAND_BRIEF}
+
+${q.brief || ""}
+
+HOUSE RULES (must follow, they override everything): ${(q.house_rules || st.rules.map(r => r.text)).map((r, n) => `${n + 1}. ${r}`).join(" ")}
+
+IDEA: ${d.text}
+Make ${d.count || 6} statics. Funnel: ${d.funnel === "auto" || !d.funnel ? "spread across TOFU, MOFU, BOFU and RET" : d.funnel}. Product: ${d.product === "auto" || !d.product ? "mornings, nights or combo, whichever fits" : d.product}.
+${made.length ? "ALREADY MADE FOR THIS IDEA (make completely different ones): " + made.join(" | ") : ""}
+
+Each static is a different moment, a different person and a different format. Indian characters, and Indian women as the lead in many of them. Never invent a customer quote, review, rating or result. About 22 words per static at most.
+
+Reply with ONLY this JSON: {"statics": [ ... ]}. Each static:
+- "t": the format, one of: ${Object.keys(SK).join(", ")}
+- "funnel", "product", "concept" (2 to 4 words), "cta" (max 5 words)
+- the text keys of its format, for the site's preview: ${Object.entries(SK).map(([t, k]) => t + " " + JSON.stringify(Object.keys(k).filter(x => !["t", "funnel", "product", "concept", "format", "slug", "id", "cta"].includes(x)))).join("; ")}
+- "chatgpt_prompt": a complete prompt to paste into ChatGPT's image generator that makes the FINISHED static at 1080 x 1350 (4:5): every word to print, in quotes, exactly as written; who is in the picture (Indian, age, man or woman, what they wear, where they are, their expression); the layout; SILT's look (clean, warm, Mornings = sunrise yellow and orange, Nights = deep navy blue); and "Place the SILT pack from the attached image in the lower right, about a third of the image height, on a soft shadow. Don't redraw the logo or add any other text."
+- "review": {"ok": true or false, "note": "one line: why it works, or what's wrong"}: your honest check against the brand rules, the house rules and the list of what already exists.`;
+}
+async function pasteReply(ideaId) {
+  const txt = $("pasteTxt")?.value || "";
+  try {
+    const m = txt.match(/[\[{][\s\S]*[\]}]/); if (!m) throw new Error("no JSON found");
+    let arr = JSON.parse(m[0]); if (!Array.isArray(arr)) arr = arr.statics || [];
+    let n = 0;
+    for (const x of arr.slice(0, 30)) {
+      const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "problemsolution");
+      const doc = { ...JSON.parse(JSON.stringify(base)), ...Object.fromEntries(Object.entries(x).filter(([k, v]) => k in base && typeof v === typeof base[k])), t: base.t, format: base.format, id: "new", slug: "claude", concept: String(x.concept || "Idea").slice(0, 50),
+        funnel: ["TOFU", "MOFU", "BOFU", "RET"].includes(x.funnel) ? x.funnel : base.funnel, product: ["mornings", "nights", "combo"].includes(x.product) ? x.product : base.product,
+        idea_id: ideaId, chatgpt_prompt: String(x.chatgpt_prompt || "").slice(0, 3000), ai_note: String(x.review?.note || "").slice(0, 300), made_by_ai: "Claude" };
+      delete doc.check;
+      await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "static", doc, status: x.review ? (x.review.ok ? "ai_approved" : "ai_rejected") : "draft" }) }); n++;
+    }
+    st.paste = null; await load(); status(`Added ${n} statics from Claude. Next: Copy for ChatGPT on each, upload the image, then ✓ or ✕.`);
+  } catch (er) { status("Couldn't read that reply: " + er.message); }
+}
+const copyText = async (t, msg) => { try { await navigator.clipboard.writeText(t); status(msg); } catch { prompt("Copy this:", t); } };
 
 // ---------- Approval: every new or edited static waits here (TOFU / MOFU / BOFU / Retention inside) ----------
 function drawApproval(mode) {
@@ -291,18 +369,19 @@ $("view").addEventListener("click", async e => {
   const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { save(await pngBlob(s, dl.dataset.z), fileName(s, dl.dataset.z) + ".png"); } finally { dl.disabled = false; } return; }
   if (id === "zipTab") return zip(allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod)), $("zipSize").value, `SILT_Statics_${st.tab}`, $("zipMsg"));
   if (id === "imgX") { st.img = st.thumb = null; return draw(); }
-  if (id === "upGo") { if (!myName) { $("name").focus(); return ($("upMsg").textContent = "Type your name at the top first."); } t.disabled = true; try { await uploadGroups(); } catch (er) { $("upMsg").textContent = "Upload failed: " + er.message; t.disabled = false; } return; }
-  if (id === "gen") { const text = $("idea").value.trim(); if (!text && !st.img) return status("Type an idea or add an image first."); if (!myName) { $("name").focus(); return status("Type your name at the top first."); } return generate(text, { count: $("gCount").value, funnel: $("gFunnel").value, product: $("gProd").value }); }
-  if (id === "explore") { if (!myName) { $("name").focus(); return status("Type your name at the top first."); } return generate($("idea").value.trim(), { count: $("gCount").value, funnel: $("gFunnel").value, product: $("gProd").value, explore: true }); }
-  const more = b("[data-more]"); if (more) { const i = ideas().find(x => x.id === more.dataset.more); if (i) { $("idea").value = i.doc.text; return generate(i.doc.text, { count: 6, funnel: i.doc.funnel || "auto", product: i.doc.product || "auto" }); } }
-  if (id === "ownCopy") { const SK = {}; for (const s of STATICS) if (!SK[s.t]) SK[s.t] = Object.fromEntries(Object.entries(s).filter(([k]) => (!META_FIELDS.includes(k) || ["scene", "scene_a", "scene_b", "scene_problem", "scene_solution"].includes(k)) && !["note", "check"].includes(k)));
-    let brief = ""; try { brief = (await api("/api/brief")).prompt || ""; } catch {}
-    const p = (brief ? brief + "\n\n" : "") + batchPrompt({ count: +$("gCount").value, focus: ($("idea").value.trim() || "Explore: pick one new angle from the list above that no existing static covers") + (st.rules.length ? "\nHOUSE RULES (must follow): " + st.rules.map(r => r.text).join(" | ") : "") + "\nScene keys for scene/meme: " + Object.entries(SCENES).map(([k, v]) => k + " (" + v.mood + ")").join("; ") }, SK, []);
-    try { await navigator.clipboard.writeText(p); status("Prompt copied. Paste it into Claude or ChatGPT, then paste the reply below."); } catch { $("ownReply").value = p; status("Copy the prompt from the box below."); } return; }
-  if (id === "ownAdd") { try { const m = $("ownReply").value.match(/[\[{][\s\S]*[\]}]/); let arr = JSON.parse(m[0]); if (!Array.isArray(arr)) arr = arr.statics || [];
-      let n = 0; for (const x of arr.slice(0, 30)) { const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "scene"); const doc = { ...JSON.parse(JSON.stringify(base)), ...Object.fromEntries(Object.entries(x).filter(([k, v]) => k in base && typeof v === typeof base[k])), t: base.t, format: base.format, id: "new", slug: "own-ai", concept: String(x.concept || "Idea").slice(0, 50), funnel: ["TOFU", "MOFU", "BOFU", "RET"].includes(x.funnel) ? x.funnel : base.funnel, product: ["mornings", "nights", "combo"].includes(x.product) ? x.product : base.product }; delete doc.check; const f = checkCopy(doc); if (f.length) doc.flags = f;
-        await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "static", doc, status: "approval" }) }); n++; }
-      $("ownReply").value = ""; await load(); status(`Added ${n} statics from your AI. They're waiting in Approval.`); } catch (er) { status("Couldn't read that reply: " + er.message); } return; }
+  if (id === "upGo") { t.disabled = true; try { await uploadGroups(); } catch (er) { $("upMsg").textContent = "Upload failed: " + er.message; t.disabled = false; } return; }
+  if (id === "send") { const text = $("idea").value.trim(); if (!text) return status("Type an idea first (or press ✨ New angle)."); return sendToClaude(text); }
+  if (id === "angle") { try { const br = await api("/api/brief"); const ang = (br.suggested_angles || [])[0] || ""; st.q = "Explore " + ang.replace(/^an? (new )?/i, ""); draw(); status("An angle nothing covers yet. Edit it if you like, then Send to Claude."); } catch (er) { status(er.message); } return; }
+  if (id === "connectAI2") { e.preventDefault(); return welcome(true); }
+  const tk = b("[data-tick]"); if (tk) { tk.disabled = true; await api("/api/items/" + encodeURIComponent(tk.dataset.tick), { method: "PUT", body: JSON.stringify({ status: "approval" }) }).catch(er => alert(er.message)); await load(); return status("Sent to Team Approval."); }
+  const cr = b("[data-cross]"); if (cr) { cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected" }) }).catch(er => alert(er.message)); return load(); }
+  const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt); const pk = p => location.origin + "/assets/" + p + "_boxstick_cut.png";
+    const pack = sx.product === "combo" ? pk("mornings") + " and " + pk("nights") : pk(sx.product === "nights" ? "nights" : "mornings");
+    return copyText(sx.chatgpt_prompt + "\n\n(Attach the SILT pack image: " + pack + ")", "ChatGPT prompt copied. Paste it into ChatGPT with the pack image attached, then upload the result here (⬆ Image)."); }
+  const cl = b("[data-cl]"); if (cl) { const i = ideas().find(x => x.id === cl.dataset.cl); if (i) { cl.disabled = true; const p = await claudePrompt(i); cl.disabled = false; return copyText(p, "Prompt for Claude copied. Paste it into Claude, then press Paste Claude's reply and paste its answer."); } return; }
+  const ps = b("[data-paste]"); if (ps) { st.paste = ps.dataset.paste || null; return draw(); }
+  const pa = b("[data-pasteadd]"); if (pa) { pa.disabled = true; return pasteReply(pa.dataset.pasteadd); }
+  const ag = b("[data-again]"); if (ag) { const i = ideas().find(x => x.id === ag.dataset.again); if (i) { await api("/api/items/" + encodeURIComponent(i.id), { method: "PUT", body: JSON.stringify({ status: "waiting" }) }).catch(er => alert(er.message)); await load(); status("Back in the queue for Claude."); } return; }
   if (id === "rAdd") { rulesKey = $("rk").value.trim(); try { localStorage.setItem("silt-se-rules-key", rulesKey); } catch {} const txt = $("rNew").value.trim(); if (!txt) return;
     try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ add: txt }) })).rules; draw(); } catch (er) { $("rMsg").textContent = er.message; } return; }
   const rm = b("[data-rm]"); if (rm) { try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ remove: rm.dataset.rm }) })).rules; draw(); } catch (er) { alert(er.message); } return; }
@@ -383,10 +462,9 @@ async function welcome(force = false) {
   const d = document.createElement("dialog"); d.id = "welcome";
   d.innerHTML = '<div style="padding:22px;max-width:560px;display:flex;flex-direction:column;gap:12px">'
     + '<div class="row"><b style="font-size:20px">Welcome to the SILT Static Engine</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
-    + '<p class="sub" style="margin:0">Connect your own Claude or ChatGPT once. Then it makes statics straight into this site, following all of SILT\'s rules and Abhishek\'s house rules. Everything it makes waits for team approval.</p>'
-    + '<div class="panel" style="margin:0"><b>Claude</b><span class="sub">Download the SILT skill, then in Claude open Settings → Capabilities → Skills and upload the zip (in Claude Code, unzip it into ~/.claude/skills).</span><div class="row"><a class="btn primary" href="/team-ai/silt-static-engine-skill.zip" download>Download the Claude skill</a></div></div>'
-    + '<div class="panel" style="margin:0"><b>ChatGPT</b><span class="sub">Create a custom GPT: paste our instructions, then add the action file. The steps are in the guide.</span><div class="row"><a class="btn primary" href="/team-ai/GPT_SETUP.md" target="_blank">Open the GPT setup</a><a class="btn" href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">Instructions</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
-    + '<p class="sub" style="margin:0">Also type your name at the top right, so the team can see who made or approved what.</p>'
+    + '<p class="sub" style="margin:0">Connect your own Claude and ChatGPT once. <b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images from those prompts. Everything follows SILT\'s rules and Abhishek\'s house rules and waits for the team\'s ✓.</p>'
+    + '<div class="panel" style="margin:0"><b>Claude (the thinker)</b><span class="sub">Download the SILT skill, then in Claude say “make the waiting SILT ideas”. To install: Claude → Settings → Capabilities → Skills, upload the zip (in Claude Code, unzip it into ~/.claude/skills).</span><div class="row"><a class="btn primary" href="/team-ai/silt-static-engine-skill.zip" download>Download the Claude skill</a></div></div>'
+    + '<div class="panel" style="margin:0"><b>ChatGPT (the generator)</b><span class="sub">Create the SILT GPT once (paste our instructions, add the action file). Then ask it “make the images for the waiting SILT statics”, or paste any static\'s “Copy for ChatGPT” prompt into ChatGPT. Upload each image onto its static with ⬆ Image.</span><div class="row"><a class="btn primary" href="/team-ai/GPT_SETUP.md" target="_blank">Open the GPT setup</a><a class="btn" href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">Instructions</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
     + '<div class="row"><button id="wDone">I\'ve already connected</button><span class="spacer"></span><button class="primary" id="wLater">Got it</button></div></div>';
   document.body.appendChild(d); d.showModal();
   const close = remember => { try { if (remember) localStorage.setItem("silt-se-connected", "1"); else sessionStorage.setItem("silt-se-later", "1"); } catch {} d.close(); d.remove(); };
