@@ -44,7 +44,7 @@ export async function onRequestPost({ request, env, data }) {
   try {
     if (ct.includes("multipart/form-data")) {
       const fd = await request.formData();
-      for (const k of ["title", "funnel", "product", "concept", "static_id"]) meta[k] = fd.get(k) || "";
+      for (const k of ["title", "funnel", "product", "concept", "static_id", "as", "made_with"]) meta[k] = fd.get(k) || "";
       for (const f of fd.getAll("file")) if (f && typeof f.arrayBuffer === "function") files.push({ name: f.name, mime: f.type || "image/png", bytes: new Uint8Array(await f.arrayBuffer()) });
     } else {
       const body = await request.json();
@@ -79,7 +79,15 @@ export async function onRequestPost({ request, env, data }) {
     const row = await env.DB.prepare("SELECT id, doc, status FROM se_items WHERE id = ? AND kind = 'static'").bind(String(meta.static_id)).first();
     if (!row) return Response.json({ error: "No static " + meta.static_id }, { status: 404 });
     // Sizes add up: the 4:5 master first, then the 1:1, Stories and Reels files (placement playbook) join it.
-    const sd = JSON.parse(row.doc); sd.files = { ...(sd.files || {}), ...doc.files }; sd.names = { ...(sd.names || {}), ...doc.names }; sd.made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
+    const sd = JSON.parse(row.doc);
+    if (meta.as === "photo") {
+      // A clean photo (no words, no pack) for the engine to set the words and the real pack on, in all four sizes.
+      // Any finished images made earlier are kept aside, so the engine's version shows.
+      sd.photo = "/api/file/" + Object.values(doc.files)[0];
+      if (sd.files && Object.keys(sd.files).length) { sd.files_before = sd.files; delete sd.files; delete sd.names; }
+      sd.photo_made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
+    } else { sd.files = { ...(sd.files || {}), ...doc.files }; sd.names = { ...(sd.names || {}), ...doc.names }; }
+    sd.made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
     await env.DB.prepare("UPDATE se_items SET doc = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(sd), who, now, row.id).run();
     // A ChatGPT-made image arriving with a browser's code proves that browser's ChatGPT is producing (through Claude's
     // ChatGPT connector): tick it.

@@ -84,6 +84,9 @@ const ICON = {
   lotus: '<path d="M12 20c-4 0-8-3-8-7 3 0 6 2 8 5 2-3 5-5 8-5 0 4-4 7-8 7zM12 18c-2-3-2-8 0-12 2 4 2 9 0 12z"/>'
 };
 export const POINTERS = { mornings: [["bolt", "Steady Energy"], ["leaf", "Gut Health"], ["sun", "Daily Vitamins"]], nights: [["moon", "Deep Sleep"], ["cycle", "Recovery"], ["lotus", "Stress Relief"]], combo: [["sun", "DAILY energy and nutrition"], ["moon", "NIGHTLY sleep and recovery"]] };
+// The solution's benefits stacked with a "+" between them (user's example, 25 Nov): Steady energy + Gut health + Daily vitamins.
+export const PLUS = { mornings: ["Steady energy", "Gut health", "Daily vitamins"], nights: ["Deep sleep", "Recovery", "Stress relief"], combo: ["DAILY energy and nutrition", "NIGHTLY sleep and recovery"] };
+const ticks = p => `<ul class="plus">${(PLUS[p] || PLUS.combo).map((t, i) => (i ? '<li class="pl">+</li>' : "") + `<li>${esc(t)}</li>`).join("")}</ul>`;
 const pointers = p => `<ul class="ptr">${(POINTERS[p] || POINTERS.combo).map(([i, t]) => `<li><span class="pi"><svg viewBox="0 0 24 24">${ICON[i]}</svg></span>${esc(t)}</li>`).join("")}</ul>`;
 function packHTML(product, A, cls = "") {
   const img = p => `<img src="${A}${PRODUCTS[p].boxstick}" alt="SILT ${p[0].toUpperCase() + p.slice(1)} box and stick">`;
@@ -180,11 +183,14 @@ const T = {
     return `<div class="os ${s.product}"><div class="osl"><div class="osk">${esc(s.kicker)}</div>${(s.problems || []).map(x => `<div class="osp"><span class="tg off"><i></i></span><span>${esc(x)}</span></div>`).join("")}</div>
     <div class="osr"><div class="osh">${rich(s.headline)}</div><div class="oss">${sticks}</div><div class="osb">${(POINTERS[s.product] || POINTERS.combo).map(([, t]) => `<div class="osq"><span>${esc(t)}</span><span class="tg on"><i></i></span></div>`).join("")}</div>
     <div class="osall">${rich(s.sub || "All in one stick pack.")}</div><div class="ostag"><b>${esc(s.price || "Rs. 900")}</b><small>${esc(s.price_note || "for a box of 15 sticks")}</small></div></div></div>`; },
+  photoad: s => { const light = s.product === "mornings";
+    return `<div class="scenebg" style="background-image:url('${photoOr(s, s._A, s.scene || "night-phone")}');background-position:center ${s.photo_y ?? 55}%"></div><div class="scenefade t pafade${light ? " light" : ""}"></div>
+    <div class="scenetext t pa${light ? " light" : ""}"><h1 class="pah">${rich(s.headline)}</h1>${s.solution ? `<p class="pas">${rich(s.solution)}</p>` : ""}${s.plus === false ? "" : ticks(s.product)}<span class="patag">${esc(s.price || (s.product === "combo" ? "SILT Combo · Rs. 1,800 for 15 + 15 sticks" : "Rs. 900 for a box of 15 sticks"))}</span><span class="cta pacta">${esc(s.cta || (s.product === "nights" ? "Try SILT Nights" : s.product === "mornings" ? "Try SILT Mornings" : "Extra 10% off the Combo · COMBO10"))}</span></div>`; },
   ritual: s => `<h1 class="top c">${rich(s.headline)}</h1><div class="split"><div class="am"><span class="lab">${esc(s.am)}</span><img src="${s._A}mornings_boxstick_cut.png" alt="SILT Mornings box and stick"><p>${rich(s.amline)}</p></div><div class="pm"><span class="lab">${esc(s.pm)}</span><img src="${s._A}nights_boxstick_cut.png" alt="SILT Nights box and stick"><p>${rich(s.pmline)}</p></div></div>`
 };
 // Templates that draw their own product (no separate product shot)
 const KICK_IN_BODY = new Set(["statement", "offer", "poll"]);
-const FULL_BLEED = new Set(["scene"]);
+const FULL_BLEED = new Set(["scene", "photoad"]);
 const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "problemsolution", "onestick"]);
 // PROBLEM + SOLUTION, BOTH VISIBLE (house rules 27, 36, 39): formats with no solution of their own get a solution block:
 // a big bold solution line (spec.solution, or the product's), the three pack pointers, and the pack beside them.
@@ -220,7 +226,9 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 .solrow{flex:none;display:flex;align-items:flex-end;gap:2em;margin-top:auto;min-height:0}.solrow .pack{margin-top:0;height:${Math.round(z.pack * .82)}px;flex:none}.solrow .pack.duo{height:${Math.round(z.pack * .58)}px}
 .solb{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.3em;padding-bottom:.4em}.soll{font-size:4.6em;font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
-.solb .ptr{flex-direction:row;flex-wrap:wrap;gap:.5em 1.3em}.solb .ptr li{font-size:2.35em}
+.plus{list-style:none;display:flex;flex-direction:column;gap:0}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
+.pa .plus li{color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}.pa.light .plus li{color:#2A1E14;text-shadow:none}.pa .plus li.pl{color:#E9C46A}.pa.light .plus li.pl{color:#E2801A}
+.tk{width:1.25em;height:1.25em;border-radius:50%;background:#2FA84F;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 .1em .3em rgba(0,0,0,.2)}.tk svg{width:72%;height:72%;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .mside{flex:none;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:2.2em}
 .ptr{list-style:none;display:flex;flex-direction:column;gap:1em;align-self:stretch}.ptr li{display:flex;align-items:center;gap:.6em;font-size:2.7em;font-weight:700;color:var(--ink);white-space:nowrap}
 .pi{width:1.75em;height:1.75em;border-radius:50%;border:.09em solid var(--acc);display:flex;align-items:center;justify-content:center;flex:none}.pi svg{width:60%;height:60%;fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -290,6 +298,17 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .scenefade{position:absolute;left:0;right:0;height:62%}.scenefade.t{top:0;background:linear-gradient(180deg,rgba(8,12,30,.86),rgba(8,12,30,.55) 55%,rgba(8,12,30,0))}.scenefade.b{bottom:0;background:linear-gradient(0deg,rgba(8,12,30,.9),rgba(8,12,30,.6) 55%,rgba(8,12,30,0))}
 .frame.full .safe{z-index:2}.frame.full main{justify-content:flex-start}.scenetext{display:flex;flex-direction:column;gap:1.4em;max-width:92%}.scenetext.b{margin-top:auto}.scenetext h1{color:#fff;text-shadow:0 .1em .6em rgba(0,0,0,.35)}.scenetext .lede{color:#E8ECF7}
 .frame.full em.acc{color:#EBB858}.frame.full .url{color:#D9DEEB}.frame.full main{position:relative}.frame.full .pack{position:absolute;right:0;bottom:0;margin:0}.frame.full .scenetext.b{max-width:56%}
+/* photo ad: brand fonts over the photo */.scenetext.pa{max-width:100%;gap:1.1em;align-items:flex-start}
+.pah{font-family:Corm,serif;font-style:italic;font-weight:700;font-size:8.6em;line-height:1;letter-spacing:-.005em;color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}
+.pas{font-family:Jost,sans-serif;font-weight:700;font-size:6.2em;line-height:1.06;letter-spacing:-.01em;color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}
+.patag{display:inline-flex;align-items:center;gap:.5em;background:#F2C14E;color:#16245E;font-weight:700;font-size:2.7em;padding:.35em 1em .35em .8em;border-radius:.35em .2em .2em .35em;margin-top:.3em;box-shadow:0 .3em .8em rgba(0,0,0,.25)}
+.patag:before{content:"";width:.45em;height:.45em;border-radius:50%;background:#16245E;opacity:.75}
+.pa.light .pah,.pa.light .pas{color:#2A1E14;text-shadow:0 .05em .6em rgba(255,248,235,.8)}.pa.light .patag{background:#E2801A;color:#fff}.pa.light .patag:before{background:#fff}
+.scenefade.pafade{height:66%}.scenefade.pafade.light{background:linear-gradient(180deg,rgba(251,244,230,.94),rgba(251,244,230,.7) 50%,rgba(251,244,230,0))}
+.t-photoad .cta{background:rgba(10,16,40,.35);border:.12em solid #E9C46A;color:#F7E3A6}.t-photoad .url{color:#E8ECF7}
+/* photo ad: the CTA sits with the words, never down on the person's face; the footer goes */.t-photoad footer{display:none}
+.pacta{font-size:2.5em;margin-top:-.2em}.pa.light .acc{color:#C8620A!important;text-shadow:none}.pa.light .pacta{background:#2A1E14;border-color:#2A1E14;color:#FBE3A6}
+.t-photoad.full .pack{height:${Math.round(z.pack * 1.05)}px}
 /* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps.prob{flex:.8}.ps.sol{flex:1.25}.ps.prob .psline{font-size:2.9em}.ps.sol .psline{font-size:4.1em}.pline{margin-top:.45em;font-size:.5em;font-weight:400;letter-spacing:.01em;background:rgba(255,255,255,.95);color:#17245C;border-radius:.6em;padding:.35em .6em;display:inline-block}.pline b{font-weight:800;letter-spacing:.04em}.psimg.bottles{background-size:cover;background-position:center 60%}.pack.sticks img{max-width:24%}.scenetext h1.huge{font-size:6.4em}.scenetext .lede.sol{font-size:4.6em;font-weight:700;color:#fff;line-height:1.15}.pline.big{font-size:2.2em;align-self:flex-start}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
 .psimg{position:absolute;inset:0;background-size:cover;background-position:center 35%}.ps.prob .psimg{filter:saturate(.75) brightness(.92)}
 .pspanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6%}.pspanel.mornings{background:radial-gradient(circle at 50% 40%,#FFE3A8,#F2A541 70%)}.pspanel.nights{background:radial-gradient(circle at 50% 40%,#5C7EE6,#1C2C7A 75%)}.pspanel.combo{background:linear-gradient(90deg,#F7C66E 50%,#3E5BD0 50%)}
@@ -313,12 +332,14 @@ export function render(spec, sizeId, base = "") {
   const A = base + "assets/", F = base + "fonts/";
   const s = { ...spec, _A: A };
   const body = T[spec.t](s);
-  const full = FULL_BLEED.has(spec.t), logo = full ? "logo_white.png" : th.logo;
+  const full = FULL_BLEED.has(spec.t), logo = full && !(spec.t === "photoad" && spec.product === "mornings") ? "logo_white.png" : th.logo;
   const pk = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
   const solPack = spec.shot === "none" || OWN_PRODUCT.has(spec.t) ? "" : packHTML(spec.product, A, "insol");   // room for the box + stick here (rule 33 only shrinks to a stick when space is tight)
-  const prod = SOLVE.has(spec.t) && spec.solution !== false ? `<div class="solrow"><div class="solb"><div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>${pointers(spec.product)}</div>${solPack}</div>` : pk;
+  // newscard already says its solution (GOOD NEWS), so it gets the ticks without a second line.
+  const solveIt = (SOLVE.has(spec.t) || spec.t === "newscard") && spec.solution !== false;
+  const prod = solveIt ? `<div class="solrow"><div class="solb">${spec.t === "newscard" ? "" : `<div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>`}${ticks(spec.product)}</div>${solPack}</div>` : pk;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
-<div class="frame${full ? " full" : ""}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
+<div class="frame${full ? " full" : ""} t-${spec.t}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
 <footer><span class="cta">${esc(spec.cta || (spec.funnel === "RET" ? "Your 60-second ritual" : spec.product === "nights" ? "SILT Nights · NIGHTLY sleep and recovery" : spec.product === "mornings" ? "SILT Mornings · DAILY energy and nutrition" : "Extra 10% off the Combo · COMBO10"))}</span>${spec.note ? `<span class="note">${esc(spec.note)}</span>` : `<span class="url">siltnutrition.com</span>`}</footer></div></div></body></html>`;
 }
@@ -333,7 +354,7 @@ export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
 export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
-const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai"]);
+const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.
 export function checkCopy(s) {
