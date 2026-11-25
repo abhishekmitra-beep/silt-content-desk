@@ -3,11 +3,11 @@
 // render(spec, sizeId, base) returns a complete HTML document for one static.
 
 export const SIZES = {
-  "4x5": { w: 1080, h: 1350, pad: [70, 72, 64, 72], fs: 10, pack: 430, label: "Feed", ratio: "4x5" },
-  "1x1": { w: 1080, h: 1080, pad: [52, 60, 48, 60], fs: 8.6, pack: 345, label: "Square", ratio: "1x1" },
-  // Stories / Reels: every word and the pack sit between 269 and 1165 px from the top (Meta covers the top 269 px with the
+  "4x5": { w: 1080, h: 1350, pad: [135, 72, 135, 72], fs: 10, pack: 400, label: "Feed", ratio: "4x5" },
+  "1x1": { w: 1080, h: 1080, pad: [65, 68, 65, 68], fs: 8.6, pack: 330, label: "Square", ratio: "1x1" },
+  // Placement playbook 25 Nov: 4:5 text y 135-1215, 1:1 inside 65 px, 9:16 built to the Reels box y 269-1248 (also safe in Stories) (Meta covers the top 269 px with the
   // profile row, and the bottom 269 px in Stories / 672 px in Reels); the lower part stays plain.
-  "9x16": { w: 1080, h: 1920, pad: [269, 80, 755, 80], fs: 7.4, pack: 316, label: "Stories", ratio: "9x16" }
+  "9x16": { w: 1080, h: 1920, pad: [275, 80, 680, 80], fs: 7.4, pack: 330, label: "Stories", ratio: "9x16" }
 };
 
 export const THEMES = {
