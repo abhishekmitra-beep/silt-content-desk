@@ -28,7 +28,7 @@ export const SCENES = {
   // Added 25 Nov from Abhishek ("Claude statics 25 Nov" / SILT_scene_photos_6.zip)
   "tired-3pm":     { file: "a_tired3pm.jpg", pos: "bottom", mood: "3 PM slump at home, rubbing his neck with a mug of chai, daytime" },
   "ceiling-2am":   { file: "a_ceiling.jpg", pos: "bottom", mood: "2 AM on the clock, lying awake staring at the ceiling" },
-  "mug-calm":      { file: "mug.jpg", pos: "bottom", mood: "calm in bed at night with a warm mug, laptop closed (the wind-down ritual)" },
+  "mug-calm":      { file: "mug.jpg", pos: "bottom", mood: "calm in bed at night with a mug, laptop closed (the wind-down ritual)" },
   "jar-january":   { file: "x_jar.jpg", pos: "top", mood: "holding up a forgotten supplement jar from the kitchen shelf, sheepish grin" },
   "founder-2am":   { file: "f_bed2am.jpg", pos: "bottom", mood: "the founder awake at 2 AM in bed, face lit by the phone" },
   "founder-3pm":   { file: "f_yawn.jpg", pos: "bottom", mood: "the founder yawning at his desk at 3 PM, daytime" },
@@ -169,6 +169,7 @@ const T = {
     <div class="scenetext ${pos === "bottom" ? "b" : "t"}"><h1 class="huge">${rich(s.headline)}</h1>${s.sub ? `<p class="lede sol">${rich(s.sub)}</p>` : ""}<div class="pline big">${PLINE[s.product] || PLINE.combo}</div></div>`; },
   // PROBLEM | SOLUTION (our take on the before/after split): a relatable problem moment next to the SILT ritual.
   // A side can be a scene photo, or "product" (brand colour + the stick) or "jars" (the supplement shelf).
+  // No Problem / Solution tags (team, 25 Nov: "remove this"); a static can still set label_problem / label_solution.
   problemsolution: s => {
     const side = (kind, sc, lab, line) => {
       const p = s.product === "combo" ? null : s.product;
@@ -176,9 +177,9 @@ const T = {
         : okPhoto(s.photo) && kind === "prob" ? `<div class="psimg" style="background-image:url('${s.photo}')"></div>`
         : sc === "jars" ? bottles(s._A, s.product)
         : `<div class="psimg" style="background-image:url('${scene(s._A, sc)}')"></div>`;
-      return `<div class="ps ${kind}">${inner}<span class="pstag ${kind}">${esc(lab)}</span><div class="psline">${rich(line)}${kind === "sol" ? `<div class="pline">${PLINE[s.product] || PLINE.combo}</div>` : ""}</div></div>`;
+      return `<div class="ps ${kind}">${inner}${lab ? `<span class="pstag ${kind}">${esc(lab)}</span>` : ""}<div class="psline">${rich(line)}${kind === "sol" ? `<div class="pline">${PLINE[s.product] || PLINE.combo}</div>` : ""}</div></div>`;
     };
-    return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "Problem", s.problem)}${side("sol", "product", s.label_solution || "Solution", s.solution)}</div>`;
+    return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "", s.problem)}${side("sol", "product", s.label_solution || "", s.solution)}</div>`;
   },
   // Two-panel meme: two moments, two captions
   // ONE IMAGE PER CREATIVE (founder rule, 25 Nov): one problem photo; setup + punchline as text on it. img:"a" picks the first scene.
@@ -205,7 +206,7 @@ const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "pro
 // PROBLEM + SOLUTION, BOTH VISIBLE (house rules 27, 36, 39): formats with no solution of their own get a solution block:
 // a big bold solution line (spec.solution, or the product's), the three pack pointers, and the pack beside them.
 const SOLVE = new Set(["meme", "tweet", "poll", "chat", "notes", "checklist", "calendar", "email", "search", "forward", "bignum", "chips", "parts", "vs", "unbox", "bill", "timeline", "backpanel"]);
-export const SOLUTION = { mornings: "Energy, gut and vitamins. *One stick.*", nights: "Made for deep sleep. *One warm drink.*", combo: "One morning stick. *One night stick.*" };
+export const SOLUTION = { mornings: "Energy, gut and vitamins. *One stick.*", nights: "Made for deep sleep. *One drink.*", combo: "One morning stick. *One night stick.*" };
 
 function css(z, th, A, F) {
   return `@font-face{font-family:Jost;src:url(${F}jost-400.ttf);font-weight:400}@font-face{font-family:Jost;src:url(${F}jost-700.ttf);font-weight:700}
@@ -236,7 +237,7 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 .solrow{flex:none;display:flex;align-items:flex-end;gap:2em;margin-top:auto;min-height:0}.solrow .pack{margin-top:0;height:${Math.round(z.pack * .82)}px;flex:none}.solrow .pack.duo{height:${Math.round(z.pack * .58)}px}
 .solb{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.3em;padding-bottom:.4em}.soll{font-size:4.6em;font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
-.plus{list-style:none;display:flex;flex-direction:column;gap:0}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12;display:flex;align-items:center;gap:.4em}.plus li .sic{width:1.3em;height:1.3em}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
+.plus{list-style:none;display:inline-flex;flex-direction:column;align-items:flex-start;align-self:flex-start;gap:0}.plus li.pl{align-self:center}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12;display:flex;align-items:center;gap:.4em}.plus li .sic{width:1.3em;height:1.3em}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
 .pa .plus li{color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}.pa.light .plus li{color:#2A1E14;text-shadow:none}.pa .plus li.pl{color:#E9C46A}.pa.light .plus li.pl{color:#E2801A}
 .tk{width:1.25em;height:1.25em;border-radius:50%;background:#2FA84F;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 .1em .3em rgba(0,0,0,.2)}.tk svg{width:72%;height:72%;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .mside{flex:none;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:2.2em}
@@ -339,6 +340,26 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 export const MESSAGE = { TOFU: "Replaces the stack", MOFU: "Replaces the stack", BOFU: "Replaces the stack", RET: "Your daily ritual" };
 // The funnel message (Replaces the stack / Your daily ritual) lives in the copy, not as a header label (user, 25 Nov).
 
+// TEXT PLACEMENT (team, 25 Nov: "I want to edit the placements of the text as well"). The editor drags three groups,
+// saved per size: spec.pos = { "4x5": { text: [dx, dy], pack: [dx, dy], cta: [dx, dy], align: "left|center|right" }, ... }.
+export const MOVE = {
+  cta: "footer",
+  pack: ".solrow > .pack, main > .pack, .frame.full main > .pack",
+  sol: ".solrow > .solb",
+  text: ".frame.full .scenetext, .frame:not(.full) main > :not(.solrow):not(.pack)"
+};
+export const MOVE_NAMES = { text: "Words", sol: "Solution", pack: "Pack", cta: "Button" };
+// spec.pos[size].fs = { text: 1.1, ... }: words, solution and button grow by font size (layout reflows); the pack scales.
+function posCss(spec, sizeId) {
+  const p = spec.pos && (spec.pos[sizeId] || spec.pos.all); if (!p || typeof p !== "object") return "";
+  let c = "";
+  for (const [g, sel] of Object.entries(MOVE)) {
+    const v = p[g]; if (Array.isArray(v) && (v[0] || v[1])) c += `${sel}{translate:${Math.round(+v[0] || 0)}px ${Math.round(+v[1] || 0)}px}`;
+    const k = +(p.fs && p.fs[g]); if (k && k !== 1) c += g === "pack" ? `${sel}{scale:${k};transform-origin:100% 100%}` : `${sel}{font-size:${k}em}`;
+  }
+  if (["left", "center", "right"].includes(p.align)) c += `.scenetext,main > h1,main > p,main > .lede,.scenetext h1,.scenetext p{text-align:${p.align}}.frame.full .scenetext{align-items:${p.align === "center" ? "center" : p.align === "right" ? "flex-end" : "flex-start"}}`;
+  return c;
+}
 export function render(spec, sizeId, base = "") {
   const z = SIZES[sizeId], th = THEMES[spec.theme || (spec.product === "nights" ? "pm" : spec.product === "mornings" ? "am" : "combo")];
   const A = base + "assets/", F = base + "fonts/";
@@ -350,7 +371,7 @@ export function render(spec, sizeId, base = "") {
   // newscard already says its solution (GOOD NEWS), so it gets the ticks without a second line.
   const solveIt = (SOLVE.has(spec.t) || spec.t === "newscard") && spec.solution !== false;
   const prod = solveIt ? `<div class="solrow"><div class="solb">${spec.t === "newscard" ? "" : `<div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>`}${ticks(spec.product, A)}${pill(spec.product)}</div>${solPack}</div>` : pk;
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
+  return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}${posCss(spec, sizeId)}</style></head><body>
 <div class="frame${full ? " full" : ""} t-${spec.t}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
 <footer><span class="cta">${esc(spec.cta || (spec.funnel === "RET" ? "Your 60-second ritual" : spec.product === "nights" ? "SILT Nights · NIGHTLY sleep and recovery" : spec.product === "mornings" ? "SILT Mornings · DAILY energy and nutrition" : "Extra 10% off the Combo · COMBO10"))}</span>${spec.note ? `<span class="note">${esc(spec.note)}</span>` : `<span class="url">siltnutrition.com</span>`}</footer></div></div></body></html>`;
@@ -366,7 +387,7 @@ export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
 export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
-const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai"]);
+const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai", "ai_note", "rewritten_from", "pos", "caption", "ad_headline", "pack_top", "img"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.
 export function checkCopy(s) {
@@ -376,6 +397,7 @@ export function checkCopy(s) {
   if (/AG1|Supply ?6|Oziva|Upside|Wellbeing Nutrition|Stack Club|Fast&Up|Whole Truth|Cosmix|IM8/i.test(text)) out.push("Names a competitor. Compare against \"the usual stack\" instead.");
   if (/easy return|money.?back|guarantee|full refund|no.questions/i.test(text)) out.push("Promises returns or a guarantee. Our policy is no returns; damaged or wrong products are replaced within 72 hours.");
   if (/★|\d ?stars?\b|5-star/i.test(text)) out.push("Shows a star rating we haven't verified.");
+  if (/warm/i.test(text)) out.push("Says warm: it is one drink, never a warm drink (team, 25 Nov).");
   if (/melatonin-free|cure|treat|clinically proven|doctor recommended/i.test(text)) out.push("Medical-sounding claim (cure, treat, clinically proven...). Check with the team.");
   const nums = [...new Set((text.match(/\d[\d,:]*/g) || []).map(n => n.replace(/,$/, "")))].filter(n => !FACT_NUMBERS.includes(n) && !/^\d{1,2}:\d{2}$/.test(n));
   if (nums.length) out.push(`Numbers not on the pack or website: ${nums.join(", ")}. Check them before this goes live.`);

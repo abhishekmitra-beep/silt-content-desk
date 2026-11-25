@@ -43,7 +43,7 @@ export const REJECT_TAGS = {
   "Pack wrong or hidden": "The real pack, large, lower right, never covered, never redrawn.",
   "Not Indian / wrong person": "A real-looking Indian person, 28 to 40, in an Indian setting.",
   "Spelling or wrong words": "Print the exact words, spelled right; check every word before saving.",
-  "Off-brand look": "Follow the kit look: premium, warm, clean, one idea, about 40% empty.",
+  "Off-brand look": "Follow the kit look: premium, clean, calm, one idea, about 40% empty.",
   "Claim or fact problem": "Only facts, doses and prices from the brief and the pack; no promises."
 };
 export async function lessons(env) {

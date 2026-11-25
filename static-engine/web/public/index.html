@@ -72,12 +72,12 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 <dialog id="dlg"><div class="ed">
   <div class="pane"><div class="row"><b id="edTitle" style="font-size:17px"></b><span class="spacer"></span><button id="close">Close</button></div><div id="fields"></div>
     <p class="sub">Write **bold** for bold and *word* for the accent colour. Lists take one item per line. Keep it to about 22 words.</p></div>
-  <div class="pane"><div class="row" id="edSize"></div><div class="stage" id="stage"><iframe id="frame" title="Preview"></iframe></div><div id="live"></div>
+  <div class="pane"><div class="row" id="edSize"></div><div class="row" id="edPos" style="justify-content:center;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="sub" style="width:100%;text-align:center">Drag the words, the pack or the button on the preview to move them (saved for this size).</span><button data-al="left">Left</button><button data-al="center">Centre</button><button data-al="right">Right</button><button data-al="reset">Reset placement and size</button></div><div class="row" id="edFs" style="justify-content:center;gap:4px 10px;flex-wrap:wrap;margin:0 0 6px"></div><div class="stage" id="stage"><iframe id="frame" title="Preview"></iframe></div><div id="live"></div>
     <div class="row" style="justify-content:center"><button class="primary" id="save">Save</button><button id="export">Export PNG</button><button id="exportAll">Export all 3 sizes</button><button id="del" hidden>Delete</button></div><p class="status" id="edMsg" style="text-align:center"></p></div>
 </div></dialog>
 
 <script type="module">
-import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS, BRAND_BRIEF } from "/engine.js";
+import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS, BRAND_BRIEF, MOVE, MOVE_NAMES } from "/engine.js";
 import { STATICS } from "/statics.js";
 import { LIBRARY } from "/library.js";
 
@@ -543,6 +543,22 @@ function preview() {
   stage.style.width = z.w * sc + "px"; stage.style.height = z.h * sc + "px"; frame.style.width = z.w + "px"; frame.style.height = z.h + "px"; frame.style.transform = `scale(${sc})`; frame.srcdoc = render(cur, edSize, "/");
   const p = checkCopy(cur), w2 = wordCount(cur); $("live").innerHTML = (p.length ? `<div class="check">${p.map(esc).join("<br>")}</div>` : "") + `<div class="sub" style="text-align:center">${w2} words (aim for ${TEXT_LIMIT.good})</div>`;
 }
+// Placement: drag a group (words / pack / button) on the preview; saved per size in cur.pos (engine applies it everywhere).
+$("edFs").innerHTML = "<span class=\"sub\">Size:</span>" + Object.entries(MOVE_NAMES).map(([g, n]) => `<span style="white-space:nowrap">${n} <button data-fs="${g}" data-d="-1" aria-label="Smaller ${n}">−</button><button data-fs="${g}" data-d="1" aria-label="Bigger ${n}">+</button></span>`).join("");
+$("edFs").addEventListener("click", e => { const b = e.target.closest("[data-fs]"); if (!b || !cur) return; const p = posOf(); p.fs = p.fs || {};
+  const k = Math.min(2, Math.max(.5, Math.round(((p.fs[b.dataset.fs] || 1) + .08 * +b.dataset.d) * 100) / 100)); if (k === 1) delete p.fs[b.dataset.fs]; else p.fs[b.dataset.fs] = k; preview(); });
+const posOf = () => { cur.pos = cur.pos && typeof cur.pos === "object" ? cur.pos : {}; return (cur.pos[edSize] = cur.pos[edSize] || {}); };
+$("edPos").addEventListener("click", e => { const b = e.target.closest("[data-al]"); if (!b || !cur) return; const a = b.dataset.al;
+  if (a === "reset") { if (cur.pos) delete cur.pos[edSize]; if (cur.pos && !Object.keys(cur.pos).length) delete cur.pos; } else posOf().align = a; preview(); });
+frame.addEventListener("load", () => { const d = frame.contentDocument; if (!d || !cur) return;
+  const st = d.createElement("style"); st.textContent = "[data-mv]{cursor:move}[data-mv]:hover{outline:3px dashed #E2801A;outline-offset:6px}"; d.head.appendChild(st);
+  for (const [g, sel] of Object.entries(MOVE)) d.querySelectorAll(sel).forEach(el => { if (!el.dataset.mv) el.dataset.mv = g; });
+  let drag = null;
+  d.addEventListener("pointerdown", e => { const el = e.target.closest("[data-mv]"); if (!el) return; e.preventDefault(); const g = el.dataset.mv, base = (posOf()[g] || [0, 0]).slice();
+    drag = { g, base, x: e.clientX, y: e.clientY, els: [...d.querySelectorAll("[data-mv=\"" + g + "\"]")] }; try { el.setPointerCapture(e.pointerId); } catch {} });
+  d.addEventListener("pointermove", e => { if (!drag) return; const dx = drag.base[0] + e.clientX - drag.x, dy = drag.base[1] + e.clientY - drag.y; drag.now = [Math.round(dx), Math.round(dy)]; drag.els.forEach(el => el.style.translate = dx + "px " + dy + "px"); });
+  d.addEventListener("pointerup", () => { if (!drag) return; if (drag.now) posOf()[drag.g] = drag.now; drag = null; preview(); });
+});
 $("close").addEventListener("click", () => dlg.close());
 const docOf = () => { const d = Object.fromEntries(Object.entries(cur).filter(([k]) => !k.startsWith("_"))); const f = checkCopy(d); if (f.length) d.flags = f; else delete d.flags; return d; };
 $("save").addEventListener("click", async () => { $("save").disabled = true;
