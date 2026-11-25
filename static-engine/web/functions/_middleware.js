@@ -13,6 +13,9 @@ export async function onRequest(ctx) {
   let name = "";
   try { name = decodeURIComponent(raw); } catch { name = raw; }
   ctx.data.name = name.replace(/[^\p{L}\p{N} .'-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 40) || "team";
+  // Who is acting: a person clicking on the site ("team") or an AI over the API ("ai").
+  // Only team clicks can make a static live; AI verdicts go to the AI Approval tab (user, 25 Nov).
+  ctx.data.actor = request.headers.get("x-silt-actor") === "team" && request.headers.get("origin") === url.origin ? "team" : "ai";
   const res = await ctx.next();
   const out = new Response(res.body, res);
   out.headers.set("x-robots-tag", "noindex, nofollow");

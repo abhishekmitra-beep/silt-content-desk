@@ -131,6 +131,8 @@ The site reads each image's size itself. To add new scene photos for the engine'
 - Pillars: Adherence and Trust.
 - TOFU, MOFU and BOFU say "Replaces the stack". RET (existing customers) is about the ritual, with no discount push.
 
+**Product placement (Abhishek's rules):** the engine places the pack for you. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. In 9:16 everything stays between 230 and 1165 px from the top.
+
 **People:** every person, name and setting is Indian: Indian faces, names like Priya, Rohan, Ananya or Arjun, and Indian moments (chai, autos, Bengaluru traffic, Diwali, wedding season, back-to-back calls).
 
 **Relatable first:** at least 6 in 10 statics show real moments of busy Indian professionals, not a product shot.

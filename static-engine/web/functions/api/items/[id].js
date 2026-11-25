@@ -1,7 +1,9 @@
 import { ensure } from "../_db.js";
 // PUT /api/items/<id> {doc?, status?}  -> update a team static or idea (status: active | approved | made | archived)
 // DELETE /api/items/<id>               -> archive it (nothing is hard-deleted; an archived override restores the built-in static)
-const STATUSES = new Set(["active", "draft", "changes", "approval", "approved", "rejected", "made", "archived"]);
+const STATUSES = new Set(["active", "draft", "changes", "approval", "approved", "rejected", "ai_approved", "ai_rejected", "made", "archived"]);
+// An AI (any API caller that isn't a click on the site) can only give a verdict; it can't make a static live.
+export const asActor = (status, actor) => actor === "team" ? status : status === "approved" ? "ai_approved" : status === "rejected" ? "ai_rejected" : status;
 const MAX = 24000;
 
 export async function onRequestPut({ request, env, params, data }) {
@@ -19,7 +21,9 @@ export async function onRequestPut({ request, env, params, data }) {
   }
   if (body.status !== undefined) {
     if (!STATUSES.has(body.status)) return Response.json({ error: "Bad status" }, { status: 400 });
-    status = body.status;
+    status = ["static", "override", "upload", "decision"].includes(row.kind) ? asActor(body.status, data.actor) : body.status;
+    // A team decision stands: an AI verdict on a static the team already approved or rejected is kept as a note only.
+    if (data.actor !== "team" && ["approved", "rejected"].includes(row.status) && status.startsWith("ai_")) { doc.ai_verdict = status; status = row.status; }
   }
   const now = new Date().toISOString(), who = data.name || "team";
   await env.DB.prepare("UPDATE se_items SET doc = ?, status = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(doc), status, who, now, id).run();

@@ -26,7 +26,7 @@ export const STATICS = [
     bless: "Skip the 6 jars 🙏", offer: "**SILT Mornings** replaces the stack.", sign: "Forward to all colleagues 🙏" },
 
   // ---------------- MOFU: retargeting · Replaces the stack, with proof ----------------
-  { id: "M01", slug: "us-vs-shelf", product: "combo", funnel: "MOFU", concept: "Us vs them", format: "26 Us vs them", t: "vs", shot: "none",
+  { id: "M01", slug: "us-vs-shelf", product: "combo", funnel: "MOFU", concept: "Us vs them", format: "26 Us vs them", t: "vs", 
     headline: "2 sticks vs the stack", us: "SILT", them: "THE STACK",
     rows: [["Every dose on the pack", 1, 0], ["No melatonin", 1, 0], ["No added sugar", 1, 0], ["60 seconds", 1, 0], ["Cheapest", 0, 1]] },
   { id: "M02", slug: "full-formula", product: "mornings", funnel: "MOFU", concept: "Behind the scenes", format: "18 Behind the scenes (the real pack)", t: "backpanel",
@@ -95,7 +95,7 @@ export const STATICS = [
     headline: "Sleep like a bear. *Minus the melatonin.*", cta: "Extra 10% off the Combo · COMBO10" },
   { id: "B07", slug: "log-off-tonight", product: "nights", funnel: "BOFU", concept: "Offer-led / bundle", format: "Scene photo", t: "scene", scene: "cloud", shot: "stick",
     headline: "Tonight, *log off properly.*", sub: "Mornings + Nights: extra 10% off with COMBO10.", cta: "Shop the Combo" },
-  { id: "R09", slug: "duvet-person", product: "mornings", funnel: "RET", concept: "Morning ritual", format: "Scene photo", t: "scene", scene: "bear", shot: "none",
+  { id: "R09", slug: "duvet-person", product: "mornings", funnel: "RET", concept: "Morning ritual", format: "Scene photo", t: "scene", scene: "bear", 
     headline: "Still a duvet person? *Stick first.*", sub: "Energy usually shows up in week 1." },
   { id: "R10", slug: "where-it-lives", product: "combo", funnel: "RET", concept: "Routine", format: "Poll", t: "poll", shot: "sticks",
     kicker: "Quick one", question: "Where does your *SILT* live?", options: ["Kitchen", "Work desk", "Bedside", "Still in the courier bag"], sub: "If you can see it, you'll drink it." },
