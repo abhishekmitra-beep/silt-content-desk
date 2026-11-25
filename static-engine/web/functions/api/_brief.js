@@ -33,6 +33,27 @@ export const LENSES = [
   "a desi family moment (mummy's advice, the family WhatsApp group, a dadi remedy)"
 ];
 
+// What each rejection reason teaches (the tags on the Reject window).
+export const REJECT_TAGS = {
+  "Words in Meta red zones": "Keep every word, the price and the pack inside the playbook text boxes (4:5 y 135 to 1215, Reels above 1248).",
+  "Too much text": "Cut to the headline, the solution, the price and the CTA. Less is more.",
+  "Weak hook": "Open on a sharper, specific moment someone would recognise in one second.",
+  "Wrong product or problem": "Match the problem to the product: Mornings = gut, 3 PM slump, vitamins; Nights = sleep, 3 AM, waking unrecovered.",
+  "Repeats an existing static": "New situation, new line, new format. Check the list of what exists.",
+  "Pack wrong or hidden": "The real pack, large, lower right, never covered, never redrawn.",
+  "Not Indian / wrong person": "A real-looking Indian person, 28 to 40, in an Indian setting.",
+  "Spelling or wrong words": "Print the exact words, spelled right; check every word before saving.",
+  "Off-brand look": "Follow the kit look: premium, warm, clean, one idea, about 40% empty.",
+  "Claim or fact problem": "Only facts, doses and prices from the brief and the pack; no promises."
+};
+export async function lessons(env) {
+  const rows = (await env.DB.prepare("SELECT id, kind, doc, updated_at FROM se_items WHERE status = 'rejected' AND doc LIKE '%reject_%' ORDER BY updated_at DESC LIMIT 200").all()).results;
+  const items = rows.map(r => ({ ...r, doc: JSON.parse(r.doc) })).filter(r => r.doc.reject_reason || (r.doc.reject_tags || []).length);
+  const counts = {}; for (const r of items) for (const t of r.doc.reject_tags || []) counts[t] = (counts[t] || 0) + 1;
+  const rules = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t, n]) => `${t} (${n}x): ${REJECT_TAGS[t] || ""}`.trim());
+  const recent = items.slice(0, 25).map(r => `[${r.doc.t || r.kind}/${r.doc.product || ""}] "${line(r.doc) || r.doc.title || r.doc.id}" rejected: ${[...(r.doc.reject_tags || []), r.doc.reject_reason].filter(Boolean).join("; ")}`);
+  return { total: items.length, rules, recent };
+}
 export async function buildBrief(env, { maxLines = 90 } = {}) {
   const { results } = await env.DB.prepare("SELECT id, kind, doc, status FROM se_items WHERE kind IN ('static', 'override', 'upload', 'decision') AND status != 'archived' ORDER BY updated_at DESC LIMIT 1500").all();
   const items = results.map(r => ({ ...r, doc: JSON.parse(r.doc) }));
@@ -52,7 +73,9 @@ export async function buildBrief(env, { maxLines = 90 } = {}) {
   for (const x of all) if (x.t in usage) usage[x.t]++;
   const byUse = Object.entries(usage).sort((a, b) => a[1] - b[1]);
   const women = all.filter(x => /\b(she|her|woman|women|mother|mom|mummy|girl|priya|ananya)\b/i.test(x.line)).length;
+  let les = { total: 0, rules: [], recent: [] }; try { les = await lessons(env); } catch {}
   return {
+    lessons: les,
     total: all.length,
     approved: good.slice(0, 25).map(x => `[${x.funnel}/${x.product}/${x.t}${x.status === "ai_approved" ? ", AI-approved" : ""}] ${x.line}`),
     rejected: bad.slice(0, 20).map(x => `[${x.funnel}/${x.t}${x.status === "ai_rejected" ? ", AI-rejected" : ""}] ${x.line}`),
@@ -96,7 +119,13 @@ export function pickLenses(n = 3) {
 
 // The text block the AI reads before it writes.
 export function briefText(b, lenses) {
-  return `WHAT THE ENGINE ALREADY HAS (${b.total} statics). Build on it, never repeat it:
+  const L = b.lessons && b.lessons.total ? `LESSONS FROM TEAM REJECTIONS (${b.lessons.total} so far). Test every static against these before you save it; if it repeats one, rewrite it:
+${b.lessons.rules.map(r => "- " + r).join("\n")}
+Recent rejections and why:
+${b.lessons.recent.map(r => "  " + r).join("\n")}
+
+` : "";
+  return L + `WHAT THE ENGINE ALREADY HAS (${b.total} statics). Build on it, never repeat it:
 - WORKS (approved, keep the spirit, find NEW situations): ${b.approved.length ? "\n  " + b.approved.join("\n  ") : "none yet"}
 - AVOID (rejected, don't make anything like these): ${b.rejected.length ? "\n  " + b.rejected.join("\n  ") : "none yet"}
 - ALREADY SAID (do not reuse these lines or ideas): ${b.existing.join(" | ")}

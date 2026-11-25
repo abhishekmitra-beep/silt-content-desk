@@ -52,6 +52,15 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type:
 curl -s -X PUT https://silt-static-engine.pages.dev/api/items/<idea id> -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" -d '{"status":"working"}'
 ```
 
+## 2b. Learn from the team's rejections (every time)
+
+The brief starts with **LESSONS FROM TEAM REJECTIONS**: every static the team rejected, with the reason they gave, and the lessons ranked by how often they come up. Also at `GET /api/lessons`.
+
+Treat them as rules you learned the hard way:
+- Before you save a static, **test it against every lesson**. If it would earn the same rejection (too much text, words in Meta's red zones, a weak hook, a repeat, the wrong problem for the product, a hidden pack...), rewrite it first.
+- Say in `ai_note` which lessons you checked it against, e.g. "Checked: red zones, too much text, repeats."
+- If the team keeps rejecting the same thing, change your approach, not just the words.
+
 ## 3. Think, then write each static
 
 Make `count` statics (default 6). Each one is a **different moment, a different person and a different format**, and nothing on the brief's lists may repeat. Use Indian characters, with Indian women as the lead in many of them. Never invent a customer quote, review, rating or result.
@@ -149,6 +158,9 @@ When the images are on, tell the person how many are ready and that each static 
 | offer | kicker, headline, code, sub |
 | mistakes | headline, items, turn |
 | vs | headline, us, them, rows ([label, 1/0, 1/0]) |
+| onestick | kicker ("Your morning" / "Your night"), headline ("One stick."), problems (list, the red switches), sub ("All in one stick pack."), price ("Rs. 900"), price_note ("for a box of 15 sticks"); set "shot": "none" |
+
+Formats with no solution field of their own (meme, tweet, poll, chat, notes, checklist, calendar, email, search, forward and the proof formats) automatically get a solution block: a big bold line, the three pack pointers and the pack. Set your own line with a `solution` field, e.g. `"solution": "Made for deep sleep. *One warm drink.*"`; otherwise the product's line is used.
 
 Scene keys for the preview photo: tired-3pm, ceiling-2am, mug-calm, jar-january, founder-2am, night-phone, pillow-office, bear, awake-eyes, peek-blanket, eye-bw, pillow-hug, ugly-sleep, onesie, cloud, morning-light, deep-dark, outdoors, eye-mask, brain-glow, line-drawn, blinds, curled-night, peek-blinds, purple-top, clay-tired. These are all men or nobody. When your static needs a woman, say so in the ChatGPT prompt; ChatGPT's image replaces the preview photo.
 

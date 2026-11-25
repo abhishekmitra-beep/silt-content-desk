@@ -35,6 +35,15 @@ details.own{margin-top:6px}details.own summary{cursor:pointer;font-size:13px;col
 .tick{gap:5px;flex-wrap:wrap}.tick button,.tick .btn{padding:4px 10px;font-size:13px}.tick .ok{background:var(--ok-bg);color:var(--ok);font-weight:700}.tick .no{background:var(--warn-bg);color:var(--warn);font-weight:700}
 .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:12px 0 4px}.flow span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px}.flow b{display:block;font-size:14px}
 .qst{color:var(--acc)}
+.help summary{cursor:pointer}.help ol{margin:8px 0 0 18px;display:flex;flex-direction:column;gap:6px}.help code{font-size:12px;background:var(--chip);padding:1px 5px;border-radius:5px}
+#redBtn[aria-pressed="true"]{background:#c41e2d;color:#fff;border-color:#c41e2d}
+.thumb{position:relative}.redlines .thumb[data-z]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4}
+.redlines .thumb[data-z="4x5"]::after{background:linear-gradient(90deg,rgba(196,30,45,.35) 6.02%,transparent 6.02% 93.98%,rgba(196,30,45,.35) 93.98%),repeating-linear-gradient(135deg,rgba(196,30,45,.5) 0 6px,rgba(196,30,45,.2) 6px 12px) top/100% 10% no-repeat,repeating-linear-gradient(135deg,rgba(196,30,45,.5) 0 6px,rgba(196,30,45,.2) 6px 12px) bottom/100% 10% no-repeat}
+.redlines .thumb[data-z="1x1"]::after{background:linear-gradient(90deg,rgba(196,30,45,.35) 6.02%,transparent 6.02% 93.98%,rgba(196,30,45,.35) 93.98%),linear-gradient(rgba(196,30,45,.35) 6.02%,transparent 6.02% 93.98%,rgba(196,30,45,.35) 93.98%)}
+.redlines .thumb[data-z="9x16"]::after{background:linear-gradient(90deg,rgba(196,30,45,.35) 6.02%,transparent 6.02% 93.98%,rgba(196,30,45,.35) 93.98%),linear-gradient(rgba(196,30,45,.62) 14.01%,transparent 14.01% 85.99%,rgba(196,30,45,.62) 85.99%)}
+.redlines .thumb[data-z="reels"]::after{background:linear-gradient(90deg,rgba(196,30,45,.35) 6.02%,transparent 6.02% 93.98%,rgba(196,30,45,.62) 93.98%),linear-gradient(rgba(196,30,45,.62) 14.01%,transparent 14.01% 65%,rgba(196,30,45,.62) 65%)}
+.rtags{display:flex;flex-wrap:wrap;gap:6px}.rtag{font-size:13px;background:var(--chip);border-radius:999px;padding:4px 10px;cursor:pointer;display:flex;gap:5px;align-items:center}.rdlg textarea{width:100%}
+.lessons li{margin:4px 0}
 .metaprev{max-width:min(1180px,96vw);width:96vw;padding:0}.mpwrap{padding:20px;display:flex;flex-direction:column;gap:10px}.mpapp{margin:12px 0 0;font-size:17px}
 .mpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.mpcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px}
 .mpchip{color:#fff;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:600}.mpuse{color:#9a5b00;font-weight:600}.mpimg{position:relative;border-radius:8px;overflow:hidden}.mpimg .thumb{border-radius:0}
@@ -55,7 +64,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head><body>
 <header class="top">
-  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="zipAll">Download everything (ZIP)</button></div>
+  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="redBtn" title="Show Meta's no-go zones (red) on every thumbnail">Red lines</button><button id="zipAll">Download everything (ZIP)</button></div>
   <div class="tabs" id="tabs"></div>
 </header>
 <main id="view"></main>
@@ -132,9 +141,9 @@ const chips = (key, opts) => opts.map(([v, l]) => `<button data-k="${key}" data-
 
 function thumb(s, size = st.size) {
   const z = SIZES[size];
-  if (isImg(s)) { const k = s.files[size] ? size : (s.files["4x5"] ? "4x5" : Object.keys(s.files)[0]); const zz = SIZES[k]; return `<div class="thumb" style="aspect-ratio:${zz ? zz.w + "/" + zz.h : "4/5"}"><img loading="lazy" src="${imgUrl(s, k, true)}" alt="${esc(s.title)}"></div>`; }
-  if (s._item) return `<div class="thumb" data-live="${esc(s._item.id)}" data-size="${size}" style="aspect-ratio:${z.w}/${z.h}"></div>`;
-  return `<div class="thumb" style="aspect-ratio:${z.w}/${z.h}"><img loading="lazy" src="/thumb/${fileName(s, size)}.jpg" alt="${esc(s.id)}"></div>`;
+  if (isImg(s)) { const k = s.files[size] ? size : (s.files["4x5"] ? "4x5" : Object.keys(s.files)[0]); const zz = SIZES[k]; return `<div class="thumb" data-z="${k}" style="aspect-ratio:${zz ? zz.w + "/" + zz.h : "4/5"}"><img loading="lazy" src="${imgUrl(s, k, true)}" alt="${esc(s.title)}"></div>`; }
+  if (s._item) return `<div class="thumb" data-z="${size}" data-live="${esc(s._item.id)}" data-size="${size}" style="aspect-ratio:${z.w}/${z.h}"></div>`;
+  return `<div class="thumb" data-z="${size}" style="aspect-ratio:${z.w}/${z.h}"><img loading="lazy" src="/thumb/${fileName(s, size)}.jpg" alt="${esc(s.id)}"></div>`;
 }
 function hydrate() {
   document.querySelectorAll("[data-live]").forEach(el => {
@@ -144,8 +153,8 @@ function hydrate() {
 }
 function card(s) {
   const lib = isImg(s), gen = !!s._item && !lib, id = s._item ? s._item.id : s.id;
-  const dl = lib ? Object.keys(s.files).map(k => `<a class="btn" href="${imgUrl(s, k)}${s.kind === "upload" ? "?dl=1" : ""}" download="${esc(imgName(s, k))}">${k.replace("x", ":")}</a>`).join("")
-    : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${k.replace("x", ":")}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${k.replace("x", ":")}</a>`).join("");
+  const dl = lib ? Object.keys(s.files).map(k => `<a class="btn" href="${imgUrl(s, k)}${s.kind === "upload" ? "?dl=1" : ""}" download="${esc(imgName(s, k))}">${SIZES[k]?.name || k}</a>`).join("")
+    : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${SIZES[k].name}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${SIZES[k]?.name || k}</a>`).join("");
   const tag = lib ? `<span class="chip${s.kind === "upload" ? " team" : ""}">${s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : "Library"}</span>` : gen ? `<span class="chip team">${s._item.kind === "override" ? "Edited" : "From an idea"} · ${esc(s._item.updated_by || s._item.created_by || "")}</span>` : "";
   const warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
   const aiNote = s.ai_note || s._dec?.doc?.ai_note || (decisions()[s.id] ? (st.items.find(i => i.id === "D-" + s.id)?.doc?.ai_note || "") : "");
@@ -396,7 +405,11 @@ function drawFunnel() {
 
 // ---------- Rules ----------
 function drawRules() {
-  $("view").innerHTML = `<div class="panel"><h2>House rules</h2><p class="sub">Every static generated here follows these, on top of the brand facts and the Plan of Action. They come from Abhishek (or his Claude). Anyone can read them; changing them needs the rules key.</p>
+  if (!st.lessonsLoaded) { st.lessonsLoaded = true; api("/api/lessons").then(l => { st.lessons = l; if (st.tab === "RULES") draw(); }).catch(() => {}); }
+  const L = st.lessons;
+  $("view").innerHTML = `<div class="panel"><h2>Lessons from rejections</h2><p class="sub">Every time the team rejects a static, the site asks why. These reasons go to the top of the brief every AI reads, and each new static is tested against them before it is saved.</p>
+    ${L && L.total ? `<ul class="lessons">${L.rules.map(r => `<li>${esc(r)}</li>`).join("")}</ul><details><summary class="sub">Recent rejections (${L.recent.length})</summary><ul class="lessons">${L.recent.map(r => `<li class="sub">${esc(r)}</li>`).join("")}</ul></details>` : `<p class="sub">No reasons yet. The next Reject or ✕ will ask why, and the lesson shows up here.</p>`}</div>
+    <div class="panel"><h2>House rules</h2><p class="sub">Every static generated here follows these, on top of the brand facts and the Plan of Action. They come from Abhishek (or his Claude). Anyone can read them; changing them needs the rules key.</p>
     ${st.rules.map((r, i) => `<div class="rule"><b>${i + 1}.</b><div style="flex:1">${esc(r.text)}<div class="sub">${esc(r.by)} · ${new Date(r.at).toLocaleDateString()}</div></div>${rulesKey ? `<button data-rm="${esc(r.id)}">Remove</button>` : ""}</div>`).join("") || `<p class="sub">No house rules yet.</p>`}
     <label class="lab" for="rk">Rules key</label><input id="rk" type="password" placeholder="Only needed to add or remove rules" value="${esc(rulesKey)}" autocomplete="off">
     <label class="lab" for="rNew">New rule</label><textarea id="rNew" rows="2" placeholder="e.g. Never show a phone screen with a fake notification"></textarea>
@@ -407,17 +420,38 @@ function drawRules() {
 }
 
 // Approve / reject: team items change status; built-in and library statics get a decision record.
-function decide(key, status) {
-  if (key.startsWith("s:")) return api("/api/items", { method: "POST", body: JSON.stringify({ kind: "decision", doc: { id: key.slice(2) }, status }) });
-  return api("/api/items/" + encodeURIComponent(key), { method: "PUT", body: JSON.stringify({ status }) });
+function decide(key, status, reason) {
+  const why = reason ? { reject_reason: reason.text, reject_tags: reason.tags } : {};
+  if (key.startsWith("s:")) return api("/api/items", { method: "POST", body: JSON.stringify({ kind: "decision", doc: { id: key.slice(2), ...why }, status }) });
+  return api("/api/items/" + encodeURIComponent(key), { method: "PUT", body: JSON.stringify({ status, ...(reason ? { reason } : {}) }) });
 }
+// Every team rejection asks why (user, 25 Nov): the reasons become lessons the AI tests every new static against.
+const REJECT_TAGS = ["Words in Meta red zones", "Too much text", "Weak hook", "Wrong product or problem", "Repeats an existing static", "Pack wrong or hidden", "Not Indian / wrong person", "Spelling or wrong words", "Off-brand look", "Claim or fact problem"];
+function askReason(title) {
+  return new Promise(res => {
+    const d = document.createElement("dialog"); d.className = "rdlg";
+    d.innerHTML = `<div style="padding:20px;max-width:560px;display:flex;flex-direction:column;gap:10px"><b style="font-size:18px">Why reject “${esc(String(title || "this static").replace(/\*/g, "").slice(0, 70))}”?</b>
+      <p class="sub" style="margin:0">The AI learns from this. Every new static is tested against the team's reasons before it is saved.</p>
+      <div class="rtags">${REJECT_TAGS.map(t => `<label class="rtag"><input type="checkbox" value="${esc(t)}"> ${esc(t)}</label>`).join("")}</div>
+      <textarea id="rtext" rows="3" placeholder="In your words: what's wrong, and what would make it right?"></textarea>
+      <div class="row"><button id="rcancel">Cancel</button><span class="spacer"></span><button class="primary" id="rok">Reject with this reason</button></div><p class="sub" id="rmsg" style="margin:0"></p></div>`;
+    document.body.appendChild(d); d.showModal();
+    let done = false; const finish = v => { if (done) return; done = true; if (d.open) d.close(); d.remove(); res(v); };
+    d.querySelector("#rcancel").onclick = () => finish(null);
+    d.addEventListener("cancel", () => finish(null));
+    d.querySelector("#rok").onclick = () => { const tags = [...d.querySelectorAll("input:checked")].map(i => i.value), text = d.querySelector("#rtext").value.trim();
+      if (!tags.length && !text) { d.querySelector("#rmsg").textContent = "Pick a reason or write one, so the AI can learn from it."; return; }
+      finish({ tags, text }); };
+  });
+}
+const titleOf = key => { const s = anyStatic(key.replace(/^s:/, "")); return s ? (s.headline || s.problem || s.title || s.question || s.top || s.kicker || s.concept || s.id) : key; };
 
 // ---------- clicks ----------
 $("view").addEventListener("click", async e => {
   const t = e.target, id = t.id, b = q => t.closest(q);
   const k = b("[data-k]"); if (k) { st[k.dataset.k] = k.dataset.v; saveUi(); return draw(); }
   const ap = b("[data-appr]"); if (ap) { ap.disabled = true; await decide(ap.dataset.appr, "approved").catch(er => alert(er.message)); return load(); }
-  const rj = b("[data-rej]"); if (rj) { await decide(rj.dataset.rej, "rejected").catch(er => alert(er.message)); return load(); }
+  const rj = b("[data-rej]"); if (rj) { const why = await askReason(titleOf(rj.dataset.rej)); if (!why) return; await decide(rj.dataset.rej, "rejected", why).catch(er => alert(er.message)); return load(); }
   if (id === "apAll") { if (!confirm("Approve all the statics shown? They go live in their funnel tabs.")) return; t.disabled = true; const xs = st.apList || [];
     let n = 0; for (const s of (st.apList || xs)) { $("zipMsg").textContent = "Approving " + (++n) + " of " + (st.apList || xs).length + "…"; await decide(s._item ? s._item.id : "s:" + s.id, "approved").catch(() => {}); } return load(); }
   const ed = b("[data-edit]"); if (ed) return openEditor(findAny(ed.dataset.edit));
@@ -430,7 +464,7 @@ $("view").addEventListener("click", async e => {
   if (id === "connectAI2") { e.preventDefault(); return welcome(true); }
   const mp = b("[data-metaprev]"); if (mp) { const sx = anyStatic(mp.dataset.metaprev); if (sx) metaPreview(sx); return; }
   const tk = b("[data-tick]"); if (tk) { tk.disabled = true; await api("/api/items/" + encodeURIComponent(tk.dataset.tick), { method: "PUT", body: JSON.stringify({ status: "approval" }) }).catch(er => alert(er.message)); await load(); return status("Sent to Team Approval."); }
-  const cr = b("[data-cross]"); if (cr) { cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected" }) }).catch(er => alert(er.message)); await load(); await sweepIdeas(); return; }
+  const cr = b("[data-cross]"); if (cr) { const why = await askReason(titleOf(cr.dataset.cross)); if (!why) return; cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected", reason: why }) }).catch(er => alert(er.message)); await load(); await sweepIdeas(); return; }
   const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt); const pk = p => location.origin + "/assets/" + p + "_boxstick_cut.png";
     const pack = sx.product === "combo" ? pk("mornings") + " and " + pk("nights") : pk(sx.product === "nights" ? "nights" : "mornings");
     return copyText(sx.chatgpt_prompt + "\n\n(Attach the SILT pack image: " + pack + ")", "ChatGPT prompt copied. Paste it into ChatGPT with the pack image attached, then upload the result here (⬆ Image)."); }
@@ -460,8 +494,21 @@ const GROUP = { TOFU: "1_TOFU", MOFU: "2_MOFU", BOFU: "3_BOFU", RET: "4_Retentio
 async function zip(list, size, name, msgEl) {
   if (!window.JSZip) return (msgEl.textContent = "The ZIP library didn't load. Reload the page.");
   const jobs = []; for (const s of list) for (const k of (size === "all" ? Object.keys(SIZES) : [size])) if (!isImg(s) || s.files[k]) jobs.push([s, k]);
-  const zf = new JSZip(); let n = 0;
-  for (const [s, k] of jobs) { msgEl.textContent = `Preparing ${++n} of ${jobs.length}…`; const nm = isImg(s) ? imgName(s, k) : fileName(s, k) + ".png"; zf.file(`${name}/${GROUP[s.funnel] || s.funnel}/${SIZES[k].label}_${k}/${nm}`, await pngBlob(s, k)); }
+  const zf = new JSZip(); let n = 0; const missing = [];
+  const baseOf = s => (isImg(s) ? (s.title || s.id) : fileName(s, "4x5").replace(/_Feed_4x5_1080x1350$/, "")).replace(/[^A-Za-z0-9_-]+/g, "_").slice(0, 70);
+  if (size === "all") for (const s of list) { const lack = Object.keys(SIZES).filter(k => isImg(s) && !s.files[k]); if (lack.length) missing.push(baseOf(s) + ": no " + lack.map(k => SIZES[k].name).join(", ")); }
+  for (const [s, k] of jobs) { msgEl.textContent = `Preparing ${++n} of ${jobs.length}…`; const b = baseOf(s); const ext = isImg(s) && /\.jpe?g$/i.test(imgName(s, k)) ? ".jpg" : ".png";
+    zf.file(`${name}/${GROUP[s.funnel] || s.funnel}/${b}/${b}_${SIZES[k].meta}${ext}`, await pngBlob(s, k)); }
+  zf.file(`${name}/README_meta_placements.txt`, `SILT statics, built to the placement playbook (25 Nov).
+Every static has four files. Upload all four to ONE ad as a placement-customised creative (optimization_type PLACEMENT), creative enhancements all OFF.
+
+feed_4x5    1080 x 1350  Instagram feed, Explore, profile feed; Facebook feed, video feeds, profile feed, notifications; Threads feed
+square_1x1  1080 x 1080  Instagram Explore home, search; Facebook right column, Marketplace, search, business explore; Messenger inbox
+story_9x16  1080 x 1920  Instagram Stories, Facebook Stories, WhatsApp Status (top and bottom 269 px are covered)
+vert_9x16   1080 x 1920  Instagram Reels, profile Reels, Facebook Reels (covered above 269 px and below 1248 px, and the right 65 px)
+
+Check Stories, Reels and Explore in Meta's preview before publishing.
+${missing.length ? "\nMissing files (make them before running these as placement-customised ads):\n" + missing.join("\n") + "\n" : ""}`);
   msgEl.textContent = "Zipping…"; save(await zf.generateAsync({ type: "blob" }), `${name}${size === "all" ? "" : "_" + size}.zip`); msgEl.textContent = `Downloaded ${jobs.length} files.`;
 }
 
@@ -507,6 +554,10 @@ async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (
 $("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
 
 $("connectAI").addEventListener("click", () => welcome(true));
+// Red lines (placement playbook): Meta's no-go zones laid over every thumbnail. Remembered per browser.
+let red = false; try { red = localStorage.getItem("silt-se-red") === "1"; } catch {}
+const setRed = v => { red = v; document.body.classList.toggle("redlines", v); $("redBtn").setAttribute("aria-pressed", v); try { localStorage.setItem("silt-se-red", v ? "1" : "0"); } catch {} };
+setRed(red); $("redBtn").addEventListener("click", () => setRed(!red));
 // Connected or not is VERIFIED, never self-reported (user, 25 Nov: "be smart enough to know when you are connected").
 // This browser has a pairing code; the person's Claude / SILT GPT proves the connection by calling /api/connect with it.
 let myCode = "";
@@ -540,7 +591,20 @@ async function welcome(force = false) {
     + '<p class="sub" style="margin:0"><b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images. Everything waits for the team\'s ✓.</p>'
     + '<div id="wState" class="panel" style="margin:0;gap:6px">' + connRows() + '</div>'
     + '<div class="panel" style="margin:0"><b>1 · Claude</b><span class="sub">Download <b>your</b> Claude skill (it already has your code inside). In Claude: Settings → Capabilities → Skills → upload the zip. In Claude Code, unzip it into ~/.claude/skills. That\'s it: the first time you use it, this window ticks ✓ by itself.</span><div class="row"><button class="primary" id="wSkill">⬇ Download my Claude skill</button></div></div>'
-    + '<div class="panel" style="margin:0"><b>2 · ChatGPT</b><span class="sub">Copy <b>your</b> GPT instructions (your code is inside). Paste them into your SILT GPT: Configure → Instructions. New to the GPT? The setup guide has the 4 steps. The first chat ticks ✓ here by itself.</span><div class="row"><button class="primary" id="wGpt">Copy my ChatGPT instructions</button><a class="btn" href="/team-ai/GPT_SETUP.md" target="_blank">GPT setup guide</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
+    + '<details class="panel help" style="margin:0"' + (conn.claude ? '' : ' open') + '><summary><b>Claude still ○? Step by step</b></summary><ol class="sub">'
+    + '<li><b>Claude Code or the Claude desktop app (Code tab):</b> unzip the skill into the folder <code>.claude/skills</code> in your user folder. Then say <b>“make the waiting SILT ideas”</b>. It ticks the first time it talks to the site.</li>'
+    + '<li><b>claude.ai or the Claude app (chat):</b> Settings → Capabilities → Skills → Upload skill → the zip. Also in Capabilities, turn on <b>code execution</b> and allow network access to <code>silt-static-engine.pages.dev</code>, or Claude cannot reach the site.</li>'
+    + '<li><b>Upload says the description has XML tags?</b> You have an old zip. Download it again above.</li>'
+    + '<li><b>Claude can\'t reach the site at all?</b> On the Ideas tab use <b>Copy for Claude</b>, paste it into Claude, and paste the answer back with <b>Paste Claude\'s reply</b>.</li></ol></details>'
+    + '<div class="panel" style="margin:0"><b>2 · ChatGPT</b><span class="sub">Copy <b>your</b> GPT instructions (your code is inside) and paste them into your SILT GPT. It must be a <b>custom GPT with the SILT action</b>: normal ChatGPT can\'t reach the site.</span><div class="row"><button class="primary" id="wGpt">Copy my ChatGPT instructions</button><a class="btn" href="/team-ai/GPT_SETUP.md" target="_blank">GPT setup guide</a><a class="btn" href="/team-ai/openapi.json" target="_blank">Action file</a></div></div>'
+    + '<details class="panel help" style="margin:0"' + (conn.chatgpt ? '' : ' open') + '><summary><b>ChatGPT still ○? Step by step</b></summary><ol class="sub">'
+    + '<li>Go to <b>chatgpt.com/gpts/editor</b> → <b>Configure</b>. Name: SILT Statics.</li>'
+    + '<li><b>Instructions:</b> paste what <b>Copy my ChatGPT instructions</b> copied (it carries your code).</li>'
+    + '<li><b>Capabilities:</b> turn on <b>Image Generation</b>.</li>'
+    + `<li><b>Actions</b> → Create new action → <b>Import from URL</b>: <code>${location.origin}/team-ai/openapi.json</code>. Authentication: <b>None</b>. Save.</li>`
+    + `<li>Open the GPT and say <b>“${say}”</b>. The first time, ChatGPT asks to talk to silt-static-engine.pages.dev: click <b>Always allow</b>. This window ticks ✓.</li>`
+    + '<li><b>Still ○?</b> The site never heard from your GPT: the action is missing, Authentication isn\'t None, “Allow” wasn\'t clicked, or you used normal ChatGPT instead of the SILT GPT.</li>'
+    + '<li><b>No custom GPT?</b> Let Claude do it: with <b>Claude in Chrome</b>, Claude opens chatgpt.com in your browser, makes each image from its prompt and uploads it. That ticks ChatGPT here too (through Claude).</li></ol></details>'
     + `<p class="sub" style="margin:0">Already set up with the old skill or GPT? Just tell it <b>“${say}”</b> <button id="wCopy" style="padding:2px 10px">Copy</button>. Your code: <span class="code">${myCode}</span></p>`
     + '<div class="row"><span class="sub">This window checks every few seconds.</span><span class="spacer"></span><button class="primary" id="wLater">Close</button></div></div>';
   document.body.appendChild(d); d.showModal();

@@ -26,6 +26,12 @@ export async function onRequestPut({ request, env, params, data }) {
     if (data.actor !== "team" && ["approved", "rejected"].includes(row.status) && status.startsWith("ai_")) { doc.ai_verdict = status; status = row.status; }
   }
   const now = new Date().toISOString(), who = data.name || "team";
+  // Why the team rejected it: the AI learns from these (lessons in the brief every AI reads before writing).
+  if (body.reason && typeof body.reason === "object") {
+    doc.reject_reason = String(body.reason.text || "").slice(0, 500);
+    doc.reject_tags = (Array.isArray(body.reason.tags) ? body.reason.tags : []).map(t => String(t).slice(0, 60)).slice(0, 10);
+    doc.rejected_by = who; doc.rejected_at = now;
+  }
   await env.DB.prepare("UPDATE se_items SET doc = ?, status = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(doc), status, who, now, id).run();
   return Response.json({ id, kind: row.kind, doc, status, updated_by: who, updated_at: now });
 }

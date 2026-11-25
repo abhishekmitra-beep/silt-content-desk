@@ -5,14 +5,14 @@
 export const SIZES = {
   // PLACEMENT PLAYBOOK v1 (25 Nov): every static ships as FOUR files; anything to read (text, price, logo) stays in its text box.
   // 4:5 master, text x 65-1015, y 135-1215 (a square crop can cut 135 px top and bottom).
-  "4x5": { w: 1080, h: 1350, pad: [135, 72, 135, 72], fs: 8.9, pack: 382, label: "Feed", ratio: "4x5" },
+  "4x5": { w: 1080, h: 1350, pad: [135, 72, 135, 72], fs: 8.9, pack: 382, label: "Feed", ratio: "4x5", meta: "feed_4x5", name: "4:5" },
   // 1:1, text 65 px from every edge; headline and price readable at 200 px wide.
-  "1x1": { w: 1080, h: 1080, pad: [65, 65, 65, 65], fs: 8.3, pack: 335, label: "Square", ratio: "1x1" },
+  "1x1": { w: 1080, h: 1080, pad: [65, 65, 65, 65], fs: 8.3, pack: 335, label: "Square", ratio: "1x1", meta: "square_1x1", name: "1:1" },
   // Stories / WhatsApp Status: the 4:5 master unscaled at y 285-1635 (same text size and pack), background extended;
   // the app covers the top and bottom 269 px.
-  "9x16": { w: 1080, h: 1920, pad: [420, 72, 420, 72], fs: 8.9, pack: 382, label: "Stories", ratio: "9x16" },
+  "9x16": { w: 1080, h: 1920, pad: [420, 72, 420, 72], fs: 8.9, pack: 382, label: "Stories", ratio: "9x16", meta: "story_9x16", name: "Stories" },
   // Reels: re-laid out, everything to read and the pack between 269 and 1248 px, 65+ px off the right edge (the icons).
-  "reels": { w: 1080, h: 1920, pad: [269, 72, 672, 72], fs: 8.1, pack: 348, label: "Reels", ratio: "9x16" }
+  "reels": { w: 1080, h: 1920, pad: [269, 72, 672, 72], fs: 8.1, pack: 348, label: "Reels", ratio: "9x16", meta: "vert_9x16", name: "Reels" }
 };
 
 export const THEMES = {
@@ -74,6 +74,17 @@ const rich = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)
 // Combo shows both packs, Mornings left and Nights right. Only shot: "none" leaves it out (the back-of-pack panel).
 const PLINE = { mornings: 'SILT Mornings · <b>DAILY</b> energy and nutrition', nights: 'SILT Nights · <b>NIGHTLY</b> sleep and recovery', combo: 'SILT Combo · <b>DAILY</b> energy, <b>NIGHTLY</b> sleep' };
 const bottles = (A, p) => `<div class="psimg bottles" style="background-image:url('${A}bottles_${p === "mornings" || p === "nights" ? p : "combo"}.jpg')"></div>`;
+// The three benefit pointers, verbatim from the pack (house rules 18 and 35). Combo shows both product lines.
+const ICON = {
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  leaf: '<path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15zM5 19l8-8"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+  moon: '<path d="M20 15A8 8 0 1 1 9 4a7 7 0 0 0 11 11z"/>',
+  cycle: '<path d="M20 12a8 8 0 0 1-14 5M4 12a8 8 0 0 1 14-5M18 3v4h-4M6 21v-4h4"/>',
+  lotus: '<path d="M12 20c-4 0-8-3-8-7 3 0 6 2 8 5 2-3 5-5 8-5 0 4-4 7-8 7zM12 18c-2-3-2-8 0-12 2 4 2 9 0 12z"/>'
+};
+export const POINTERS = { mornings: [["bolt", "Steady Energy"], ["leaf", "Gut Health"], ["sun", "Daily Vitamins"]], nights: [["moon", "Deep Sleep"], ["cycle", "Recovery"], ["lotus", "Stress Relief"]], combo: [["sun", "DAILY energy and nutrition"], ["moon", "NIGHTLY sleep and recovery"]] };
+const pointers = p => `<ul class="ptr">${(POINTERS[p] || POINTERS.combo).map(([i, t]) => `<li><span class="pi"><svg viewBox="0 0 24 24">${ICON[i]}</svg></span>${esc(t)}</li>`).join("")}</ul>`;
 function packHTML(product, A, cls = "") {
   const img = p => `<img src="${A}${PRODUCTS[p].boxstick}" alt="SILT ${p[0].toUpperCase() + p.slice(1)} box and stick">`;
   return product === "combo" ? `<div class="pack duo ${cls}">${img("mornings")}${img("nights")}</div>` : `<div class="pack ${cls}">${img(product === "nights" ? "nights" : "mornings")}</div>`;
@@ -160,15 +171,25 @@ const T = {
     return `${s.headline ? `<h1 class="top c">${rich(s.headline)}</h1>` : ""}<div class="psrow">${side("prob", s.scene_problem, s.label_problem || "Problem", s.problem)}${side("sol", "product", s.label_solution || "Solution", s.solution)}</div>`;
   },
   // Two-panel meme: two moments, two captions
-  meme: s => `<div class="meme"><div class="mcol">${[["a", s.top, s.scene_a], ["b", s.bottom, s.scene_b]].map(([k, cap, sc]) => `<div class="mp"><div class="mimg" style="background-image:url('${photoOr(s, s._A, sc, k === "a" ? "photo" : "photo_b")}')"></div><div class="mcap">${rich(cap)}</div></div>`).join("")}</div>${packHTML(s.product, s._A, "beside")}</div>`,
+  meme: s => `<div class="meme"><div class="mcol">${[["a", s.top, s.scene_a], ["b", s.bottom, s.scene_b]].map(([k, cap, sc]) => `<div class="mp"><div class="mimg" style="background-image:url('${photoOr(s, s._A, sc, k === "a" ? "photo" : "photo_b")}')"></div><div class="mcap">${rich(cap)}</div></div>`).join("")}</div></div>`,
   // Relatable poll / quiz (no product): a question and 3 or 4 answers
   poll: s => `<div class="poll"><div class="kick">${esc(s.kicker || "Be honest")}</div><h1 class="top">${rich(s.question)}</h1>${s.options.map((o, i) => `<div class="opt"><span>${"ABCD"[i]}</span>${rich(o)}</div>`).join("")}${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`,
+  // ONE STICK (Abhishek's playbook example): your problems switched off in red, the stick, the benefits switched on in green.
+  onestick: s => { const p = s.product === "mornings" ? "mornings" : "nights";
+    const sticks = s.product === "combo" ? `<img class="osstick" src="${s._A}${PRODUCTS.mornings.stick}" alt="SILT Mornings stick"><img class="osstick" src="${s._A}${PRODUCTS.nights.stick}" alt="SILT Nights stick">` : `<img class="osstick" src="${s._A}${PRODUCTS[p].stick}" alt="SILT ${p} stick">`;
+    return `<div class="os ${s.product}"><div class="osl"><div class="osk">${esc(s.kicker)}</div>${(s.problems || []).map(x => `<div class="osp"><span class="tg off"><i></i></span><span>${esc(x)}</span></div>`).join("")}</div>
+    <div class="osr"><div class="osh">${rich(s.headline)}</div><div class="oss">${sticks}</div><div class="osb">${(POINTERS[s.product] || POINTERS.combo).map(([, t]) => `<div class="osq"><span>${esc(t)}</span><span class="tg on"><i></i></span></div>`).join("")}</div>
+    <div class="osall">${rich(s.sub || "All in one stick pack.")}</div><div class="ostag"><b>${esc(s.price || "Rs. 900")}</b><small>${esc(s.price_note || "for a box of 15 sticks")}</small></div></div></div>`; },
   ritual: s => `<h1 class="top c">${rich(s.headline)}</h1><div class="split"><div class="am"><span class="lab">${esc(s.am)}</span><img src="${s._A}mornings_boxstick_cut.png" alt="SILT Mornings box and stick"><p>${rich(s.amline)}</p></div><div class="pm"><span class="lab">${esc(s.pm)}</span><img src="${s._A}nights_boxstick_cut.png" alt="SILT Nights box and stick"><p>${rich(s.pmline)}</p></div></div>`
 };
 // Templates that draw their own product (no separate product shot)
 const KICK_IN_BODY = new Set(["statement", "offer", "poll"]);
 const FULL_BLEED = new Set(["scene"]);
-const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "meme", "problemsolution"]);
+const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "problemsolution", "onestick"]);
+// PROBLEM + SOLUTION, BOTH VISIBLE (house rules 27, 36, 39): formats with no solution of their own get a solution block:
+// a big bold solution line (spec.solution, or the product's), the three pack pointers, and the pack beside them.
+const SOLVE = new Set(["meme", "tweet", "poll", "chat", "notes", "checklist", "calendar", "email", "search", "forward", "bignum", "chips", "parts", "vs", "unbox", "bill", "timeline", "backpanel"]);
+export const SOLUTION = { mornings: "Energy, gut and vitamins. *One stick.*", nights: "Made for deep sleep. *One warm drink.*", combo: "One morning stick. *One night stick.*" };
 
 function css(z, th, A, F) {
   return `@font-face{font-family:Jost;src:url(${F}jost-400.ttf);font-weight:400}@font-face{font-family:Jost;src:url(${F}jost-700.ttf);font-weight:700}
@@ -197,6 +218,27 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .pack.inpanel{height:auto;width:100%;margin:auto 0;align-self:center;justify-content:center}.pack.inpanel img{height:auto;max-height:${z.pack}px}.pack.inpanel:after{bottom:-6%}
 .meme{flex:1;min-height:0;display:flex;gap:1.4em;align-items:flex-end}.mcol{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;gap:1.4em}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
+.solrow{flex:none;display:flex;align-items:flex-end;gap:2em;margin-top:auto;min-height:0}.solrow .pack{margin-top:0;height:${Math.round(z.pack * .82)}px;flex:none}.solrow .pack.duo{height:${Math.round(z.pack * .58)}px}
+.solb{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.3em;padding-bottom:.4em}.soll{font-size:4.6em;font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
+.solb .ptr{flex-direction:row;flex-wrap:wrap;gap:.5em 1.3em}.solb .ptr li{font-size:2.35em}
+.mside{flex:none;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-end;gap:2.2em}
+.ptr{list-style:none;display:flex;flex-direction:column;gap:1em;align-self:stretch}.ptr li{display:flex;align-items:center;gap:.6em;font-size:2.7em;font-weight:700;color:var(--ink);white-space:nowrap}
+.pi{width:1.75em;height:1.75em;border-radius:50%;border:.09em solid var(--acc);display:flex;align-items:center;justify-content:center;flex:none}.pi svg{width:60%;height:60%;fill:none;stroke:var(--acc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* one stick */.os{flex:1;min-height:0;display:flex;gap:0;border-radius:2.2em;overflow:hidden;box-shadow:0 1.2em 3em rgba(0,0,0,.18)}
+.osl{flex:1 1 46%;background:rgba(8,14,40,.55);padding:3em 2.6em;display:flex;flex-direction:column;justify-content:space-around;gap:1.4em}
+.osk{font-size:4.6em;font-weight:700;line-height:.95;letter-spacing:.01em;text-transform:uppercase;color:#fff;max-width:6em}
+.osp{display:flex;align-items:center;gap:.8em;font-size:2.9em;font-weight:700;color:#fff;line-height:1.15}
+.osr{flex:1 1 54%;background:var(--card);padding:2.6em 2.4em;display:flex;flex-direction:column;align-items:center;gap:1.2em;text-align:center}
+.osh{font-family:Corm,serif;font-style:italic;font-weight:700;font-size:8em;line-height:1;color:#fff}
+.oss{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;gap:1.2em}.osstick{height:100%;max-height:34em;object-fit:contain;filter:drop-shadow(0 1.2em 1.4em rgba(0,0,0,.35))}
+.osb{display:flex;flex-direction:column;gap:.7em;align-self:stretch}.osq{display:flex;align-items:center;justify-content:space-between;gap:1em;font-size:3em;font-weight:700;color:#fff}
+.osall{font-family:Corm,serif;font-style:italic;font-size:3.6em;color:#E8ECF7}
+.ostag{background:#E6ECFF;color:#16245E;border-radius:.6em;padding:.5em 1.4em .4em;display:flex;flex-direction:column;align-items:center;position:relative;box-shadow:0 .6em 1.2em rgba(0,0,0,.25)}
+.ostag:before{content:"";position:absolute;top:-.9em;width:.9em;height:.9em;border:.18em solid #E6ECFF;border-radius:50%}.ostag b{font-size:3.8em;line-height:1}.ostag small{font-size:1.6em;opacity:.8}
+.os.mornings .osl{background:#7A3A08}.os.mornings .osr{background:linear-gradient(165deg,#F6B24A,#E2801A)}.os.mornings .osall{color:#FFF4E0}.os.mornings .ostag{background:#FFF1DC;color:#7A3A08}.os.mornings .ostag:before{border-color:#FFF1DC}
+.os.combo .osl{background:#2A1E14}.os.combo .osr{background:linear-gradient(90deg,#E2801A,#22357F)}
+.tg{width:2.6em;height:1.45em;border-radius:1em;position:relative;flex:none;display:inline-block}.tg i{position:absolute;top:.17em;width:1.1em;height:1.1em;border-radius:50%;background:#fff}
+.tg.off{background:#E5383B}.tg.off i{left:.18em}.tg.on{background:#3DBE5A}.tg.on i{right:.18em}
 /* newscard */.news{padding:3.2em 3.4em;color:#1d1d1f;background:#fff}.newsbar{display:flex;justify-content:space-between;align-items:center;border-bottom:.3em solid #1d1d1f;padding-bottom:1.2em;margin-bottom:2em}
 .news .tag{background:#D42A1F;color:#fff;font-weight:700;font-size:2.2em;padding:.25em .7em;letter-spacing:.1em}.news .date{font-size:2em;color:#666}.news h1{font-size:5.6em}.news .goodbar{display:flex;align-items:center;border-top:.3em solid #1d1d1f;margin-top:1.8em;padding-top:1.4em;margin-bottom:1em}.news .tag.gnews{background:#1E8E4E}.news .good{font-size:3.4em;line-height:1.25;color:#1d1d1f;font-weight:600}
 /* search */.search{display:flex;flex-direction:column;gap:2em}.search .bar{background:#fff;color:#222;border-radius:99em;padding:1.1em 1.6em;font-size:3em;display:flex;align-items:center;gap:.7em;box-shadow:0 .6em 2em rgba(0,0,0,.12)}
@@ -272,7 +314,9 @@ export function render(spec, sizeId, base = "") {
   const s = { ...spec, _A: A };
   const body = T[spec.t](s);
   const full = FULL_BLEED.has(spec.t), logo = full ? "logo_white.png" : th.logo;
-  const prod = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
+  const pk = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
+  const solPack = spec.shot === "none" || OWN_PRODUCT.has(spec.t) ? "" : packHTML(spec.product, A, "insol");   // room for the box + stick here (rule 33 only shrinks to a stick when space is tight)
+  const prod = SOLVE.has(spec.t) && spec.solution !== false ? `<div class="solrow"><div class="solb"><div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>${pointers(spec.product)}</div>${solPack}</div>` : pk;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
 <div class="frame${full ? " full" : ""}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
