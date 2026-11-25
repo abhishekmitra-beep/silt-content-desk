@@ -3,11 +3,11 @@
 // render(spec, sizeId, base) returns a complete HTML document for one static.
 
 export const SIZES = {
-  "4x5": { w: 1080, h: 1350, pad: [70, 72, 64, 72], fs: 10, pack: 430, label: "Feed", ratio: "4x5" },
-  "1x1": { w: 1080, h: 1080, pad: [52, 60, 48, 60], fs: 8.6, pack: 345, label: "Square", ratio: "1x1" },
-  // Stories / Reels: every word and the pack sit between 269 and 1165 px from the top (Meta covers the top 269 px with the
+  "4x5": { w: 1080, h: 1350, pad: [135, 72, 135, 72], fs: 10, pack: 400, label: "Feed", ratio: "4x5" },
+  "1x1": { w: 1080, h: 1080, pad: [65, 68, 65, 68], fs: 8.6, pack: 330, label: "Square", ratio: "1x1" },
+  // Placement playbook 25 Nov: 4:5 text y 135-1215, 1:1 inside 65 px, 9:16 built to the Reels box y 269-1248 (also safe in Stories) (Meta covers the top 269 px with the
   // profile row, and the bottom 269 px in Stories / 672 px in Reels); the lower part stays plain.
-  "9x16": { w: 1080, h: 1920, pad: [269, 80, 755, 80], fs: 7.4, pack: 316, label: "Stories", ratio: "9x16" }
+  "9x16": { w: 1080, h: 1920, pad: [275, 80, 680, 80], fs: 7.4, pack: 330, label: "Stories", ratio: "9x16" }
 };
 
 export const THEMES = {
@@ -243,7 +243,7 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .scenefade{position:absolute;left:0;right:0;height:62%}.scenefade.t{top:0;background:linear-gradient(180deg,rgba(8,12,30,.86),rgba(8,12,30,.55) 55%,rgba(8,12,30,0))}.scenefade.b{bottom:0;background:linear-gradient(0deg,rgba(8,12,30,.9),rgba(8,12,30,.6) 55%,rgba(8,12,30,0))}
 .frame.full .safe{z-index:2}.frame.full main{justify-content:flex-start}.scenetext{display:flex;flex-direction:column;gap:1.4em;max-width:92%}.scenetext.b{margin-top:auto}.scenetext h1{color:#fff;text-shadow:0 .1em .6em rgba(0,0,0,.35)}.scenetext .lede{color:#E8ECF7}
 .frame.full em.acc{color:#EBB858}.frame.full .url{color:#D9DEEB}.frame.full main{position:relative}.frame.full .pack{position:absolute;right:0;bottom:0;margin:0}.frame.full .scenetext.b{max-width:56%}
-/* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps.prob{flex:.8}.ps.sol{flex:1.25}.ps.prob .psline{font-size:2.9em}.ps.sol .psline{font-size:4.1em}.pline{margin-top:.45em;font-size:.5em;font-weight:400;letter-spacing:.01em;background:rgba(255,255,255,.95);color:#17245C;border-radius:.6em;padding:.35em .6em;display:inline-block}.pline b{font-weight:800;letter-spacing:.04em}.psimg.bottles{background-size:cover;background-position:center 60%}.pack.sticks img{max-width:24%}.scenetext h1.huge{font-size:6.4em}.scenetext .lede.sol{font-size:4.6em;font-weight:700;color:#fff;line-height:1.15}.pline.big{font-size:2.2em;align-self:flex-start}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
+/* problem | solution */.psrow{flex:1;min-height:0;display:flex;gap:1.2em;position:relative}.ps.prob{flex:.8}.ps.sol{flex:1.25}.ps.prob .psline{font-size:2.9em}.ps.sol .psline{font-size:4.1em}.pline{margin-top:.45em;font-size:.5em;font-weight:400;letter-spacing:.01em;background:rgba(255,255,255,.95);color:#17245C;border-radius:.6em;padding:.35em .6em;display:inline-block}.pline b{font-weight:800;letter-spacing:.04em}.psimg.bottles{background-size:cover;background-position:center 60%}.pack.sticks img{max-width:24%}.prodrow{margin-top:auto;display:flex;align-items:flex-end;gap:2.4em;width:100%}.prodrow .pack{margin-top:0;flex:none;width:auto}.psolb{flex:1;min-width:0;padding-bottom:2.2em;display:flex;flex-direction:column;gap:.7em}.psolb .pn{font-size:2.4em;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.75}.psolb .pl{font-size:4.8em;font-weight:800;line-height:1.02}.psolb .pl b{font-weight:900;letter-spacing:.03em}.psolb .pi{font-size:2.5em;font-weight:600;opacity:.9}.psolb .pp{font-size:2.6em;font-weight:700;align-self:flex-start;padding:.3em .7em;border-radius:.5em;background:rgba(235,184,88,.95);color:#17245C}.frame.full .prodrow{position:static}.prodrow .pack{max-width:52%}.prodrow .pack.duo img{max-width:50%;height:auto;max-height:100%}.prodrow .pack.sticks img{max-width:none;height:100%}.scenetext h1.huge{font-size:6.4em}.scenetext .lede.sol{font-size:4.6em;font-weight:700;color:#fff;line-height:1.15}.pline.big{font-size:2.2em;align-self:flex-start}.ps{flex:1;position:relative;border-radius:2em;overflow:hidden;box-shadow:0 1.2em 2.6em rgba(0,0,0,.16)}
 .psimg{position:absolute;inset:0;background-size:cover;background-position:center 35%}.ps.prob .psimg{filter:saturate(.75) brightness(.92)}
 .pspanel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6%}.pspanel.mornings{background:radial-gradient(circle at 50% 40%,#FFE3A8,#F2A541 70%)}.pspanel.nights{background:radial-gradient(circle at 50% 40%,#5C7EE6,#1C2C7A 75%)}.pspanel.combo{background:linear-gradient(90deg,#F7C66E 50%,#3E5BD0 50%)}
 .pspanel .psstick{height:66%;filter:drop-shadow(0 1.4em 1.6em rgba(0,0,0,.3));margin-top:-8%}.jarsbg{background:#E4DFD4}.jarsbg .jars{width:80%;margin-top:-14%}
@@ -267,7 +267,10 @@ export function render(spec, sizeId, base = "") {
   const s = { ...spec, _A: A };
   const body = T[spec.t](s);
   const full = FULL_BLEED.has(spec.t), logo = full ? "logo_white.png" : th.logo;
-  const prod = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
+  const SOLB = { mornings: ["<b>DAILY</b> energy and nutrition", "Steady Energy · Gut Health · Daily Vitamins", "Rs. 900 · 15 sticks"], nights: ["<b>NIGHTLY</b> sleep and recovery", "Deep Sleep · Recovery · Stress Relief", "Rs. 900 · 15 sticks · No melatonin"], combo: ["Both, morning and night", "<b>DAILY</b> energy · <b>NIGHTLY</b> sleep", "Rs. 1,800 · COMBO10 for 10% off"] };
+  const pimg = OWN_PRODUCT.has(spec.t) ? "" : productImgs(spec, A);
+  const sb = SOLB[spec.product] || SOLB.combo;
+  const prod = !pimg ? "" : full ? pimg : `<div class="prodrow"><div class="psolb ${spec.product}"><div class="pn">SILT ${spec.product === "combo" ? "Combo" : spec.product === "nights" ? "Nights" : "Mornings"}</div><div class="pl">${sb[0]}</div><div class="pi">${sb[1]}</div><div class="pp">${sb[2]}</div></div>${pimg}</div>`;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}</style></head><body>
 <div class="frame${full ? " full" : ""}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
