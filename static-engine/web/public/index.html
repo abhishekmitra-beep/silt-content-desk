@@ -113,7 +113,7 @@ async function load() {
 
 // ---------- shell ----------
 function drawTabs() {
-  const n = id => id === "IDEAS" ? ideas().length : id === "RULES" ? st.rules.length : id === "TEAMAPP" ? pending().length : id === "AIAPP" ? aiList().filter(s => s._verdict === "ai_approved").length : allStatics().filter(s => s.funnel === id).length;
+  const n = id => id === "IDEAS" ? ideas().filter(i => !allDropped(i)).length : id === "RULES" ? st.rules.length : id === "TEAMAPP" ? pending().length : id === "AIAPP" ? aiList().filter(s => s._verdict === "ai_approved").length : allStatics().filter(s => s.funnel === id).length;
   $("tabs").innerHTML = TABS.map(([id, name]) => `<button data-tab="${id}" aria-pressed="${st.tab === id}">${name} <span class="sub">${n(id)}</span></button>`).join("");
 }
 $("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (!b) return; st.tab = b.dataset.tab; saveUi(); draw(); });
@@ -153,6 +153,17 @@ function card(s) {
 const ISTATE = { waiting: "⏳ Waiting for Claude", working: "✍️ Claude is working on it", briefed: "", active: "" };
 const SLABEL = { draft: "Draft", ai_approved: "AI ✓ approved", ai_rejected: "AI ✕ rejected", approval: "In Team Approval", changes: "In Team Approval", approved: "✓ Live", rejected: "✕ Dropped" };
 const hasImg = s => !!(s.files && Object.keys(s.files).length);
+// An idea whose statics were all dropped (✕ / rejected / deleted) leaves the history (user, 25 Nov). It's archived, not
+// erased, and an idea still waiting for Claude or being worked on always stays.
+function allDropped(i) {
+  if (["waiting", "working"].includes(i.status) || !(i.doc.made || []).length) return false;
+  return !(i.doc.made || []).some(id => { const it = st.items.find(x => x.id === id && x.kind === "static"); return it && it.status !== "rejected"; });
+}
+async function sweepIdeas() {
+  const gone = ideas().filter(allDropped);
+  for (const i of gone) await api("/api/items/" + encodeURIComponent(i.id), { method: "DELETE" }).catch(() => {});
+  if (gone.length) { await load(); status(gone.length === 1 ? "All its statics were dropped, so the idea was removed from the history." : gone.length + " ideas with every static dropped were removed from the history."); }
+}
 function ideaStatic(s) {
   const it = s._item, id = it.id, stt = it.status, done = stt === "approved" || stt === "rejected";
   return `<div class="istat${stt === "rejected" ? " dropped" : ""}"><div data-edit="${esc(id)}" title="Open">${thumb(s, "4x5")}</div>
@@ -164,7 +175,7 @@ function ideaStatic(s) {
 }
 function drawIdeas() {
   const q = st.q.toLowerCase();
-  const xs = ideas().filter(i => !q || (i.doc.text || "").toLowerCase().includes(q));
+  const xs = ideas().filter(i => !allDropped(i) && (!q || (i.doc.text || "").toLowerCase().includes(q)));
   const hits = q ? [...allStatics(), ...pending()].filter(s => JSON.stringify([s.headline, s.sub, s.title, s.question, s.top, s.bottom, s.concept, s.quote, s.text, s.items, s.options]).toLowerCase().includes(q)).slice(0, 24) : [];
   $("view").innerHTML = `
   <div class="ideabar"><input type="text" id="idea" placeholder="Type an idea for Claude… e.g. a CA during tax season" value="${esc(st.q)}" aria-label="Idea or search">
@@ -374,7 +385,7 @@ $("view").addEventListener("click", async e => {
   if (id === "angle") { try { const br = await api("/api/brief"); const ang = (br.suggested_angles || [])[0] || ""; st.q = "Explore " + ang.replace(/^an? (new )?/i, ""); draw(); status("An angle nothing covers yet. Edit it if you like, then Send to Claude."); } catch (er) { status(er.message); } return; }
   if (id === "connectAI2") { e.preventDefault(); return welcome(true); }
   const tk = b("[data-tick]"); if (tk) { tk.disabled = true; await api("/api/items/" + encodeURIComponent(tk.dataset.tick), { method: "PUT", body: JSON.stringify({ status: "approval" }) }).catch(er => alert(er.message)); await load(); return status("Sent to Team Approval."); }
-  const cr = b("[data-cross]"); if (cr) { cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected" }) }).catch(er => alert(er.message)); return load(); }
+  const cr = b("[data-cross]"); if (cr) { cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected" }) }).catch(er => alert(er.message)); await load(); await sweepIdeas(); return; }
   const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt); const pk = p => location.origin + "/assets/" + p + "_boxstick_cut.png";
     const pack = sx.product === "combo" ? pk("mornings") + " and " + pk("nights") : pk(sx.product === "nights" ? "nights" : "mornings");
     return copyText(sx.chatgpt_prompt + "\n\n(Attach the SILT pack image: " + pack + ")", "ChatGPT prompt copied. Paste it into ChatGPT with the pack image attached, then upload the result here (⬆ Image)."); }
@@ -450,7 +461,7 @@ $("del").addEventListener("click", async () => { if (!confirm("Delete this stati
 async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (const z of sizes) save(await pngBlob({ ...cur, _dirty: true }, z), fileName(cur, z) + ".png"); $("edMsg").textContent = "Downloaded."; } catch (e) { $("edMsg").textContent = "Export failed: " + e.message; } }
 $("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
 
-draw(); load(); welcome();
+draw(); load().then(sweepIdeas); welcome();
 $("connectAI").addEventListener("click", () => welcome(true));
 // The pop-up shows on every browser that hasn't said "Got it" / "I've already connected" (per browser, not per network:
 // the whole office shares one IP, so an IP check hid it from everyone after the first person). ✕ hides it until the next visit.
