@@ -141,8 +141,9 @@ function card(s) {
     : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${k.replace("x", ":")}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${k.replace("x", ":")}</a>`).join("");
   const tag = lib ? `<span class="chip${s.kind === "upload" ? " team" : ""}">${s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : "Library"}</span>` : gen ? `<span class="chip team">${s._item.kind === "override" ? "Edited" : "From an idea"} · ${esc(s._item.updated_by || s._item.created_by || "")}</span>` : "";
   const warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
+  const aiNote = s.ai_note || s._dec?.doc?.ai_note || (decisions()[s.id] ? (st.items.find(i => i.id === "D-" + s.id)?.doc?.ai_note || "") : "");
   return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib && s.title ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
-    <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}</div>
+    <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}${aiNote ? `<div class="sub ainote"><b>AI:</b> ${esc(aiNote)}</div>` : ""}</div>
     <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}</div></article>`;
 }
 

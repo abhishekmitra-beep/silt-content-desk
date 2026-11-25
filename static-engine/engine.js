@@ -51,7 +51,7 @@ export const SCENES = {
 };
 const scene = (A, k) => A + "scenes/" + (SCENES[k] || SCENES["night-phone"]).file;
 // The supplement bottles in a "jars" problem panel: the separate pills each pack replaces (facts from the pack only).
-const JARS = { mornings: ["L-theanine", "Fibre", "Probiotic", "Vitamin D3", "Vitamin B12", "Vitamin C"], nights: ["Magnesium", "Ashwagandha", "Glycine", "L-theanine"], combo: ["Probiotic", "Fibre", "Vitamin D3", "Magnesium", "Ashwagandha", "Glycine"] };
+const JARS = { mornings: ["COFFEE", "FOCUS", "FIBRE", "PROBIOTICS", "MULTIVITAMIN", "VITAMIN D3"], nights: ["MAGNESIUM", "ASHWAGANDHA", "GLYCINE", "L-THEANINE", "SLEEP AID"], combo: ["FIBRE", "PROBIOTICS", "FOCUS", "MAGNESIUM", "ASHWAGANDHA", "GLYCINE"] };  // house rule 23
 const jarLabels = p => JARS[p] || JARS.combo;
 // A photo made for this static (e.g. by ChatGPT from the static's photo brief) and uploaded to the site replaces the
 // library scene photo. Only the site's own file URLs are used.
@@ -82,7 +82,7 @@ function productImgs(spec, A) {
 const T = {
   // 01 The bad news ad
   newscard: s => `<div class="news card"><div class="newsbar"><span class="tag">BAD NEWS</span><span class="date">${esc(s.dateline || "")}</span></div>
-    <h1>${rich(s.headline)}</h1><div class="goodbar"><span class="tag good">GOOD NEWS</span></div><p class="good">${rich(s.good)}</p></div>`,
+    <h1>${rich(s.headline)}</h1><div class="goodbar"><span class="tag gnews">GOOD NEWS</span></div><p class="good">${rich(s.good)}</p></div>`,
   // 05 The search result ad
   search: s => `<div class="search"><div class="bar"><span class="glass"></span>${esc(s.query)}</div>
     <div class="result card"><div class="url">siltnutrition.com › ${esc(s.slug)}</div><h2>${rich(s.title)}</h2><p>${rich(s.snippet)}</p></div></div>
@@ -193,7 +193,7 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .meme{flex:1;min-height:0;display:flex;gap:1.4em;align-items:flex-end}.mcol{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;gap:1.4em}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 /* newscard */.news{padding:3.2em 3.4em;color:#1d1d1f;background:#fff}.newsbar{display:flex;justify-content:space-between;align-items:center;border-bottom:.3em solid #1d1d1f;padding-bottom:1.2em;margin-bottom:2em}
-.news .tag{background:#D42A1F;color:#fff;font-weight:700;font-size:2.2em;padding:.25em .7em;letter-spacing:.1em}.news .date{font-size:2em;color:#666}.news h1{font-size:5.6em}.news .goodbar{display:flex;align-items:center;border-top:.3em solid #1d1d1f;margin-top:1.8em;padding-top:1.4em;margin-bottom:1em}.news .tag.good{background:#1E8E4E}.news .good{font-size:3.4em;line-height:1.25;color:#1d1d1f;font-weight:600}
+.news .tag{background:#D42A1F;color:#fff;font-weight:700;font-size:2.2em;padding:.25em .7em;letter-spacing:.1em}.news .date{font-size:2em;color:#666}.news h1{font-size:5.6em}.news .goodbar{display:flex;align-items:center;border-top:.3em solid #1d1d1f;margin-top:1.8em;padding-top:1.4em;margin-bottom:1em}.news .tag.gnews{background:#1E8E4E}.news .good{font-size:3.4em;line-height:1.25;color:#1d1d1f;font-weight:600}
 /* search */.search{display:flex;flex-direction:column;gap:2em}.search .bar{background:#fff;color:#222;border-radius:99em;padding:1.1em 1.6em;font-size:3em;display:flex;align-items:center;gap:.7em;box-shadow:0 .6em 2em rgba(0,0,0,.12)}
 .glass{width:.8em;height:.8em;border:.13em solid #666;border-radius:50%;position:relative;flex:none}.glass:after{content:"";position:absolute;width:.35em;height:.13em;background:#666;right:-.32em;bottom:-.12em;transform:rotate(45deg)}
 .result{padding:2.6em 3em;color:#1d1d1f;background:#fff}.result .url{font-size:2.1em;color:#2a6b3f}.result h2{font-size:3.8em;color:#1a3fbf;margin:.3em 0;line-height:1.15}.result p{font-size:2.7em;color:#444;line-height:1.35}
