@@ -48,7 +48,7 @@ export const REJECT_TAGS = {
 };
 export async function lessons(env) {
   const rows = (await env.DB.prepare("SELECT id, kind, doc, updated_at FROM se_items WHERE status = 'rejected' AND doc LIKE '%reject_%' ORDER BY updated_at DESC LIMIT 200").all()).results;
-  const items = rows.map(r => ({ ...r, doc: JSON.parse(r.doc) })).filter(r => r.doc.reject_reason || (r.doc.reject_tags || []).length);
+  const items = rows.map(r => ({ ...r, doc: JSON.parse(r.doc) })).filter(r => !r.doc.deleted && (r.doc.reject_reason || (r.doc.reject_tags || []).length));
   const counts = {}; for (const r of items) for (const t of r.doc.reject_tags || []) counts[t] = (counts[t] || 0) + 1;
   const rules = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([t, n]) => `${t} (${n}x): ${REJECT_TAGS[t] || ""}`.trim());
   const recent = items.slice(0, 25).map(r => `[${r.doc.t || r.kind}/${r.doc.product || ""}] "${line(r.doc) || r.doc.title || r.doc.id}" rejected: ${[...(r.doc.reject_tags || []), r.doc.reject_reason].filter(Boolean).join("; ")}`);

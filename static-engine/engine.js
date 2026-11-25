@@ -117,7 +117,7 @@ const T = {
   notes: s => `<div class="notes card"><div class="notesbar"><span>‹ Notes</span><span>Done</span></div>
     <h2>${rich(s.title)}</h2><ol>${s.items.map(i => `<li>${rich(i)}</li>`).join("")}</ol>${s.last ? `<p class="last">${rich(s.last)}</p>` : ""}</div>`,
   // 07 The tweet ad
-  tweet: s => `<div class="tweet card"><div class="who"><span class="av"><img src="${s._A}logo_white.png" alt=""></span><div><b>SILT Nutrition</b><span>Brand account</span></div></div>
+  tweet: s => `<div class="tweet card"><div class="who"><span class="av"></span><div><b>SILT Nutrition</b><span>Brand account</span></div></div>
     <p class="tw">${rich(s.text)}</p><div class="time">${esc(s.time || "8:02 AM")}</div></div>`,
   // 08 The family WhatsApp forward
   forward: s => `<div class="fwd"><div class="fwdlabel">↪ Forwarded many times</div><div class="flowers">🌸🌼🌺🌼🌸</div>
@@ -372,7 +372,7 @@ export function render(spec, sizeId, base = "") {
   const solveIt = (SOLVE.has(spec.t) || spec.t === "newscard") && spec.solution !== false;
   const prod = solveIt ? `<div class="solrow"><div class="solb">${spec.t === "newscard" ? "" : `<div class="soll">${rich(spec.solution || SOLUTION[spec.product] || SOLUTION.combo)}</div>`}${ticks(spec.product, A)}${pill(spec.product)}</div>${solPack}</div>` : pk;
   return `<!doctype html><html><head><meta charset="utf-8"><title>${esc(spec.id)}</title><style>${css(z, th, A, F)}${posCss(spec, sizeId)}</style></head><body>
-<div class="frame${full ? " full" : ""} t-${spec.t}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe"><header><img src="${A}${logo}" alt="SILT Nutrition"></header>
+<div class="frame${full ? " full" : ""} t-${spec.t}">${full ? body.split("<div class=\"scenetext")[0] : ""}<div class="safe">${spec.logo === true ? `<header><img src="${A}${logo}" alt="SILT Nutrition"></header>` : ""}
 <main>${full ? "<div class=\"scenetext" + body.split("<div class=\"scenetext")[1] : body}${prod}</main>
 <footer><span class="cta">${esc(spec.cta || (spec.funnel === "RET" ? "Your 60-second ritual" : spec.product === "nights" ? "SILT Nights · NIGHTLY sleep and recovery" : spec.product === "mornings" ? "SILT Mornings · DAILY energy and nutrition" : "Extra 10% off the Combo · COMBO10"))}</span>${spec.note ? `<span class="note">${esc(spec.note)}</span>` : `<span class="url">siltnutrition.com</span>`}</footer></div></div></body></html>`;
 }
@@ -387,7 +387,7 @@ export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
 export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
-const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai", "ai_note", "rewritten_from", "pos", "caption", "ad_headline", "pack_top", "img"]);
+const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai", "ai_note", "rewritten_from", "pos", "logo", "caption", "ad_headline", "pack_top", "img"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.
 export function checkCopy(s) {

@@ -44,7 +44,7 @@ export async function onRequestPost({ request, env, data }) {
   try {
     if (ct.includes("multipart/form-data")) {
       const fd = await request.formData();
-      for (const k of ["title", "funnel", "product", "concept", "static_id", "as", "made_with"]) meta[k] = fd.get(k) || "";
+      for (const k of ["title", "funnel", "product", "concept", "static_id", "as", "made_with", "edit_of", "layers", "base_urls", "library_id"]) meta[k] = fd.get(k) || "";
       for (const f of fd.getAll("file")) if (f && typeof f.arrayBuffer === "function") files.push({ name: f.name, mime: f.type || "image/png", bytes: new Uint8Array(await f.arrayBuffer()) });
     } else {
       const body = await request.json();
@@ -74,6 +74,25 @@ export async function onRequestPost({ request, env, data }) {
       .bind(fid, f.mime, d.w || null, d.h || null, f.bytes.length, String(f.name || fid).slice(0, 120), f.bytes, who, now).run();
     doc.files[key] = fid; doc.names[key] = String(f.name || fid).slice(0, 120);
   }
+  const parse = v => { try { const o = typeof v === "string" ? JSON.parse(v || "{}") : v || {}; return o && typeof o === "object" && !Array.isArray(o) ? o : {}; } catch { return {}; } };
+  // EDIT (the site's image editor, team 25 Nov: "why doesn't every other static have an Edit option"): a new version of an
+  // uploaded or ChatGPT image. The first original of each size stays in base_files and the editor's words and cover boxes in
+  // layers, so every edit stays editable and can be undone; the version it replaces goes to files_before.
+  if (meta.edit_of) {
+    const row = await env.DB.prepare("SELECT id, kind, doc, status FROM se_items WHERE id = ? AND kind IN ('upload', 'static')").bind(String(meta.edit_of)).first();
+    if (!row) return Response.json({ error: "No image static " + meta.edit_of }, { status: 404 });
+    const sd = JSON.parse(row.doc); sd.base_files = sd.base_files || {}; sd.files = sd.files || {}; sd.names = sd.names || {};
+    for (const k of Object.keys(doc.files)) {
+      if (sd.files[k] && !sd.base_files[k] && !(sd.base_urls && sd.base_urls[k])) sd.base_files[k] = sd.files[k];
+      if (sd.files[k]) sd.files_before = { ...(sd.files_before || {}), [k]: sd.files[k] };
+    }
+    Object.assign(sd.files, doc.files); Object.assign(sd.names, doc.names);
+    sd.layers = { ...(sd.layers || {}), ...parse(meta.layers) }; sd.edited_by = who; sd.edited_at = now;
+    await env.DB.prepare("UPDATE se_items SET doc = ?, status = 'approval', updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(sd), who, now, row.id).run();
+    return Response.json({ id: row.id, kind: row.kind, doc: sd, status: "approval", updated_by: who, updated_at: now });
+  }
+  // A Library static edited on the site becomes a new upload; its base images stay the Library files (base_urls).
+  if (meta.library_id) { doc.library_id = String(meta.library_id).slice(0, 20); doc.base_urls = parse(meta.base_urls); doc.layers = parse(meta.layers); doc.edited_by = who; doc.edited_at = now; }
   // static_id: this image IS that static (ChatGPT made it from Claude's prompt). The static keeps its idea, copy and status.
   if (meta.static_id) {
     const row = await env.DB.prepare("SELECT id, doc, status FROM se_items WHERE id = ? AND kind = 'static'").bind(String(meta.static_id)).first();

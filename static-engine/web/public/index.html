@@ -60,6 +60,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 .pane label{font-size:12px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}.pane textarea,.pane input,.pane select{width:100%;background:var(--bg)}
 .stage{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.2);align-self:center}.stage iframe{border:0;transform-origin:0 0;position:absolute;left:0;top:0}
 @media (max-width:820px){.ed{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}header.top,main{padding-left:16px;padding-right:16px}}
+.dl .bin{margin-left:auto;padding:.35em .6em;font-size:1.05em;line-height:1;border-color:transparent;background:transparent;opacity:.75}.dl .bin:hover{opacity:1;background:var(--bad,#c0392b);color:#fff;border-color:transparent}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head><body>
@@ -79,6 +80,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 <script type="module">
 import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS, BRAND_BRIEF, MOVE, MOVE_NAMES } from "/engine.js";
 import { STATICS } from "/statics.js";
+import { openImgEditor } from "/imgedit.js";
 import { LIBRARY } from "/library.js";
 
 const TABS = [["IDEAS", "Ideas"], ["AIAPP", "AI Approval"], ["TEAMAPP", "Team Approval"], ["TOFU", "TOFU"], ["MOFU", "MOFU"], ["BOFU", "BOFU"], ["RET", "Retention"], ["RULES", "Rules"]];
@@ -161,8 +163,11 @@ function card(s) {
   const aiNote = s.ai_note || s._dec?.doc?.ai_note || (decisions()[s.id] ? (st.items.find(i => i.id === "D-" + s.id)?.doc?.ai_note || "") : "");
   return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib && s.title ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
     <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}${aiNote ? `<div class="sub ainote"><b>AI:</b> ${esc(aiNote)}</div>` : ""}</div>
-    <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}<button data-metaprev="${esc(id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button></div></article>`;
+    <div class="dl">${dl}${lib ? `<button data-imgedit="${esc(id)}">Edit</button>` : `<button data-edit="${esc(id)}">Edit</button>`}<button data-metaprev="${esc(id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>${bin(s)}</div></article>`;
 }
+// Delete bin (team, 25 Nov: "add a Delete button as well, reject is okay; the bin at the bottom right").
+// Team items are archived; built-in and Library statics get a "deleted" decision so they leave every list.
+const bin = s => `<button class="bin" data-del="${esc(s._item ? s._item.id : "s:" + s.id)}" title="Delete this static" aria-label="Delete this static">🗑</button>`;
 
 // ---------- Ideas (home): Claude thinks, ChatGPT makes, the team ticks ----------
 // 1. Someone types an idea and sends it to Claude (it waits in the queue).
@@ -363,7 +368,7 @@ function drawApproval(mode) {
         + (warn.length ? '<div class="check"><b>Checker:</b> ' + warn.map(esc).join("<br>") + '</div>' : '<div class="sub" style="color:var(--ok)">Checker: no problems found.</div>')
         + (s.source ? '<div class="sub">Idea: ' + esc(s.source) + '</div>' : "")
         + ((s.ai_note || s._dec?.doc?.ai_note) ? '<div class="sub ainote"><b>AI:</b> ' + esc(s.ai_note || s._dec.doc.ai_note) + '</div>' : "") + '</div>'
-        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? "" : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button><button data-metaprev="' + esc(s._item ? s._item.id : s.id) + '" title="See it in every Meta placement, with the no-go zones">📱 Meta</button></div></article>'; }).join("")
+        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? '<button data-imgedit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>' : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button><button data-metaprev="' + esc(s._item ? s._item.id : s.id) + '" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>' + bin(s) + '</div></article>'; }).join("")
       || '<p class="sub">' + (ai ? "Nothing here. When Claude or ChatGPT reviews statics over the API, its verdicts land here." : "Nothing waiting. New statics from the Ideas tab land here.") + '</p>') + '</div>';
 }
 
@@ -455,6 +460,12 @@ $("view").addEventListener("click", async e => {
   const rj = b("[data-rej]"); if (rj) { const why = await askReason(titleOf(rj.dataset.rej)); if (!why) return; await decide(rj.dataset.rej, "rejected", why).catch(er => alert(er.message)); return load(); }
   if (id === "apAll") { if (!confirm("Approve all the statics shown? They go live in their funnel tabs.")) return; t.disabled = true; const xs = st.apList || [];
     let n = 0; for (const s of (st.apList || xs)) { $("zipMsg").textContent = "Approving " + (++n) + " of " + (st.apList || xs).length + "…"; await decide(s._item ? s._item.id : "s:" + s.id, "approved").catch(() => {}); } return load(); }
+  // Image statics (uploads, ChatGPT images, Library) open the image editor: cover old words, add new ones in brand fonts.
+  const del = b("[data-del]"); if (del) { if (!confirm("Delete this static for everyone? It leaves every tab (it's archived, so it can be brought back if needed).")) return; del.disabled = true;
+    const k = del.dataset.del;
+    await (k.startsWith("s:") ? api("/api/items", { method: "POST", body: JSON.stringify({ kind: "decision", doc: { id: k.slice(2), deleted: true, reject_reason: "Deleted by the team" }, status: "rejected" }) })
+      : api("/api/items/" + encodeURIComponent(k), { method: "DELETE" })).catch(er => alert(er.message)); return load(); }
+  const ie = b("[data-imgedit]"); if (ie) return openImgEditor(anyStatic(ie.dataset.imgedit), { imgUrl, name: () => myName, onSaved: load });
   const ed = b("[data-edit]"); if (ed) return openEditor(anyStatic(ed.dataset.edit));   // anyStatic also finds statics still waiting in Team Approval
   const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { save(await pngBlob(s, dl.dataset.z), fileName(s, dl.dataset.z) + ".png"); } finally { dl.disabled = false; } return; }
   if (id === "zipTab") return zip(allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod)), $("zipSize").value, `SILT_Statics_${st.tab}`, $("zipMsg"));

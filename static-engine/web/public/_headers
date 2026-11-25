@@ -10,3 +10,5 @@
   Cache-Control: no-cache
 /library.js
   Cache-Control: no-cache
+/imgedit.js
+  Cache-Control: no-cache
