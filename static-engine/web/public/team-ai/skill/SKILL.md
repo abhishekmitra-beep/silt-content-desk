@@ -1,6 +1,6 @@
 ---
 name: silt-static-engine
-description: The thinker for SILT Nutrition's Meta ad statics, with a ChatGPT connector. Picks up the ideas waiting in the team's SILT Static Engine (https://silt-static-engine.pages.dev), thinks each one through against everything already made, writes every static with a ChatGPT image prompt, reviews its own work, saves it under the idea, then hands each prompt to ChatGPT (browser or desktop app) and uploads the image back. Use when someone says "connect SILT <code>", "make the waiting SILT ideas", "make the images", asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
+description: The thinker for SILT Nutrition's Meta ad statics, with a ChatGPT connector. Picks up the ideas waiting in the team's SILT Static Engine (https://silt-static-engine.pages.dev), thinks each one through against everything already made, writes every static with a ChatGPT image prompt, reviews its own work, saves it under the idea, then hands each prompt to ChatGPT (browser or desktop app) and uploads the image back. Use when someone says "connect SILT" plus a code, "make the waiting SILT ideas", "make the images", asks for SILT statics, static ideas, Problem / Solution creatives, or to add a house rule for SILT creatives.
 ---
 
 # SILT Static Engine: Claude is the thinker
