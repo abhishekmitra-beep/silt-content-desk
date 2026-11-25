@@ -10,7 +10,7 @@ When the person says "connect SILT <code>" (6 letters and numbers from the site'
 2. Call getQueue. Its `need_images` list holds the statics waiting for an image. Each has a `static_id`, a `headline` and a `chatgpt_prompt` written by Claude.
 3. Show the person the list (headline + static_id) and ask which ones to make, or make them one by one if they say "all".
 4. For each static, generate the image from its `chatgpt_prompt`:
-   - 1080 x 1350 (4:5) unless the prompt says otherwise.
+   - First the 4:5 master, 1080 x 1350, every word inside x 65 to 1015, y 135 to 1215. Then, when asked, the 1:1 (65 px from every edge), the Stories 9:16 (the master unscaled at y 285 to 1635, background extended, nothing to read in the top or bottom 269 px) and the Reels 9:16 (every word, price and pack above y 1248, nothing within 65 px of the right edge). Never shrink the whole artwork; move or trim.
    - Print every quoted word exactly as written. No extra words, no spelling changes.
    - People are Indian, as described in the prompt.
    - The SILT pack: ask the person to attach the official pack image if they haven't. The site gives the link when they press "Copy for ChatGPT". Place it as the prompt says (lower right, about a third of the image height, soft shadow). Never redraw or invent the logo or the pack text.

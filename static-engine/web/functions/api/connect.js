@@ -27,7 +27,7 @@ export async function onRequestGet({ request, env }) {
   if (!OK.test(code)) return Response.json({ claude: null, chatgpt: null, team });
   const row = await env.DB.prepare("SELECT doc FROM se_items WHERE id = ?").bind("C-" + code).first();
   const d = row ? JSON.parse(row.doc) : {};
-  return Response.json({ claude: d.claude || null, chatgpt: d.chatgpt || null, team });
+  return Response.json({ claude: d.claude || null, chatgpt: d.chatgpt || null, chatgpt_via: d.chatgpt_via || null, team });
 }
 
 export async function onRequestPost({ request, env, data }) {

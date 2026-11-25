@@ -304,8 +304,8 @@ const Z_STORY = [{ y: 0, h: 269, t: "No text: profile name, progress bar, top 26
 const Z_REELS = [{ y: 0, h: 269, t: "No text: profile name, close, top 269 px" }, { y: 1248, h: 672, t: "No text: caption, Shop now card, music, like and share row, bottom 672 px" }];
 const Z_NOTIF = [{ y: 0, h: 135, t: "Cropped if shown square, top 135 px", crop: true }, { y: 1215, h: 135, t: "Cropped if shown square, bottom 135 px", crop: true }];
 const PLACEMENTS = [
-  ["Instagram", "#8a3ab9", [["Feed", "4x5", [], "Name row above the image, Shop now bar and caption below."], ["Explore", "4x5", [], "Opens like the feed: nothing sits on the image."], ["Explore home", "1x1", [], "A grid tile: a square image in a square tile, nothing cut."], ["Profile feed", "4x5", [], "Same as the feed."], ["Search results", "1x1", [], "A grid tile: a square image in a square tile."], ["Stories", "9x16", Z_STORY, "Profile name and progress bar on top; Shop now and the reply bar at the bottom."], ["Reels", "9x16", Z_REELS, "Profile on top; caption, Shop now card and buttons at the bottom; like, comment and share down the right edge."], ["Profile Reels", "9x16", Z_REELS, "Same as Reels."]]],
-  ["Facebook", "#1877f2", [["Feed", "4x5", [], "Page name and text above, headline and Shop now below."], ["Video feeds", "4x5", [], "Same as the feed."], ["Profile feed", "4x5", [], "Same as the feed."], ["Notifications", "4x5", Z_NOTIF, "Shown small inside the notifications list and can be cropped to a square."], ["Right column", "1x1", [], "Desktop only. A small square next to the headline; small text will not read.", true], ["Marketplace", "1x1", [], "A Marketplace tile; headline and price sit under the image."], ["Search results", "1x1", [], "A small square in the results list.", true], ["Business explore", "1x1", [], "Shown in full with the headline under it."], ["Stories", "9x16", Z_STORY, "Page name on top, Shop now at the bottom."], ["Reels", "9x16", Z_REELS, "Same no-go zones as Instagram Reels."]]],
+  ["Instagram", "#8a3ab9", [["Feed", "4x5", [], "Name row above the image, Shop now bar and caption below."], ["Explore", "4x5", [], "Opens like the feed: nothing sits on the image."], ["Explore home", "1x1", [], "A grid tile: a square image in a square tile, nothing cut."], ["Profile feed", "4x5", [], "Same as the feed."], ["Search results", "1x1", [], "A grid tile: a square image in a square tile."], ["Stories", "9x16", Z_STORY, "Profile name and progress bar on top; Shop now and the reply bar at the bottom."], ["Reels", "reels", Z_REELS, "Profile on top; caption, Shop now card and buttons at the bottom; like, comment and share down the right edge."], ["Profile Reels", "reels", Z_REELS, "Same as Reels."]]],
+  ["Facebook", "#1877f2", [["Feed", "4x5", [], "Page name and text above, headline and Shop now below."], ["Video feeds", "4x5", [], "Same as the feed."], ["Profile feed", "4x5", [], "Same as the feed."], ["Notifications", "4x5", Z_NOTIF, "Shown small inside the notifications list and can be cropped to a square."], ["Right column", "1x1", [], "Desktop only. A small square next to the headline; small text will not read.", true], ["Marketplace", "1x1", [], "A Marketplace tile; headline and price sit under the image."], ["Search results", "1x1", [], "A small square in the results list.", true], ["Business explore", "1x1", [], "Shown in full with the headline under it."], ["Stories", "9x16", Z_STORY, "Page name on top, Shop now at the bottom."], ["Reels", "reels", Z_REELS, "Same no-go zones as Instagram Reels."]]],
   ["Messenger", "#0a7cff", [["Inbox", "1x1", [], "A small square among the chats, with headline and text beside it.", true]]],
   ["Threads", "#000", [["Feed", "4x5", [], "Name above, text and Shop now below."]]],
   ["WhatsApp", "#25d366", [["Status", "9x16", Z_STORY, "Same no-go zones as Stories."]]]
@@ -313,16 +313,16 @@ const PLACEMENTS = [
 const anyStatic = id => findAny(id) || [...pending(), ...aiList(), ...allStatics()].find(s => (s._item ? s._item.id : s.id) === id || s.id === id);
 function metaPreview(s) {
   const img = isImg(s), has = z => !img || !!s.files?.[z];
-  const missing = ["4x5", "1x1", "9x16"].filter(z => !has(z));
+  const missing = ["4x5", "1x1", "9x16", "reels"].filter(z => !has(z));
   const pic = z => img ? (s.files[z] ? thumb({ ...s }, z) : `<div class="thumb mpmiss" style="aspect-ratio:${SIZES[z].w}/${SIZES[z].h}"><span>No ${z.replace("x", ":")} image. Meta will crop or fit another size.</span></div>`) : thumb(s, z);
   const zone = (z, a) => { const H = SIZES[z].h; return `<div class="mpz${a.crop ? " crop" : ""}" style="top:${(a.y / H * 100).toFixed(2)}%;height:${(a.h / H * 100).toFixed(2)}%"><span>${esc(a.t)}</span></div>`; };
-  const side = z => z === "9x16" ? `<div class="mps l"></div><div class="mps r"></div>` : "";
+  const side = z => z === "9x16" || z === "reels" ? `<div class="mps l"></div><div class="mps r"></div>` : "";
   const d = document.createElement("dialog"); d.id = "metaprev"; d.className = "metaprev";
   d.innerHTML = `<div class="mpwrap"><div class="row"><b style="font-size:20px">Meta preview: ${esc((s.headline || s.problem || s.title || s.question || s.top || s.concept || s.id || "").replace(/\*/g, ""))}</b><span class="spacer"></span><button id="mpX" aria-label="Close">✕</button></div>
     <p class="sub">Meta picks one image per placement: 4:5 for feeds, 1:1 for squares and thumbnails, 9:16 for Stories, Reels and Status. <b class="mpred">Red</b> is a no-go zone: the app puts its own buttons, names or captions there, so text, price or pack placed in it gets hidden. Striped is where the image can be cropped.
-    ${img ? (missing.length ? ` <b class="mpred">This static has no ${missing.map(z => z.replace("x", ":")).join(" or ")} image, so Meta will crop or fit another size there.</b>` : " Check that no words, price or pack sit in the red zones.") : " The engine keeps every word and the pack out of the red zones by design (9:16: between 269 and 1165 px)."}</p>
+    ${img ? (missing.length ? ` <b class="mpred">This static has no ${missing.map(z => z === "9x16" ? "Stories 9:16" : z === "reels" ? "Reels 9:16" : z.replace("x", ":")).join(" or ")} image, so Meta will crop or fit another size there.</b>` : " Check that no words, price or pack sit in the red zones.") : " The engine builds all four playbook files and keeps every word, the price and the pack inside each text box (4:5 y 135 to 1215, 1:1 65 px in, Stories y 285 to 1635, Reels y 269 to 1248)."}</p>
     ${PLACEMENTS.map(([app, col, list]) => `<h3 class="mpapp">${app}</h3><div class="mpgrid">${list.map(([name, z, zones, note, small]) => `<div class="mpcard"><div><span class="mpchip" style="background:${col}">${app}</span> <b>${name}</b></div>
-      <div class="sub mpuse">Uses the ${z === "9x16" ? "9:16" : z.replace("x", ":")} image, ${SIZES[z].w} x ${SIZES[z].h}</div>
+      <div class="sub mpuse">Uses the ${z === "9x16" ? "Stories 9:16" : z === "reels" ? "Reels 9:16" : z.replace("x", ":")} image, ${SIZES[z].w} x ${SIZES[z].h}</div>
       <div class="mpimg">${pic(z)}${zones.map(a => zone(z, a)).join("")}${side(z)}</div>
       <div class="sub ${zones.length ? "mpbad" : "mpok"}">${zones.length ? (zones[0].crop ? "Can be cropped" : "Red no-go zones") : small ? "No red zone, but shown as a small thumbnail" : "No red zone: the whole image shows"}</div><div class="sub">${note}</div></div>`).join("")}</div>`).join("")}</div>`;
   document.body.appendChild(d); d.showModal(); hydrate();
@@ -517,14 +517,15 @@ const ago = t => { if (!t) return ""; const m = Math.round((Date.now() - new Dat
 async function checkConn() {
   try { conn = await (await fetch("/api/connect?code=" + myCode, { cache: "no-store" })).json(); } catch {}
   const c = !!conn.claude, g = !!conn.chatgpt, b = $("connectAI");
-  b.textContent = c && g ? "✓ Claude & ChatGPT connected" : c ? "✓ Claude connected · ChatGPT not yet" : g ? "✓ ChatGPT connected · Claude not yet" : "🔌 Connect Claude / ChatGPT";
+  const via = conn.chatgpt_via ? " (through Claude)" : "";
+  b.textContent = c && g ? "✓ Claude & ChatGPT connected" + via : c ? "✓ Claude connected · ChatGPT not yet" : g ? "✓ ChatGPT connected" + via + " · Claude not yet" : "🔌 Connect Claude / ChatGPT";
   b.classList.toggle("connected", c || g);
   b.title = c || g ? "Verified: your AI reached the site with this browser's code. Click for details." : "Not connected yet. Click to connect your Claude and ChatGPT.";
   const box = $("wState"); if (box) box.innerHTML = connRows();
   return conn;
 }
 const connRows = () => [["claude", "Claude (the thinker)"], ["chatgpt", "ChatGPT (the generator)"]].map(([k, n]) =>
-  `<div class="cstate ${conn[k] ? "on" : ""}">${conn[k] ? "✓" : "○"} <b>${n}</b>: ${conn[k] ? "connected, verified " + ago(conn[k]) : "not connected yet"}${conn.team?.[k] ? ` <span class="sub">(team last used ${ago(conn.team[k])})</span>` : ""}</div>`).join("");
+  `<div class="cstate ${conn[k] ? "on" : ""}">${conn[k] ? "✓" : "○"} <b>${n}</b>: ${conn[k] ? "connected" + (k === "chatgpt" && conn.chatgpt_via ? " through Claude's ChatGPT connector" : "") + ", verified " + ago(conn[k]) : "not connected yet"}${conn.team?.[k] ? ` <span class="sub">(team last used ${ago(conn.team[k])})</span>` : ""}</div>`).join("");
 draw(); load().then(sweepIdeas); checkConn().then(c => { if (!c.claude && !c.chatgpt) welcome(); });
 setInterval(checkConn, 60000);
 async function welcome(force = false) {

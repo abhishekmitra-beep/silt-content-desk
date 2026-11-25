@@ -3,11 +3,16 @@
 // render(spec, sizeId, base) returns a complete HTML document for one static.
 
 export const SIZES = {
-  "4x5": { w: 1080, h: 1350, pad: [70, 72, 64, 72], fs: 10, pack: 430, label: "Feed", ratio: "4x5" },
-  "1x1": { w: 1080, h: 1080, pad: [52, 60, 48, 60], fs: 8.6, pack: 345, label: "Square", ratio: "1x1" },
-  // Stories / Reels: every word and the pack sit between 269 and 1165 px from the top (Meta covers the top 269 px with the
-  // profile row, and the bottom 269 px in Stories / 672 px in Reels); the lower part stays plain.
-  "9x16": { w: 1080, h: 1920, pad: [269, 80, 755, 80], fs: 7.4, pack: 316, label: "Stories", ratio: "9x16" }
+  // PLACEMENT PLAYBOOK v1 (25 Nov): every static ships as FOUR files; anything to read (text, price, logo) stays in its text box.
+  // 4:5 master, text x 65-1015, y 135-1215 (a square crop can cut 135 px top and bottom).
+  "4x5": { w: 1080, h: 1350, pad: [135, 72, 135, 72], fs: 8.9, pack: 382, label: "Feed", ratio: "4x5" },
+  // 1:1, text 65 px from every edge; headline and price readable at 200 px wide.
+  "1x1": { w: 1080, h: 1080, pad: [65, 65, 65, 65], fs: 8.3, pack: 335, label: "Square", ratio: "1x1" },
+  // Stories / WhatsApp Status: the 4:5 master unscaled at y 285-1635 (same text size and pack), background extended;
+  // the app covers the top and bottom 269 px.
+  "9x16": { w: 1080, h: 1920, pad: [420, 72, 420, 72], fs: 8.9, pack: 382, label: "Stories", ratio: "9x16" },
+  // Reels: re-laid out, everything to read and the pack between 269 and 1248 px, 65+ px off the right edge (the icons).
+  "reels": { w: 1080, h: 1920, pad: [269, 72, 672, 72], fs: 8.1, pack: 348, label: "Reels", ratio: "9x16" }
 };
 
 export const THEMES = {
@@ -283,7 +288,7 @@ export function fileName(spec, sizeId) {
 export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
-export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66"];
+export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
 const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.

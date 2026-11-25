@@ -67,6 +67,7 @@ export async function onRequestPost({ request, env, data }) {
     if (f.bytes.length > MAX_FILE) return Response.json({ error: `${f.name} is ${(f.bytes.length / 1e6).toFixed(1)} MB; the limit is 1.9 MB per image (save it as JPG).` }, { status: 413 });
     const d = f.w && f.h ? { w: f.w, h: f.h } : dims(f.bytes);
     let key = ratioKey(d.w, d.h);
+    if (key === "9x16" && /reel|vert/i.test(String(f.name || ""))) key = "reels";   // playbook: Reels gets its own 9:16 file
     if (doc.files[key]) key = key + "-" + Object.keys(doc.files).length;
     const fid = rid("F");
     await env.DB.prepare("INSERT INTO se_files (id, mime, w, h, size, name, data, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")
@@ -77,8 +78,18 @@ export async function onRequestPost({ request, env, data }) {
   if (meta.static_id) {
     const row = await env.DB.prepare("SELECT id, doc, status FROM se_items WHERE id = ? AND kind = 'static'").bind(String(meta.static_id)).first();
     if (!row) return Response.json({ error: "No static " + meta.static_id }, { status: 404 });
-    const sd = JSON.parse(row.doc); sd.files = doc.files; sd.names = doc.names; sd.made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
+    // Sizes add up: the 4:5 master first, then the 1:1, Stories and Reels files (placement playbook) join it.
+    const sd = JSON.parse(row.doc); sd.files = { ...(sd.files || {}), ...doc.files }; sd.names = { ...(sd.names || {}), ...doc.names }; sd.made_with = String(meta.made_with || "ChatGPT").slice(0, 40);
     await env.DB.prepare("UPDATE se_items SET doc = ?, updated_by = ?, updated_at = ? WHERE id = ?").bind(JSON.stringify(sd), who, now, row.id).run();
+    // A ChatGPT-made image arriving with a browser's code proves that browser's ChatGPT is producing (through Claude's
+    // ChatGPT connector): tick it.
+    const code = String(request.headers.get("x-silt-code") || "").toUpperCase();
+    if (/chatgpt/i.test(sd.made_with) && /^[A-Z2-9]{6}$/.test(code)) {
+      await env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES (?, 'visitor', json_object('chatgpt', ?, 'chatgpt_via', 'Claude'), 'active', 'chatgpt', 'chatgpt', ?, ?)
+        ON CONFLICT(id) DO UPDATE SET doc = json_set(json_set(se_items.doc, '$.chatgpt', ?), '$.chatgpt_via', 'Claude'), updated_at = excluded.updated_at`).bind("C-" + code, now, now, now, now).run().catch(() => {});
+      await env.DB.prepare(`INSERT INTO se_items (id, kind, doc, status, created_by, updated_by, created_at, updated_at) VALUES ('S-chatgpt', 'visitor', '{}', 'active', 'chatgpt', 'chatgpt', ?, ?)
+        ON CONFLICT(id) DO UPDATE SET updated_at = excluded.updated_at, status = 'active'`).bind(now, now).run().catch(() => {});
+    }
     return Response.json({ id: row.id, kind: "static", doc: sd, status: row.status, updated_by: who, updated_at: now });
   }
   const id = rid("U"); doc.id = id;

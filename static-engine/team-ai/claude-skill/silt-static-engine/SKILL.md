@@ -72,7 +72,7 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type:
 
 - `t` and its text keys (the table below) make the site's **preview** of the static until ChatGPT's image arrives. Wrap a word in `*stars*` to highlight it.
 - `chatgpt_prompt` must be complete enough for ChatGPT to make the **finished** static on its own:
-  - the size: 1080 x 1350 (4:5)
+  - the size: 1080 x 1350 (4:5), the master, with every word inside x 65 to 1015, y 135 to 1215; then the 1:1, Stories 9:16 and Reels 9:16 files (see the placement playbook below)
   - every word to print, in quotes, exactly as written
   - who is in the picture: Indian; age; man or woman; what they wear; where they are; their expression
   - the layout: where the words and the person go
@@ -114,7 +114,9 @@ ChatGPT is the generator. If you can control a browser or the desktop, do the ha
 curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<downloaded image>
 ```
 
-   Images over 1.9 MB: save as JPG first.
+   Images over 1.9 MB: save as JPG first. Resize to the exact size (ChatGPT often returns 1122 x 1402; scale it to 1080 x 1350).
+
+   Then ask ChatGPT, in the same chat, for the 1:1, the Stories 9:16 and the Reels 9:16 versions (the prompt already says how), and upload each onto the same static. Name the files with the size so the site files them right: `_1x1`, `_story`, `_reels`. The site adds each size to the static; it doesn't replace the others.
 
 **Through the ChatGPT desktop app** (computer use): same steps in the app. Open it, start a chat (or the SILT Statics GPT), attach the pack image, paste the prompt, wait, save the image, upload it as above.
 
@@ -160,6 +162,13 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-clien
 
 To put ChatGPT's image onto a static you wrote, add `-F static_id=<static id>`. It then becomes that static's image.
 
+**Placement playbook (25 Nov): every static ships as FOUR files.** Anything to read (words, price, logo) stays inside its text box:
+- **4:5 master, 1080 x 1350** (feeds, Threads): x 65 to 1015, y 135 to 1215. Design this first.
+- **1:1, 1080 x 1080** (Explore home, search, right column, Marketplace, Messenger): re-lay out, 65 px from every edge; headline and price readable at 200 px wide.
+- **Stories 9:16, 1080 x 1920** (Stories, WhatsApp Status): the 4:5 master unscaled at y 285 to 1635, background extended above and below (blur and grain, no streaks); nothing to read in the top or bottom 269 px.
+- **Reels 9:16, 1080 x 1920** (Reels): re-lay out; every word, the price tag and the pack above y 1248; nothing within 65 px of the right edge.
+Never shrink the whole artwork to fit; move or trim. Same headline, price, claims and pack in all four.
+
 ## The rules every static follows
 
 **Facts (use only these numbers):**
@@ -175,7 +184,7 @@ To put ChatGPT's image onto a static you wrote, add `-F static_id=<static id>`. 
 - Pillars: Adherence and Trust.
 - TOFU, MOFU and BOFU say "Replaces the stack". RET (existing customers) is about the ritual, with no discount push.
 
-**Product placement (Abhishek's rules):** the engine places the pack in its previews, and your ChatGPT prompt must ask for the same. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. In 9:16 everything stays between 230 and 1165 px from the top.
+**Product placement (Abhishek's rules):** the engine places the pack in its previews, and your ChatGPT prompt must ask for the same. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. Sizes follow the placement playbook below.
 
 **People:** every person, name and setting is Indian: Indian faces, names like Priya, Rohan, Ananya or Arjun, and Indian moments (chai, autos, Bengaluru traffic, Diwali, wedding season, back-to-back calls).
 
