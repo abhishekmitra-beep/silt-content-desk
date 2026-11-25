@@ -124,7 +124,8 @@ const imgUrl = (s, k, small) => s.kind === "library" ? (small ? "/library/thumb/
 const imgName = (s, k) => s.kind === "library" ? s.files[k] + ".png" : (s.names?.[k] || s.files[k] + ".jpg");
 const findAny = id => { const it = st.items.find(i => i.id === id && (i.kind === "static" || i.kind === "override")); return it ? { ...it.doc, _item: it } : allStatics().find(s => s.id === id); };
 async function load() {
-  try { st.items = (await api("/api/items")).items; } catch (e) { status("Couldn't load: " + e.message); }
+  // If the API is down (e.g. Cloudflare's daily free limit), keep the built-in statics usable instead of breaking the page.
+  try { const r = await api("/api/items"); if (!r || !Array.isArray(r.items)) throw new Error("the team database isn't answering"); st.items = r.items; } catch (e) { st.items = st.items || []; status("Team items couldn't load (" + e.message + "). Saved statics, ideas and approvals come back when it answers again; built-ins still work."); }
   try { st.rules = (await api("/api/rules")).rules || []; } catch {}
   draw();
 }
@@ -454,7 +455,7 @@ $("view").addEventListener("click", async e => {
   const rj = b("[data-rej]"); if (rj) { const why = await askReason(titleOf(rj.dataset.rej)); if (!why) return; await decide(rj.dataset.rej, "rejected", why).catch(er => alert(er.message)); return load(); }
   if (id === "apAll") { if (!confirm("Approve all the statics shown? They go live in their funnel tabs.")) return; t.disabled = true; const xs = st.apList || [];
     let n = 0; for (const s of (st.apList || xs)) { $("zipMsg").textContent = "Approving " + (++n) + " of " + (st.apList || xs).length + "…"; await decide(s._item ? s._item.id : "s:" + s.id, "approved").catch(() => {}); } return load(); }
-  const ed = b("[data-edit]"); if (ed) return openEditor(findAny(ed.dataset.edit));
+  const ed = b("[data-edit]"); if (ed) return openEditor(anyStatic(ed.dataset.edit));   // anyStatic also finds statics still waiting in Team Approval
   const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { save(await pngBlob(s, dl.dataset.z), fileName(s, dl.dataset.z) + ".png"); } finally { dl.disabled = false; } return; }
   if (id === "zipTab") return zip(allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod)), $("zipSize").value, `SILT_Statics_${st.tab}`, $("zipMsg"));
   if (id === "imgX") { st.img = st.thumb = null; return draw(); }
@@ -539,7 +540,7 @@ $("fields").addEventListener("input", e => { const el = e.target.closest("[data-
   try { if (el.tagName === "SELECT") { if (el.value) cur[k] = el.value; else delete cur[k]; } else if (el.dataset.type === "l") cur[k] = el.value.split("\n").filter(x => x.trim()); else if (el.dataset.type === "j") cur[k] = JSON.parse(el.value); else cur[k] = el.value; el.style.outline = ""; }
   catch { el.style.outline = "2px solid var(--bad)"; return; } preview(); });
 function preview() {
-  const z = SIZES[edSize], w = Math.min(stage.parentElement.clientWidth - 32, 480), sc = Math.min(w / z.w, (innerHeight * .62) / z.h);
+  const z = SIZES[edSize], w = Math.min(stage.parentElement.clientWidth - 32, 480), sc = Math.min(w / z.w, (innerHeight * .5) / z.h);
   stage.style.width = z.w * sc + "px"; stage.style.height = z.h * sc + "px"; frame.style.width = z.w + "px"; frame.style.height = z.h + "px"; frame.style.transform = `scale(${sc})`; frame.srcdoc = render(cur, edSize, "/");
   const p = checkCopy(cur), w2 = wordCount(cur); $("live").innerHTML = (p.length ? `<div class="check">${p.map(esc).join("<br>")}</div>` : "") + `<div class="sub" style="text-align:center">${w2} words (aim for ${TEXT_LIMIT.good})</div>`;
 }
@@ -594,7 +595,8 @@ async function checkConn() {
 const connRows = () => [["claude", "Claude (the thinker)"], ["chatgpt", "ChatGPT (the generator)"]].map(([k, n]) =>
   `<div class="cstate ${conn[k] ? "on" : ""}">${conn[k] ? "✓" : "○"} <b>${n}</b>: ${conn[k] ? "connected" + (k === "chatgpt" && conn.chatgpt_via ? " through Claude's ChatGPT connector" : "") + ", verified " + ago(conn[k]) : "not connected yet"}${conn.team?.[k] ? ` <span class="sub">(team last used ${ago(conn.team[k])})</span>` : ""}</div>`).join("");
 draw(); load().then(sweepIdeas); checkConn().then(c => { if (!c.claude && !c.chatgpt) welcome(); });
-setInterval(checkConn, 60000);
+// Cloudflare free plan = 100k function calls a day (hit on 25 Nov): check every 2 minutes, and never while the tab is hidden.
+setInterval(() => { if (!document.hidden) checkConn(); }, 120000);
 async function welcome(force = false) {
   if ($("welcome")) return;
   let later = false; try { later = sessionStorage.getItem("silt-se-later") === "1"; } catch {}
@@ -624,7 +626,7 @@ async function welcome(force = false) {
     + `<p class="sub" style="margin:0">Already set up with the old skill or GPT? Just tell it <b>“${say}”</b> <button id="wCopy" style="padding:2px 10px">Copy</button>. Your code: <span class="code">${myCode}</span></p>`
     + '<div class="row"><span class="sub">This window checks every few seconds.</span><span class="spacer"></span><button class="primary" id="wLater">Close</button></div></div>';
   document.body.appendChild(d); d.showModal();
-  const poll = setInterval(checkConn, 4000);
+  const poll = setInterval(() => { if (!document.hidden) checkConn(); }, 8000);
   const close = () => { clearInterval(poll); try { sessionStorage.setItem("silt-se-later", "1"); } catch {} if (d.open) d.close(); d.remove(); };
   d.addEventListener("cancel", () => { clearInterval(poll); try { sessionStorage.setItem("silt-se-later", "1"); } catch {} setTimeout(() => d.remove(), 0); });
   d.querySelector("#wX").onclick = close;
