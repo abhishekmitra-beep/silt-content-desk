@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "thread_title": "Find a post from the last 3 days: how much does sleep matter for muscle gain or fat loss?",
+  "thread_summary": "Look for someone training hard on little sleep, or asking whether sleep affects gains or a cut.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "More than most people expect. In one well-known study, people on the same calorie deficit lost a much bigger share of muscle instead of fat when they slept 5.5 hours a night instead of 8.5. Short sleep also pushes up hunger, which makes a cut harder to stick to. If you're cutting, treat 7 to 8 hours as part of the plan, the same way you track protein.",
+  "why": "Recurring question in this sub and a strong, specific study finding with no product angle.",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting."
+}

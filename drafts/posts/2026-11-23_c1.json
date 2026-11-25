@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "bangalore",
+  "thread_title": "Find a post from the last 3 days: can't sleep on Sunday night, anxious about Monday",
+  "thread_summary": "Look for someone who lies awake on Sunday night or dreads Monday mornings.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "One thing with real research behind it: write tomorrow's to-do list before bed. In a sleep lab study, people who spent five minutes writing a specific list of what they needed to do next day fell asleep faster than people who wrote about what they'd already done. It gets the Monday plan out of your head and onto paper. Pair it with a fixed lights-out time and no work email after dinner on Sunday.",
+  "why": "Sunday-night anxiety comes up every week, and the to-do-list study (Scullin et al., 2018) is a specific, credible tip.",
+  "thread_url": "https://www.reddit.com/r/bangalore/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/bangalore sidebar before commenting."
+}

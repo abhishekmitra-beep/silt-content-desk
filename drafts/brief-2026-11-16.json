@@ -1,0 +1,204 @@
+{
+  "competitors": "The Whole Truth answers critics on X with test protocols and publishes per-batch results. AG1 turns its studies into content. Thorne puts certifications inside creator posts. US brands are moving to 'scan the batch code, see the lab report'. Gritzo runs Hinglish family-life lines. Borrow: COA posts, founder replies with receipts, batch-code lookups.",
+  "date": "2026-11-16",
+  "instagram": "Founder-led and numbers-first: Abhishek on camera, real doses (3 g glycine, 80 mg caffeine + 200 mg L-theanine), a food-maths education reel on the fibre gap (best recent performer), and social proof (4.9 on verified reviews, 250 customers in 15 days, 1,870 pre-bookers). Captions end with a question. One open customer complaint about a stuck delivery sits under the fibre reel and needs a reply.",
+  "linkedin_competitors": [
+    {
+      "brand": "The Whole Truth (Shashank Mehta)",
+      "source": "https://in.linkedin.com/in/shashank-mehta-977925a",
+      "takeaway": "Give Abhishek a clear point of view on the category every Monday, and keep the rhythm without gaps.",
+      "what": "Long founder posts on brand philosophy and bold category predictions, such as food becoming India's hottest category on quick commerce. He also runs a weekly newsletter that hasn't missed a week."
+    },
+    {
+      "brand": "OZiva (Mihir Gadani)",
+      "source": "https://in.linkedin.com/company/oziva",
+      "takeaway": "Start a named Wednesday series: one ingredient, its dose in SILT, and what the studies say.",
+      "what": "A named co-founder education series, 'Demystifying Supplements with MG', plus posts telling buyers to check protein labels."
+    },
+    {
+      "brand": "HUL, OZiva, Wellbeing Nutrition, Supply6",
+      "source": "https://www.nutraingredients.com/Article/2026/02/16/hindustan-unilever-to-fully-acquire-oziva-for-us90m/",
+      "takeaway": "Comment on the deals from the small founder's seat. Today's post does this.",
+      "what": "Consolidation: HUL buys OZiva for about $90M and sells its Wellbeing Nutrition stake to USV, while Unilever Ventures leads Supply6's ₹48 Cr round."
+    },
+    {
+      "brand": "AG1",
+      "source": "https://drinkag1.com/scientists",
+      "takeaway": "Cite studies on our actual ingredients and say plainly where the evidence is thin.",
+      "what": "Makes its clinical studies the content, and gets criticised when those studies are small or company-funded."
+    }
+  ],
+  "summary": "Sleep is the loudest topic this week: a 12-trial review says magnesium alone isn't a reliable insomnia fix, and sleepmaxxing hacks like mouth taping are getting pushback from sleep doctors. In India, FSSAI is tightening labels on energy drinks and nutraceuticals, which plays straight into our transparency story. Reddit couldn't be read live today (it blocks automated reads), so the subreddit picks lean on news and our own Instagram.",
+  "trends": [
+    {
+      "angle": "Nights: glycine leads, magnesium is for recovery. Honest framing wins trust.",
+      "platform": "X + Reddit",
+      "source": "https://www.mensfitness.com/news/new-study-on-magnesium-casts-doubt-on-sleep-benefits",
+      "topic": "Magnesium for sleep, the backlash"
+    },
+    {
+      "angle": "Nights: sort sleep hacks by evidence.",
+      "platform": "X + Reddit",
+      "source": "https://www.simplypsychology.com/articles/sleepmaxxing-trend-evidence",
+      "topic": "Sleepmaxxing and mouth taping"
+    },
+    {
+      "angle": "Mornings: we print caffeine in mg.",
+      "platform": "X",
+      "source": "https://www.outlookbusiness.com/news/fssai-issues-notices-to-pepsico-red-bull-other-beverage-makers-over-energy-drink-claims",
+      "topic": "FSSAI: energy drinks become 'caffeinated beverages'"
+    },
+    {
+      "angle": "Both: read our label line by line.",
+      "platform": "X + Reddit",
+      "source": "https://www.deccanherald.com/india/fssai-warns-against-violation-of-mandatory-labelling-norms-for-nutraceuticals-health-supplements-4188579",
+      "topic": "FSSAI advisory on nutraceutical labels (15 Oct)"
+    },
+    {
+      "angle": "Both: 'Not for medical use' and RDA caps. We already sit at 100% RDA.",
+      "platform": "X",
+      "source": "https://etvbharat.com/en/bharat/new-guidelines-on-health-supplements-in-uttar-pradesh-enn26111302479",
+      "topic": "UP health supplement rules (13 Nov)"
+    },
+    {
+      "angle": "Mornings: cost per morning, coffee culture.",
+      "platform": "X",
+      "source": "https://dairynews.today/news/bengaluru_eateries_raise_tea_and_coffee_prices_by_3_to_5_4423808.html",
+      "topic": "Bengaluru coffee price hike, Rs 150 cafe lattes"
+    },
+    {
+      "angle": "Mornings: 5 g PHGG per stick, Indian food fibre maths.",
+      "platform": "Reddit",
+      "source": "https://www.manilatimes.net/2026/11/11/tmt-newswire/globenewswire/fibermaxxing-hits-the-holiday-table-brenda-watsons-7-ways-to-make-stuffing-healthier/2467125",
+      "topic": "Fibermaxxing"
+    },
+    {
+      "angle": "Both: our buyer's daily pain. Community posts, no selling.",
+      "platform": "Reddit",
+      "source": "https://restofworld.org/2026/india-tech-workers-crisis-suicide/",
+      "topic": "Indian tech burnout, 70 to 90 hour weeks"
+    },
+    {
+      "angle": "Nights: we use KSM-66 root extract. Good for a future explainer.",
+      "platform": "X",
+      "source": "https://www.nutraingredients.com/Article/2026/04/28/india-bans-ashwagandha-leaf-use-in-any-form-industry-reacts/",
+      "topic": "Ashwagandha leaf ban, root still allowed"
+    },
+    {
+      "angle": "Both: 293 lab checks, 0 failed. Post the COA.",
+      "platform": "X + Reddit",
+      "source": "https://www.trustified.in/passandfail/totalnutrition",
+      "topic": "Independent lab testing (Trustified, Blacklisted)"
+    },
+    {
+      "angle": "Nights: a 'why there's no melatonin in SILT' post for later this week.",
+      "platform": "X",
+      "source": "https://www.nutraingredients.com/Article/2026/11/06/regulatory-review-probiotic-cfu-limits-removal-andrographis-recall-and-more/",
+      "topic": "Melatonin under review, AASM advises against it for insomnia"
+    },
+    {
+      "angle": "Discussion only (not in SILT): nothing replaces sleep.",
+      "platform": "Reddit",
+      "source": "https://www.nutraingredients.com/Article/2026/04/21/single-dose-creatine-may-support-cognition-in-sleep-deprivation-study/",
+      "topic": "Creatine for sleep-deprived brains"
+    }
+  ],
+  "linkedin_trends": [
+    {
+      "topic": "ASCI report: all 60 reviewed nutraceutical ads broke the ad code (32 brands)",
+      "date": "28 Oct",
+      "day": "Mon",
+      "angle": "Strongest category story this month. Contrast with printed doses and a lab report per ingredient. Drafted as option B today.",
+      "source": "https://www.business-standard.com/india-news/nutraceutical-ads-lack-scientific-proof-for-health-claims-asci-report-126102801440_1.html"
+    },
+    {
+      "topic": "FSSAI advisory: warnings and permitted doses for 16 botanicals (coffee seed, neem and others)",
+      "date": "15 to 22 Oct",
+      "day": "Mon or Fri",
+      "angle": "\"We checked our labels against it.\" One outlet questions whether the advisory is official, and it is unclear if ashwagandha is on the list. Verify first.",
+      "source": "https://www.nutraingredients.com/Article/2026/10/22/fssai-enforces-labeling-rules-for-coffee-neem-and-other-plant-nutraceuticals/"
+    },
+    {
+      "topic": "Ashwagandha leaf ban stays, root only",
+      "date": "Reiterated 30 Apr",
+      "day": "Wed",
+      "angle": "Nights uses KSM-66, a root extract. Confirm with the supplier before saying it on LinkedIn.",
+      "source": "https://www.wholefoodsmagazine.com/articles/17976-government-of-india-prohibits-ashwagandha-leaves-in-supplements-and-foods-tightens-enforcement-on-adulteration"
+    },
+    {
+      "topic": "95% of Indian employees say breaks make them more productive, few take them (Compass Group study)",
+      "date": "9 Nov",
+      "day": "Mon",
+      "angle": "The 3 PM slump and the chai-and-biscuit reflex. Ties to Mornings without selling.",
+      "source": "https://www.business-standard.com/companies/news/employees-in-india-value-work-breaks-but-few-make-time-for-them-126110900455_1.html"
+    },
+    {
+      "topic": "Over 60% of Indian anaesthesiologists sleep under 7 hours",
+      "date": "10 Nov",
+      "day": "Mon or Wed",
+      "angle": "Sleep-debt hook for Nights. ResMed: 71% of Indian workers say poor sleep hurts work (March data).",
+      "source": "https://medicaldialogues.in/anesthesia/news/night-shifts-and-heavy-workloads-linked-to-poor-sleep-in-over-half-of-indian-anaesthesiologists-study-182522"
+    },
+    {
+      "topic": "Culture over pay: 66% would take a pay cut for better culture (secondary source)",
+      "date": "12 Nov",
+      "day": "Mon",
+      "angle": "Wellness perks against real culture. Check the underlying survey before quoting.",
+      "source": "https://www.thepeoplesboard.com/culture/culture-over-compensation-attrition-india-2026/"
+    },
+    {
+      "topic": "Sleepy Owl FY26: revenue up 86% to Rs 82 cr, close to breakeven",
+      "date": "Early Nov",
+      "day": "Fri",
+      "angle": "What a coffee D2C brand path teaches a 3-week-old brand.",
+      "source": "https://entrackr.com/fintrackr/sleepy-owls-revenue-surges-86-to-rs-82-cr-in-fy26-nears-breakeven-12788034"
+    },
+    {
+      "topic": "Blue Tokai FY26: past Rs 500 cr revenue, losses up 54%",
+      "date": "10 to 12 Nov",
+      "day": "Mon",
+      "angle": "India keeps drinking more caffeine. Why Mornings pairs 80 mg caffeine with L-theanine.",
+      "source": "https://entrackr.com/fintrackr/blue-tokai-crosses-rs-500-cr-revenue-in-fy26-losses-up-54-12798434"
+    },
+    {
+      "topic": "Supplement funding pitched as trust-first (The Stack Rs 21.5 cr, Ace Blend USD 9.9M)",
+      "date": "Oct (dates unsure)",
+      "day": "Mon",
+      "angle": "Trust is the category pitch to investors now. SILT shows proof instead of saying the word.",
+      "source": "https://inc42.com/buzz/the-stack-raises-%E2%82%B921-5-cr-to-broaden-its-supplements-portfolio/"
+    },
+    {
+      "topic": "AI and jobs anxiety (IIT Madras paper; Blind survey: 66% of AI/ML workers expect cuts)",
+      "date": "26 Oct (survey Aug)",
+      "day": "Mon",
+      "angle": "Handle with care: anxiety and sleep, never selling into fear.",
+      "source": "https://yourstory.com/ai-story/ai-jobs-iit-madras-study-tasks-workforce"
+    }
+  ],
+  "linkedin_formats": [
+    "Document (PDF) carousels have the highest engagement rate, about 7% in a 2026 benchmark of 1.3M posts, though not the widest reach. Use them for the Wednesday ingredient series.",
+    "The feed now rewards time spent reading, saves and sends more than hashtags. Reply to every comment in the first hour.",
+    "LinkedIn is pushing short vertical founder video. A 45-second Abhishek clip from the reels shoot can do well on Fridays.",
+    "Vague motivation, \"proud to announce\" posts and content copy-pasted from other platforms underperform. Specific numbers and expertise do well."
+  ],
+  "linkedin_week": [
+    {
+      "day": "Mon 16 Nov",
+      "title": "Category take: ASCI ad report (option B) or FMCG consolidation (option A)",
+      "format": "Text post with one product photo",
+      "notes": "Both are drafted on the LinkedIn tab. Post one."
+    },
+    {
+      "day": "Wed 18 Nov",
+      "title": "250 mg magnesium: what that number actually means",
+      "format": "Document carousel, 5 to 6 slides",
+      "notes": "Elemental magnesium against compound weight, why bisglycinate is gentle on the stomach, the daily need for Indian adults, why evidence is strongest if you are low, and the lab report at the end. Our Instagram caption says 250 mg is elemental magnesium; double-check with the label."
+    },
+    {
+      "day": "Fri 20 Nov",
+      "title": "3 weeks after launch, in the month ASCI and FSSAI came down on supplements",
+      "format": "Short founder video or a text post with one chart",
+      "notes": "Real numbers (orders, repeat rate, top questions), what we checked on our own labels, and one thing we would change."
+    }
+  ]
+}

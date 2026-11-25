@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "pillar": "Trust",
+  "thread_title": "Find a post from the last 3 days: does a protein shake before bed affect sleep?",
+  "thread_summary": "Look for someone asking about pre-bed protein, casein, or eating late after training.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "A protein shake before bed is fine for most people. Studies on pre-sleep protein (often casein, around 30 to 40 g) found it can help overnight muscle repair without hurting sleep. What tends to disturb sleep is a big heavy meal or anything with caffeine, which some protein powders and pre-workouts quietly contain, so check the label. Keep it to a simple shake about 30 minutes before bed.",
+  "why": "Fitness subreddit evergreen. It's evidence-based and flags hidden caffeine.",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting."
+}

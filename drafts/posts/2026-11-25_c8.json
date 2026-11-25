@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "sleep",
+  "pillar": "Trust",
+  "thread_title": "Find a post from the last 3 days: my sleep tracker says I barely get deep sleep, should I worry?",
+  "thread_summary": "Look for someone anxious about deep sleep or REM numbers from a watch or ring.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Wrist and ring trackers estimate sleep stages from movement and heart rate, and they're much less accurate at deep sleep than a sleep lab. Treat the stage numbers as rough trends, not a diagnosis. How you feel during the day matters more. Worrying about the score can itself make sleep worse, which even has a name in research: orthosomnia. If you're genuinely exhausted despite enough hours, that's worth a doctor's visit.",
+  "why": "Trackers are huge in r/sleep, and an honest answer builds credibility.",
+  "thread_url": "https://www.reddit.com/r/sleep/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/sleep sidebar before commenting. r/sleep is strict about promotion. Never mention SILT here unless someone asks directly."
+}

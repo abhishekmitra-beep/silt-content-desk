@@ -1,0 +1,23 @@
+{
+  "product": "mornings",
+  "angle": "Poll",
+  "format": "Poll (1 day)",
+  "trend": "Quiz question 2 (siltnutrition.com/pages/quiz): the main health issue in the day",
+  "why": "Monday is a poll day. It's the second quiz question, after Friday's sleep poll, and the answers map straight onto Mornings.",
+  "source": "https://siltnutrition.com/pages/quiz",
+  "text": "Monday check-in. What hits you hardest during the workday?",
+  "poll": {
+    "options": [
+      "3 PM slump",
+      "Bloating after lunch",
+      "Snack cravings",
+      "All of the above"
+    ],
+    "duration": "1 day",
+    "followup": "Tuesday: share the result plus one evidence-based tip for the winner. 3 PM slump: lighter lunch, a 10 minute walk, last caffeine by 2 PM. Bloating: raise fibre slowly and drink more water. Cravings: protein and fibre at lunch. Don't add a quiz link if one already went out this week."
+  },
+  "date": "2026-11-23",
+  "platform": "x",
+  "slot": 2,
+  "status": "pending"
+}

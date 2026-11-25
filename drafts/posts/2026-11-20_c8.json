@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Nootropics",
+  "thread_title": "Find a post from the last 3 days: which magnesium form should I take (glycinate, citrate, oxide, threonate)?",
+  "thread_summary": "Look for someone confused by magnesium forms or asking which is best for sleep or stress.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Look at elemental magnesium first. The big number on the bottle is often the compound, not the magnesium. Glycinate is gentle on the stomach and popular for evening use. Citrate absorbs well but can loosen stools at higher doses. Oxide packs a lot of magnesium per tablet but absorbs poorly. Threonate has some interesting early studies but delivers little elemental magnesium per capsule. The sleep evidence is strongest for people who are actually low, so a test is worth more than switching forms.",
+  "why": "A recurring r/Nootropics question. It's a different angle from the 17 Nov sleep review comment, and it's accurate and practical.",
+  "thread_url": "https://www.reddit.com/r/Nootropics/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Nootropics sidebar before commenting. r/Nootropics removes anything promotional. Evidence only, and don't mention SILT unless asked."
+}

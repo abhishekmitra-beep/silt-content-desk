@@ -1,0 +1,3187 @@
+{
+ "built": "2026-11-25T07:45:17.972Z",
+ "brands": [
+  {
+   "brand": "AG1",
+   "page": "/teardowns/ag1.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:40.790Z",
+   "account": "AG1 by Athletic Greens (294,747 page likes) is an always-on US advertiser, but what is live now is young: 1,007 ads captured (Meta reports 1,048, so the oldest ~40 may be missing), and the longest runner is a 15s military 25% off ad live since 22 Jul 2026, at 118 days.",
+   "patterns": [
+    {
+     "title": "A launch buried in variants",
+     "text": "AG1 Pro (the base drink plus 5 g creatine, Ca-HMB and zinc carnosine) carries 637 ads, 2,692 versions and 390 unique videos under one line: \"Sold out after launch. It's back (for now).\" 589 ads go to /pro-performance. They are not picking a winner first; they flood the launch and let Meta sort it. The top Pro video (#…"
+    },
+    {
+     "title": "One scoop instead of the cabinet",
+     "text": "\"How many supplements are in your cabinet right now?\" opens 80 ads, followed by \"one scoop instead of a shelf of single-nutrient pills\". Creators say it out loud: \"a cabinet full of random pills every morning\", \"replaced like four things\". 637 ads carry \"one serving, once a day\". The enemy is the pile of bottles, not …"
+    },
+    {
+     "title": "The morning ritual is shown, never written",
+     "text": "The word \"morning\" appears in 0 of 1,007 ad copies; the copy says \"single daily habit\" (84 ads). The morning lives on screen instead: the scoop is engraved \"Good morning.\", #10 films ice, scoop, shake and sip in real time, the street interview is shot at an AG1 \"Good Morning Café\", and the statics are phone photos of …"
+    },
+    {
+     "title": "Free objects, not discounts",
+     "text": "Until Black Friday there is no % off for normal buyers, only gifts: a Welcome Kit (canister, shaker, scoop) in 108 ads, 3 free travel packs plus D3+K2 drops, a \"Free $68 Immune Support Bundle\" for October (48 ads), a YETI shaker (77 ads) and a $35 mini canvas tote from 16 Nov (42 ads). Offers rotate monthly and get se…"
+    },
+    {
+     "title": "Brand-made statics that look like a friend's story",
+     "text": "Most long-running statics are phone photos with Instagram story text boxes, not designed ads: \"Women over 30 are drinking this for energy support!\" (three statics, 61 to 62 days), \"My new hyperfixation: AG1 Pro\", \"not to influence you but...\", \"Didn't expect this, got this YETI shaker for free\". All 1,007 ads run from…"
+    },
+    {
+     "title": "Proof stacked on every ad",
+     "text": "\"Clinical\" appears in 763 of 1,007 ad copies (\"backed by four clinical trials\" on 80), NSF Certified for Sport in 66, and #7 says \"lab tested, free of 280 banned substances\". The longest-running static (90 days, 7 versions) is simply \"Try AG1 risk-free for 90 days\". Newer tests, 3 to 4 ads each: self-reported study nu…"
+    },
+    {
+     "title": "One audience, one door",
+     "text": "Each audience gets its own route and landing page. The 118-day top runner is a 25% thank-you for military, teachers, healthcare workers and first responders verified through ID.me (plus 25 ads to /idme-pro). Gummies go to busy parents (#3, 97 days, its own lander) and women on the move (#5, 80 days). \"Women over 30\" r…"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Mornings",
+     "hook": "“How many strips are in your desk drawer right now?”",
+     "format": "Creator UGC, 35 to 45s, English and Hinglish cuts",
+     "based_on": "#10, #11",
+     "outline": "A creator in a Bengaluru or Pune flat pulls out the drawer: a B12 strip, a weekly D3 sachet, a probiotic, a fibre tin, a third coffee sachet. Then one Mornings stick into a steel bottle with water and ice, shake, sip. Read what one stick holds (80 mg caffeine + 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, D3, K2, B12, C), each as the dose used in studies, and say plainly that anything a doctor prescribed…"
+    },
+    {
+     "product": "Mornings",
+     "hook": "“The first five minutes of my workday.”",
+     "format": "Brand lifestyle, 15 to 20s, no talking, one overlay line",
+     "based_on": "#10, static 4, the 'Good morning.' scoop",
+     "outline": "Same order every time: alarm, steel bottle, tear the stick, pour, shake, first sip in the cab or on the Metro, laptop opens. Their copy never writes 'morning'; SILT's product is called Mornings, so own the word on screen. Shoot 3 people (Gurugram, Mumbai, Bengaluru) for variants."
+    },
+    {
+     "product": "Both",
+     "hook": "“Monday, 9:40 AM. Standup in 20.”",
+     "format": "Native story static, 9:16 and 4:5, 4 to 6 photo variants",
+     "based_on": "statics 3, 4, 8, 10",
+     "outline": "A real phone photo of a real desk (lanyard, laptop, chai cup pushed aside) with a Mornings stick and bottle, and Instagram-style text boxes: three ticks with the doses and '₹60 a day'. Shoot several people's desks and let the ad set pick the winner."
+    },
+    {
+     "product": "Both",
+     "hook": "First order: Combo + a free steel bottle + travel sticks",
+     "format": "Cart-screenshot static + 7s flat-lay video",
+     "based_on": "#14, the $171 to $79 cart static",
+     "outline": "A phone cart screenshot listing each item, the gift lines marked FREE, total ₹1,800. A physical gift makes the Combo feel bigger without training buyers to wait for a code. Show only values SILT can stand behind, and rotate the gift by month (monsoon, Diwali, appraisal season)."
+    },
+    {
+     "product": "Both",
+     "hook": "“Desk job? Verify your work email. The first box is on us.”",
+     "format": "Static-motion, 15s, 9:16 and 4:5 crops",
+     "based_on": "#1 (118 days)",
+     "outline": "Animated stick and bottle on an office desk, one line, one 'verify work email' button. Their longest runner is a thank-you for one verified group; SILT's version names its own audience and builds a list of companies for bulk orders later."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“Before you buy another supplement, taste this.”",
+     "format": "Street sampling interview, 40 to 45s",
+     "based_on": "#7",
+     "outline": "A SILT counter at a tech-park café or co-working space at 9 AM. Strangers try Lemon Orange cold and react honestly on camera ('it doesn't taste like medicine'), then the host reads the label: no added sugar, no maltodextrin, every dose printed, a lab report per ingredient."
+    },
+    {
+     "product": "Both",
+     "hook": "“What's in my laptop bag?”",
+     "format": "POV, 15s, no voice, tick overlays",
+     "based_on": "#5 (80 days)",
+     "outline": "Hands in a parked car or office lobby tick off charger, ID card, earphones, lip balm, then a Mornings and a Nights stick. End card: 'one for 9 AM, one for 10 PM'. Cheap to shoot in an afternoon."
+    },
+    {
+     "product": "Both",
+     "hook": "“293 checks. 0 failed. Read every one.”",
+     "format": "Proof static + 20s phone screen recording",
+     "based_on": "static 1 (90 days), #7",
+     "outline": "Their longest static is a risk-free promise; SILT's strongest proof is a lab report per ingredient. Scroll the reports on a phone, stop on one, show the result. If SILT adds a trial guarantee later, test it as the second line."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 118,
+     "versions": 1,
+     "style": "Static-motion",
+     "product": "other",
+     "hook": "Military, take 25% off. Our thank you.",
+     "why": "15s animated canister on grass, the letters A, G, 1 turning on its side, one 'Verify with ID.me' button. The longest runner in the account (118 days, live since 22 Jul): a discount for one verified group needs recognition, not persuasion. Two crops of it sit …",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 118,
+     "versions": 1,
+     "style": "Static-motion",
+     "product": "other",
+     "hook": "Military, take 25% off. Our thank you.",
+     "why": "15s animated canister on grass, the letters A, G, 1 turning on its side, one 'Verify with ID.me' button. The longest runner in the account (118 days, live since 22 Jul): a discount for one verified group needs recognition, not persuasion. Two crops of it sit …",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 97,
+     "versions": 4,
+     "style": "Brand lifestyle",
+     "product": "other",
+     "hook": "Introducing AG1 Essentials Gummies",
+     "why": "Studio shoot of parents with toddlers on shoulders, '50 science-backed ingredients', '1 daily pack of gummies', end card 'Chews wisely.' Points at a busy-parent landing page; 97 days, 2 ads, 4 versions.",
+     "transcript": "[MUSIC PLAYING]"
+    },
+    {
+     "days": 97,
+     "versions": 4,
+     "style": "Brand lifestyle",
+     "product": "other",
+     "hook": "Introducing AG1 Essentials Gummies",
+     "why": "Studio shoot of parents with toddlers on shoulders, '50 science-backed ingredients', '1 daily pack of gummies', end card 'Chews wisely.' Points at a busy-parent landing page; 97 days, 2 ads, 4 versions.",
+     "transcript": "[MUSIC PLAYING]"
+    },
+    {
+     "days": 80,
+     "versions": 4,
+     "style": "Creator UGC (POV, no voice)",
+     "product": "other",
+     "hook": "What's in my bag?",
+     "why": "Hands in a parked car tick off perfume, wallet, sanitizer and the gummy pack, then gummies in the palm: 'daily nutrition gummies that actually taste good'. Puts the product among everyday carry items; 80 days, 2 ads, 4 versions.",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 80,
+     "versions": 4,
+     "style": "Creator UGC (POV, no voice)",
+     "product": "other",
+     "hook": "What's in my bag?",
+     "why": "Hands in a parked car tick off perfume, wallet, sanitizer and the gummy pack, then gummies in the palm: 'daily nutrition gummies that actually taste good'. Puts the product among everyday carry items; 80 days, 2 ads, 4 versions.",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 62,
+     "versions": 1,
+     "style": "Street sampling interview",
+     "product": "other",
+     "hook": "Before you buy another supplement, watch THIS...",
+     "why": "Host with a mic samples first-timers at an AG1 'Good Morning Café' pop-up. They answer the taste fear themselves ('does not taste grassy', 'I love those little packets'), then the host adds 75+ ingredients and testing for 280 banned substances. 43s, 62 days.",
+     "transcript": "I don't want to feel like I'm drinking health. I want it to be tasty. Is this the first time that you guys are trying these you want? Or have you had it before? First time. First time. What flavor did we get? I got citrus. It's delicious. Tasty. You guys apparently take any like green supplements, green superfoods, an…"
+    },
+    {
+     "days": 58,
+     "versions": 94,
+     "style": "Static-motion",
+     "product": "other",
+     "hook": "Tastes like tropical vacation, works like high performance.",
+     "why": "15s card: half a pineapple, a shaker of green drink, a 'FREE YETI SHAKER' badge and three ingredient icons. The most-scaled video in the top 15 (14 ads, 94 versions), all for the Pro launch: a taste line plus a gift, nothing else.",
+     "transcript": "[MUSIC PLAYING]"
+    },
+    {
+     "days": 58,
+     "versions": 94,
+     "style": "Static-motion",
+     "product": "other",
+     "hook": "Tastes like tropical vacation, works like high performance.",
+     "why": "15s card: half a pineapple, a shaker of green drink, a 'FREE YETI SHAKER' badge and three ingredient icons. The most-scaled video in the top 15 (14 ads, 94 versions), all for the Pro launch: a taste line plus a gift, nothing else.",
+     "transcript": "[MUSIC PLAYING]"
+    },
+    {
+     "days": 49,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "other",
+     "hook": "If you're still taking a cabinet full of random pills every morning...",
+     "why": "Man in his kitchen waves a pill organiser, then the whole ritual on camera: ice from the fridge door, one scoop, shake, sip. 'Simplified my entire morning routine', 'tastes like a light pineapple vanilla', 'under $3 a day'. 44s, 49 days, 2 ads.",
+     "transcript": "If you're still taking a cabinet full of random pills every morning, this replaces that of more. And no, it's not a green powder that tastes like grass. I've been taking AG1 next gen for a while now. And honestly, it's simplified my entire morning routine. I don't have to remember the supplements I have to take. I jus…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 90,
+     "versions": 7,
+     "product": "other",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 83,
+     "versions": 1,
+     "product": "other",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 72,
+     "versions": 1,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 72,
+     "versions": 1,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 62,
+     "versions": 6,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 62,
+     "versions": 3,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 61,
+     "versions": 1,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 55,
+     "versions": 4,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 55,
+     "versions": 4,
+     "product": "other",
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop, backed by clinical"
+    },
+    {
+     "days": 47,
+     "versions": 1,
+     "product": "ag1-pro-travel-packs",
+     "copy": "Sold out after launch. It's back (for now)."
+    },
+    {
+     "days": 47,
+     "versions": 1,
+     "product": "other",
+     "copy": "Sold out after launch. It's back (for now)."
+    },
+    {
+     "days": 45,
+     "versions": 1,
+     "product": "other",
+     "copy": "Sold out after launch. It's back (for now)."
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 118,
+     "ads": 20,
+     "versions": 32,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 80,
+     "ads": 57,
+     "versions": 73,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "A convenient way to keep daily nutrition simple."
+    },
+    {
+     "days": 72,
+     "ads": 22,
+     "versions": 51,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Feeling the slump? AG1 Next Gen supports energy with bioavailable nutrients and essential B vitamins — all in one scoop,"
+    },
+    {
+     "days": 62,
+     "ads": 80,
+     "versions": 121,
+     "types": [
+      "video"
+     ],
+     "copy": "How many supplements are in your cabinet right now?"
+    },
+    {
+     "days": 58,
+     "ads": 637,
+     "versions": 2692,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Sold out after launch. It's back (for now)."
+    },
+    {
+     "days": 47,
+     "ads": 5,
+     "versions": 17,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "🎁 Immune health support, on us."
+    },
+    {
+     "days": 42,
+     "ads": 36,
+     "versions": 128,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "🚨LIMITED TIME: FREE $68 IMMUNE SUPPORT BUNDLE🚨**"
+    },
+    {
+     "days": 27,
+     "ads": 7,
+     "versions": 25,
+     "types": [
+      "static"
+     ],
+     "copy": "🎁 Immune health support, on us."
+    },
+    {
+     "days": 17,
+     "ads": 4,
+     "versions": 10,
+     "types": [
+      "video"
+     ],
+     "copy": "🚨 EXCLUSIVE: 25% OFF AG1 FOR THOSE WHO SERVE 🚨"
+    },
+    {
+     "days": 10,
+     "ads": 4,
+     "versions": 16,
+     "types": [
+      "video"
+     ],
+     "copy": "Hugh asks AG1’s head of quality control how she knows that the ingredients in AG1 are top notch."
+    }
+   ],
+   "totals": {
+    "ads": 1007,
+    "statics": 259
+   }
+  },
+  {
+   "brand": "CosMix",
+   "page": "/teardowns/cosmix.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:11.934Z",
+   "account": "The CosMix page (about 5,000 Facebook likes) has advertised in India since at least 14 Jul 2026, but 252 of its 328 visible ads started in November; the longest runner is the 44s \"share this with someone hesitant about protein powder\" video at 126 days.",
+   "patterns": [
+    {
+     "title": "A catalogue machine pointed at quick commerce",
+     "text": "183 of 328 ads are catalogue ads, and 251 of 328 land on Instamart (150) or Blinkit (101) instead of their own site. The account holds 1,105 unique images against 81 videos. Their biggest concept, \"Shop now and upgrade your daily wellness\", is 68 ads, 72 versions and 319 images on one Blinkit link, running 41 days. Ev…"
+    },
+    {
+     "title": "Statics are plain packshots, no headline",
+     "text": "None of their longest-running statics carries a claim or headline. Each is the pouch on a two-tone coloured set with a filled glass, a scoop and the real ingredient as a prop (cacao pods, coconut, vanilla, mango). The same shot repeats on a white background for the catalogue. The 5 oldest statics (55 to 82 days) are c…"
+    },
+    {
+     "title": "A real place as the flavour story",
+     "text": "98 of 328 ads name where an ingredient comes from: Indonesian cacao in 69, Chikmagalur coffee in 18, Mahabaleshwar strawberries in 13. \"Real\" appears in 140 ads. Videos show the source on screen (cacao pods in #1, beans in a roaster in #9, cacao beans in #11) so the claim is something you can see."
+    },
+    {
+     "title": "\"Flavoured is not the real thing\"",
+     "text": "Their sharpest scripts attack flavouring without naming a brand: \"This is not mocha flavour protein\", \"chocolate flavoured isn't really chocolate\" next to a pixelated rival tub, \"no nature-identical flavours\". \"Artificial\" or \"nature-identical\" appears in 64 ads. They define the bad version, then stand outside it."
+    },
+    {
+     "title": "The creator starts as a skeptic",
+     "text": "Five of the top videos open against the product: \"I hate drinking protein\", \"I wasn't a fan of this\", \"I have trust issues with chocolate protein\", \"used whey for years, never thought I'd switch\", \"hesitant about protein powder\". #12 admits the flaw outright (darker, slightly bitter). A convert is more believable than…"
+    },
+    {
+     "title": "One number plus a list of \"no\"s",
+     "text": "The proof is always the same shape: 24 g protein (in 36 ads), then what is not in it: no added refined sugar (67 ads), no artificial flavours, no gums, no fillers, \"just 3 to 5 ingredients\". Hydration Mix gets the same treatment with three numbers (1000 mg sodium, 200 mg potassium, 60 mg magnesium). No ad leans on a s…"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Both",
+     "hook": "\"People who read labels are annoying. And they're right.\"",
+     "format": "Kinetic type montage, 30 to 35s",
+     "based_on": "#9",
+     "outline": "Flatter the picky reader, then pass their test on screen: the stick turned over, every dose in large type, no added sugar, no maltodextrin, no proprietary blend, and the lab reports (293 checks, 0 failed). Fast cuts, the line repeated as type in the opener."
+    },
+    {
+     "product": "Both",
+     "hook": "\"Okay, I need to admit something. I didn't trust another sachet.\"",
+     "format": "Creator UGC, 30 to 40s",
+     "based_on": "#12, #13, #5",
+     "outline": "A desk professional who has tried and dropped supplements says why (doses hidden, sugar, nothing changed). Then the two facts that changed their mind: every dose printed, a lab report for each ingredient. Keep one honest note, such as the caffeine being 80 mg on purpose, not a triple shot."
+    },
+    {
+     "product": "Nights",
+     "hook": "\"Three rules for anything I drink after 10 PM.\"",
+     "format": "Creator UGC, 40 to 50s",
+     "based_on": "#3",
+     "outline": "List format with a light joke: no melatonin, every dose printed, nothing sweet. Then the Nights stick in warm water and the doses on screen: 3 g glycine, 250 mg magnesium from bisglycinate, 300 mg KSM-66, 200 mg L-theanine, each the dose used in studies."
+    },
+    {
+     "product": "Mornings",
+     "hook": "\"Unpopular opinion: your 3 PM slump starts at 9 AM.\"",
+     "format": "Creator UGC at a home desk, 35 to 45s",
+     "based_on": "#14",
+     "outline": "Working from home, laptop open, third coffee on the way. The creator explains why the morning matters for the afternoon, mixes a Mornings stick, and reads what is in it: 80 mg caffeine with 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, D3, K2, B12 and C at 100% RDA."
+    },
+    {
+     "product": "Mornings",
+     "hook": "\"Share this with someone who has three coffees before lunch.\"",
+     "format": "Creator walk-and-talk, 40s, big kinetic words",
+     "based_on": "#1",
+     "outline": "Outdoor walk on the way to work, large on-screen words for the key lines (\"one stick\", \"every dose printed\"). The share hook makes the viewer send it to a colleague. End on the stick going into a bottle."
+    },
+    {
+     "product": "Both",
+     "hook": "Packshot set: stick, glass, real lemon and orange for Mornings, chamomile and lemon for Nights",
+     "format": "Static packshots, 1:1 and 4:5, 8 to 12 images for a catalogue ad",
+     "based_on": "statics #1 to #5, #20 #22 #24",
+     "outline": "No headline. Two-tone coloured set, the stick, the drink poured, the flavour ingredients as props, plus a white-background version of each. Load them into one catalogue ad so delivery picks the image, and point it at whichever store page sells best."
+    },
+    {
+     "product": "Both",
+     "hook": "\"About Rs 60 a day. Here's what's in one stick.\"",
+     "format": "Static plus 15s motion version",
+     "based_on": "#7 end card, Rs 12 to 31 price gap",
+     "outline": "Rivals in this aisle sell at Rs 12 to 31 a serving, so never argue cheap. Put the Mornings stick next to what it replaces (a café coffee, a fibre supplement, a probiotic, a vitamin) and the Nights stick next to its four ingredients with doses. Rs 900 for 15 sticks, Combo Rs 1,800."
+    },
+    {
+     "product": "Nights",
+     "hook": "\"Not a sleepy flavour. The actual doses.\"",
+     "format": "Ingredient montage, no voice, 20 to 25s",
+     "based_on": "#11, #9",
+     "outline": "Show the real source of each ingredient (glycine powder, magnesium bisglycinate, KSM-66 root, L-theanine), each with its dose popping on screen, then the stick into warm water and \"no melatonin\". The point their best montage makes, applied to doses instead of flavour."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 126,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "real-indonesian-cacao",
+     "hook": "Share this with someone who is still hesitant about protein powder.",
+     "why": "44s walk-and-talk in a garden with big kinetic words (\"work, life, workout, all of it\", \"ingredient list ACTUALLY MAKES SENSE\", \"24 GRAMS\"), a cut to real cacao pods, then the pouch. Their longest runner (126 days, 2 ads, 4 versions) and #2 is the same video …",
+     "transcript": "Share this with someone who is still hesitant about protein powder. can you get the cow soup directly from Indonesia? Just a simple way to get more protein. Yes, of course."
+    },
+    {
+     "days": 126,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "real-indonesian-cacao",
+     "hook": "Share this with someone who is still hesitant about protein powder.",
+     "why": "44s walk-and-talk in a garden with big kinetic words (\"work, life, workout, all of it\", \"ingredient list ACTUALLY MAKES SENSE\", \"24 GRAMS\"), a cut to real cacao pods, then the pouch. Their longest runner (126 days, 2 ads, 4 versions) and #2 is the same video …",
+     "transcript": "Share this with someone who is still hesitant about protein powder. can you get the cow soup directly from Indonesia? Just a simple way to get more protein. Yes, of course."
+    },
+    {
+     "days": 65,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "fermented-yeast-protein-indonesian-cacao",
+     "hook": "My criteria for a protein is exactly the same as my criteria for a boyfriend.",
+     "why": "56s list joke: naturally sweet, low maintenance (just water), no drama. Then the turn to fermented yeast protein made in-house, 24 g, complete amino acids. 65 days; #4 is the same video in a second crop. Three simple rules make the product the only answer.",
+     "transcript": "Today I realised my criteria for a protein is exactly the same as my criteria for a boyfriend. First, it has to be sweet. And naturally sweet, not the fake type. No artificial sweeteners or flavours. Second, low maintenance. I should just be able to mix it with water and drink it. Banana, no milk, no blender. Same wit…"
+    },
+    {
+     "days": 65,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "fermented-yeast-protein-indonesian-cacao",
+     "hook": "My criteria for a protein is exactly the same as my criteria for a boyfriend.",
+     "why": "56s list joke: naturally sweet, low maintenance (just water), no drama. Then the turn to fermented yeast protein made in-house, 24 g, complete amino acids. 65 days; #4 is the same video in a second crop. Three simple rules make the product the only answer.",
+     "transcript": "Today I realise my criteria for a protein is exactly the same as my criteria for a boyfriend. First, it has to be sweet. And naturally sweet, not the fake type. No artificial sweeteners or flavours. Second, low maintenance. I should just be able to mix it with water and drink it. Banana, no milk, no blender. Same with…"
+    },
+    {
+     "days": 49,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "fermented-yeast-protein-indonesian-cacao",
+     "hook": "I have used whey for years, never thought I'd switch.",
+     "why": "42s gym video from a national powerlifter: the hardest person to convert says she switched, reads the label (\"just 3 to 5 ingredients\", real vanilla beans) and gives 24 g. Runs as a collab with her handle in the copy. 49 days.",
+     "transcript": "I have used Wei for years, never thought I'd switch. I'm a national power lifter, I don't switch things up easily. This is Cosmic's 100% fermented yeast protein. First thing I noticed, just 3-5 ingredients. As someone who reads every label that really stood out, they use real vanilla beans, not artificial flavours or …"
+    },
+    {
+     "days": 43,
+     "versions": 1,
+     "style": "Product demo",
+     "product": "hydration-mix-assorted-pack",
+     "hook": "If you're doing long runs, you need electrolytes.",
+     "why": "42s: a presenter at a table with three glasses labelled \"Intense workouts\", \"Hot runs\", \"Long runs\" drops a stick into each while repeating \"you need electrolytes\", then cuts to runners and the three numbers (1000 mg sodium, 200 mg potassium, 60 mg magnesium)…",
+     "transcript": "If you're doing long runs, you need electrolytes. If you're doing hot runs, you need electrolytes. If you're doing intense workouts, you need electrolytes. Basically, if you're doing anything that leaves you sweating, you need electrolytes. And when you lose essential minerals through sweat, you need something to repl…"
+    },
+    {
+     "days": 43,
+     "versions": 1,
+     "style": "Athlete ambassador",
+     "product": "hydration-mix-assorted-pack",
+     "hook": "You see, this isn't easy.",
+     "why": "32s on a badminton court with a Khel Ratna doubles player, numbers as giant kinetic type, stick poured into a shaker. End card: Rs 550 struck through to Rs 499, on their site, Amazon and FirstClub. 43 days; #8 is the same ad in another crop. Borrowed athletic…",
+     "transcript": "You see, this isn't easy. That's why I need more than just water. I need something that can keep me going on and on and on. 1000 mg sodium, 200 mg potassium and 60 mg magnesium. No refined sugar, no artificial flavours or preservatives. Because when you're putting in the work, you've got to replace what you lose. Cosm…"
+    },
+    {
+     "days": 43,
+     "versions": 1,
+     "style": "Athlete ambassador",
+     "product": "hydration-mix-assorted-pack",
+     "hook": "You see, this isn't easy.",
+     "why": "32s on a badminton court with a Khel Ratna doubles player, numbers as giant kinetic type, stick poured into a shaker. End card: Rs 550 struck through to Rs 499, on their site, Amazon and FirstClub. 43 days; #8 is the same ad in another crop. Borrowed athletic…",
+     "transcript": "You see, this isn't easy. That's why I need more than just water. I need something that can keep me going on and on and on. 1000 mg sodium, 200 mg potassium and 60 mg magnesium. No refined sugar, no artificial flavors or preservatives. Because when you're putting in the work, you've got to replace what you lose. Cosmi…"
+    },
+    {
+     "days": 41,
+     "versions": 7,
+     "style": "Produced montage",
+     "product": "other",
+     "hook": "Coffee people are annoying. And they're right.",
+     "why": "34s: \"COFFEE PEOPLE\" repeated as type, creators grimacing at fake-tasting coffee, beans in a roaster, \"This is not mocha flavour protein\". Flatters a picky identity, then says the product passes their test. Runs inside a Blinkit catalogue ad (41 days, 7 ads, …",
+     "transcript": "Coffee people are annoying. And they're right. They can tell when coffee is fake. When it's too sweet. When it tastes like flavour and not beats. That's why this is not Mocha flavour protein. This protein is built on actual Chick Magalore coffee beans. Old, real, slightly bitter with 24g of plant protein. And the prot…"
+    },
+    {
+     "days": 41,
+     "versions": 7,
+     "style": "Creator UGC",
+     "product": "other",
+     "hook": "I hate drinking protein!",
+     "why": "29s: names the chore (artificial, heavy, bloated), then Indonesian cacao and \"finally a protein I don't hate\". Blinkit band with \"Upto 20% off\" baked into the video. 41 days, 7 ads, 7 versions. The complaint is the hook; the product is a reluctant yes.",
+     "transcript": "I hate drinking protein! It's almost like a chore. Artificial, heavy, and always leaves me feeling bloated. And then... This happened. Cosmics No Nonsense Plant Protein. Made with real Indonesian kakao, it's 24 grams of clean, Dutch-friendly plant protein that actually feels lyrical. No heaviness, no bloat, no nonsens…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 82,
+     "versions": 1,
+     "product": "no-nonsense-plant-protein-mahabaleshwar-strawberry",
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 62,
+     "versions": 1,
+     "product": "other",
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 62,
+     "versions": 1,
+     "product": "other",
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 55,
+     "versions": 1,
+     "product": "other",
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 55,
+     "versions": 1,
+     "product": "other",
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 41,
+     "versions": 2,
+     "product": "other",
+     "copy": "Enjoy plant protein made with real Indonesian cacao and perfectly balanced flavour."
+    },
+    {
+     "days": 41,
+     "versions": 2,
+     "product": "other",
+     "copy": "Real coffee. Clean protein. Nothing unnecessary in your cup."
+    },
+    {
+     "days": 41,
+     "versions": 2,
+     "product": "other",
+     "copy": "Made in-house with Indonesian cacao to deliver a chocolate experience you'll trust."
+    },
+    {
+     "days": 41,
+     "versions": 1,
+     "product": "other",
+     "copy": ""
+    },
+    {
+     "days": 41,
+     "versions": 1,
+     "product": "other",
+     "copy": ""
+    },
+    {
+     "days": 41,
+     "versions": 1,
+     "product": "other",
+     "copy": ""
+    },
+    {
+     "days": 41,
+     "versions": 1,
+     "product": "other",
+     "copy": ""
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 126,
+     "ads": 6,
+     "versions": 8,
+     "types": [
+      "video"
+     ],
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 82,
+     "ads": 6,
+     "versions": 6,
+     "types": [
+      "catalog"
+     ],
+     "copy": "We’re Cosmix Wellness. Naturally sourced, gut-friendly, and great for you!"
+    },
+    {
+     "days": 71,
+     "ads": 1,
+     "versions": 2,
+     "types": [
+      "video"
+     ],
+     "copy": "Give your body what it needs every day."
+    },
+    {
+     "days": 49,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "We didn’t tweak protein. We rethought it."
+    },
+    {
+     "days": 43,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "No matter how you sweat it out, electrolytes are essential to replenish essential minerals in your body."
+    },
+    {
+     "days": 43,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "When you're sweating it out, you need to replenish essential minerals in your body."
+    },
+    {
+     "days": 41,
+     "ads": 68,
+     "versions": 72,
+     "types": [
+      "catalog",
+      "video",
+      "static"
+     ],
+     "copy": "Shop now and upgrade your daily wellness"
+    },
+    {
+     "days": 41,
+     "ads": 7,
+     "versions": 7,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Real coffee. Clean protein. Nothing unnecessary in your cup."
+    },
+    {
+     "days": 41,
+     "ads": 3,
+     "versions": 3,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Enjoy plant protein made with real Indonesian cacao and perfectly balanced flavour."
+    },
+    {
+     "days": 41,
+     "ads": 3,
+     "versions": 3,
+     "types": [
+      "catalog"
+     ],
+     "copy": "☕ A treat worth every workout."
+    }
+   ],
+   "totals": {
+    "ads": 328,
+    "statics": 1000
+   }
+  },
+  {
+   "brand": "IM8",
+   "page": "/teardowns/im8.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:49.878Z",
+   "account": "IM8 Health (35,426 page likes, the David Beckham-backed all-in-one drink) is a huge US advertiser: Meta reports 42,281 IM8 ads in the US, but the scraper captured only the first 1,009 that Meta's Ad Library listed (started Sep 2025 to Nov 2026, longest run 93 days, a GLP-1 catalog ad), so this is a…",
+   "patterns": [
+    {
+     "title": "The celebrity founder is a name, rarely a face",
+     "text": "David Beckham is named in 357 of 1,009 ads (headline, copy or link text), yet he is on screen in only one of the 15 longest-running videos (#1, 17s, 4 ads). Everywhere else he is a closing line: \"Co-founded by David Beckham\" (#13), \"It's David Beckham's company\" (#3), and the \"Beckham Stack\" bundle (36 ads, 29 to its …"
+    },
+    {
+     "title": "Proof is stacked: a doctor, a trial number, a certificate",
+     "text": "\"Clinical\" appears in 583 ad copies and NSF Certified for Sport in 294. One self-reported number from their 12-week trial (\"95% felt more energy\") runs in 60 ads, and that trial concept is their second-biggest (40 ads, 294 versions). A sports-medicine doctor fronts #2 and #8 (128 and 194 versions, the most-versioned v…"
+    },
+    {
+     "title": "Athletes as shareholders, sport as reach",
+     "text": "Tennis No. 1 Aryna Sabalenka appears in 56 ad copies (longest 76 days) and opens #7. Giannis (16 ads) and F1 driver Ollie Bearman (17) are announced as \"Global Ambassador and shareholder\". Smaller athletes carry codes: freediver Tavi Castro (#5, 13 ads, 135 versions, code TAVI10) and a HYROX racer unboxing team kit (#…"
+    },
+    {
+     "title": "\"What happens if you drink this for 30 days\"",
+     "text": "5 of the 15 longest-running videos are a week-by-week timeline (#7, #9, #12, #13, #15), and timeline language appears in 56 ad copies. Three use AI 3D: a see-through glowing gut, a clogged gut tunnel clearing, a Pixar-style woman with a cartoon fart cloud. Each week names one ingredient, so the formula is explained as…"
+    },
+    {
+     "title": "One audience, one door",
+     "text": "The same drink is sold through about 80 different landing pages, each for one person: GLP-1 users (66 ads, including the 93-day and 86-day longest runners, plus #11), menopause (39), joints (27), people who drink after work (56 copies, \"You do not have a drinking problem\" runs as 13 ads, 131 versions), stress and cort…"
+    },
+    {
+     "title": "A free kit, a guarantee and a code, all at once",
+     "text": "\"Welcome kit\" appears in 260 copies and the most-versioned static is a red gift box \"Claim your FREE IM8 Starter Kit\" (245 versions). Receipt-style statics add the gifts up: \"$8 + $18 + $18 + $28 = $72 in gifts. You pay $0\", \"$89 value. FREE Welcome Kit\". On top: a 30-day money-back guarantee (211 copies), subscribe a…"
+    },
+    {
+     "title": "Day and night, sold as a pair",
+     "text": "One of their longest-running statics (80 days, 69 versions) and its twin (61 days, 46 versions) is one split sachet: Essentials \"Fuel today\" on the left, Longevity \"Fuel tomorrow, deep sleep and overnight renewal\" on the right, headed \"For complete day-and-night support\". #8 is a doctor explaining why you would take b…"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Both",
+     "hook": "“Skeptical of supplements? Good. Here is every report.”",
+     "format": "Founder to camera, 40 to 50s, plus a proof static",
+     "based_on": "#8, the 'Tested. Certified. Simplified.' statics",
+     "outline": "The founder at his desk, phone in hand, opens the lab report for one ingredient, then the next: 293 checks, 0 failed. Every dose is printed on the stick, no proprietary blend, magnesium named as bisglycinate. Their proof is borrowed from famous people; SILT's proof is a document anyone can open, so show the document."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“The 11 AM café coffee, or one stick?”",
+     "format": "Comparison static, 9:16 and 4:5, plus a 15s motion cut",
+     "based_on": "static 24 (61 days)",
+     "outline": "Two columns on a clean background: a café cold coffee on one side, a Mornings stick on the other. Just facts: 80 mg caffeine with 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, D3, K2, B12, C at 100% RDA, no added sugar, about ₹60 a day. Let the viewer compare the price with what they paid downstairs."
+    },
+    {
+     "product": "Both",
+     "hook": "“One for 9 AM. One for 10 PM.”",
+     "format": "Split-stick static, 3 to 4 colour variants, Combo offer",
+     "based_on": "statics 2 6 (80 and 61 days)",
+     "outline": "One image of a Mornings stick and a Nights stick side by side, each with its doses underneath (80 mg caffeine + 200 mg L-theanine by day; 3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66 by night, no melatonin). Each dose labelled as the dose used in studies. Combo ₹1,800."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“Re-reading the same email three times by 4 PM?”",
+     "format": "Creator UGC, 35 to 45s, English and Hinglish cuts",
+     "based_on": "#12 #15, the 84-day symptom copy",
+     "outline": "A creator at an office desk in Gurugram or Bengaluru lists the desk day: skipped breakfast, third coffee, the 4 PM slump, the email re-read three times. Then the habit: one Mornings stick in a steel bottle before standup, with the doses on screen. Describe routines, never promise outcomes."
+    },
+    {
+     "product": "Nights",
+     "hook": "“What's in the glass at 10:15 PM”",
+     "format": "AI 3D animation, 30 to 40s, warm bedroom palette",
+     "based_on": "#9 #13 #15",
+     "outline": "A stylised 3D professional shuts a laptop, stirs a Nights stick into warm water, and each ingredient appears as a small glowing character with its dose: 3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66 ashwagandha, 200 mg L-theanine. A timeline of the evening routine, not of the body. Can be made with the AI video tools already connected."
+    },
+    {
+     "product": "Both",
+     "hook": "“Your first box comes with extras. They are on us.”",
+     "format": "Receipt-style static + 20s unboxing, no voice",
+     "based_on": "#4, statics 13 19",
+     "outline": "First Combo order ships in a box with a steel bottle and travel sticks. Shoot the unboxing on an office desk, then a receipt static adding up each item and marking the extras FREE. Only list values SILT can stand behind, and rotate the extra by season."
+    },
+    {
+     "product": "Both",
+     "hook": "“Working the US shift?”",
+     "format": "Creator UGC, 30 to 40s, its own landing page",
+     "based_on": "#11, the one-audience pages",
+     "outline": "A night-shift IT professional in Pune or Hyderabad shows their day turned upside down: Mornings when the shift starts, Nights when it ends at dawn. One audience, named in the first line, sent to a page written only for them. Keep timing advice generic and point to the label."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“A doctor reads our label, unscripted.”",
+     "format": "Doctor/expert, 60 to 90s, two products on the table",
+     "based_on": "#2 #8",
+     "outline": "An Indian doctor or registered dietitian holds a Mornings and a Nights stick and answers the questions buyers actually ask: what is the difference, can I take both, what does 80 mg of caffeine compare to. They read each dose and say whether it is the dose used in studies. Their skepticism is the hook; SILT's printed doses are the answer."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 67,
+     "versions": 4,
+     "style": "Founder to camera (celebrity)",
+     "product": "other",
+     "hook": "I want to be able to wake up in the morning, mix a drink up...",
+     "why": "17s: David Beckham pours a sachet into a glass in a marble kitchen and says one sentence about his morning, then a red end card with three proof boxes (12-week clinical study, vegan and allergen free, third-party tested). The only top-15 video with Beckham on…",
+     "transcript": "I want to be able to wake up in the morning, mix a drink up, drink it and feel better and that's what Ironmate gives you. That's without all of the other health benefits that we have."
+    },
+    {
+     "days": 67,
+     "versions": 128,
+     "style": "Doctor/expert",
+     "product": "dr-ara-longevity",
+     "hook": "It contains a lot of the essential nutrients",
+     "why": "A sports-medicine doctor (Dr. Ara) talks dose over hands opening the Longevity canister: '7.8 grams in a sachet', 'a lot of the anti-aging items out there have a fraction of the dosing'. Sells dose size, not ingredients. 67 days, only 4 ads but 128 versions.",
+     "transcript": "It contains a lot of the essential nutrients, 7.8 grams in a sachet of professional grade therapeutic dosing. That's very, very powerful. A lot of the anti-aging items out there have a fraction of the dosing that this particular compound has. That's what I really like about it."
+    },
+    {
+     "days": 63,
+     "versions": 115,
+     "style": "Creator UGC",
+     "product": "no-bs",
+     "hook": "Last but not least, IM8...",
+     "why": "Fitness creator in front of a Christmas tree, the last item in a holiday gift list: 'my daily health insurance', '92 different ingredients', 'It's David Beckham's company', 35% off for Cyber Monday. A seasonal list video re-used for 63 days across 9 ads and 1…",
+     "transcript": "Last but not least, I am eight. I am eight is my vitamin and mineral superpowers. I take this stuff every single morning. I travel with it. It is my daily health insurance is the kind of the way I think about it. 92 different ingredients really covers all the vitamin and mineral basis. And they've recently launched th…"
+    },
+    {
+     "days": 55,
+     "versions": 109,
+     "style": "Product demo (unboxing, no voice)",
+     "product": "essentials",
+     "hook": "I stopped wasting money on 16+ different supplements",
+     "why": "21s, music only: the red welcome kit opens (cup, canister, scoop, pouch), a shirtless creator in a dark kitchen scoops, froths and drinks, packshot. The copy does the selling ('16+ supplements', CoQ10, MSM, adaptogens); the box makes the kit look worth more t…",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 61,
+     "versions": 135,
+     "style": "Athlete testimonial (text overlay)",
+     "product": "tavi-castro-editorial",
+     "hook": "10 months using @im8health daily.",
+     "why": "6s: a sachet poured into the red shaker under a block of story text from freediver Tavi Castro (gut health, immune system, recovery, 'Try now', code TAVI10). Short enough to loop, and an athlete's own words stand in for a claim. 61 days, 13 ads, 135 versions,…",
+     "transcript": "[Music]"
+    },
+    {
+     "days": 39,
+     "versions": 67,
+     "style": "Creator UGC (unboxing)",
+     "product": "essentials-pro",
+     "hook": "So I've just... (race package unboxing)",
+     "why": "A HYROX athlete unboxes the IM8 race package for HYROX Cardiff: kit bag, cap, socks, towel, shaker, then the sachets, with 'USE CODE COMMANDO' pinned on screen for 55s. Sports-event merch makes the product feel like team kit. The auto transcript is garbled; t…",
+     "transcript": "Felly, rwyf wedi'i gweithio'r iawn, cyfnodd, a'r rai'r gweithio'r cyfnodd, a'r hynny'n gweithio'r carlyff yma. Felly, rwyf wedi'i gweithio'r iawn. Felly, rwyf wedi'i gweithio'r iawn, gyda'r rai'r iawn. Rwyf wedi'i gweithio'r iawn, rwyf wedi'i gweithio'r iawn. Rwyf wedi'i gweithio'r iawn, rwyf wedi'i gweithio'r iawn. g…"
+    },
+    {
+     "days": 41,
+     "versions": 35,
+     "style": "Celebrity + creator montage",
+     "product": "essentials",
+     "hook": "It's an amazing product, it's really working",
+     "why": "Opens on tennis No. 1 Aryna Sabalenka on a stage mic, then cuts to creators on treadmills ('What happens when you drink IM8 every day for 30 days'), 3D probiotic renders, a man holding his bloated stomach, and Day 7 / Day 14 beats. Leads with the 12-week tria…",
+     "transcript": "It's amazing product. It's really working. I feel so much better after using like for a few days the product. I followed the result immediately and I was shocked. uncomfortable feeling after meals starting to fade. Day seven, the brain fog lifts. Your gut is finally producing the feel good chemicals it needs and those…"
+    },
+    {
+     "days": 54,
+     "versions": 194,
+     "style": "Doctor/expert",
+     "product": "the-beckham-stack-pro",
+     "hook": "Alright, so we get asked a lot of questions, right?",
+     "why": "Dr. Ara holds Essentials in one hand and Longevity in the other and answers the buyer's real question: what is the difference, do I need both, can I take them together. The copy frames him as a skeptic ('Most don't survive scientific scrutiny. IM8 did.'). 140…",
+     "transcript": "We get asked a lot of questions, right? Longevity, daily essentials. What's the difference? Do I need this? Do I need this? Can I take them together? So let's talk about this. Daily essentials effectively is your multivitamin, multiminerals. Add it to that, okay? Your probiotics, your prebiotics to help with your gut,…"
+    },
+    {
+     "days": 42,
+     "versions": 60,
+     "style": "AI 3D animation",
+     "product": "gut-health-1",
+     "hook": "This is what happens to your bloating if you drink IM8 every morning for four weeks.",
+     "why": "A photoreal AI woman with a see-through glowing gut in a warm bedroom, then a week-by-week voiceover: enzymes, then probiotics, then postbiotics. A timeline makes an invisible process feel like a plan. 94s, 42 days, 60 versions, to the gut health page.",
+     "transcript": "This is what happens to your bloating if you drink IMAID every morning for four weeks. Minutes after your first sachet, digestive enzymes break down the food your gut can't, because bloating isn't about what you eat, it's about what your body can't break down. Undigested food for men's, that's the gas. By end of week …"
+    },
+    {
+     "days": 60,
+     "versions": 42,
+     "style": "Podcast clip",
+     "product": "other",
+     "hook": "Here's a weight gain fact that 90% of you probably don't know.",
+     "why": "Feet on a scale, then a host in a cap at a podcast mic explains cortisol ('today's danger is traffic, bills and deadlines'), with b-roll of a stressed man and an animated cortisol gauge. IM8 arrives only at the end as 'a foundational approach'. Education firs…",
+     "transcript": "Here's a weight gain fact that 90% of you probably don't know. No matter how much you meal prep or hit the gym, if your body thinks it's under threat, it shifts into fat storing mode. That's what cortisol does. It prepares you for danger. But today's danger is traffic, bills, and deadlines. Chronic stress, it triggers…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 47,
+     "versions": 245,
+     "product": "essentials",
+     "copy": "Redeem Your Free IM8 Welcome Kit—Your Health Transformation Starts Here! 🌟"
+    },
+    {
+     "days": 80,
+     "versions": 69,
+     "product": "beckhamstack",
+     "copy": "Fuel your body today and protect it for tomorrow. 🌿"
+    },
+    {
+     "days": 45,
+     "versions": 69,
+     "product": "essentials",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 47,
+     "versions": 64,
+     "product": "essentials",
+     "copy": "Not perfection. Not an overhaul. Just one daily drink and a routine you'll actually keep."
+    },
+    {
+     "days": 47,
+     "versions": 60,
+     "product": "essentials",
+     "copy": "Get a Free Welcome Kit—Your Health Transformation Starts Here! 🌟"
+    },
+    {
+     "days": 61,
+     "versions": 46,
+     "product": "beckhamstack",
+     "copy": "Fuel your body today and protect it for tomorrow. 🌿"
+    },
+    {
+     "days": 84,
+     "versions": 24,
+     "product": "glp1",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 76,
+     "versions": 24,
+     "product": "essentials-pro",
+     "copy": "#ad 90 clinically dosed ingredients. One refreshing Açaí Mixed Berries drink. That's it."
+    },
+    {
+     "days": 85,
+     "versions": 38,
+     "product": "longevity",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 48,
+     "versions": 24,
+     "product": "essentials",
+     "copy": "Complete nutrition, simplified. ✨ 90 clinically-dosed nutrients in one daily scoop. Replaces 16 supplements with science-backed essentials y"
+    },
+    {
+     "days": 82,
+     "versions": 11,
+     "product": "longevity",
+     "copy": "The Future of Cellular Health Starts Here. Introducing the world’s first supplement scientifically formulated to support all 12 hallmarks of"
+    },
+    {
+     "days": 44,
+     "versions": 26,
+     "product": "essentials-pro",
+     "copy": "#ad 90 clinically dosed ingredients. One refreshing Açaí Mixed Berries drink. That's it."
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 93,
+     "ads": 121,
+     "versions": 1146,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 86,
+     "ads": 3,
+     "versions": 7,
+     "types": [
+      "video"
+     ],
+     "copy": "The weight is coming off. That is the goal. But your body does not see a diet. It sees a famine. And in famine mode, you"
+    },
+    {
+     "days": 85,
+     "ads": 5,
+     "versions": 25,
+     "types": [
+      "video"
+     ],
+     "copy": "Everyone worries about the liver. But alcohol is quietly dismantling your gut at the same time — killing off beneficial"
+    },
+    {
+     "days": 84,
+     "ads": 1,
+     "versions": 3,
+     "types": [
+      "video"
+     ],
+     "copy": "Waking up at 3am and lying there. Gut getting bigger despite everything. Brain fog that makes you re-read the same email"
+    },
+    {
+     "days": 82,
+     "ads": 4,
+     "versions": 19,
+     "types": [
+      "static"
+     ],
+     "copy": "The Future of Cellular Health Starts Here. Introducing the world’s first supplement scientifically formulated to support"
+    },
+    {
+     "days": 80,
+     "ads": 12,
+     "versions": 53,
+     "types": [
+      "video"
+     ],
+     "copy": "Peak performance isn’t luck – it’s discipline and smart choices. Every morning I fuel up with IM8 Daily Ultimate Essenti"
+    },
+    {
+     "days": 80,
+     "ads": 9,
+     "versions": 165,
+     "types": [
+      "static"
+     ],
+     "copy": "Fuel your body today and protect it for tomorrow. 🌿"
+    },
+    {
+     "days": 76,
+     "ads": 12,
+     "versions": 74,
+     "types": [
+      "static"
+     ],
+     "copy": "90 clinically dosed ingredients. One refreshing Açaí Mixed Berries drink. That's it."
+    },
+    {
+     "days": 74,
+     "ads": 6,
+     "versions": 21,
+     "types": [
+      "video"
+     ],
+     "copy": "There's a version of your mornings that doesn't start with stiffness. Where you don't have to sit on the edge of the bed"
+    },
+    {
+     "days": 73,
+     "ads": 1,
+     "versions": 3,
+     "types": [
+      "video"
+     ],
+     "copy": "Stiff every morning. Joints that grind on the stairs. An ache that gets worse every year and gets managed with painkille"
+    }
+   ],
+   "totals": {
+    "ads": 1009,
+    "statics": 355
+   }
+  },
+  {
+   "brand": "OZiva",
+   "page": "/teardowns/oziva.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:54:52.453Z",
+   "account": "OZiva is a mature, steady advertiser in India: 554 ads from one page, 551 active, 106 of them running 60+ days, and the longest runner is a Blinkit plant protein catalogue ad at 131 days (since 9 Jul 2026).",
+   "patterns": [
+    {
+     "title": "The hair serum holds the long runs, and it is sold with men",
+     "text": "10 of the 15 longest-running videos sell the Advanced Hair Growth Serum, all between 86 and 108 days, and every person telling the story is a man in his 30s or 40s, even though most of the catalogue (collagen, PCOS, gluta, women's protein) is for women. The serum has 69 ads and 44 unique videos. They do not pick one a…"
+    },
+    {
+     "title": "Named-user testimonials on a stool, with a month-by-month timeline",
+     "text": "Three of the four hair concepts use the same format: a real-looking user on a stool against a plain wall, name and 'OZiva Advanced Hair Growth Serum User' on screen, cut with home b-roll of applying the product. The script is a timeline: noticed it, started, 'first month', 'barber at 2 months', 'new hair at 4 months'.…"
+    },
+    {
+     "title": "Name what the viewer already uses, then beat it with one number",
+     "text": "Hooks start from the thing in the viewer's bathroom: 'before buying your next VitC serum', 'before you copy that Korean hair routine', 'if oils worked, why are you still shedding?'. Then one hard number: '3.5x more radiance than 2% vitamin C', '1.6x better dark spot reduction', '131.9% brighter skin in 2 weeks', '3% R…"
+    },
+    {
+     "title": "The office is the setting, and the only energy hook is a desk slump",
+     "text": "Workplace moments carry several winners: a meeting-table skit (#10), a colleague's remark at the office (#14), a campus shot (#8). The only ads in the account about energy are Sugar Support, an effervescent tablet for blood sugar (Karela, Jamun, Cinnamon, Mulberry): 'Feeling tired and foggy after meals?' on 17 ads, lo…"
+    },
+    {
+     "title": "Their biggest launch uses SILT's fibre, sold as weight support, not a Mornings copy",
+     "text": "Daily Fat Metabolism + Plant Fiber is the largest product by ads: 99 ads and 943 versions, 95 of them static, all started 12 to 17 Nov (72 on 13 Nov), so every one is under a week old and still a test. It contains Sunfiber, the same branded PHGG fibre as SILT Mornings, next to Theolim and SesZen-Bio, and every ad fram…"
+    },
+    {
+     "title": "Quick commerce and price end cards close the sale",
+     "text": "The longest runner (#1, 131 days) and 7 of the top 30 statics (24 to 30, 67 days each) are Blinkit catalogue ads: 'refill in 10 mins and stay consistent', 19 ads in all. Every hair serum video ends on the same card: 'Grow New Hair in 4 Months', ₹1299 struck to ₹999, 'Stocks Running Out!'. A new 'Build Your Own Box' bu…"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Mornings",
+     "hook": "“A colleague asked if I was still on my third coffee.”",
+     "format": "Produced testimonial, Hindi and English, 35 to 40s",
+     "based_on": "#14, #6",
+     "outline": "A real SILT customer on a stool against a plain wall, name and 'SILT Mornings user' on screen, cut with b-roll at their desk. Tell it as a timeline of the routine (week 1, week 2, week 4), not as results. Shoot two scripts with different openers in the same session."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“Always zoned out after lunch?”",
+     "format": "Static, 4:5 and 9:16, DCO with 3 images",
+     "based_on": "static 19 (74 days)",
+     "outline": "A man or woman at a desk at 3 PM, laptop open, eyes heavy, lanyard on. Headline names the slump; the stick and glass sit in the corner with '80 mg caffeine + 200 mg L-theanine, the dose used in studies'. Office setting, not gym."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“Before you order your third coffee today, hear me out.”",
+     "format": "Creator UGC, 30s, shot from above outside an office",
+     "based_on": "#8, #4",
+     "outline": "The 'before you buy' hook aimed at a habit, never at a brand. Creator holds the stick to the lens, then three numbers on screen one by one: 80 mg caffeine, 200 mg L-theanine, 5 g PHGG fibre. Close on 'every dose printed'."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“5 g of SunFibre. Printed on the stick.”",
+     "format": "Static, 1:1 and 4:5, DCO with 3 to 4 images",
+     "based_on": "Gluta Serum statics, fibre launch",
+     "outline": "One number per image, huge: 5 g fibre, 6 billion probiotics, 80 mg caffeine, 293 lab checks with 0 failed. Name the fibre and its dose plainly as part of the morning stick. Keep every line about the routine and the label; no weight, fullness or appetite words."
+    },
+    {
+     "product": "Both",
+     "hook": "“Bro, that is your fourth coffee.”",
+     "format": "Dialogue skit, Hinglish, 25 to 30s",
+     "based_on": "#10",
+     "outline": "Two colleagues at a meeting table: one on coffee number four, the other with a stick in a bottle. 'Be smarter' becomes 'one stick in the morning, one at night'. Close on both packs with the doses on screen."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Mere bete ne bola, 'Papa, aap phir phone pe ho, 1 baj gaya.'”",
+     "format": "Produced testimonial (Hindi), black and white interview frame, 35s",
+     "based_on": "#6, #7",
+     "outline": "A parent in their 40s quotes their kid as the hook, in a 'REC' interview frame. Then the night routine at home: laptop shut, Nights stick into warm water, 3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66, 200 mg L-theanine on screen, no melatonin."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Why 3 g of glycine, and not less.”",
+     "format": "Founder or formulator to camera, name and role on screen, 40s",
+     "based_on": "#4",
+     "outline": "Their in-house scientist with a lower-third makes the formula feel owned. SILT's version: the person who built the formula explains each dose as the dose used in studies, shows the printed label and the lab report. No other product named."
+    },
+    {
+     "product": "Both",
+     "hook": "“₹900 for 15 sticks. About ₹60 a day.”",
+     "format": "3s end card for every video, plus a 15s motion version",
+     "based_on": "#4 #6 #14 end cards",
+     "outline": "Every one of their long runners ends on the same price card. Give SILT one fixed end card: the stick, ₹60 a day, 'every dose printed', Shop now. Use the real price only; no struck-through price or 'stocks running out' unless it is true."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 131,
+     "versions": 1,
+     "style": "Brand lifestyle",
+     "product": "other",
+     "hook": "Everyone said plant protein tastes terrible.",
+     "why": "The longest runner on the account at 131 days. A taste objection is flipped through flavour scenes (mango, chocolate, vanilla, strawberry), then the pack lands on a Blinkit box in a warehouse. It is a quick-commerce catalogue ad, so it keeps running while it …",
+     "transcript": "Ozeva bioactive plant protein. Everyone said plant protein tastes terrible, so I wasn't exactly excited. But then, real mango, real flavour, no added sugar, somehow still this rich. Plant protein, that's gentle on the gut. Your gut doesn't complain. Plant protein that tastes like a tree. Ozeva plant protein, imagined …"
+    },
+    {
+     "days": 108,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "Constant hairfall is a warning sign.",
+     "why": "A male creator over green-screen shots of a clogged drain and a full hairbrush, then 3D follicle animation for the causes (deficiencies, hormones), then the bottle and two named actives. 2 ads, 4 versions, 108 days; #2 and #3 are two cuts of the same script.",
+     "transcript": "If your hair is falling constantly, there's almost a 100% chance it's not going to go back to normal on its own. get oseva advanced hair serum. Hari shop now only at 999 rupees stocks running out."
+    },
+    {
+     "days": 108,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "Constant hairfall is a warning sign.",
+     "why": "A male creator over green-screen shots of a clogged drain and a full hairbrush, then 3D follicle animation for the causes (deficiencies, hormones), then the bottle and two named actives. 2 ads, 4 versions, 108 days; #2 and #3 are two cuts of the same script.",
+     "transcript": "If your hair is falling constantly, there's almost a 100% chance it's not going to go back to normal on its own. Getoseva's advanced hair serum. This has plant-based actives like redensil and lindera root extract, which are clinically studied to help react to hair growth cycle and support a healthier scalp microbiome …"
+    },
+    {
+     "days": 108,
+     "versions": 4,
+     "style": "Doctor/expert",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "Before you copy that Korean hair routine...",
+     "why": "Opens on a woman holding an imported product in a store, then the brand's own food scientist (name and title on screen) names 3% Redensyl and 1% Lindera and argues that heavy serums suit a different climate. Review cards, then a ₹1299 struck to ₹999 end card.…",
+     "transcript": "Before you invest in another viral Korean hair routine, our research team designed a water-light alternative. Oziva Advanced Hair Serum utilizes 1% tenderar root extract to specially modulate the scalp microbiome and calm microinformation, combined with 3% Redensyl to boost follicle activity without leaving any sticky…"
+    },
+    {
+     "days": 108,
+     "versions": 4,
+     "style": "Doctor/expert",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "Before you copy that Korean hair routine...",
+     "why": "Opens on a woman holding an imported product in a store, then the brand's own food scientist (name and title on screen) names 3% Redensyl and 1% Lindera and argues that heavy serums suit a different climate. Review cards, then a ₹1299 struck to ₹999 end card.…",
+     "transcript": "Before you invest in another viral Korean hair routine, our research team designed a water-light alternative. Ojiva Advanced Hair Serum utilizes 1% tenderar root extract to specially modulate the scalp microbiome and calm micro-information combined with 3% Redensyl to boost follicle activity without leaving any sticky…"
+    },
+    {
+     "days": 98,
+     "versions": 4,
+     "style": "Produced testimonial (Hindi)",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "\"Mere bete ne bola, 'Papa, meri hairline aap jaisi na ho.'\"",
+     "why": "A father in his 40s, named on screen as a user, tells how his son joked about his hairline. Black and white 'REC' interview frame, home b-roll, then a 1 month and 3 to 4 month timeline. Family teasing turns a symptom into a story. 98 days.",
+     "transcript": "My son used to send links to Korean hair videos and shampoos everyday. To save hair. I told him that Korean products are based on the climate there. It's summer here. There's sweat. The scalp scene is different. When I was using Ozio's hair growth serum, the reviews were good. There's a reduction in the hair fall in t…"
+    },
+    {
+     "days": 98,
+     "versions": 4,
+     "style": "Produced testimonial (Hindi)",
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "hook": "\"Mere bete ne bola, 'Papa, meri hairline aap jaisi na ho.'\"",
+     "why": "A father in his 40s, named on screen as a user, tells how his son joked about his hairline. Black and white 'REC' interview frame, home b-roll, then a 1 month and 3 to 4 month timeline. Family teasing turns a symptom into a story. 98 days.",
+     "transcript": "My son used to send links to Korean hair videos and shampoos everyday. To save his hair. I said, \"Son, Korean products are based on the climate there, it's summer here, there's sweat, the scalp scene is different.\" When I was using Ozio's hair growth serum, the reviews were good. There's also a reduction in hair fall …"
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "gluta-brightening-serum",
+     "hook": "Watch this before buying your next VitC serum.",
+     "why": "A woman films from above outside an office campus, holds the bottle to the lens, then three claims appear on screen (3.5x radiance, 1.6x dark spots, made for Indian skin) with an ingredient bubble graphic. A comparison hook against something the viewer alread…",
+     "transcript": "Before you get your new vitamin C serum, you need to hear me out. This new Gen Osewa Gluta Brightening Serum gives you 3.5 times more radiance than vitamin C is 1.6 times better at dark spot reduction and is made for Indian skin. Time to switch to something that actually gives better results. Introducing Osewa Gluta B…"
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "gluta-brightening-serum",
+     "hook": "Watch this before buying your next VitC serum.",
+     "why": "A woman films from above outside an office campus, holds the bottle to the lens, then three claims appear on screen (3.5x radiance, 1.6x dark spots, made for Indian skin) with an ingredient bubble graphic. A comparison hook against something the viewer alread…",
+     "transcript": "Before you get your new vitamin C serum, you need to hear me out. This new Gen Osewa Gluta Brightening Serum gives you 3.5 times more radiance than vitamin C is 1.6 times better at dark spot reduction and is made for Indian skin. Time to switch to something that actually gives better results. Introducing Osewa Gluta B…"
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "style": "Dialogue skit",
+     "product": "gluta-brightening-serum",
+     "hook": "Bro, I was on VitC for the fifth time.",
+     "why": "Two colleagues at an office meeting table; one complains about no results, the other says 'be smarter'. Then the same numbers plus a before and after card (131.9% brighter in 2 weeks). Office banter carries a skincare claim in 32s. 89 days.",
+     "transcript": "Bro, I wore this vitamin C for the fixed time. And I got no results. Of course, she didn't get any results. Don't be like that girl. Be smarter. Use Orziba's Dota Brightening Serum. This has plant-based actives and has clinically studied ingredients which give you 3.5 times more radiance than vitamin C and 1.6 times w…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 131,
+     "versions": 1,
+     "product": "other",
+     "copy": "Discover your favourite flavour"
+    },
+    {
+     "days": 108,
+     "versions": 1,
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 89,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 86,
+     "versions": 1,
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "copy": "If oils worked, why are you still shedding?"
+    },
+    {
+     "days": 86,
+     "versions": 1,
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "copy": "If oils worked, why are you still shedding?"
+    },
+    {
+     "days": 86,
+     "versions": 2,
+     "product": "oziva-advanced-hair-growth-serum-to-rebalance-scalp-microbiome-30-ml",
+     "copy": "If oils worked, why are you still shedding?"
+    },
+    {
+     "days": 80,
+     "versions": 2,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 80,
+     "versions": 1,
+     "product": "gluta-brightening-serum",
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 131,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Discover your favourite flavour"
+    },
+    {
+     "days": 108,
+     "ads": 15,
+     "versions": 19,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 89,
+     "ads": 39,
+     "versions": 45,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Sensitive skin shouldn’t have to choose between pigmentation care and irritation."
+    },
+    {
+     "days": 86,
+     "ads": 47,
+     "versions": 69,
+     "types": [
+      "video",
+      "static",
+      "none"
+     ],
+     "copy": "If oils worked, why are you still shedding?"
+    },
+    {
+     "days": 74,
+     "ads": 12,
+     "versions": 18,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Honestly, I’ve tried so many things. Why would this work?"
+    },
+    {
+     "days": 74,
+     "ads": 12,
+     "versions": 12,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Feeling tired and foggy after meals?"
+    },
+    {
+     "days": 74,
+     "ads": 11,
+     "versions": 12,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Say hello to radiant, even-toned skin. Embrace the glow with OZiva Bioactive Gluta Fizzy!"
+    },
+    {
+     "days": 74,
+     "ads": 2,
+     "versions": 2,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Glutathione + Antioxidants - Helps reduce pigmentation* and supports healthier-looking skin."
+    },
+    {
+     "days": 67,
+     "ads": 12,
+     "versions": 12,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Cravings didn’t disappear overnight."
+    },
+    {
+     "days": 67,
+     "ads": 5,
+     "versions": 5,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Choose Clean, Plant-Based Nutrition. Choose OZiva"
+    }
+   ],
+   "totals": {
+    "ads": 554,
+    "statics": 435
+   }
+  },
+  {
+   "brand": "Supply6",
+   "page": "/teardowns/supply6.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:54:32.548Z",
+   "account": "Supply6's account is young in India: almost everything visible started after 11 Sep 2026, and the longest runner is 67 days.",
+   "alert": {
+    "title": "Supply6 just launched a SILT Nights rival",
+    "text": "Supply6 Mellow launched on 18 Oct 2026 (about ₹45 a serving, on Blinkit and Zepto), and its Meta ads in India started around 5 Nov: 11 ads so far. It is a nightly sachet with L-Theanine, L-Glycine, Magnesium and KSM-66 Ashwagandha, \"zero melatonin\". That is nearly the SILT Nights formula, at lower doses (1.25 g glycine against SILT's 3 g, 150 mg KSM-66 against 300 mg). Their headline: \"Body tired. Brain still at work.\" The ads are 12 days old, so nothing has proven itself yet. Track them weekly. SILT's openings: every dose printed and compared with the dose used in studies, magnesium bisglycinate named as the form, a lab report per ingredient, and a Morning + Night system instead of one more product in a 6-SKU catalogue."
+   },
+   "patterns": [
+    {
+     "title": "Creators beat studio ads",
+     "text": "10 of the 15 longest-running videos are a creator talking to a phone camera. 85 of 230 ads carry a creator tag (#ad, @supply6), so most of their spend runs as partnership ads through creator handles."
+    },
+    {
+     "title": "The symptom comes first, the product after 10 to 15 seconds",
+     "text": "Hooks name a feeling the viewer has today: \"I'm tired all the time\", \"your alarm goes off and you're already exhausted\", \"brain fog could be low B12\", \"bloated after every meal\". The product is the answer, never the opener."
+    },
+    {
+     "title": "One hard number for proof",
+     "text": "The same two numbers appear everywhere: \"raises B12 by 92% and D3 by 67%\", plus \"63+ nutrients\" and \"3 billion CFU\". The stat sits late in the script, after the problem lands."
+    },
+    {
+     "title": "\"One sachet replaces your shelf\"",
+     "text": "Simplicity is the core promise. \"How many supplements do you take? Just this one.\" \"No complicated routine, no multiple supplements.\" Their 360 product gets 76 of 230 ads."
+    },
+    {
+     "title": "Offers carry the statics",
+     "text": "The welcome kit (60 days + free glass bottle and frother, \"worth ₹1000\") is their biggest bet: 36 ads, 97 versions, 51 images. Salts statics run on a 15% code. They also anchor price per day (\"₹72 a day\")."
+    },
+    {
+     "title": "Hindi and Hinglish versions",
+     "text": "4 of the top 15 are Hindi or Hinglish, with cruder, funnier hooks (\"You rely on these two to poop?\"). They test the same message in two languages."
+    },
+    {
+     "title": "Cheap AI 3D for explaining",
+     "text": "Two long-runners are AI-generated 3D: food characters stuck in a gut tunnel, and a 3D body with nutrient labels. Both explain a mechanism no creator can show on camera."
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Mornings",
+     "hook": "“Between the 9 to 5, the gym and 10,000 steps, I quick-fix everything.”",
+     "format": "Creator UGC, 35 to 45s, Hinglish and English cuts",
+     "based_on": "#14, #10",
+     "outline": "A working professional lists their fixes: second coffee at 11, third at 3, skipped breakfast. Turn: the basics. One Mornings stick in water. Close on what is in it, with exact doses on screen."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“I'm crashing at 3 PM.” “Coffee?” “Already had two.”",
+     "format": "One-creator dialogue skit, 40s",
+     "based_on": "#5",
+     "outline": "Symptom stacking between two versions of the same person, then 'what do you take in the morning?' 'One stick.' Proof line from SILT's own label, not a borrowed stat."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Laptop closed at 11. My brain didn't.”",
+     "format": "Creator UGC, bedtime set, 35s",
+     "based_on": "#6, Mellow's angle",
+     "outline": "Lands before Mellow owns this line. Show the stick into warm water, name L-Glycine, Magnesium Bisglycinate, Ashwagandha, L-Theanine with doses. Melatonin-free."
+    },
+    {
+     "product": "Both",
+     "hook": "“Every milligram is on the label. The batch test is in the box.”",
+     "format": "Static, 1:1 and 4:5, DCO with 3 images",
+     "based_on": "statics with clinical numbers",
+     "outline": "Supply6 sells 63+ ingredients. SILT sells knowing exactly what you take. Label close-up, COA, 'no proprietary blends'. Run 3 image variants under one copy."
+    },
+    {
+     "product": "Both",
+     "hook": "“Day 7. Day 14. Day 30.”",
+     "format": "Static timeline, DCO",
+     "based_on": "welcome-kit timeline statics",
+     "outline": "What a professional can expect from a Morning + Night routine, written as habits (fewer afternoon crashes, easier wind-down), not medical promises."
+    },
+    {
+     "product": "Both",
+     "hook": "Morning + Night starter kit, free bottle or frother",
+     "format": "Offer static, 4 to 6 image versions",
+     "based_on": "welcome kit: 36 ads, 97 versions",
+     "outline": "A 30-day starter kit with a physical bonus. Supply6's biggest bet is a bundle with a free object, which makes the offer feel bigger than a discount code."
+    },
+    {
+     "product": "Both",
+     "hook": "“About ₹60 a day for your morning and your night.”",
+     "format": "Static + 15s motion version",
+     "based_on": "₹72 a day static",
+     "outline": "Price-per-day anchor (₹900 for 15 sticks) set against what one stick replaces, such as the second café coffee. Argue value, never cheapness."
+    },
+    {
+     "product": "Nights",
+     "hook": "“What L-Theanine does at 11 PM”",
+     "format": "AI 3D explainer, 20 to 30s",
+     "based_on": "#8, #15",
+     "outline": "Animated mind slowing down, ingredient by ingredient. Makes the mechanism visible. Can be produced with the AI video tools already connected here."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“Why we didn't put sixty-three things in one sachet.”",
+     "format": "Founder-led talking head, 45s",
+     "based_on": "celebrity-investor ads",
+     "outline": "Supply6 leans on a celebrity investor. SILT's counter is the founder explaining the formula, in the build-in-public voice the LinkedIn page already uses."
+    },
+    {
+     "product": "Mornings",
+     "hook": "Stick into bottle at the desk, on the commute, before a call",
+     "format": "Brand lifestyle, 12 to 15s, no talking",
+     "based_on": "#1, #2",
+     "outline": "Short looping product-in-use cuts, a one-line overlay and a packshot end card. Cheap to shoot from the existing production footage."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 67,
+     "versions": 1,
+     "style": "Brand lifestyle",
+     "product": "supply6-salts-lime",
+     "hook": "Supply6 Salts is for the ones who run wild.",
+     "why": "14s, no talking head. Climber, sachet into bottle, drink, packshot end card. Short enough to loop; the action proves the use case.",
+     "transcript": "This is supply six salts, and it's the only thing in my bottle. Four electrolytes, zero added sugar. Water alone doesn't cut it up here. Supply six salts, run wild."
+    },
+    {
+     "days": 67,
+     "versions": 1,
+     "style": "Brand lifestyle",
+     "product": "supply6-salts-lime",
+     "hook": "Supply6 Salts is for people who don't sit still.",
+     "why": "Same Salts campaign, second cut. Mid-air action opener stops the scroll before any product shows.",
+     "transcript": "As someone who loves action, I sweat more than most people and water alone never put back what I lost."
+    },
+    {
+     "days": 66,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "supply6-salts-lime",
+     "hook": "While I'm packing my essentials, can we talk about electrolytes?",
+     "why": "GRWM / gym-bag packing frame. Attacks the category (sugar in other electrolytes), then taste as the reason to stay consistent.",
+     "transcript": "While I'm packing my essentials, can we talk about electrolytes for a second? Most electrolyte drinks are supposed to help with hydration. But if you check the label, a lot of them come with loaded sugar. That's why I've been using supply sick salts lately. And it's genuinely one of my favorite zero sugar electrolytes…"
+    },
+    {
+     "days": 57,
+     "versions": 3,
+     "style": "Creator UGC (Hindi)",
+     "product": "supply6-360",
+     "hook": "Sirf iss powder ko roz subah...",
+     "why": "Hindi product demo, sachet into a glass. Numbered benefits list, 'clinically studied, not hype', FOMO close. 2 ads use it.",
+     "transcript": "If you consume this powder daily in the morning with 8 glasses of water, then you will get so many benefits that you will get tired of counting. You just need to take 1 sachet in 200 ml of water. In the morning, empty stomach and you are done. Firstly, it removes your vitamin deficiencies. Secondly, it removes the ten…"
+    },
+    {
+     "days": 57,
+     "versions": 1,
+     "style": "Dialogue skit",
+     "product": "supply6-360",
+     "hook": "I'm tired all the time.",
+     "why": "One creator plays two people. Stacks symptoms (tired, drained, always sick), then 'how many supplements do you take?' 'Just this one.' Ends on the 92% B12 / 67% D3 stat.",
+     "transcript": "I'm tired all the time. Vitamin D could help. I also feel mentally drained. Maybe I'd be 12 as well. And I keep getting sick. Yeah, you're probably missing a lot of micronutrients. How am I supposed to get everything from my diet? It's really hard. That's why I supplement these things. And how many supplements do you …"
+    },
+    {
+     "days": 57,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "supply6-360",
+     "hook": "If your alarm goes off and you're already exhausted...",
+     "why": "Women's-health angle (PCOS, PMS, midday crash). Problem-first, product appears after 15s. 'One sachet every morning' replaces a pill routine.",
+     "transcript": "If your alarm goes off and you are already exhausted, let's stop. Especially if you are dealing with PCOS or PMS symptoms, or simply struggling to keep up with a busy schedule. I know so many women who deal with low energy, nutrient gaps and those midday crashes that makes it harder to get throughout the day. That's w…"
+    },
+    {
+     "days": 57,
+     "versions": 1,
+     "style": "Produced skit",
+     "product": "supply6-360",
+     "hook": "Meet Karthik.",
+     "why": "Comedy: man wears a hazmat suit everywhere for monsoon immunity. Punchline: immunity is built from within. The only big-budget concept in the top 15.",
+     "transcript": "Meet Karthik. This monsoon, he's taking immunity seriously. He wears his hazmat suit every day. On the streets. On his dates. Even at work. But immunity isn't built from the outside. It's built from within. Built for immunity from the inside. Supply 6360. Real immunity doesn't need a suit."
+    },
+    {
+     "days": 27,
+     "versions": 1,
+     "style": "AI 3D animation",
+     "product": "supply6-fibre-zesty-lime",
+     "hook": "What happens when you take fibre",
+     "why": "Pixar-style gut tunnel, food characters stuck vs moving. Cheap to make with AI video, very clear before/after.",
+     "transcript": "Keep it moving. I just got here. You got here Tuesday. Not happening. Fiber is the only thing moving things along in your gut. This is your gut with Supply 6 Fiber Plus. And this is your gut without it. Supply 6 Fiber Plus. 5 grams of soluble and insoluble fiber keeps things moving in your gut so you don't feel consti…"
+    },
+    {
+     "days": 27,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "supply6-fibre-zesty-lime",
+     "hook": "What happens when your diet lacks fibre?",
+     "why": "Gym bro: 'you hit your protein goals but ignore fibre'. Fibre into the protein shaker. Rides the high-protein trend.",
+     "transcript": "This is what happens when you hit your protein goals, but ignore your fiber goals. Now this goes into my shaker. 5 grams of probiotic fiber every day. It supports regular mornings, helps digest heavy proteins and keeps me full. So I'm not getting cravings every two hours. See, peaceful. Swipe down and shop supplies 6 …"
+    },
+    {
+     "days": 22,
+     "versions": 20,
+     "style": "Creator UGC",
+     "product": "vmd-360",
+     "hook": "Repeat after me: that brain fog could be low B12.",
+     "why": "Their most-scaled video: 6 ads, 20 versions. Funny friend stories (tingling hands, 'tired is her personality'), then exact % of daily B12 and D3 per sachet.",
+     "transcript": "Repeat after me, that brain fog, it could be low vitamin B12, you're not just tired and you don't need another coffee. You just need this supply 6 360. Okay, so one of my friend blamed her tingling hands on the weather in Bangalore in April. Another said her weak muscles are genetic. Babe, your mom does Pilates. And m…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 67,
+     "versions": 1,
+     "product": "salts",
+     "copy": "Finished your session and still feeling drained? Water alone won't cut it."
+    },
+    {
+     "days": 63,
+     "versions": 1,
+     "product": "all",
+     "copy": "{{product.short_description}}"
+    },
+    {
+     "days": 39,
+     "versions": 1,
+     "product": "supply6-salts-lime",
+     "copy": "Save 15% on your purchase of Supply6 Salts!"
+    },
+    {
+     "days": 39,
+     "versions": 1,
+     "product": "supply6-salts-watermelon",
+     "copy": "Save 15% on your purchase of Supply6 Salts!"
+    },
+    {
+     "days": 39,
+     "versions": 1,
+     "product": "supply6-salts-mango",
+     "copy": "Save 15% on your purchase of Supply6 Salts!"
+    },
+    {
+     "days": 39,
+     "versions": 1,
+     "product": "supply6-salts-watermelon",
+     "copy": "Save 15% on your purchase of Supply6 Salts!"
+    },
+    {
+     "days": 32,
+     "versions": 4,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "versions": 2,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "versions": 6,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "versions": 1,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "versions": 6,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "versions": 3,
+     "product": "welcome-kit",
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 67,
+     "ads": 3,
+     "versions": 3,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Finished your session and still feeling drained? Water alone won't cut it."
+    },
+    {
+     "days": 66,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "POV: You finally found hydration that doesn’t feel like a chore 😌💧⚡"
+    },
+    {
+     "days": 63,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "catalog"
+     ],
+     "copy": "{{product.short_description}}"
+    },
+    {
+     "days": 57,
+     "ads": 2,
+     "versions": 3,
+     "types": [
+      "video"
+     ],
+     "copy": "Your body is fighting so many deficiencies every single day… and most people don’t even realize it."
+    },
+    {
+     "days": 57,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "How many supplements do you need? #ad"
+    },
+    {
+     "days": 57,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "I used to think eating healthy meant spending hours planning meals or taking a handful of supplements every day. But som"
+    },
+    {
+     "days": 57,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "This monsoon, immunity isn’t built by hiding from the outside, it’s supported from within. 🌧️"
+    },
+    {
+     "days": 39,
+     "ads": 4,
+     "versions": 4,
+     "types": [
+      "static"
+     ],
+     "copy": "Save 15% on your purchase of Supply6 Salts!"
+    },
+    {
+     "days": 32,
+     "ads": 36,
+     "versions": 97,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁"
+    },
+    {
+     "days": 27,
+     "ads": 13,
+     "versions": 13,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Most Indian diets are missing the one thing your gut needs most—fibre. Supply6 Fibre+ is here to change that."
+    }
+   ],
+   "totals": {
+    "ads": 230,
+    "statics": 153
+   }
+  },
+  {
+   "brand": "The Stack Club",
+   "page": "/teardowns/thestack.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:21.157Z",
+   "account": "The account is new to scale: 1 ad from August, 9 from October and 105 launched in November; the longest runner is the reply to a 'your reviews are fake' comment at 81 days, and nothing else has passed 28 days.",
+   "alert": {
+    "title": "The closest SILT Nights rival yet: same glycine dose, same no-melatonin story",
+    "text": "107 of their 115 ads sell sleep. What the ads show: Deep Rest is a capsule, 30 a bottle, each about 1.04 g, with 92.2 mg elemental magnesium from fully chelated bisglycinate (nutrition panel in #8, '92 mg' again in #15). Dream On is an unflavoured powder, 3 g glycine per scoop in water 30 minutes before bed, 'no sweeteners, no flavours'. The Complete Sleep Stack is the two together: a capsule plus a scoop. No L-theanine, no ashwagandha, no melatonin. Only one price appears anywhere: a customer question they chose to run as an ad, '1100rs for 30 magnesium pills, why so expensive?' (statics 13, 16), which they answer instead of correcting. That is about ₹37 a night for the magnesium alone. Dream On's price and the stack's price are not shown; one creator says a Dream On tub lasted her almost 2 months. Where SILT wins: the same 3 g glycine plus 300 mg KSM-66 and 200 mg L-theanine in one st…"
+   },
+   "patterns": [
+    {
+     "title": "The wearable is the proof, not the review",
+     "text": "32 of 115 ads mention a sleep score, tracker, smartwatch or recovery. Their joint most-scaled video (#2, 4 ads, 13 versions) opens 'Reviews can be faked, but your sleep score can't' and shows customer app screenshots and a table (deep sleep 55 min to 1 h 10). Static 5 is a before/after score of 73 to 86. #10 shows 'sl…"
+    },
+    {
+     "title": "\"7 to 8 hours but still tired\" is the core hook",
+     "text": "The problem is never 'can't sleep'; it is 'slept enough and still wake up tired'. #3 ('your recovery score still sucks', 28 days, 9 versions), #6 ('am I sleeping 7 to 8 hours and still waking up tired?'), #14 ('what if you're actually not sleeping?') and the EP 84 copy ('your smartwatch can show 8 hours of sleep'). #3…"
+    },
+    {
+     "title": "They put the objection in the hook and answer it",
+     "text": "Their longest runner (#1, 81 days, three times longer than anything else) reads a comment calling the reviews fake and the magnesium underdosed, then answers with 1,140 real orders. Statics 1, 7, 13 and 16 are Instagram question stickers from buyers: 'What makes your magnesium any better?', 'If melatonin puts you to s…"
+    },
+    {
+     "title": "Teaching magnesium form, with themselves as the only good answer",
+     "text": "Deep Rest has 45 ads, the most of any page, and most of them educate: 'Magnesium bisglycinate is not a quality certificate. Whose? How pure? Fully chelated? Buffered?'. #9 pours capsules side by side ('Source: Balchem, USA' vs 'not disclosed', oxide at '4 to 5% absorption'). Statics 9, 10 and 11 are a 14% elemental ru…"
+    },
+    {
+     "title": "Real customers filmed in a lab setting",
+     "text": "Three ads film customers at the Ultrahuman Performance Lab in Bengaluru: 10 'longest-standing customers', users for a year or more, asked 'What's actually working for you, and what isn't? The good, the bad'. Another 3 ads (7 versions) launched today with 'We got a few people to try The Stack and followed up'. All are …"
+    },
+    {
+     "title": "Fitness and recovery creators, not desk workers",
+     "text": "8 of the 15 longest-running videos are creators: a trekker (#5, 4 ads, 13 versions), two nutritionists (#6 #7), a marathoner (#13), gym and couple creators (#10 #15), a moody bedroom monologue (#12) and a long research explainer (#14). Newer copy adds 'getting shredded' insomnia and a PCOS angle. The language is recov…"
+    },
+    {
+     "title": "Two bottles sold as one system",
+     "text": "42 ads push 'The Complete Sleep Stack' bundle and 8 more go to a sleep-stack collection page with 'Which sleep problem do you have? Glycine helps you fall asleep. Magnesium helps you stay asleep.' Each product gets one job, so buying both feels logical. SILT has all four ingredients in one stick, which is simpler, but…"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Nights",
+     "hook": "“Seven hours in bed. Why does it feel like four?”",
+     "format": "Creator or founder to camera, then animated sleep-stage graphic, 45 to 55s",
+     "based_on": "#3, #6",
+     "outline": "Open on a desk professional at 10 AM, coffee in hand, saying the line. Cut to a simple animated night: cycles, the hours spent winding down after a late laptop session. Then the stick into warm water with each dose on screen (3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66, 200 mg L-theanine), each 'the dose used in studies'. No promise about sleep stages, just what is in the glass."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Don't take our word for it. Ask your own tracker.”",
+     "format": "Founder to camera 30s + matching static, 4:5 and 9:16",
+     "based_on": "#2, #11, static 5",
+     "outline": "A two-week test anyone with a ring or watch can run: one week of normal nights, then two weeks with Nights, compare the trend. Show real SILT customers' screenshots shared with permission, exactly as they are, including one that barely moved. Say plainly that results vary and that the label and lab reports are the promise, not the score."
+    },
+    {
+     "product": "Nights",
+     "hook": "“POV: you check your sleep score before your messages.”",
+     "format": "Creator UGC, 35 to 40s, bedroom and desk",
+     "based_on": "#11, #10, #4",
+     "outline": "Same flattery of the data-tracking viewer, moved to SILT's audience: a product manager or consultant whose score drops on deadline weeks. Morning: phone on the pillow, app open. Evening: laptop shut, one Nights stick, lights off. Their audience is athletes; this is the desk worker with the same ring."
+    },
+    {
+     "product": "Both",
+     "hook": "“₹900 for 15 sticks? Here's where the money goes.”",
+     "format": "Reply-to-comment video 40s + Instagram question-sticker statics",
+     "based_on": "#1 (81 days), statics 1 7 13 16",
+     "outline": "Put a real objection from SILT's comments or DMs on screen and answer it to camera: about ₹60 a night, every dose printed, no maltodextrin, a lab report per ingredient (293 checks, 0 failed). Run the statics as story question boxes with real buyer questions: 'Why no melatonin?', 'Why four ingredients in one stick?'."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Everything in one Nights stick, weighed.”",
+     "format": "Product demo, no talking, 25 to 30s",
+     "based_on": "#9",
+     "outline": "Tip one stick out and weigh each ingredient on a lab scale on a dark table: 3 g, 250 mg, 300 mg, 200 mg, each with its label line. End on the lab report for that batch. Never show another product or a 'vs'. Label the magnesium as \"250 mg elemental\", so nobody can question the number."
+    },
+    {
+     "product": "Nights",
+     "hook": "“We asked our first customers what isn't working.”",
+     "format": "Customer round table, 60 to 90s, cut into 3 shorter ads",
+     "based_on": "Ultrahuman lab ads, #1",
+     "outline": "Invite 6 to 10 early SILT customers to a co-working space after work, the place they actually spend their days. Ask the same honest question and keep the bad answers in (taste, price, forgetting to take it). Their version is new; SILT can shoot it now while customers are few and reachable."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Why each one is in the stick.”",
+     "format": "Static carousel, 4 cards, 4:5",
+     "based_on": "static 8 (tier list), static 11",
+     "outline": "Answer the 'blend' frame without naming anyone: one card per ingredient with its dose, the dose used in studies, and one plain line on why it is there. A fifth card shows what is not in it: melatonin, maltodextrin, added sugar, proprietary blends."
+    },
+    {
+     "product": "Both",
+     "hook": "“We could have hidden the doses. We printed them.”",
+     "format": "Founder to camera, 40 to 45s",
+     "based_on": "#8",
+     "outline": "The 'we said no' list, in SILT's own decisions: no melatonin, no maltodextrin, no proprietary blend, a lab report for every ingredient. Cut to the label and the lab reports on screen. Shoot it soon: this structure is already running in the market and the first brand to own the line keeps it."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 81,
+     "versions": 1,
+     "style": "Founder-style reply to a comment",
+     "product": "the-complete-sleep-stack",
+     "hook": "Bro I can literally ask my family and friends to order from my website...",
+     "why": "Opens on a real hostile comment (reviews are fake, 'your magnesium is very underdosed'), then answers it with one number: 1,140 real orders with real addresses, followed by scrolling verified review cards. Their longest runner by far at 81 days; it turns the …",
+     "transcript": "Bro, I can literally ask my family and friends to order from my website and ask them to put up positive reviews. Sure. Let me just call 1140 of my closest friends. Okay, let's actually do this. Let's say we've actually faked this. I'll need 1140 people, not 1140 accounts. 1140 real orders because every one of these or…"
+    },
+    {
+     "days": 28,
+     "versions": 13,
+     "style": "Brand presenter + customer sleep data",
+     "product": "the-complete-sleep-stack",
+     "hook": "Reviews can be faked, but your sleep score can't.",
+     "why": "Customer sleep-app screenshots, a before/after score of 86, and a table (deep sleep 55 min to 1 h 10, REM about 45 min to 1 h 5). Closes on a dare: two weeks of baseline, three weeks on the product, 'if your data doesn't move, don't buy it again'. Joint most-…",
+     "transcript": "Reviews can be faked, but your sleep score, that can't be faked. So instead of telling you how good our product is, let me show you. These are before and after sleep score trends shared by our customers. Here are the two products that went behind these numbers. Deep Rest is a single ingredient, fully chelated magnesiu…"
+    },
+    {
+     "days": 28,
+     "versions": 9,
+     "style": "Brand presenter + animated explainer",
+     "product": "the-complete-sleep-stack",
+     "hook": "If you're getting 7 to 8 hours of sleep but your recovery score still sucks, watch this.",
+     "why": "Two seconds of face, then a clean animated hypnogram: 90-minute cycles, deep sleep front-loaded, '8 h in bed is not 8 h of recovery'. Names 3 g glycine as the dose in studies. 3 ads, 9 versions.",
+     "transcript": "If you're getting 7 to 8 hours of sleep, but your recovery score still sucks, watch this. Sleep isn't one thing, it's in cycles. Roughly every 90 minutes, you move through cycles of light sleep, deep sleep and REM. Deep sleep is front loaded in the first half of the night. That's your physical repair, hormone growth a…"
+    },
+    {
+     "days": 28,
+     "versions": 4,
+     "style": "Brand voice to camera",
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "hook": "If your Whoop recovery has been in the red or yellow quite often, watch this.",
+     "why": "Speaks to the athlete who reads HRV and resting heart rate every morning, then pivots to magnesium form: most magnesium in India is poorly absorbed, theirs is fully chelated from a named global supplier. 28 days, 2 ads.",
+     "transcript": "If your hoop recovery has been in the red or yellow quite often, then I need you to watch this video. Recovery is mostly your HRV and your resting heart rate, and both of them basically addressed just one question. Did your nervous system actually switch off last night? Because when you train hard, your recovery needs…"
+    },
+    {
+     "days": 23,
+     "versions": 13,
+     "style": "Creator UGC (travel)",
+     "product": "the-complete-sleep-stack",
+     "hook": "I recently completed one of the toughest and most beautiful treks of India.",
+     "why": "Trek vlog where sleeping well in a tent is the problem. Names both products and doses (3,000 mg glycine 30 minutes before bed). Aspirational setting carries a dull product. 4 ads, 13 versions, tied for most scaled.",
+     "transcript": "I recently completed one of the most toughest and beautiful treks of India. And I don't think I would have completed it if I would have missed out on small things. Like carrying candies and sweets for the altitude, training every day before the trek, and most importantly, making sure I get good quality sleep. Because …"
+    },
+    {
+     "days": 21,
+     "versions": 4,
+     "style": "Creator UGC (nutritionist)",
+     "product": "the-complete-sleep-stack",
+     "hook": "Most of my clients ask me, am I sleeping 7 to 8 hours and still waking up tired?",
+     "why": "Expert-by-job creator repeats the duration vs quality line, then recommends the two-product stack. Short and calm, sounds like advice, not an ad.",
+     "transcript": "Most of my clients ask me, \"Am I sleeping for 7-8 hours and still wake up feeling tired?\" Why is that? And one thing that I explain to them is sleep quality matters just as much as sleep duration, diet and exercise. And that's why along with healthy sleeping habits, I also recommend a good quality magnesium supplement…"
+    },
+    {
+     "days": 21,
+     "versions": 1,
+     "style": "Creator UGC (nutritionist)",
+     "product": "the-complete-sleep-stack",
+     "hook": "As a nutritionist, the one thing my clients ignore the most is not protein, it's sleep.",
+     "why": "Ties sleep to cravings and fat loss, rejects 'knocked out by a pill', attacks magnesium oxide, then '3 grams of pure glycine, nothing hidden in a sleep blend'. Caption is a five-step sleep plan worth saving.",
+     "transcript": "As a nutritionist, I tell you one thing, my clients ignore the most and it's not protein, it's sleep. You can eat perfectly and train hard but if your sleep is off and your recovery suffers massively, your cravings go up the next day, fat loss feels so much higher than it needs to be. And I'm not someone who likes to …"
+    },
+    {
+     "days": 20,
+     "versions": 8,
+     "style": "Brand presenter to camera",
+     "product": "the-complete-sleep-stack",
+     "hook": "We could have made this cheaper. A lot cheaper.",
+     "why": "A list of 'we said no': cheaper magnesium, melatonin, a proprietary blend. Shows the supplier logo, the nutrition panel (92.2 mg elemental magnesium per capsule) and a Judge.me badge. This is SILT's own positioning, said first. 4 ads, 8 versions.",
+     "transcript": "We could have made this cheaper. A lot cheaper. We could have used cheaper magnesium, the kind that's mostly filler and tough on your stomach. But we said no. It's bizglycinet from Balkam USA. We could have added melatonin so you feel knocked out on night one. We said no. Your body keeps its own clock. We could have h…"
+    },
+    {
+     "days": 20,
+     "versions": 3,
+     "style": "Product demo (no talking)",
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "hook": "What's inside The Stack Magnesium vs Ordinary Magnesium?",
+     "why": "Pours each capsule's contents into glasses: theirs labelled 'Source: Balchem, USA', the other 'Source: not disclosed', then magnesium oxide '4 to 5% absorption' and 'fillers, flow agents'. A visual you understand with the sound off.",
+     "transcript": "Let us see what is actually inside these. Let us see what is inside these. (Breathing heavily)"
+    },
+    {
+     "days": 15,
+     "versions": 5,
+     "style": "Creator UGC (couple experiment)",
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "hook": "My girlfriend sleeps 9 hours every night but somehow...",
+     "why": "Boyfriend shows her tracker's 'sleep stress' at 35%, she takes the capsule on camera, the follow-up shows 0%. A tiny home experiment with a number at each end. 3 ads, 5 versions.",
+     "transcript": "My girlfriend sleeps 9 hours every night but somehow she always has high sleep stress meaning bad recovery the next day, having headaches and feeling lazy and un-energetic the whole day. So this is what we are going to do. We are going to use stacked clubs, fully chelated magnesium bi-gloss in it and see how it affect…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 20,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Good sleep should not be a luxury. You can access deep rest, too with ease. Improve your sleep’s natural architecture with our Fully Chelate"
+    },
+    {
+     "days": 14,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Good sleep should not be a luxury. You can access deep rest, too with ease. Improve your sleep’s natural architecture with our Fully Chelate"
+    },
+    {
+     "days": 14,
+     "versions": 2,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": ""
+    },
+    {
+     "days": 13,
+     "versions": 2,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": ""
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Good sleep should not be a luxury. You can access deep rest, too with ease. Improve your sleep’s natural architecture with our Fully Chelate"
+    },
+    {
+     "days": 12,
+     "versions": 1,
+     "product": "the-complete-sleep-stack",
+     "copy": "The Complete Sleep Stack combines highly bioavailable magnesium bisglycinate with pure glycine to support the shift from stress mode to reco"
+    },
+    {
+     "days": 12,
+     "versions": 1,
+     "product": "dream-on-glycine",
+     "copy": "We use USP-grade glycine and keep the formula intentionally simple - no sweeteners, no flavours, no unnecessary ingredients."
+    },
+    {
+     "days": 9,
+     "versions": 1,
+     "product": "the-complete-sleep-stack",
+     "copy": "Deep Rest: fully chelated magnesium bisglycinate to support deeper, more restful sleep."
+    },
+    {
+     "days": 9,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Fully chelated magnesium bisglycinate, a clean formulation that’s gentle on the stomach, to help your body experience deep sleep."
+    },
+    {
+     "days": 9,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Fully chelated magnesium bisglycinate, a clean formulation that’s gentle on the stomach, to help your body experience deep sleep."
+    },
+    {
+     "days": 9,
+     "versions": 1,
+     "product": "deep-rest-advanced-magnesium-bisglycinate",
+     "copy": "Fully chelated magnesium bisglycinate, a clean formulation that’s gentle on the stomach, to help your body experience deep sleep."
+    },
+    {
+     "days": 9,
+     "versions": 1,
+     "product": "dream-on-glycine",
+     "copy": "3 grams of pure glycine to support faster sleep onset and more restful sleep."
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 81,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": ""
+    },
+    {
+     "days": 28,
+     "ads": 4,
+     "versions": 13,
+     "types": [
+      "video"
+     ],
+     "copy": "Don't just take our word for it. Track your own sleep and see what changes."
+    },
+    {
+     "days": 28,
+     "ads": 3,
+     "versions": 9,
+     "types": [
+      "video"
+     ],
+     "copy": "Glycine + fully chelated magnesium bisglycinate. A clean, two-product approach to supporting better-quality sleep and re"
+    },
+    {
+     "days": 28,
+     "ads": 2,
+     "versions": 4,
+     "types": [
+      "video"
+     ],
+     "copy": "Training hard but waking up to yellow or red recovery? It might be time to look beyond your training."
+    },
+    {
+     "days": 23,
+     "ads": 4,
+     "versions": 13,
+     "types": [
+      "video"
+     ],
+     "copy": "⛰️10 days on the Bailey Trail taught me that rest is just as important as stamina."
+    },
+    {
+     "days": 21,
+     "ads": 2,
+     "versions": 4,
+     "types": [
+      "video"
+     ],
+     "copy": "Sleeping for 7–8 hours but still waking up tired?"
+    },
+    {
+     "days": 21,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "We obsess over the workout plan and the meal plan, but almost nobody has a sleep plan. 🌙"
+    },
+    {
+     "days": 20,
+     "ads": 6,
+     "versions": 8,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Good sleep should not be a luxury. You can access deep rest, too with ease. Improve your sleep’s natural architecture wi"
+    },
+    {
+     "days": 20,
+     "ads": 4,
+     "versions": 8,
+     "types": [
+      "video"
+     ],
+     "copy": "We believe your sleep stack should be built around better ingredients, complete transparency, and no unnecessary comprom"
+    },
+    {
+     "days": 20,
+     "ads": 2,
+     "versions": 3,
+     "types": [
+      "video"
+     ],
+     "copy": "What’s inside The Stack Deep Rest vs an ordinary magnesium supplement?"
+    }
+   ],
+   "totals": {
+    "ads": 115,
+    "statics": 28
+   }
+  },
+  {
+   "brand": "The Upside",
+   "page": "/teardowns/theupside.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:29.794Z",
+   "account": "A brand new advertiser: the first 4 ads started on 30 Oct 2026, 35 more launched in November, all 39 are still active from a page with 12 likes, and the longest runners are founder videos #1 and #2 and statics 1 and 2, all at 18 days.",
+   "alert": {
+    "title": "A 3 g glycine chewable, a 3 AM moment nobody else owns, and a bedtime version at about ₹20 a night",
+    "text": "31 of their 39 ads sell 3AM Rescue. What the ads show: a raspberry chewable tablet, 4.4 g each, 30 servings in a 132 g box, individually wrapped to keep by the bed. 'Each 3AM Rescue chewable has 3g of glycine, an amino acid that has been studied at this dose for sleep' (static 10). Passionflower extract and L-theanine are named but their doses never appear (statics 7, 10). No melatonin. The box carries a 'Fast Acting Technology' badge. It is taken only after you wake: 'Not for bedtime' (static 23), 'Take it only when you wake up in the middle of the night' (static 14). No ad shows a price for 3AM Rescue; SILT's own research (the playbook, not their ads) puts it at about ₹27 a chewable. The newer threat is Sleep Repair, launched 16 Nov with 8 ads: a lemon lime 4.4 g chewable, 3 g glycine, 30 servings, 'just ₹599' in the ad link text, which is about ₹20 a night, sold 'for when you sleep e…"
+   },
+   "patterns": [
+    {
+     "title": "They own one moment: 3 AM",
+     "text": "31 of 39 ads sell a product named after a time of night, and the ad title on all of them is 'India's First 3AM Rescue Product'. 6 of the 8 3AM Rescue videos say '3 AM' or '3 in the morning' in the first line, and statics put the clock front and centre: 3:00 (static 4), 3:04 (statics 3, 5), 3:07 (static 17), 'Come on, …"
+    },
+    {
+     "title": "A founder who admits she has the problem",
+     "text": "The two longest-running videos (#1 and #2, 18 days) and #4 are the same founder to camera at home: 'I've been there, and it really sucks', 'I made this for the version of me that used to stare at the ceiling', 'as the founder of a sleep brand, I sometimes wake up in the middle of the night'. No lab coat, no doctor, ju…"
+    },
+    {
+     "title": "Cortisol is the villain, drawn as a simple line",
+     "text": "4 of the 8 3AM Rescue videos name cortisol. #2 calls it 'your body's alarm clock' that stress sets off early, #3 animates a cortisol curve that jumps at 3 AM, #6 says 'that's when cortisol, your stress hormone, starts rising', #5 says 'we modulate that'. One cause for the wake-up makes one product for it feel logical.…"
+    },
+    {
+     "title": "The format is sold as the benefit",
+     "text": "Chewable, no water, individually wrapped, keep it on the bedside table, 'you don't even have to get out of bed' (#1), 'just chew it' (#3), 'no water, I don't even have to get out of bed' (#6). Statics 4, 7, 9, 14 and 18 repeat it as chips and callouts. They also define it by what it is not: 'Back To Sleep. Not Knocked…"
+    },
+    {
+     "title": "Startup and desk stress is their 3 AM cause",
+     "text": "Static 3 is a Notes app at 3:04 AM: 'reply to investor update, payroll Friday?, deck slide 9 is wrong, did I answer the client'. Static 23 puts the chewable on a laptop keyboard. #6, the partnership comedy video, gives Bangalore an investor Slack about runway at 3 AM. #8's B-roll is a laptop desk. This is SILT's buyer…"
+    },
+    {
+     "title": "A second product splits the night, and its hooks are being tested",
+     "text": "Sleep Repair launched on 16 Nov with 8 ads: 3 videos and 5 statics. The 3 videos (#9 to #11) share one Meera vs Arjun body with three different first lines, a clean hook test. Static 24 ('30 nights of 3g glycine for when you sleep enough but still wake up tired') and the other Sleep Repair statics borrow the 'Slept 8 …"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Nights",
+     "hook": "“11:40 PM. Laptop shut. One more thing on the list.”",
+     "format": "Static, 4:5 and 9:16, plus a 10s motion version",
+     "based_on": "static 3, static 23",
+     "outline": "A real Notes app screenshot at 11:40 PM with a desk worker's honest list (send the deck, reply to Rahul, call mom back) and the last line 'Nights, then lights off'. Beside it, one Nights stick going into warm water with the four doses on the pack. The evening is the part you can plan; say nothing about waking up later."
+    },
+    {
+     "product": "Nights",
+     "hook": "“I used to answer emails in bed. This is what I do now.”",
+     "format": "Founder to camera at home, 35 to 45s",
+     "based_on": "#1, #4",
+     "outline": "The founder admits the habit first, then shows the new evening: laptop closed at a set time, one Nights stick in warm water, phone across the room. Read the four doses off the pack, each 'the dose used in studies', and why it is a drink and not a pill. No promise about sleep quality or the middle of the night."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Same job, same 7 hours in bed. Different evenings.”",
+     "format": "Presenter to camera + two animated avatar cards, 45s, three hook variants",
+     "based_on": "#9, #10, #11",
+     "outline": "Two desk workers, same age, same hours. Card by card: last Slack at 11:15 vs laptop shut at 10:30, scrolling in bed vs lights dimmed, nothing vs one Nights stick in warm water. End on 'Which one are you?' and stop there; the difference shown is the routine, not a result. Shoot three first lines on the same body and run them as separate ads."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Consultants, coders and founders all go to bed late. For different reasons.”",
+     "format": "Creator UGC (comedy), 45 to 60s, run from the creator's handle with #Ad",
+     "based_on": "#6",
+     "outline": "A creator roasts three desk jobs: the consultant rewriting slide 14, the engineer on a US call at midnight, the founder refreshing the bank app. Then their own evening: laptop shut, one Nights stick, the four doses on screen. End with 'tag the friend who is still online'. Copy the structure only, never their cities or jokes."
+    },
+    {
+     "product": "Nights",
+     "hook": "“₹60 a night. Here is all of it, printed.”",
+     "format": "Static carousel, 5 cards, 4:5",
+     "based_on": "static 7, static 10",
+     "outline": "One card per ingredient with its dose and 'the dose used in studies': 3 g glycine, 250 mg elemental magnesium from bisglycinate, 300 mg KSM-66, 200 mg L-theanine. Fifth card: what is not in it (melatonin, added sugar, maltodextrin, proprietary blends) and 'a lab report for every ingredient, 293 checks, 0 failed'. This answers a cheaper single-ingredient chewable without naming anyone."
+    },
+    {
+     "product": "Nights",
+     "hook": "“No melatonin. No added sugar. No maltodextrin. No hidden doses.”",
+     "format": "Static, 4:5, struck-through list",
+     "based_on": "static 22, static 14",
+     "outline": "Same struck-through list layout, but the struck lines are what SILT left out, and the last line, not struck, reads 'Every dose on the pack'. Only use negatives SILT can stand behind; do not add 'non-habit forming' or anything about speed."
+    },
+    {
+     "product": "Both",
+     "hook": "“Nights for the evening. Mornings for the 9 AM call.”",
+     "format": "Static + 20s creator video, travel or workday setting",
+     "based_on": "static 13, static 24",
+     "outline": "Their 'pack both' idea, made SILT's: a laptop bag or carry-on with one Nights and one Mornings stick, each with its doses (Mornings: 80 mg caffeine with 200 mg L-theanine, 5 g PHGG fibre). Price the combo at ₹1,800 and keep the promise to what is in the sticks, not how the morning will feel."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 18,
+     "versions": 1,
+     "style": "Founder to camera + motion graphics",
+     "product": "3am-rescue",
+     "hook": "When you wake up at 3am, you can't fall back asleep.",
+     "why": "The founder confesses she used to 'stare at the ceiling every night', then a navy animation explains 'not made to knock you out, made to ease the alertness'. Sells the format as the feature: one chewable, no water, 'you don't even have to get out of bed'. Joi…",
+     "transcript": "When you wake up at 3am, do you feel like you've gone for a back asleep? And even when you do, you wake up groggy and unfresh. That's why I built 3am rescue. I've been there, and it really sucks. It's one chewable with hyenine, glycine and passion flower, and it does two things. It's not made to knock you out. It's ma…"
+    },
+    {
+     "days": 18,
+     "versions": 1,
+     "style": "Founder to camera (explainer)",
+     "product": "3am-rescue",
+     "hook": "The one hormone that we built our 3AM Rescue product for is cortisol.",
+     "why": "Same founder with a mug of tea explains cortisol as 'your body's alarm clock' that stress makes go off early, so the 3 AM wake-up has a cause and the product has a job. Says the three ingredients are 'all clinically studied' to lower cortisol. 18 days.",
+     "transcript": "The one hormone that we built our 3AM Rescue product for is cortisol. People call it the stress hormone. But with healthy function, it's also your body's alarm clock with its own daily rhythm. It peaks in the morning, which is what gets you out of bed. And it declines during the day, hits its lowest at night, and then…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Creator UGC (Hinglish) + cortisol graph",
+     "product": "3am-rescue",
+     "hook": "Someone asked on Reddit why I wake up at 3 am every night.",
+     "why": "The only Hinglish ad: a creator answers a Reddit question, then a simple animated cortisol curve jumps at 3 AM. Promises 'in 20 to 30 minutes' a sleep-like feeling and a fresh morning. At 91 s it is their longest video and has run 15 days.",
+     "transcript": "Someone asked on Reddit why I wake up at 3 am every night. I finally know the answer. I did not find 3am rescue in my life. It's by this new brand called the Upside. You can keep this on your bedside at night. You don't need to take water when you take this chew. Just chew it and eat it. And you will see that in 20-30…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Founder to camera",
+     "product": "3am-rescue",
+     "hook": "When was the last time you slept through the night completely uninterrupted?",
+     "why": "Admits waking up is sometimes unavoidable (washroom, stress) and that even she, 'the founder of a sleep brand', still wakes at night. The honesty makes a narrow product feel normal to need. 15 days.",
+     "transcript": "When was the last time you slept through the night completely uninterrupted? I lived like that for years where a good night meant waking up fewer times rather than not waking up at all. We built the 3AM Rescue product because I realized sometimes you can't avoid waking up in the middle of the night. It could be to use…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Brand team to camera (event booth)",
+     "product": "3am-rescue",
+     "hook": "I'm only going to give you three reasons to take 3AM Rescue.",
+     "why": "Filmed at a busy expo stall, box in hand, a numbered list: 'no other product in India or globally', back to sleep faster, and 'it's like the wake-up never happened'. A countdown structure keeps people watching to reason three. 15 days.",
+     "transcript": "I'm only going to give you three reasons to take 3AM rescue if you wake up at 3 in the morning. The reasons to take this, right? One, there is no other product in India all globally, which you could possibly take because we're the first ones to build it. Two, this is a product which basically helps you fall asleep fas…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Creator UGC (partnership, comedy)",
+     "product": "3am-rescue",
+     "hook": "Why all rich people are unable to sleep at 3 am",
+     "why": "A Bangalore creator roasts three cities: Delhi rich worry about the neighbour's Range Rover, Bombay rich about the US market, Bangalore rich about an investor Slack on runway. Funny, shareable, ends 'tag your friend who wakes up at 3am'. Runs from a creator p…",
+     "transcript": "Delhi Rich, Bombay Rich and Bangalore Rich all wake up at 3am. They just wake up for different reasons. Delhi Rich wakes up thinking about what people will say. Their neighbor bought a new Range Rover. And the property case with Chacha Ji has been running since 2009. Bombay Rich wakes up to check how the US market clo…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Brand presenter to camera",
+     "product": "3am-rescue",
+     "hook": "When you wake up at 3 in the morning, the worst part is not being able to fall back to sleep.",
+     "why": "The shortest pitch at 25 s: three ingredients, one chewable, no melatonin, 'keep it by your bedside only when you need it'. Gives each ingredient one job in one line. 15 days.",
+     "transcript": "When you wake up at 3 in the morning, the worst part is not being able to fall back to sleep. Three ingredients, one chewable, no melatonin. Keep it by your bedside only when you need it. So when we build 3 AM rescue, every ingredient was chosen for two jobs. One, getting you back to sleep. Two, making sure you wake u…"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "style": "Brand presenter + B-roll",
+     "product": "3am-rescue",
+     "hook": "If you wake up at 3 in the morning, you can't take anything.",
+     "why": "Rules out the alternatives one by one with graphics: no sleeping pill, no melatonin, and 'you can take a magnesium, but it really won't do anything'. Then factory and laptop-desk B-roll of the box. Ends 'we hope you never have to take it'. 15 days.",
+     "transcript": "If you wake up at 3 in the morning, you can't take anything. You shouldn't take a sleeping pill, you shouldn't take a melatonin. You can take a magnesium, but it really won't do anything. And so we built it. We built a product that allows you to get back to sleep fast, that helps you to wake up whenever the time is fo…"
+    },
+    {
+     "days": 0,
+     "versions": 1,
+     "style": "Brand presenter + animated comparison",
+     "product": "sleep-repair",
+     "hook": "One of these two people takes Sleep Repair and by the end of this video you'll be able to tell which one.",
+     "why": "Two avatar cards, Meera and Arjun, same age and same 11 PM to 7 AM in bed, compared hour by hour: late heavy dinner and scrolling vs early light dinner and dimmed lights. A guessing game that keeps you to the end. Launched yesterday (0 days).",
+     "transcript": "One of these two people takes sleep repair and by the end of this video you'll be able to tell which one. Meera and Arjun are both 38 years old and they both work long days and they're both in bed at 11pm till 7 in the morning. Meera eats a big dinner at half past 10 and then goes straight to bed while Arjun eats at h…"
+    },
+    {
+     "days": 0,
+     "versions": 1,
+     "style": "Brand presenter + animated comparison",
+     "product": "sleep-repair",
+     "hook": "Meera and Arjun both go to bed at 11 and both wake up at 7 but only one of them wakes up rested.",
+     "why": "The same body as #9 with a different first line, a clean hook test for Sleep Repair. 0 days, so no result yet.",
+     "transcript": "Meera and Arjun both go to bed at 11 and both wake up at 7 but only one of them wakes up late rested. Meera and Arjun are both 38 years old and they both work long days and they're both in bed at 11 p.m. till 7 in the morning. Meera eats a big dinner at half past 10 and then goes straight to bed while Arjun eats at ha…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 18,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 18,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 15,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 13,
+     "versions": 1,
+     "product": "3am-rescue",
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 18,
+     "ads": 30,
+     "versions": 30,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Powered by Glycine, Passionflower & L-Theanine"
+    },
+    {
+     "days": 15,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Delhi rich, Bombay rich and Bangalore rich are unable to sleep at 3 am."
+    },
+    {
+     "days": 0,
+     "ads": 8,
+     "versions": 8,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Wake up Refreshed and say No to Groggy Mornings. Glycine is the secret to a restful night's sleep. Non-melatonin, non-ha"
+    }
+   ],
+   "totals": {
+    "ads": 39,
+    "statics": 28
+   }
+  },
+  {
+   "brand": "Wellbeing Nutrition",
+   "page": "/teardowns/wellbeing.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:54:42.861Z",
+   "account": "The page has 720 ads in India, but 713 started in November 2026 and almost all of those since 14 Nov, so nearly everything is under a week old; the only real long-runners are two sleep-strip creator videos at 55 days (since 23 Sep).",
+   "patterns": [
+    {
+     "title": "Sleep is the only message with proof of staying power",
+     "text": "With 713 of 720 ads launched this month, only 2 ads have run past 2 weeks, and both sell the melatonin sleep strip (55 days each). Ranks 3 to 15 are 3 to 5 days old, so read them as tests, not winners. Sleep is also their biggest theme in the tests: 7 of the top 15 videos and 9 of the top 30 statics sell the strip or …"
+    },
+    {
+     "title": "Magnesium is their new sleep push, worth watching but not a Nights copy",
+     "text": "75 ads mention magnesium: 24 with their own copy (22 launched on 14 Nov) and 51 inside the buy-1-get-1 sale. Two products: a 'Triple Magnesium Complex' (bisglycinate, citrate, threonate, 8-hour slow-release capsules) and a liposomal magnesium glycinate (200 mg elemental). The hooks are Nights language: 'quiet a racing…"
+    },
+    {
+     "title": "Travel is the setting, 'my friend gave this to me' is the line",
+     "text": "4 of the top 15, including both 55-day ads, are shot in an airport, a plane seat or a hotel room. The product is framed as a 'travel essential' for someone who flies for work, and three scripts use the same borrowed-trust line 'my friend gave this to me'. The 55-day structure was copied onto magnesium within days (#9)."
+    },
+    {
+     "title": "One technical number as proof: form, Daltons, absorption",
+     "text": "Scripts name the form and a single spec instead of a benefit list: 'under 800 Daltons', 'under 2000 Dalton', 'liposomal', 'bisglycinate, citrate and threonate', '4x', '1.6x', '3x better absorbed'. Statics repeat it ('1.7x more bioavailable', '1850mg, 720mg EPA, 500mg DHA'). The myth-bust version (#6: 'collagen doesn't…"
+    },
+    {
+     "title": "Same body, different first line",
+     "text": "They test hooks, not whole ads. #11 and #12 share one voiceover with two openers ('8 hours of deep sleep' vs 'sleep like a baby'); #1 and #2 are one concept with two openers. Statics lean on survey percentages instead: about 10 of the top 30 carry a '% of users' stat (65% felt less bloated, 76%, 84% brighter skin, 87%…"
+    },
+    {
+     "title": "A sale drowns everything else right now",
+     "text": "565 of the 720 ads mention the 'Wellbeing Carnival' and 474 push buy 1 get 1 free. One sale concept alone is 451 ads, 2,655 versions and 70 unique videos across 13 landing pages, plus 73 ads for whey at 20% + 5% off. A follow-up ad claims '30,000 packs sold in 24 hours' to push urgency. Their sleep strip is also sold …"
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Nights",
+     "hook": "“I fly for work. This is how I wind down in a hotel room.”",
+     "format": "Creator UGC, 30 to 35s, airport and hotel",
+     "based_on": "#1, #2, #9",
+     "outline": "A working professional on a work trip: airport walk, hotel desk, laptop shut. One Nights stick into the hotel glass, doses on screen (3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66, 200 mg L-theanine). Shoot two openers on the same body and test them."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Why there is no melatonin in our night stick.”",
+     "format": "Founder or expert to camera, 40 to 45s",
+     "based_on": "#3, #6",
+     "outline": "One clear decision explained to camera: no melatonin, and here is what is in it instead, each at the dose used in studies. Show the label and the lab report. Never mention another product."
+    },
+    {
+     "product": "Nights",
+     "hook": "“Magnesium bisglycinate. 250 mg. Printed on the stick.”",
+     "format": "Static, 1:1 and 9:16, DCO with 3 images",
+     "based_on": "statics 13, 22; #5",
+     "outline": "Name the form and the dose as the headline, the way their magnesium statics do, then add what a capsule cannot: glycine, L-theanine and ashwagandha in one warm drink. Night-blue background, stick and glass, lab report QR."
+    },
+    {
+     "product": "Both",
+     "hook": "“₹60 a stick. Every milligram on the label.”",
+     "format": "Static + 15s motion version",
+     "based_on": "static 4 (price per night)",
+     "outline": "Price per night and per morning, set against what you can check: every dose printed, no proprietary blends, a lab report per ingredient. Argue value you can see, never the lowest price; do not answer a buy-1-get-1 with a discount."
+    },
+    {
+     "product": "Both",
+     "hook": "“293 lab checks. 0 failed.”",
+     "format": "Static, DCO with 3 to 4 images",
+     "based_on": "statics 3, 12, 17 (survey % headlines)",
+     "outline": "Their statics lead with one big percentage. SILT's real numbers are 293 checks, 0 failed and 4.9/5 verified reviews. One number per image, huge, with the stick beside it."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“My 3 PM brain has opinions.”",
+     "format": "One-creator skit, Hinglish, 20 to 30s",
+     "based_on": "#15, #10",
+     "outline": "Creator plays herself at her desk and her own brain (labelled cartoon over the head) begging for a fourth coffee. Turn: the morning stick she skipped. Close on 80 mg caffeine with 200 mg L-theanine, written as a habit, not a promise."
+    },
+    {
+     "product": "Mornings",
+     "hook": "“My team asked why I stopped making coffee runs.”",
+     "format": "Creator UGC, 35s",
+     "based_on": "#4",
+     "outline": "Social-proof opener: a colleague noticed something changed. Then the morning routine in real time, one stick into water at the desk, and what is in it with doses on screen."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 55,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "restful-sleep-10mg-melts",
+     "hook": "I fly a lot for work.",
+     "why": "Walking through an airport with a trolley bag, then asleep in the plane seat. One of only two ads past 2 weeks (55 days): the travel frame makes a sleep strip feel like a practical tool, and '10mg Melatonin' plus the ingredient map appear mid-video.",
+     "transcript": "I fly a lot for work and this is what helps me actually sleep through the flight. I will sleep like a baby and wake up refreshed. Dry well being nutrition, rest will sleep well."
+    },
+    {
+     "days": 55,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "restful-sleep-10mg-melts",
+     "hook": "This has officially become my favourite travel essential.",
+     "why": "Same 55-day concept, second opener: tin held up in an airport corridor, 'my friend gave this to me'. The pair is a hook test on one body, and both survived.",
+     "transcript": "This has officially become my favourite travel essential. My friend gave this to me. wake up refreshed, try well being nutrition, rest will sleep well."
+    },
+    {
+     "days": 5,
+     "versions": 1,
+     "style": "Doctor/expert",
+     "product": "glutathione-skin-fuel-effervescent-tablets",
+     "hook": "Your skin doesn't need another fairness shortcut.",
+     "why": "Dermatologist to camera explains oxidative stress, then names the dose (600 mg), the delivery system and '4x absorption'. 64s, the longest in the set; authority carries the length. 5 days old.",
+     "transcript": "Your skin doesn't need another fairness shortcut. As a dermatologist, I would actually look at this differently. So when we talk about pigmentation, dullness or uneven skin tone, skin carries only one part of the picture. What is happening inside your body matters too, especially oxidative stress. That's where Glutath…"
+    },
+    {
+     "days": 4,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "pure-collagen-peptides",
+     "hook": "My friends started asking which foundation I'm using.",
+     "why": "Social-proof opener (other people noticed), then a simple 'collagen is the glue' explainer and one number (under 2000 Daltons). Icons across the top restate the benefits. 4 days old.",
+     "transcript": "My friends started asking which foundation I'm using. I use well-being nutrition collagen peptide every single day. So, collagen is basically a glue that holds your skin together. So, after we heat 25, our body naturally starts producing less of it. Factors like UV rays, stress, pollution, all of this just feed up the…"
+    },
+    {
+     "days": 3,
+     "versions": 4,
+     "style": "Creator UGC",
+     "product": "magnesium",
+     "hook": "This is Wellbeing Nutrition's Triple Magnesium Complex Slow.",
+     "why": "Most-scaled video in the set (2 ads, 4 versions). Phone screen shows a cartoon of each magnesium form, then a day-in-the-life: reading, waking easily, desk work, gym, 'by the third week'. Sells sleep and daytime focus in one.",
+     "transcript": "This is well-being nutrition's triple magnesium complex slope. It has three forms of magnesium, bisglycinate, citrate, and trionate, focusing on your sleep, muscles, and brain. Just after the first consumption, I noticed my body felt less stiff and much more relaxed. I started waking up much more easily. As I continue…"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "pure-collagen-peptides",
+     "hook": "Taking collagen supplements doesn't actually give your body collagen.",
+     "why": "Contrarian myth-bust from a partner handle, then one cut-off number (800 Daltons) that the brand 'shows and others don't'. Ends on mixing it into morning coffee and 'Comment LINK'.",
+     "transcript": "Taking collagen supplements doesn't actually give your body collagen. I know. But let me explain. When you consume collagen, any collagen, your digestive system breaks it down completely before it ever reaches your skin. So what are you even paying for? It comes down to one thing. Whether those broken down peptides ar…"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "all-natural-kids-nutrition",
+     "hook": "Holidays can be flexible.",
+     "why": "Mum packing a suitcase in a hotel room: routine breaks on holiday, nutrition shouldn't. Travel frame again, with exact protein and fibre grams. Partner handle, #ad.",
+     "transcript": "Holidays can be flexible, like late bedtime, extra ice cream, random meal timings, and I'm totally okay with that. Because that's what holidays are for, having fun, being spontaneous, and making memories. But even when her routine goes out the window, I still want her everyday nutrition to stay on track. That's why I …"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "liposomal-iron-complex-pack-of-60-capsules",
+     "hook": "Low iron. Low iron. Low iron.",
+     "why": "A fistful of shed hair as the first frame, a repeated chant as the hook. Then two iron forms named and a 'pro tip' to look for liposomal. Ends on 'comment for the link'.",
+     "transcript": "Low iron. Low iron. Low iron. If that's you, it's probably low iron. And for someone who's dealt with severe hair fall because of low iron, I take Wellbeing Nutrition's Liposomal Iron Complex. It uses two highly absorbable forms of iron. First is ferrous fumarate, a concentrated source with high elemental iron content…"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "magnesium",
+     "hook": "I love travelling and recovering from it takes time.",
+     "why": "Selfie walk outside an airport at night, 'my friend gave this to me', three forms of magnesium and an 8-hour slow release. Copies the structure of the 55-day sleep-strip winner onto magnesium.",
+     "transcript": "I love travelling and recovering from it takes time. My friend gave this to me. Wellbeing Nutrition's triple magnesium complex low. And I carry it whenever I travel. It helps 3 forms of magnesium. Bisclicinate, citrate and threonate, which supports relaxation, muscle recovery and sleep. Its slow release formula works …"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "style": "Dialogue skit (Hindi)",
+     "product": "prebiotic-fiber-for-adults-and-kids",
+     "hook": "Why are you getting so irritated?",
+     "why": "Husband and wife at home; his bad mood becomes a fibre lecture. Relationship banter (#kalesh) carries a gut product. The only Hindi video in the top 15.",
+     "transcript": "Listen, what do you want for dinner today? I just started eating snacks. Let me eat for 2 minutes at least. Please. Okay, okay. Why are you getting so irritated? Where am I getting irritated? Anything! Guys, his mood is off on everything these days. By the way, tell me one thing. When did you eat fruits and veggies la…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "restful-sleep-10mg-melts",
+     "copy": "Poor sleep can really have you feeling washed out and LIFELESS 😞"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "whey-protein-isolate-concentrate-strawberry-flavour",
+     "copy": "Meet the NEW Wellbeing Nutrition Strawberry Whey Protein 🍓 Get 24g of protein per serving to fuel your workouts, support recovery and build"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "prebiotic-fiber-for-adults-and-kids",
+     "copy": "Your daily fiber—made simple."
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "restful-sleep-10mg-melts",
+     "copy": "Poor sleep can really have you feeling washed out and LIFELESS 😞"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "whey-protein-isolate-concentrate-strawberry-flavour",
+     "copy": "Meet the NEW Wellbeing Nutrition Strawberry Whey Protein 🍓 Get 24g of protein per serving to fuel your workouts, support recovery and build"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "glutathione-skin-fuel-effervescent-tablets",
+     "copy": "Your skincare routine is incomplete without inner care."
+    },
+    {
+     "days": 3,
+     "versions": 2,
+     "product": "magnesium",
+     "copy": "India’s first Triple Magnesium Complex is formulated with 3 potent forms of Magnesium to calm your nervous system, relax your muscles and he"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "berberine-hcl",
+     "copy": "It delivers a highly bioavailable dose of 1100 mg of Berberine extracted from pure himalayan berberis arristata roots, it is 13.6x highly ab"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "high-strength-omega-3-fish-oil",
+     "copy": "Superior brain and heart health is now more than just a possibility, with this mighty supplement by your side!"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "whey-protein-isolate-concentrate-strawberry-flavour",
+     "copy": "Meet the NEW Wellbeing Nutrition Strawberry Whey Protein 🍓 Get 24g of protein per serving to fuel your workouts, support recovery and build"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "omega-fish-oil",
+     "copy": "Your heart and brain work 24/7, even when you’re not thinking about them. Our Omega-3 range is designed to support both, delivering clean, p"
+    },
+    {
+     "days": 3,
+     "versions": 1,
+     "product": "l-glutathione",
+     "copy": "Your skincare routine is incomplete without inner care."
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 55,
+     "ads": 16,
+     "versions": 16,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Poor sleep can really have you feeling washed out and LIFELESS 😞"
+    },
+    {
+     "days": 5,
+     "ads": 7,
+     "versions": 7,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Your skincare routine is incomplete without inner care."
+    },
+    {
+     "days": 4,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Experience the time-turning benefits of our scientifically researched Korean marine collagen peptides that help your ski"
+    },
+    {
+     "days": 3,
+     "ads": 20,
+     "versions": 20,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Your daily fiber—made simple."
+    },
+    {
+     "days": 3,
+     "ads": 17,
+     "versions": 21,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "India’s first Triple Magnesium Complex is formulated with 3 potent forms of Magnesium to calm your nervous system, relax"
+    },
+    {
+     "days": 3,
+     "ads": 15,
+     "versions": 15,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "It delivers a highly bioavailable dose of 1100 mg of Berberine extracted from pure himalayan berberis arristata roots, i"
+    },
+    {
+     "days": 3,
+     "ads": 10,
+     "versions": 10,
+     "types": [
+      "static"
+     ],
+     "copy": "Your heart and brain work 24/7, even when you’re not thinking about them. Our Omega-3 range is designed to support both,"
+    },
+    {
+     "days": 3,
+     "ads": 10,
+     "versions": 10,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "Protein can't get any purer, healthier and tastier than our VEGAN Superfood Protein Powder. This yummy blend is derived"
+    },
+    {
+     "days": 3,
+     "ads": 7,
+     "versions": 7,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Fuel your post-workout phase with 100% clean, effective support. Wellbeing Nutrition’s Whey Protein helps muscles heal,"
+    },
+    {
+     "days": 3,
+     "ads": 5,
+     "versions": 5,
+     "types": [
+      "static",
+      "video"
+     ],
+     "copy": "Superior brain and heart health is now more than just a possibility, with this mighty supplement by your side!"
+    }
+   ],
+   "totals": {
+    "ads": 720,
+    "statics": 238
+   }
+  },
+  {
+   "brand": "The Whole Truth",
+   "page": "/teardowns/wholetruth.html",
+   "pulled": "2026-11-19",
+   "updated": "2026-11-19T08:55:01.967Z",
+   "account": "The page has been advertising in India since at least June 2026, but 223 of its 249 visible ads started in October and November; the longest runner is the \"3 new bars desserts\" static at 162 days.",
+   "alert": {
+    "title": "Their transparency now comes with lab reports anyone can look up",
+    "text": "On 16 Nov they started an ad saying every batch of their protein is tested at NABL-accredited labs for 6 things (protein content, heavy metals, aflatoxins, microbes, pesticides, melamine spiking), and that buyers can enter the batch number on their pack on the website to see its report. It stacks on claims already running: public recipes with ingredient percentages (#12, 48 days), \"all reports out in the open\" for plant protein, a \"Full Transparency\" checklist static and a Trustified badge on their bestseller. To a buyer who has seen these, \"a lab report per ingredient\" can sound like the same promise. The batch-lookup ad is 1 day old, so it is a test, not a winner. Nothing here competes with Mornings or Nights directly: no coffee, energy or sleep product appears in their 249 ads. SILT's answer is to be more specific. They print what share of the tub each ingredient is; SILT prints each…"
+   },
+   "patterns": [
+    {
+     "title": "The ingredient list is the ad",
+     "text": "Their copy is often just the label read out: \"Hazelnuts. Cashews. Dates. Whey. Cocoa. Ragi. That's the entire ingredient list.\" \"Flip most kids' snack packs over... Now flip ours.\" #12 puts the recipe card with percentages on screen. Transparency is shown as a document, never stated as an adjective."
+    },
+    {
+     "title": "Admit the flaw first",
+     "text": "\"This is not the tastiest protein you've ever had... a bit gritty, a bit chalky, but that's proof that it's real.\" The same trade-off copy for plant protein is their most-scaled concept outside the sale: 10 ads and 38 versions since 19 Oct. \"Don't drink our Unflavoured Plant Protein. Seriously.\" is the newest test. Ow…"
+    },
+    {
+     "title": "Teach the buyer the test, then pass it",
+     "text": "They explain the category before selling: the whiteboard \"How to choose the right protein\" (#8), \"Red Velvet is not a crop\", why \"natural flavours\" are lab-extracted, Ace K and sucralose by name. The \"Full Transparency\" static is a checklist (no thickeners, no heavy metals, no amino spiking agents) against an unnamed …"
+    },
+    {
+     "title": "Ingredient macros run longest",
+     "text": "The longest-running and most-scaled video is a 17s wordless ingredient macro of the hazelnut millet bar (146 days, 6 ads, 12 versions). Its 12s cut-downs fill four more of the top 15 slots (#3 #4 at 146 days, #6 #7 at 97 days). The catalogue concept behind them has 17 ads and 23 versions. Cheap to recut, works with no…"
+    },
+    {
+     "title": "Their own team and community are the faces",
+     "text": "Five of the top 15 videos star their own team, mostly in the brand's \"don't do drugs\" tee, shot in their office in front of the \"rebuilding the world's trust in food\" wall. Two of the three longest runners are community events (dessert challenge 146 days, taste-test vox pop 126 days). Paid creators are few: #11, #15 w…"
+    },
+    {
+     "title": "Proof is moving from ingredients to lab tests",
+     "text": "Older ads lean on clean ingredients. Newer ones add testing: \"Backed by testing: protein concentration tested, heavy metal tested, no amino spiking #nothingtohide\" (48 days), \"Every batch tested\" on the 500g statics, \"all reports out in the open\" (15 days), the Trustified badge, and the batch-number report lookup (1 d…"
+    },
+    {
+     "title": "Make the first step smaller",
+     "text": "Beginner whey is sold as \"15 grams, the perfect dose to get you started\" with \"step up only when your body asks for more\". The 500g packs run as \"Half the commitment. All the protein.\" across four statics (32 days each). Both lower the cost of a first try instead of discounting."
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Both",
+     "hook": "\"Every dose is printed on this pack. Here's the dose used in studies next to it.\"",
+     "format": "Founder or team member to camera, 45s",
+     "based_on": "#12",
+     "outline": "Hold the stick, read each ingredient and its dose, cut to a clean card with two columns: SILT dose, dose used in studies. Close on the reason it matters: once a dose is printed, it cannot quietly change."
+    },
+    {
+     "product": "Both",
+     "hook": "\"Here's the lab report for every ingredient in this stick.\"",
+     "format": "Screen-record plus hands, 30s; carousel static version",
+     "based_on": "batch-lookup ad (16 Nov), static #13",
+     "outline": "Open the reports one by one on a phone: ingredient, what was checked, result. End on \"293 checks, 0 failed\" and where viewers can read the reports themselves. Make it something they can verify, not a badge."
+    },
+    {
+     "product": "Mornings",
+     "hook": "\"How to read a morning drink label in 30 seconds.\"",
+     "format": "Whiteboard explainer, 45 to 50s",
+     "based_on": "#8, #12",
+     "outline": "Three rules on a board: is every dose printed, is it the dose used in studies, is there added sugar or maltodextrin. Then turn the Mornings stick around and check it against the board. Never show or name another brand."
+    },
+    {
+     "product": "Mornings",
+     "hook": "\"This isn't the biggest caffeine hit you'll have. That's on purpose.\"",
+     "format": "Creator UGC, 35 to 45s",
+     "based_on": "#10, plant protein trade-off concept",
+     "outline": "Own the trade-off: 80 mg caffeine, not a triple shot, paired with 200 mg L-theanine. Show both numbers on the pack. The honest limit makes the rest of the label easier to trust."
+    },
+    {
+     "product": "Nights",
+     "hook": "\"No melatonin. Here's what's in it instead, gram by gram.\"",
+     "format": "Ingredient macro, no voice, 12 to 17s, two openers",
+     "based_on": "#1, #3, #6",
+     "outline": "Bold single-colour set. Each ingredient poured or spooned in close-up with its dose popping on screen: 3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66, 200 mg L-theanine. End on the stick and \"no melatonin\". Cut two versions with different first frames."
+    },
+    {
+     "product": "Mornings",
+     "hook": "\"10 AM. Second coffee, or one stick?\"",
+     "format": "Static, 4:5, desk scene",
+     "based_on": "static #19",
+     "outline": "Laptop, a half-finished coffee, and a Mornings stick going into a glass of water. One line of copy and the dose strip underneath. Built for the desk professional, not the gym."
+    },
+    {
+     "product": "Both",
+     "hook": "\"15 days. About Rs 60 a day. Then decide.\"",
+     "format": "Static, 3 versions",
+     "based_on": "statics #20 #21 #22 #26",
+     "outline": "Frame the 15-stick pack as a small first step rather than a discount: Rs 900 for 15 mornings or 15 nights, Combo Rs 1,800. Same structure as their \"half the commitment\" packs."
+    },
+    {
+     "product": "Both",
+     "hook": "\"We gave it to people at their desks and filmed the first sip.\"",
+     "format": "Customer vox pop, 35 to 40s",
+     "based_on": "#5, #2",
+     "outline": "Real customers in an office, one question each (\"when would you have this?\"). Keep the honest reactions, including the lukewarm ones. Close on the 4.9/5 verified reviews."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 146,
+     "versions": 12,
+     "style": "Product demo",
+     "product": "hazelnut-millet-protein-bars-box-of-8",
+     "hook": "(no words) Broken bars on a magenta set, then \"Nuttin' Comes Close!\"",
+     "why": "17s ingredient macro: dates split, nut butter poured, chocolate mixed, bar pressed, end card \"100% clean, 12g protein, tasty as hell\". Their longest-running and most-scaled video (146 days, 6 ads, 12 versions), and the 12s cut-downs #3 and #4 run on the same …",
+     "transcript": "[Music]"
+    },
+    {
+     "days": 146,
+     "versions": 7,
+     "style": "Produced skit",
+     "product": "other",
+     "hook": "This is how we launched our new bars.",
+     "why": "52s MasterChef-style launch event: a chef makes their community \"Insiders\" turn the new bars into desserts, push-ups to grab ingredients, a winning team. 146 days, 3 ads, 7 versions. Sells taste through a game, not a feature list.",
+     "transcript": "Okay, this is where everything is going to come to test. You have to make a dessert. And the core ingredient is the fall nut fudge bar. - It's all about the taste. - It's all about the taste. Only if you come and do a push-up, you'll be able to grab something from here. - What are you making? - This is too much flesh.…"
+    },
+    {
+     "days": 146,
+     "versions": 1,
+     "style": "Product demo",
+     "product": "hazelnut-millet-protein-bars-box-of-8",
+     "hook": "(no words) Broken bars on a magenta set, then \"Nuttin' Comes Close!\"",
+     "why": "17s ingredient macro: dates split, nut butter poured, chocolate mixed, bar pressed, end card \"100% clean, 12g protein, tasty as hell\". Their longest-running and most-scaled video (146 days, 6 ads, 12 versions), and the 12s cut-downs #3 and #4 run on the same …",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 146,
+     "versions": 1,
+     "style": "Product demo",
+     "product": "hazelnut-millet-protein-bars-box-of-8",
+     "hook": "(no words) Broken bars on a magenta set, then \"Nuttin' Comes Close!\"",
+     "why": "17s ingredient macro: dates split, nut butter poured, chocolate mixed, bar pressed, end card \"100% clean, 12g protein, tasty as hell\". Their longest-running and most-scaled video (146 days, 6 ads, 12 versions), and the 12s cut-downs #3 and #4 run on the same …",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 126,
+     "versions": 5,
+     "style": "Customer vox pop",
+     "product": "other",
+     "hook": "Where do you see yourself having this bar the most?",
+     "why": "41s of community members tasting on camera: \"when I'm stressed\", \"I use these as my dessert\", \"a very strong hit of coffee\". 126 days, 3 ads, 5 versions. Real reactions do the selling; the copy only says \"we'll let them do the talking\".",
+     "transcript": "Where do you see yourself having this bar the most? When I'm stressed. When I'm stressed! I'm gonna think of it as I want to eat something indulgent but healthy and that's why I'm gonna have this bar. I typically use these bars as my desserts. Really good guys. So good. Crunchy. Prawni. Heaven man. Every chocolate des…"
+    },
+    {
+     "days": 97,
+     "versions": 1,
+     "style": "Product demo",
+     "product": "hazelnut-millet-protein-bars-box-of-8",
+     "hook": "(no words) Nut butter pouring on magenta",
+     "why": "12s cut of the same hazelnut millet macro footage, starting on the pour instead of the bars. Runs as #6 and #7, 97 days each, with catalogue copy (\"{{product.brand}}\"). One shoot, several openers.",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 97,
+     "versions": 1,
+     "style": "Product demo",
+     "product": "hazelnut-millet-protein-bars-box-of-8",
+     "hook": "(no words) Nut butter pouring on magenta",
+     "why": "12s cut of the same hazelnut millet macro footage, starting on the pour instead of the bars. Runs as #6 and #7, 97 days each, with catalogue copy (\"{{product.brand}}\"). One shoot, several openers.",
+     "transcript": "(upbeat music)"
+    },
+    {
+     "days": 48,
+     "versions": 4,
+     "style": "Expert explainer (in-house)",
+     "product": "other",
+     "hook": "If you're good with whey, you have two options.",
+     "why": "50s whiteboard lesson, \"How to choose the right protein: 1. ingredient list, 2. protein grammage, 3. isolate or concentrate\", by a presenter in the brand tee. Teaches the buyer how to judge the category, then their 70:30 blend is the answer. 48 days, 2 ads, 4…",
+     "transcript": "If you're good with whey, you have two options which are isolate or concentrate. Fancy names but they're quite similar. You take whey to 80% protein concentration and you get WPC or whey protein concentrate. The remaining 20% is lactose, fat and moisture. Filter it further, remove all the lactose, take it to 90% prote…"
+    },
+    {
+     "days": 48,
+     "versions": 4,
+     "style": "Product demo",
+     "product": "other",
+     "hook": "Protein so light, you can chug it in a 10 second ad.",
+     "why": "13s stunt: a man downs a shaker in one go against a white wall. One claim (\"light\"), proved by doing it on camera. 48 days, 2 ads, 4 versions.",
+     "transcript": "Protein so light, you can chug it in a 10 second ad. Cheers!"
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "other",
+     "hook": "This is not the tastiest protein you've ever had.",
+     "why": "45s honest-flaw pitch: plant protein is \"a bit gritty, a bit chalky, but that's proof that it's real\", because there is no maltodextrin or flavouring. Admitting the trade-off makes the clean-label claim believable. 48 days.",
+     "transcript": "This is not the tastiest protein you've ever had. It's a bit gritty, a bit chalky, but that's proof that it's real. and badam. Highly nutritious but not as creamy or smooth as its lab made flavouring mutants that are laced and moulded extra. So yeah, not the tastiest protein in the world, but all real. Try it if that'…"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 162,
+     "versions": 1,
+     "product": "other",
+     "copy": "It’s 4 PM on a Sunday. A show you’ve been waiting for just dropped. You’re setting the scene: blanket on the couch (or lights dimmed on the"
+    },
+    {
+     "days": 90,
+     "versions": 2,
+     "product": "other",
+     "copy": "It’s 4 PM on a Sunday. A show you’ve been waiting for just dropped. You’re setting the scene: blanket on the couch (or lights dimmed on the"
+    },
+    {
+     "days": 89,
+     "versions": 2,
+     "product": "other",
+     "copy": "It’s 4 PM on a Sunday. A show you’ve been waiting for just dropped. You’re setting the scene: blanket on the couch (or lights dimmed on the"
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "cold-coffee-24g-whey-protein-isolate-concentrate",
+     "copy": "\"My lactose sensitive gut feels nauseous with anything else. Not with this one.\""
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "other",
+     "copy": "🥁 The Whole Truth. Now for The Next Gen."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "other",
+     "copy": "Drink protein. Not chemicals."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "other",
+     "copy": "Plant protein that's actually made of plants."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "other",
+     "copy": "Your favourite Whey Protein now in 500g. Same clean recipe, light as water."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "pista-badaam-24g-protein-powder",
+     "copy": "Ever had a whey protein that tastes like it came from your kitchen, not a lab?"
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "other",
+     "copy": "🫘Bean to bar."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "pista-badaam-24g-protein-powder",
+     "copy": "\"Absolutely delicious.\" That's the whole review, and honestly, that's the whole point of this one."
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "strawberry-milkshake-24g-protein-powder",
+     "copy": "{{product.brand}}"
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 162,
+     "ads": 3,
+     "versions": 5,
+     "types": [
+      "static"
+     ],
+     "copy": "It’s 4 PM on a Sunday. A show you’ve been waiting for just dropped. You’re setting the scene: blanket on the couch (or l"
+    },
+    {
+     "days": 146,
+     "ads": 17,
+     "versions": 23,
+     "types": [
+      "video",
+      "static"
+     ],
+     "copy": "{{product.brand}}"
+    },
+    {
+     "days": 146,
+     "ads": 3,
+     "versions": 7,
+     "types": [
+      "video"
+     ],
+     "copy": "When protein met dessert!"
+    },
+    {
+     "days": 126,
+     "ads": 3,
+     "versions": 5,
+     "types": [
+      "video"
+     ],
+     "copy": "We’ll let them do the talking."
+    },
+    {
+     "days": 48,
+     "ads": 2,
+     "versions": 4,
+     "types": [
+      "video"
+     ],
+     "copy": "Confused about which whey protein to buy? Start here."
+    },
+    {
+     "days": 48,
+     "ads": 2,
+     "versions": 4,
+     "types": [
+      "video"
+     ],
+     "copy": "There's regular whey protein."
+    },
+    {
+     "days": 48,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Here's the truth about plant protein: it's never going to be as smooth as a shake bulked up with maltodextrin. Ours cert"
+    },
+    {
+     "days": 48,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "\"My lactose sensitive gut feels nauseous with anything else. Not with this one.\""
+    },
+    {
+     "days": 48,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "catalog"
+     ],
+     "copy": "🥁 The Whole Truth. Now for The Next Gen."
+    },
+    {
+     "days": 48,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "catalog"
+     ],
+     "copy": "Drink protein. Not chemicals."
+    }
+   ],
+   "totals": {
+    "ads": 249,
+    "statics": 266
+   }
+  }
+ ]
+}

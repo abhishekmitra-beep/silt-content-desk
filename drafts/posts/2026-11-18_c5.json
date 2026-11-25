@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: How do I build a morning routine that actually sticks?",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "thread_summary": "Look for someone who keeps abandoning morning routines or wants a simple one.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "Start smaller than feels useful. Pick one anchor that already happens, like making your first drink, and attach one tiny action to it for two weeks: water, 5 minutes of sunlight, or 10 pushups. Add the second habit only after the first stops needing willpower. Most routines fail because they have 7 steps on day one. Keeping the wake-up time the same on weekends also does a lot of the work.",
+  "why": "Routine building is our brand's frame (rituals), but this is pure help.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting.",
+  "id": "2026-11-18_c5"
+}

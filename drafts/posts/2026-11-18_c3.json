@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "indianstartups",
+  "thread_title": "Find a post from the last 3 days: Founders: how do you manage sleep and burnout while building?",
+  "thread_url": "https://www.reddit.com/r/indianstartups/new/",
+  "thread_summary": "Look for a founder asking how others keep health and sleep intact during a launch or crunch.",
+  "product": "brand",
+  "angle": "Community help",
+  "text": "We launched a supplement brand last month, so we know this one. What helped our founder: a fixed wake time even after a bad night, no calls after 9 PM unless something is on fire, and one hard task done before noon. Sleep went first when he let it slide, and decisions the next day got worse. Treat sleep like a meeting you don't cancel.",
+  "why": "Founder-friendly subreddit where saying who we are is welcome, and the story is relatable.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/indianstartups sidebar before commenting.",
+  "id": "2026-11-18_c3"
+}

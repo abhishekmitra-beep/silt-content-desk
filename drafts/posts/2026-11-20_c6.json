@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: how did you validate demand before launching your product?",
+  "thread_summary": "Look for founders asking how to test demand, run pre-orders, or know if people will pay before launch.",
+  "product": "brand",
+  "angle": "Founder insight",
+  "text": "What worked for us (we make a wellness drink mix) was pre-booking. We put the product, every dose and the price on a simple page, and asked people to pre-book before we'd made a single box. 1,870 people did. The useful part wasn't the number but the reasons people gave, which changed our messaging more than any survey. If you try it, make the page specific (exact price, what's inside, the delivery date) so the signal means something.",
+  "why": "Founder-to-founder subreddit where saying who we are is fine. Uses our one hard launch fact.",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting. Founder-friendly subreddit: it's fine to say who we are once, but don't link."
+}

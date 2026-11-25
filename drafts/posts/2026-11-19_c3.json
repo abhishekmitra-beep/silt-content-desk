@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "thread_title": "Find a post from the last 3 days: Is ashwagandha actually worth taking? What dose did the studies use?",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "thread_summary": "Look for someone asking whether ashwagandha works or how much to take, not a medical or medication question.",
+  "product": "nights",
+  "angle": "Community help",
+  "text": "Most human trials used a root extract (KSM-66 is the most studied) at 300 to 600 mg a day, often 600 mg split into two doses, for about 8 weeks. Results on stress and sleep scores were positive but modest, and many trials were small or industry funded, so treat it as 'might help a bit' rather than a must. Give it 6 to 8 weeks before judging. Skip it if you're pregnant or have a thyroid condition, and check with a doctor if you take sedatives or thyroid medication.",
+  "why": "Dose honesty per LEARNINGS: states the studied range openly. No mention of our 300 mg.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting.",
+  "id": "2026-11-19_c3"
+}

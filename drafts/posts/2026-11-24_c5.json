@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: how late can I drink coffee without it ruining my sleep?",
+  "thread_summary": "Look for someone who drinks evening coffee and sleeps badly, or asks for a coffee cut-off time.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Earlier than most people think. Caffeine's half-life is around 5 hours for an average adult, so half of a 4 PM coffee is still in you at 9. In one sleep-lab study, a large dose taken even 6 hours before bed cut total sleep by more than an hour, and people didn't notice it. A good rule is no caffeine in the 8 hours before bed, and if you're a slow metaboliser, push it to lunchtime.",
+  "why": "Coffee cut-off time is a top recurring question among coffee lovers. Not used in the last 5 days (18 Nov was the wait-after-waking question).",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting."
+}

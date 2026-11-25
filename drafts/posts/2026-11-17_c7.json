@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: how much caffeine is in chai vs filter coffee?",
+  "thread_summary": "Look for someone comparing chai, filter coffee and cafe drinks, or worried about how much caffeine they have a day.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Rough numbers if it helps: a cup of Indian chai has about 30 to 50 mg of caffeine depending on how long it's boiled, a South Indian filter coffee roughly 60 to 100 mg, and a single-shot cappuccino about 60 to 75 mg. Most adults are fine up to around 400 mg a day, but for sleep the timing matters more than the total. Caffeine's half-life is around 5 hours, so the 5 PM chai is still with you at bedtime.",
+  "why": "Useful, numbers-first and very Indian, and it positions us as people who know caffeine well.",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting. If r/IndiaCoffee is quiet, the same answer works in r/bangalore or r/india threads about chai and coffee."
+}

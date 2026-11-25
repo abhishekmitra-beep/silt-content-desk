@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "developersIndia",
+  "thread_title": "Find a post from the last 3 days: sleep wrecked by late US calls or night shifts",
+  "thread_summary": "Look for devs asking how to fix their sleep with late calls, rotating shifts or a body clock that keeps moving.",
+  "product": "nights",
+  "angle": "Community help",
+  "text": "Late US calls make it hard to keep a steady wake time, and a steady wake time matters more than most people expect. If you can, fix the wake-up time even on days the call runs late, take a short nap (20 minutes, before 3 PM) instead of sleeping in, keep screens dim for the last half hour, and stop caffeine about 8 hours before you plan to sleep. Two or three weeks of a fixed wake time usually does more than any sleep hack.",
+  "why": "Late calls and broken sleep are daily pain for our audience. Practical, no-product advice earns upvotes.",
+  "thread_url": "https://www.reddit.com/r/developersIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/developersIndia sidebar before commenting."
+}

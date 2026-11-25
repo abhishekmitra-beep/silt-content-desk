@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "thread_title": "Find a post from the last 3 days: does working out late at night ruin sleep?",
+  "thread_summary": "Look for someone who can only train after office hours and is worried it hurts their sleep.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "For most people, evening workouts are fine. Reviews of the research found that exercise in the evening doesn't hurt sleep on average, and can even help. The exception is very hard training that ends less than about an hour before bed, which can leave you wired. So if 9 PM is your only slot, keep the last 20 minutes lighter, cool down properly, and leave an hour before you try to sleep. A pre-workout with caffeine at that time will hurt sleep more than the workout itself.",
+  "why": "Office workers who train late are a big part of this subreddit, and the answer is evidence-based and reassuring.",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting."
+}

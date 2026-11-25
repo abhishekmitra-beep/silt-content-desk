@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Nootropics",
+  "thread_title": "Find a post from the last 3 days: does glycine work for sleep, and how much?",
+  "thread_summary": "Look for someone asking about glycine dose, timing or whether it does anything for sleep.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "The glycine-for-sleep studies mostly used 3 g taken about an hour before bed. The effects reported were modest but fairly consistent: falling asleep a bit faster and feeling less tired the next morning. It tastes slightly sweet and dissolves easily in water. Lower doses are common in blends, so check the label if you're trying to match what the research used.",
+  "why": "Glycine at 3 g is the core of SILT Nights. An accurate, no-pitch answer builds authority where buyers research.",
+  "thread_url": "https://www.reddit.com/r/Nootropics/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Nootropics sidebar before commenting. r/Nootropics removes anything promotional. Keep it to the evidence and don't mention SILT unless someone asks."
+}

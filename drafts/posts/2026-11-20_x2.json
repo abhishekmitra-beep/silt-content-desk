@@ -1,0 +1,23 @@
+{
+  "product": "nights",
+  "angle": "Poll",
+  "format": "Poll (1 day)",
+  "trend": "Our quiz question 1 (siltnutrition.com/pages/quiz) and this week's Instagram reel 'Sleep isn't one problem, it's five'",
+  "why": "Low-effort Friday engagement that tells us which sleep problem our audience has most. Echoes the 19 Nov reel.",
+  "source": "https://siltnutrition.com/pages/quiz",
+  "text": "Quick Friday poll. What wrecks your sleep most?",
+  "poll": {
+    "options": [
+      "Falling asleep",
+      "Waking at 3 AM",
+      "Tired on waking",
+      "All of the above"
+    ],
+    "duration": "1 day",
+    "followup": "Saturday: share the result, then one tip for the winner. For 3 AM waking, cover alcohol and late caffeine. For falling asleep, a fixed wind-down and a dim last half hour. Optional, once this week: 'Not sure which SILT fits? Our 2-question quiz: siltnutrition.com/pages/quiz'."
+  },
+  "date": "2026-11-20",
+  "platform": "x",
+  "slot": 2,
+  "status": "pending"
+}

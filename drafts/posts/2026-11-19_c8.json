@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: How do I stop scrolling my phone in bed?",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "thread_summary": "Look for someone who loses sleep to late-night scrolling and wants a fix.",
+  "product": "nights",
+  "angle": "Community help",
+  "text": "What works for most people is changing the setup rather than relying on willpower. Charge the phone outside the bedroom or across the room, and get a cheap alarm clock so there's no excuse. Pick a fixed phone-down time, say 30 minutes before bed, and swap the scroll for something easy like a paper book or a shower. The first week is the hard part. After that, falling asleep tends to get quicker, partly because you stop pushing bedtime later one video at a time.",
+  "why": "Evergreen question with fresh posts daily. Pure help.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting.",
+  "id": "2026-11-19_c8"
+}

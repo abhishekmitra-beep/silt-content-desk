@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "pillar": "Adherence",
+  "thread_title": "Find a post from the last 3 days: what can I have instead of afternoon coffee?",
+  "thread_summary": "Look for someone cutting afternoon caffeine to sleep better but still wanting a pick-me-up.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "A few things work better than people expect: a 10 minute walk outside, a big glass of water, or a 15 minute nap before 3 PM. If you want a drink, green tea has much less caffeine than coffee, and decaf gives you the ritual without the late caffeine. Caffeine has a half-life of around 5 hours, so moving your last cup earlier is often the single biggest fix for evening sleep.",
+  "why": "Ties in with today's caffeine poll, and is useful on its own.",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting."
+}

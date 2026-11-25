@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: how do new D2C or health brands earn trust?",
+  "thread_summary": "Look for founders asking how to build trust or credibility for a new consumer brand, especially in health, food or wellness.",
+  "product": "brand",
+  "angle": "Founder insight",
+  "text": "From our side (we're a small supplement brand that launched last month): the thing that moved trust most was publishing everything. Every dose on the pack, no proprietary blends, and a lab report for each ingredient on the site. People do read them. One of the first questions we got on Instagram was for the exact IU of vitamin D3. It's slower and it costs more, but with ASCI finding 60 of 61 reviewed nutraceutical ads broke the code this year, being checkable is a real advantage for a new brand.",
+  "why": "Founder-to-founder subreddit where saying who we are is welcome, and the transparency story is our strongest.",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting."
+}

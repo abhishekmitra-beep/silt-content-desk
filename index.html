@@ -1,0 +1,347 @@
+<title>SILT Content Desk</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an editorial desk. Navy masthead band, day picker, then a two-lane queue (X / Reddit) of draft cards with review controls. */
+:root{
+  --bg:#F3F4F7; --surface:#FFFFFF; --sunk:#E9EBF1; --line:#D6DAE4;
+  --fg:#16203A; --muted:#5B6479; --navy:#1B2A4A; --on-navy:#F5F1E6;
+  --gold:#C99A2E; --gold-soft:#F6E9C6;
+  --ok:#2F7D5B; --ok-soft:#DDF0E6; --warn:#A8670E; --warn-soft:#FBEBD2;
+  --bad:#B23A3A; --bad-soft:#F7DEDE; --info:#3A5BA8; --info-soft:#DFE6F6;
+  --display:"Jost",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1524; --surface:#172034; --sunk:#111829; --line:#2A3550;
+  --fg:#E7EAF2; --muted:#9AA3B8; --navy:#0B1222; --on-navy:#F5F1E6;
+  --gold:#EBB858; --gold-soft:#3A3120;
+  --ok:#6CC69A; --ok-soft:#1C3329; --warn:#E8A84C; --warn-soft:#3A2B17; --bad:#EE8A8A; --bad-soft:#3B1E22; --info:#93AEEB; --info-soft:#1E2A47;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1524; --surface:#172034; --sunk:#111829; --line:#2A3550;
+  --fg:#E7EAF2; --muted:#9AA3B8; --navy:#0B1222; --on-navy:#F5F1E6;
+  --gold:#EBB858; --gold-soft:#3A3120;
+  --ok:#6CC69A; --ok-soft:#1C3329; --warn:#E8A84C; --warn-soft:#3A2B17; --bad:#EE8A8A; --bad-soft:#3B1E22; --info:#93AEEB; --info-soft:#1E2A47;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.mast{background:var(--navy);color:var(--on-navy)}
+header.mast .wrap{padding-block:22px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand .mark{font-family:var(--display);font-weight:600;letter-spacing:.32em;font-size:13px;color:var(--gold)}
+.brand h1{margin:0;font-family:var(--display);font-weight:500;font-size:28px;letter-spacing:.01em;text-wrap:balance}
+.brand p{margin:0;font-size:13px;opacity:.75}
+.daynav{display:flex;align-items:center;gap:8px}
+.daynav button{background:transparent;border:1px solid rgba(245,241,230,.35);color:var(--on-navy);border-radius:6px;height:34px;min-width:34px;font:inherit;cursor:pointer}
+.daynav button:disabled{opacity:.35;cursor:default}
+.daynav select{height:34px;border-radius:6px;border:1px solid rgba(245,241,230,.35);background:rgba(255,255,255,.06);color:var(--on-navy);font:500 14px var(--body);padding:0 10px}
+.daynav select option{color:#16203A}
+main .wrap{padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stat .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat.pending .v{color:var(--info)} .stat.approved .v{color:var(--ok)} .stat.changes .v{color:var(--warn)} .stat.rejected .v{color:var(--bad)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.tabs,.filters{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:8px;flex-wrap:wrap}
+.tabs button,.filters button{border:0;background:transparent;color:var(--muted);font:500 13px var(--body);padding:7px 12px;border-radius:6px;cursor:pointer}
+.tabs button[aria-pressed="true"],.filters button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.brief h2{margin:0;font-family:var(--display);font-weight:600;font-size:18px}
+.brief .lede{margin:0;color:var(--muted);max-width:70ch}
+.trends{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.trend{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.trend b{font-weight:600}
+.trend span{color:var(--muted);font-size:13px}
+.trend a{font-size:12px;color:var(--info);word-break:break-all}
+.lane{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;grid-template-columns:4px 1fr;overflow:hidden}
+.card .stripe{background:var(--info)}
+.card[data-status="approved"] .stripe{background:var(--ok)}
+.card[data-status="changes"] .stripe{background:var(--warn)}
+.card[data-status="rejected"] .stripe{background:var(--bad)}
+.card[data-status="posted"] .stripe{background:var(--gold)}
+.card .inner{padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.chip.slot{font-family:var(--mono);background:transparent;border:1px solid var(--line)}
+.chip.mornings{background:var(--gold-soft);color:var(--fg)}
+.chip.nights{background:var(--info-soft);color:var(--fg)}
+.chip.status{margin-left:auto}
+.chip.status.pending{background:var(--info-soft);color:var(--info)}
+.chip.status.approved{background:var(--ok-soft);color:var(--ok)}
+.chip.status.changes{background:var(--warn-soft);color:var(--warn)}
+.chip.status.rejected{background:var(--bad-soft);color:var(--bad)}
+.chip.status.posted{background:var(--gold-soft);color:var(--fg)}
+.sub{font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+.rtitle{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3;margin:0;text-wrap:balance}
+.text{white-space:pre-wrap;word-wrap:break-word;font-size:14.5px;line-height:1.6;max-width:72ch}
+.reddit .text{font-size:14px}
+.k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hook{background:var(--sunk);border-radius:6px;padding:8px 10px;font-size:13px;display:flex;flex-direction:column;gap:2px;max-width:72ch}
+.imgidea{border:1px solid var(--gold);background:var(--gold-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:13px;max-width:72ch}
+.imgidea a{color:var(--info);font-size:12.5px}
+.why{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;display:flex;flex-direction:column;gap:2px}
+.why a{color:var(--info);word-break:break-all}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.count.over{color:var(--bad);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn{font:500 13px var(--body);border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 11px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn:hover{border-color:var(--muted)}
+.btn.ok[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.btn.warn[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.btn.bad[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.btn.post[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:default}
+.spacer{flex:1}
+textarea,input.ttl{width:100%;font:14px/1.55 var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;resize:vertical}
+input.ttl{font-family:var(--display);font-weight:600;font-size:16px}
+.note{display:flex;gap:6px;align-items:flex-start}
+.note textarea{min-height:36px;font-size:13px}
+.reviewed{font-size:12px;color:var(--muted)}
+.edited{font-size:11px;color:var(--warn);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:28px 22px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.empty b{color:var(--fg);font-family:var(--display);font-size:17px;font-weight:600}
+.notice{font-size:13px;color:var(--warn)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px}
+.guide{font-size:12.5px;color:var(--muted);max-width:80ch}
+@media (max-width:560px){.brand h1{font-size:23px}.chip.status{margin-left:0}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark">S I L T</span>
+      <h1>Content Desk</h1>
+      <p>Five X posts and five Reddit posts a day, plus LinkedIn on Monday, Wednesday and Friday, drafted each morning for your review.</p>
+    </div>
+    <div class="daynav" aria-label="Choose a day">
+      <button id="prevDay" aria-label="Previous day">&#8249;</button>
+      <select id="daySel" aria-label="Day"></select>
+      <button id="nextDay" aria-label="Next day">&#8250;</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="summary" id="summary" aria-label="Review status for this day"></section>
+
+    <div class="toolbar">
+      <div class="tabs" role="group" aria-label="Platform">
+        <button id="tab-x" data-tab="x" aria-pressed="true">X posts</button>
+        <button id="tab-reddit" data-tab="reddit" aria-pressed="false">Reddit posts</button>
+        <button id="tab-linkedin" data-tab="linkedin" aria-pressed="false">LinkedIn</button>
+        <button id="tab-brief" data-tab="brief" aria-pressed="false">Today's trends</button>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by status">
+        <button id="f-all" data-f="all" aria-pressed="true">All</button>
+        <button id="f-pending" data-f="pending" aria-pressed="false">To review</button>
+        <button id="f-approved" data-f="approved" aria-pressed="false">Approved</button>
+        <button id="f-changes" data-f="changes" aria-pressed="false">Needs changes</button>
+        <button id="f-rejected" data-f="rejected" aria-pressed="false">Rejected</button>
+      </div>
+    </div>
+
+    <p class="notice" id="notice" hidden></p>
+    <section id="view" aria-live="polite"></section>
+    <p class="guide">Approve, ask for changes, or reject each draft. Edits and notes are saved for everyone on the team, and the next morning's run reads your notes and rejections to adjust the drafts. Mark a post as posted once it is live.</p>
+  </div>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const STATUS_LABEL={pending:"To review",approved:"Approved",changes:"Needs changes",rejected:"Rejected",posted:"Posted"};
+const PRODUCT_LABEL={mornings:"Mornings",nights:"Nights",both:"Mornings + Nights",brand:"Brand / founder",education:"Education"};
+const state={db:null,user:null,me:null,canWrite:true,days:[],day:null,posts:[],brief:null,tab:"x",filter:"all",editing:new Set(),names:{},unsubPosts:null,unsubBrief:null,loaded:false};
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,1800)}
+function notice(m){const n=$("#notice");n.textContent=m||"";n.hidden=!m}
+function fmtDay(d){try{return new Date(d+"T00:00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"})}catch(e){return d}}
+function xLen(t){return [...String(t||"").replace(/https?:\/\/\S+/g,"x".repeat(23))].reduce((n,c)=>{const p=c.codePointAt(0);return n+((p<=4351||(p>=8192&&p<=8205)||(p>=8208&&p<=8223)||(p>=8242&&p<=8247))?1:2)},0)}
+function current(p){return p.edited_text??p.text}
+try{const s=JSON.parse(localStorage.getItem("silt-desk")||"{}");if(s.tab)state.tab=s.tab;if(s.filter)state.filter=s.filter}catch(e){}
+function savePrefs(){try{localStorage.setItem("silt-desk",JSON.stringify({tab:state.tab,filter:state.filter}))}catch(e){}}
+
+function renderSummary(){
+  const c={pending:0,approved:0,changes:0,rejected:0,posted:0};
+  state.posts.forEach(p=>c[p.status||"pending"]=(c[p.status||"pending"]||0)+1);
+  const x=state.posts.filter(p=>p.platform==="x").length, r=state.posts.filter(p=>p.platform==="reddit").length, l=state.posts.filter(p=>p.platform==="linkedin").length;
+  $("#summary").innerHTML=`
+    <div class="stat"><span class="k">Drafts</span><span class="v">${state.posts.length}</span><span class="count">${x} X · ${r} Reddit${l?` · ${l} LinkedIn`:""}</span></div>
+    <div class="stat pending"><span class="k">To review</span><span class="v">${c.pending}</span></div>
+    <div class="stat approved"><span class="k">Approved</span><span class="v">${c.approved+c.posted}</span><span class="count">${c.posted} posted</span></div>
+    <div class="stat changes"><span class="k">Needs changes</span><span class="v">${c.changes}</span></div>
+    <div class="stat rejected"><span class="k">Rejected</span><span class="v">${c.rejected}</span></div>`;
+}
+
+function renderTabs(){
+  document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tab===state.tab)));
+  document.querySelectorAll("[data-f]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.f===state.filter)));
+  $(".filters").hidden=state.tab==="brief";
+}
+
+function card(p){
+  const st=p.status||"pending", editing=state.editing.has(p._id), isX=p.platform==="x", isLI=p.platform==="linkedin", isR=p.platform==="reddit";
+  const txt=current(p), len=xLen(txt);
+  const ro=!state.canWrite?"disabled":"";
+  const nm=p.reviewed_by&&state.names[p.reviewed_by];const reviewer=nm?` by ${esc(nm)}`:"";
+  const head=`<div class="meta">
+      <span class="chip slot">${isX?"X":isLI?"LI":"R"}${esc(p.slot)}</span>
+      ${p.product?`<span class="chip ${esc(p.product)}">${esc(PRODUCT_LABEL[p.product]||p.product)}</span>`:""}
+      ${p.angle?`<span class="chip">${esc(p.angle)}</span>`:""}
+      ${p.format?`<span class="chip">${esc(p.format)}</span>`:""}
+      ${p.edited_text!=null||p.edited_title!=null?`<span class="edited">Edited</span>`:""}
+      <span class="chip status ${st}">${STATUS_LABEL[st]}</span></div>`;
+  const body = editing
+    ? `${isR?`<input class="ttl" id="t-${p._id}" value="${esc(p.edited_title??p.title)}" aria-label="Post title">`:""}
+       <textarea id="e-${p._id}" rows="${isX?5:14}" aria-label="Post text">${esc(txt)}</textarea>
+       <div class="actions"><button class="btn" data-act="save" data-id="${p._id}">Save edit</button><button class="btn" data-act="cancel" data-id="${p._id}">Cancel</button>${p.edited_text!=null?`<button class="btn" data-act="revert" data-id="${p._id}">Restore original</button>`:""}${isX?`<span class="count" id="c-${p._id}">${len}/280</span>`:""}</div>`
+    : `${isR?`<div class="sub">r/${esc(p.subreddit)}${p.flair?` · flair: ${esc(p.flair)}`:""}</div><h3 class="rtitle">${esc(p.edited_title??p.title)}</h3>`:""}
+       ${isLI?`<div class="hook"><span class="k">Shows before “see more”</span>${esc(txt.slice(0,210))}${txt.length>210?"…":""}</div>`:""}
+       <div class="text">${esc(txt)}</div>
+       ${isX?`<span class="count ${len>280?"over":""}">${len}/280 characters${p.thread?" · first post of a thread":""}</span>`:""}
+       ${isLI?`<span class="count ${[...txt].length>3000?"over":""}">${[...txt].length}/3000 characters</span>`:""}`;
+  const img=p.image;
+  const imgBlock=img?`<div class="imgidea"><span class="k">Image to tag along</span>
+      <b>${esc(img.concept||"")}</b>
+      ${img.source?`<span><b>Use:</b> ${esc(img.source)}</span>`:""}
+      ${img.overlay?`<span><b>Text on image:</b> ${esc(img.overlay)}</span>`:""}
+      ${img.alt?`<span><b>Backup idea:</b> ${esc(img.alt)}</span>`:""}
+      ${img.link?`<a href="${esc(img.link)}" target="_blank" rel="noopener">Open asset folder</a>`:""}</div>`:"";
+  const why=`<div class="why">
+      ${p.trend?`<span><b>Hook:</b> ${esc(p.trend)}</span>`:""}
+      ${p.why?`<span><b>Why now:</b> ${esc(p.why)}</span>`:""}
+      ${p.competitor?`<span><b>Competitor angle:</b> ${esc(p.competitor)}</span>`:""}
+      ${isR&&p.rules?`<span><b>Sub rules:</b> ${esc(p.rules)}</span>`:""}
+      ${p.source?`<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>`:""}
+    </div>`;
+  const postUrl=isX?`https://x.com/intent/post?text=${encodeURIComponent(txt)}`:isLI?`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(txt)}`:`https://www.reddit.com/r/${encodeURIComponent(p.subreddit||"")}/submit`;
+  const acts=`<div class="actions">
+      <button class="btn ok" data-act="status" data-s="approved" data-id="${p._id}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+      <button class="btn warn" data-act="status" data-s="changes" data-id="${p._id}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+      <button class="btn bad" data-act="status" data-s="rejected" data-id="${p._id}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>
+      <button class="btn post" data-act="status" data-s="posted" data-id="${p._id}" aria-pressed="${st==="posted"}" ${ro}>Posted</button>
+      <span class="spacer"></span>
+      ${!editing?`<button class="btn" data-act="edit" data-id="${p._id}" ${ro}>Edit</button>`:""}
+      ${isR?`<button class="btn" data-act="copytitle" data-id="${p._id}">Copy title</button>`:""}
+      <button class="btn" data-act="copy" data-id="${p._id}">Copy ${isR?"body":"post"}</button>
+      <a class="btn" href="${postUrl}" target="_blank" rel="noopener">${isX?"Open in X":isLI?"Open in LinkedIn":"Open subreddit"}</a>
+    </div>
+    <div class="note"><textarea id="n-${p._id}" rows="1" placeholder="Note for tomorrow's run, e.g. too salesy, use a Bengaluru example" aria-label="Review note" ${ro}>${esc(p.note||"")}</textarea><button class="btn" data-act="note" data-id="${p._id}" ${ro}>Save note</button></div>
+    ${p.reviewed_at?`<span class="reviewed">${STATUS_LABEL[st]}${reviewer} · ${new Date(p.reviewed_at).toLocaleString()}</span>`:""}`;
+  return `<article class="card ${p.platform}" data-status="${st}"><div class="stripe"></div><div class="inner">${head}${body}${imgBlock}${why}${acts}</div></article>`;
+}
+
+function renderBrief(){
+  const b=state.brief;
+  if(!b){return `<div class="empty"><b>No trend brief for this day yet</b><span>The morning run writes a short list of what is moving on X and Reddit, with links, before drafting the posts.</span></div>`}
+  return `<div class="brief"><h2>What's moving today</h2>${b.summary?`<p class="lede">${esc(b.summary)}</p>`:""}
+    <div class="trends">${(b.trends||[]).map(t=>`<div class="trend"><b>${esc(t.topic)}</b><span>${esc(t.angle||"")}</span>${t.platform?`<span class="chip" style="align-self:flex-start">${esc(t.platform)}</span>`:""}${t.source?`<a href="${esc(t.source)}" target="_blank" rel="noopener">${esc(t.source)}</a>`:""}</div>`).join("")}</div>
+    ${b.instagram?`<p class="lede"><b>From our Instagram:</b> ${esc(b.instagram)}</p>`:""}
+    ${b.competitors?`<p class="lede"><b>What other brands are doing:</b> ${esc(b.competitors)}</p>`:""}
+    ${(b.linkedin_competitors||[]).length?`<h2>Competitor watch on LinkedIn</h2><div class="trends">${b.linkedin_competitors.map(c=>`<div class="trend"><b>${esc(c.brand)}</b><span>${esc(c.what||"")}</span>${c.takeaway?`<span><b>For us:</b> ${esc(c.takeaway)}</span>`:""}${c.source?`<a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.source)}</a>`:""}</div>`).join("")}</div>`:""}</div>`;
+}
+
+function render(){
+  renderTabs();renderSummary();
+  const v=$("#view");
+  if(!state.loaded){v.innerHTML=`<div class="empty"><b>Loading drafts…</b><span>Fetching this day's posts.</span></div>`;return}
+  if(state.tab==="brief"){v.innerHTML=renderBrief();return}
+  if(!state.day){v.innerHTML=`<div class="empty"><b>No drafts yet</b><span>Each morning the content run adds 5 X posts and 5 Reddit posts here, with the trend each one rides on. Check back after the next run.</span></div>`;return}
+  let list=state.posts.filter(p=>p.platform===state.tab).sort((a,b)=>(a.slot||0)-(b.slot||0));
+  if(state.filter!=="all")list=list.filter(p=>(p.status||"pending")===state.filter||(state.filter==="approved"&&p.status==="posted"));
+  const liDay=[1,3,5].includes(new Date(state.day+"T00:00:00").getDay());
+  const name={x:"X",reddit:"Reddit",linkedin:"LinkedIn"}[state.tab];
+  v.innerHTML=list.length?`<div class="lane">${list.map(card).join("")}</div>`
+    :(state.tab==="linkedin"&&!liDay&&state.filter==="all")?`<div class="empty"><b>No LinkedIn post on ${fmtDay(state.day)}</b><span>LinkedIn posts go out on Monday, Wednesday and Friday.</span></div>`
+    :`<div class="empty"><b>Nothing here</b><span>No ${name} drafts match this filter for ${fmtDay(state.day)}.</span></div>`;
+}
+
+function renderDays(){
+  const sel=$("#daySel");
+  sel.innerHTML=state.days.length?state.days.map(d=>`<option value="${d}" ${d===state.day?"selected":""}>${fmtDay(d)}</option>`).join(""):`<option>No days yet</option>`;
+  const i=state.days.indexOf(state.day);
+  $("#prevDay").disabled=i<0||i>=state.days.length-1;
+  $("#nextDay").disabled=i<=0;
+}
+
+function selectDay(d){
+  if(!state.db)return;
+  state.day=d;state.editing.clear();renderDays();
+  state.unsubPosts&&state.unsubPosts();state.unsubBrief&&state.unsubBrief();
+  if(!d){state.posts=[];state.brief=null;render();return}
+  state.unsubPosts=state.db.collection("posts").where("date","==",d).onSnapshot(snap=>{
+    state.posts=snap.docs.map(s=>({...s.data(),_id:s.id}));render();resolveNames();
+  },e=>notice("Couldn't load this day's drafts ("+e.code+"). Reload the page to try again."));
+  state.unsubBrief=state.db.doc("briefs/"+d).onSnapshot(s=>{state.brief=s.exists?s.data():null;if(state.tab==="brief")render()},()=>{});
+}
+
+async function write(id,patch){
+  if(!state.db)return;
+  try{await state.db.doc("posts/"+id).update(patch);return true}
+  catch(e){
+    if(e.code==="invalid_argument"&&!(e.message||"").includes("exist")){state.canWrite=false;notice("You can read the drafts but not change them. Ask the owner for Contributor access.");render()}
+    else notice("Couldn't save ("+e.code+"). Try again in a moment.");
+    return false}
+}
+function reviewStamp(){return {reviewed_at:new Date().toISOString(),reviewed_by:state.me||null}}
+async function resolveNames(){
+  if(!state.userCap)return;const ids=[...new Set(state.posts.map(p=>p.reviewed_by).filter(Boolean))];if(!ids.length)return;
+  try{const ps=await state.userCap.profiles(ids);let changed=false;ids.forEach(i=>{const n=ps?.[i]?.name||"";if(n&&state.names[i]!==n){state.names[i]=n;changed=true}});if(changed)render()}catch(e){}
+}
+
+async function copy(t){try{await navigator.clipboard.writeText(t);toast("Copied")}catch(e){toast("Copy blocked here. Select the text and copy it.")}}
+
+document.addEventListener("click",async ev=>{
+  const tb=ev.target.closest("[data-tab]");if(tb){state.tab=tb.dataset.tab;savePrefs();render();return}
+  const fb=ev.target.closest("[data-f]");if(fb){state.filter=fb.dataset.f;savePrefs();render();return}
+  const b=ev.target.closest("[data-act]");if(!b)return;
+  const id=b.dataset.id,p=state.posts.find(x=>x._id===id);if(!p)return;
+  const act=b.dataset.act;
+  if(act==="copy")return copy(current(p));
+  if(act==="copytitle")return copy(p.edited_title??p.title);
+  if(act==="edit"){state.editing.add(id);render();document.getElementById("e-"+id)?.focus();return}
+  if(act==="cancel"){state.editing.delete(id);render();return}
+  if(act==="status"){const s=p.status===b.dataset.s?"pending":b.dataset.s;b.disabled=true;if(await write(id,{status:s,...reviewStamp()}))toast(STATUS_LABEL[s]);return}
+  if(act==="note"){const n=document.getElementById("n-"+id).value.trim();if(n===(p.note||""))return;if(await write(id,{note:n,...reviewStamp(),status:p.status==="pending"||!p.status?"changes":p.status}))toast("Note saved");return}
+  if(act==="revert"){if(await write(id,{edited_text:null,edited_title:null})){state.editing.delete(id);toast("Original restored")}return}
+  if(act==="save"){
+    const t=document.getElementById("e-"+id).value;const ti=document.getElementById("t-"+id);
+    const patch={edited_text:t===p.text?null:t,...reviewStamp()};
+    if(ti)patch.edited_title=ti.value===p.title?null:ti.value;
+    if(await write(id,patch)){state.editing.delete(id);toast("Edit saved")}
+  }
+});
+document.addEventListener("input",ev=>{
+  if(ev.target.id?.startsWith("e-")){const c=document.getElementById("c-"+ev.target.id.slice(2));if(c){const n=xLen(ev.target.value);c.textContent=n+"/280";c.classList.toggle("over",n>280)}}
+});
+$("#daySel").addEventListener("change",e=>selectDay(e.target.value));
+$("#prevDay").addEventListener("click",()=>{const i=state.days.indexOf(state.day);if(i<state.days.length-1)selectDay(state.days[i+1])});
+$("#nextDay").addEventListener("click",()=>{const i=state.days.indexOf(state.day);if(i>0)selectDay(state.days[i-1])});
+
+render();renderDays();
+
+(async()=>{
+  const timer=setTimeout(()=>{if(!state.loaded){notice("The drafts can't be reached yet. Check your connection; this page keeps trying.")}},10000);
+  const db=await window.claude?.use?.("db");
+  if(!db){clearTimeout(timer);state.loaded=true;notice("Sign in to claude.ai to see and review the drafts.");render();return}
+  state.db=db;
+  try{const u=await window.claude.use("user");if(u){state.userCap=u;state.me=await u.id();const w=await u.can?.("data.write");if(w===false)state.canWrite=false}}catch(e){}
+  db.collection("briefs").onSnapshot(snap=>{
+    clearTimeout(timer);notice("");
+    const days=new Set(snap.docs.map(d=>d.id));
+    state.days=[...days].sort().reverse();
+    state.loaded=true;
+    if(!state.day||!days.has(state.day))selectDay(state.days[0]||null);else renderDays();
+    render();
+  },e=>{clearTimeout(timer);state.loaded=true;notice("Couldn't load the desk ("+e.code+").");render()});
+})();
+</script>

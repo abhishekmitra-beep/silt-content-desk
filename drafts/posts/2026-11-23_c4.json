@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "thread_title": "Find a post from the last 3 days: does green tea actually help with fat loss?",
+  "thread_summary": "Look for someone drinking green tea for weight loss and asking if it works.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "The effect is small. Studies on green tea extract found weight loss of around a kilo over a few months, and most of that comes from the caffeine. A few cups a day won't move the scale much on their own. It's a nice swap if it replaces sugary chai or soft drinks, and that swap is where most of the benefit comes from. For fat loss, calories, protein and sleep still do the heavy lifting.",
+  "why": "A very common question in Indian fitness circles. An honest, number-led answer earns upvotes.",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting."
+}

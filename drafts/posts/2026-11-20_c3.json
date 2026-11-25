@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "sleep",
+  "thread_title": "Find a post from the last 3 days: does a drink before bed actually help sleep?",
+  "thread_summary": "Look for someone who uses a drink or two to fall asleep, or who wakes at 3 AM after drinking.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "It helps you fall asleep, which is why it feels like it works. The catch comes later: as your body clears the alcohol, the second half of the night gets lighter, with less REM and more waking. That's often where the 3 AM wake-ups come from. If you want to test it, take two weeks with no drinks within 3 hours of bed and see whether the early wake-ups change. If they don't, it's worth talking to a doctor.",
+  "why": "A very common question on r/sleep. An honest answer with a self-test is how we earn credibility there.",
+  "thread_url": "https://www.reddit.com/r/sleep/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/sleep sidebar before commenting. r/sleep is strict about promotion. Never mention SILT here unless someone asks directly."
+}

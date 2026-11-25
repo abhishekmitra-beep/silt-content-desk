@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "GetMotivated",
+  "thread_title": "Find a post from the last 3 days: How do you stay consistent with health habits after the first two weeks?",
+  "thread_url": "https://www.reddit.com/r/GetMotivated/new/",
+  "thread_summary": "Look for someone who started strong on sleep, diet or exercise and is now slipping.",
+  "product": "both",
+  "angle": "Community help",
+  "text": "What works for many people is making the habit nearly effortless and tying it to something fixed. Same time, same place, same cue. Track it with a simple tick on a calendar and aim never to miss twice in a row. A miss is normal, and a second miss is how a habit ends. Week three is usually the dip, so plan for it.",
+  "why": "Consistency is what a daily ritual product depends on. Zero pitch.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/GetMotivated sidebar before commenting.",
+  "id": "2026-11-18_c6"
+}

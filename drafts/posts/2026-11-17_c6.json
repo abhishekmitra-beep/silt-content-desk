@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-17",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: coffee gives me jitters and then a crash",
+  "thread_summary": "Look for someone asking how to get focus from caffeine without jitters, anxiety or a crash.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Spacing helps most: a smaller cup earlier instead of one big one, and nothing after early afternoon. L-theanine is also worth reading about. It's an amino acid found in tea, and several studies pairing about 200 mg of it with 50 to 100 mg of caffeine reported smoother focus and fewer jitters than caffeine alone. The evidence is mixed, though: a 2026 crossover trial found no extra benefit. A cup of tea gives you a bit of both, which is a cheap way to see how you respond.",
+  "why": "Caffeine plus L-theanine is exactly what SILT Mornings uses, so an honest answer that includes the mixed evidence builds trust.",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting."
+}

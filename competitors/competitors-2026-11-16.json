@@ -1,0 +1,482 @@
+{
+  "summary": "Indian wellness is getting crowded fast, and most of the money is corporate: HUL owns OZiva, Unilever Ventures backs Supply6, Marico owns 60% of Cosmix and USV owns 79% of Wellbeing Nutrition. Three brands now sell something close to SILT Nights: Supply6 Mellow (launched 18 Oct, Rs 45 a serving), Setu Sleep + Recovery (about Rs 50 to 60) and The Upside's glycine chewables (about Rs 27). On price per serving SILT is not the cheapest and cannot win there. What no one else offers is the full combination: a morning and a night drink mix, every dose printed, no melatonin, no added sugar, no maltodextrin, and a named lab report for every ingredient. Of the ten brands checked, only The Whole Truth publishes lab reports, and only for protein. That combination, explained in plain Indian context, is the positioning to own.",
+  "lens": [
+    "Indian buyers compare price per day. Effervescent tablets sit at Rs 10 to 20 and Cosmix powders at Rs 12, so Rs 60 has to be argued on dose and on what one stick replaces (caffeine + theanine, PHGG fibre, probiotics and daily vitamins in Mornings), never on price alone.",
+    "Quick commerce is where the shelf is being won. Supply6 says it grew 6x on Zepto in five months, Wellbeing's Melts grew about 140% on quick commerce, and HealthKart said quick commerce was nearly half its e-commerce sales. SILT sells only on its own site today.",
+    "Regulators are watching claims closely. ASCI found 60 of 61 nutraceutical ads it reviewed broke the code (Fast&Up was named), and its key point was that research on one ingredient cannot prove a finished product works. Write 'the dose studied in X' and never 'SILT improves sleep'.",
+    "Most rivals sell through celebrities: Kriti Sanon (Supply6), Sania Mirza and Bharti Singh (OZiva), Sharvari and Malavika Mohanan (Wellbeing). SILT can't outspend them, so the brand has to win on proof, founder credibility and community.",
+    "Melatonin is still the default in Indian sleep products (Fast&Up, Wellbeing Melts, OZiva). Melatonin-free alone no longer sets SILT apart, because Supply6 Mellow, Setu and The Upside are melatonin-free too. Full doses plus lab reports do."
+  ],
+  "market": [
+    {
+      "fact": "Indian nutraceuticals: about $37 to 38B in 2026, heading to $55 to 57B by 2030 (about 10.5% a year)",
+      "so_what": "Plenty of room, which is why the big FMCG companies are buying in.",
+      "source": "https://www.medboundtimes.com/india/nutraceutical-market-india-growth-2030-55-57-billion-health-report"
+    },
+    {
+      "fact": "Dietary supplements in India reach about Rs 19,439 cr in 2026, up 11% (Euromonitor)",
+      "so_what": "Estimates vary a lot by definition. Quote the source whenever you use a number.",
+      "source": "https://www.euromonitor.com/dietary-supplements-in-india/report"
+    },
+    {
+      "fact": "ASCI 'A Pill for Thought' (28 Oct 2026): 60 of 61 nutraceutical ads broke the code, across 32 brands",
+      "so_what": "Fast&Up is among the brands named. Clean, checkable claims are a real advantage now.",
+      "source": "https://www.mxmindia.com/advertising/asci-report-flags-evidence-gaps-in-nutraceutical-advertising-claims"
+    },
+    {
+      "fact": "Quick commerce: HealthKart said it was nearly half its e-commerce sales (Oct 2025)",
+      "so_what": "No category-wide figure exists, but every funded rival is on Blinkit and Zepto.",
+      "source": "https://www.nutraingredients.com/Article/2025/10/08/nutra-businesses-ride-on-indias-q-commerce-boom/"
+    },
+    {
+      "fact": "FSSAI health supplement rules reportedly cap caffeine at 200 mg a dose and 300 mg a day, for adults only",
+      "so_what": "At 80 mg, SILT Mornings sits well inside. This is from a secondary source, so check the Gazette before quoting it.",
+      "source": "https://regulyze.in/ingredients/caffeine/"
+    },
+    {
+      "fact": "Consolidation in 2026: HUL bought the rest of OZiva (Rs 824 cr), USV bought 79% of Wellbeing (Rs 1,583 cr valuation), Marico bought 60% of Cosmix (Rs 225.67 cr)",
+      "so_what": "Expect bigger ad budgets and wider distribution from these rivals within a year.",
+      "source": "https://inc42.com/buzz/hul-completes-acquisition-of-remaining-49-stake-in-oziva-for-%E2%82%B9824-cr/"
+    }
+  ],
+  "brands": [
+    {
+      "name": "Supply6",
+      "origin": "India, Bengaluru",
+      "owner": "Founder-led, Unilever Ventures-backed",
+      "closest": "Mellow night drink mix (launched 18 Oct 2026)",
+      "price": "45",
+      "transparency_short": "Doses listed, no COAs (badges only)",
+      "channels_short": "Own site, Amazon, Blinkit, Zepto",
+      "threat_level": "high",
+      "about": "Founded 2019 to 2020 by Vaibhav Bhandari and Rahul Jacob. Raised Rs 48 cr led by Unilever Ventures in July 2026, after a $1.1M seed (Sep 2025). Kriti Sanon is an investor and the brand face. It claims a Rs 75 cr run-rate, but filings for FY25 range from Rs 11 to 36 cr, so treat the size as unclear.",
+      "overlap": "Mellow is the closest product to SILT Nights in India. Per sachet: 1,250 mg glycine, 200 mg magnesium, 200 mg L-theanine, 150 mg KSM-66 ashwagandha, plus chamomile, black cherry, B6 and D3, with stevia and monk fruit, and no melatonin. Also Fibre+ (Sunfiber PHGG), 360 (greens, probiotics, vitamins) and Salts (electrolytes).",
+      "price_detail": "Mellow Rs 680 for 15 (Rs 45) or Rs 2,200 for 60 (Rs 37). Fibre+ Rs 535 for 15 (Rs 36). Salts Rs 530 for 18 (Rs 29). 360 Rs 1,080 for 15 (Rs 72). Own-site prices on 16 Nov.",
+      "positioning": "Foundational nutrition for everyday Indians. Calm, ritual-led copy for Mellow: 'sip 45 minutes before bed', 'not a sedative'.",
+      "transparency": "Mellow's doses are listed, but quality is claimed through badges ('Clinically Backed', 'batch testing') with no named lab and no published COAs. The magnesium form is described differently on the site and on Amazon.",
+      "channels": "Own site, Amazon, Blinkit and Zepto (claims 6x growth on Zepto in five months). A Kriti Sanon x Supply6 x Blinkit product launch.",
+      "content": "Celebrity-led through Kriti Sanon. The founder posts on LinkedIn. Meta video ads reportedly feature AB de Villiers (single source).",
+      "complaints": "Aftertaste in Salts, short-filled packs, a slow refund, and 'no noticeable change' on 360 (Trustpilot, Amazon mirrors).",
+      "borrow": "Night-ritual language and 15, 30 and 60-pack price ladders that bring the per-serving cost down.",
+      "beat": "SILT Nights has more than double the glycine (3 g vs 1.25 g) and double the KSM-66 (300 mg vs 150 mg), plus a named lab report for every ingredient. SILT also covers the morning, and Supply6 has no caffeine + theanine drink.",
+      "threat": "About Rs 15 cheaper a night, already on quick commerce, a celebrity face and Unilever money. The most direct threat.",
+      "sources": [
+        "https://supplysix.com/pages/mellow-preview",
+        "https://inc42.com/buzz/supply6-nets-%e2%82%b948-cr-to-expand-product-portfolio-enter-new-markets/",
+        "https://inc42.com/buzz/kriti-sanon-invests-in-d2c-supplement-brand-supply6/",
+        "https://www.trustpilot.com/review/supplysix.com"
+      ]
+    },
+    {
+      "name": "The Upside",
+      "origin": "India, Bengaluru",
+      "owner": "Founder-led (Anusha Bhushan), no funding found",
+      "closest": "Clear Days (morning) and Sleep Repair / 3AM Rescue (night)",
+      "price": "≈27",
+      "transparency_short": "'Clinically dosed', some doses, no COAs",
+      "channels_short": "Own site only",
+      "threat_level": "high",
+      "about": "Launched around 20 to 23 Aug 2026 by Anusha Bhushan (LSE, IIM Calcutta, earlier founded Smoodies). No funding or revenue found.",
+      "overlap": "A morning-and-night pair for the same stressed professional, as monk-fruit chewables. Clear Days (KSM-66, sustained-release L-theanine, saffron, magnesium, B6) 'works alongside your morning coffee'. Sleep Repair has 3 g glycine. 3AM Rescue has 3 g glycine, 200 mg passionflower and L-theanine. All sugar-free and melatonin-free.",
+      "price_detail": "3AM Rescue Rs 799 for 30 servings (Rs 26.6). Sleep Repair Rs 599 and Clear Days Rs 799, pack sizes not confirmed.",
+      "positioning": "'Mechanism-first, non-sedative, clinically dosed', with need-state names (3AM Rescue) and a science blog called Upstream.",
+      "transparency": "Shows Lab Tested, No Sugar and Non-GMO badges with no reports or named labs. One page lists the L-theanine dose as both 100 mg and 150 mg.",
+      "channels": "Own site only (GoKwik checkout).",
+      "content": "Founder-led LinkedIn around launch, Instagram @theupside.in, YouTube, and the Upstream blog.",
+      "complaints": "None found yet. The brand is very new.",
+      "borrow": "Need-state product naming people remember ('3AM Rescue') and its simple 'why chewable' explainer.",
+      "beat": "SILT's drink mix carries more in one serving (gut, fibre, vitamins in the morning, plus magnesium and ashwagandha at night), with every dose printed and a lab report per ingredient.",
+      "threat": "The closest positioning to SILT of any brand, at less than half the price per serving and with an articulate founder. Watch its next launches.",
+      "sources": [
+        "https://theupside.in",
+        "https://www.linkedin.com/in/anushabhushan/"
+      ]
+    },
+    {
+      "name": "Setu",
+      "origin": "India",
+      "owner": "Pure Nutrition",
+      "closest": "Sleep + Recovery stick packs (lemon mint)",
+      "price": "50 to 60",
+      "transparency_short": "Doses from secondary pages only",
+      "channels_short": "Own site, Nykaa, HealthKart",
+      "threat_level": "high",
+      "about": "A premium 'clean' supplement brand sold widely on Nykaa and HealthKart.",
+      "overlap": "Sleep + Recovery stick packs, reportedly with a triple magnesium complex (300 mg), 3 g glycine and 200 mg L-theanine. That is close to SILT Nights' formula and the same format.",
+      "price_detail": "Rs 900 for 15 on Nykaa (Rs 60), the same as SILT. Setu's own site shows Rs 1,494, probably for 30 (about Rs 50). The own site showed everything sold out on 16 Nov.",
+      "positioning": "Premium, clean, modern supplements.",
+      "transparency": "Doses come from secondary listings and need checking against the pack.",
+      "channels": "Own site, Nykaa, HealthKart.",
+      "content": "Not researched in depth.",
+      "complaints": "Not researched in depth.",
+      "borrow": "Being on Nykaa and HealthKart gets the product in front of people searching for sleep.",
+      "beat": "SILT Nights adds 300 mg KSM-66 ashwagandha, gives a lab report per ingredient, and pairs with a morning product.",
+      "threat": "Same format, same price and wider distribution. Check its label before any comparison content.",
+      "sources": [
+        "https://www.nykaaman.com/setu-sleep-recovery-with-triple-magnesium-complex-lemon-mint/p/29131192",
+        "https://www.setu.in/"
+      ]
+    },
+    {
+      "name": "Fast&Up",
+      "origin": "India",
+      "owner": "Fullife Healthcare (Varun Khanna)",
+      "closest": "Effervescents: Magnesio, Triple Magnesium for Sleep, Melatonin + L-theanine, Rest (KSM-66), Charge, Reload",
+      "price": "10 to 19",
+      "transparency_short": "Informed Sport claims, 'permitted sweetener' labels, named in ASCI report",
+      "channels_short": "Everywhere: own site, Amazon, Flipkart, Zepto, pharmacies, 40+ countries",
+      "threat_level": "medium",
+      "about": "Raised Rs 300 cr Series D led by Elev8 on 25 Mar 2026 (over $72M raised in total). Revenue was Rs 187.6 cr in FY24 and about Rs 256 cr in FY25, with a Rs 13.4 cr loss. The new money is going into digestive health and sleep, and it targets Rs 1,000 cr in five years.",
+      "overlap": "Almost all effervescent tablets. Sleep: Melatonin 5 or 10 mg + L-theanine, and Advanced Triple Magnesium. Magnesio (magnesium + zinc). Rest (KSM-66 + brahmi). Reload Probiotics (2 bn B. clausii). Daily Fiber (isabgol). Charge (vitamin C). Caffeine energy tablets are currently sold out.",
+      "price_detail": "Reload Rs 265 for 20 (Rs 13.25), or Rs 9.94 in a 4-pack. Charge Rs 379 for 20 (Rs 19). Magnesio Rs 365 for 20 (Rs 18), seen as low as Rs 7 on sale. Melatonin Rs 340 for 20 (Rs 17). Daily Fiber Rs 899 for 14 (Rs 64).",
+      "positioning": "Sport and active living, claiming to be India's number one effervescent hydration brand. The site also runs a 'Lose 4 Kilos In 40 Days' claim.",
+      "transparency": "Claims Informed Sport and Informed Choice on flagship products. Reload uses sucralose plus maltodextrin and fructose. Named among the brands that breached the code in ASCI's 28 Oct 2026 report.",
+      "channels": "The widest distribution of any brand checked: own site and app, Amazon, Flipkart, Zepto, 1mg, PharmEasy, Apollo, BigBasket, Nykaa, and over 40 countries.",
+      "content": "Athletes and sports: an Asian Games 2026 'Fuel Forward' campaign, nutrition partner to Odisha FC for ISL 2026-27. Creator posts with discount codes. Little founder presence.",
+      "complaints": "Sucralose aftertaste, tablets slow to dissolve, too fizzy, 'no effect' on Rest. Fakespot flags many altered reviews on one Reload listing. The app is rated 2.7.",
+      "borrow": "Third-party certification as a visible trust badge, and simple one-goal product names.",
+      "beat": "For desk workers, not athletes. A night drink with no melatonin at full doses. PHGG + 6 bn probiotics against isabgol or 2 bn B. clausii. No maltodextrin, no added sugar, and a lab report per ingredient.",
+      "threat": "At Rs 10 to 19 a tablet, SILT can look 3 to 6x pricier. It has huge shelf presence and fresh funding aimed straight at sleep and gut. Expect it on SILT's turf within about a year.",
+      "sources": [
+        "https://entrackr.com/news/fastup-parent-fullife-healthcare-raises-rs-300-cr-led-by-elev8-11261510",
+        "https://www.medianama.com/2026/10/223-asci-flags-60-misleading-nutraceutical-ads/",
+        "https://pharmeasy.in/health-care/products/fast-and-up-magnesio-effervescent-tablet-20-3040174",
+        "https://www.zepto.com/pn/fastup-reload-energy-drink-low-sugar-electrolyte-lime-lemon-flavour/pvid/ea62fbf8-dc72-4655-97a8-1f891789341d"
+      ]
+    },
+    {
+      "name": "Wellbeing Nutrition",
+      "origin": "India, Mumbai",
+      "owner": "USV (79%), founder Avnish Chhabria (21%)",
+      "closest": "Hydrasalt, Restful Sleep Melts, Liposomal Magnesium Glycinate, Daily Greens effervescent",
+      "price": "15 to 53",
+      "transparency_short": "'Third-party tested', no public COAs",
+      "channels_short": "Own site, Blinkit, Zepto, Apollo, airports, Nykaa",
+      "threat_level": "medium",
+      "about": "USV (a pharma company) bought 79% in Feb 2026 at a Rs 1,583 cr valuation, and HUL and Fireside exited. Revenue was Rs 118.5 cr in FY25 filings (it claimed Rs 170 cr) and about Rs 244 to 260 cr in FY26. About 60% of own-site revenue comes from repeat buyers.",
+      "overlap": "Restful Sleep Melts (10 mg melatonin, with only 30 mg L-theanine and 10 mg ashwagandha), Calm Melts, Liposomal Magnesium Glycinate (210 mg elemental), Daily Fiber, Probiotic effervescent, Daily Greens effervescent multivitamin, and Hydrasalt electrolytes.",
+      "price_detail": "Hydrasalt Rs 799 for 15 (Rs 53). Restful Sleep Melts Rs 649 for 30 (Rs 22). Magnesium Rs 899 for 60 capsules. Daily Greens Rs 590 for 15 (Rs 39).",
+      "positioning": "New formats (oral strips, slow-release, liposomal, effervescent) and 'expensive by design'.",
+      "transparency": "Claims third-party testing, but publishes no COAs. On 21 Oct 2026 a US law firm opened an investigation into the '100% bioavailable' claim for Melts. No lawsuit has been filed.",
+      "channels": "Own site, Blinkit and Zepto (Melts grew about 140% on quick commerce in FY26), Apollo pharmacies, WH Smith airport stores, cafés, Nykaa, 1mg, and exports. About 45% of sales come from Tier II and III cities.",
+      "content": "Celebrity ambassadors (Sharvari, Malavika Mohanan), a humour campaign 'A Hard Pill to Swallow' (Jul 2026), a BloodView blood-marker tool (Sep 2026), and marathon and pickleball events.",
+      "complaints": "Strip aftertaste, and doubt about whether the strips work at such small doses.",
+      "borrow": "Sampling at running and pickleball events, and the Tier II and III reach.",
+      "beat": "Full doses against small doses in strips, a melatonin-free night product, and named lab reports.",
+      "threat": "Pharma backing, distribution through pharmacies and airports, and Hydrasalt at Rs 53, close to SILT's price.",
+      "sources": [
+        "https://yourstory.com/2026/02/usv-buys-79-stake-in-wellbeing-nutrition",
+        "https://classlawdc.com/2026/10/21/wellbeing-nutrition-melts-investigation/",
+        "https://csc.1mg.com/otc/wellbeing-nutrition-melts-into-a-restful-sleep-melatonin-10mg-oral-thin-strip-calming-chamomile-lavender-otc865862",
+        "https://wellbeingnutrition.com/products/daily-greens-3"
+      ]
+    },
+    {
+      "name": "OZiva",
+      "origin": "India, Mumbai",
+      "owner": "Hindustan Unilever (100%)",
+      "closest": "Magnesium Triple Complex, Magnesium Melatonin, Gut-Fit, fibre sachets",
+      "price": "12 to 73",
+      "transparency_short": "Doses often missing, 2021 Clean Label cert",
+      "channels_short": "Own site, Amazon, Nykaa, 1mg, Apollo, BigBasket",
+      "threat_level": "medium",
+      "about": "HUL bought the remaining 49% in Feb 2026 for Rs 824 cr. Revenue was Rs 258 cr in FY25 and Rs 463 cr in FY26, with a Rs 18.5 cr loss and Rs 246 cr spent on advertising.",
+      "overlap": "Magnesium Triple Complex, Magnesium Melatonin (5 mg melatonin with only 16.5 mg magnesium a tablet), Mela Mag+, Gut-Fit sachets and effervescents, a fibre sachet, and ACV effervescents.",
+      "price_detail": "Magnesium Triple Complex Rs 999 for 60 (Rs 16.7). Daily Fat Metabolism Rs 2,189 for 30 sachets (Rs 73). Gut-Fit Rs 999 for 30 days (Rs 33). Magnesium Melatonin about Rs 749 for 60 (Rs 12.5, from a reseller).",
+      "positioning": "Clean, plant-based nutrition aimed at women.",
+      "transparency": "Product pages often leave out doses, and there are no COAs. The Clean Label Project certification dates from 2021. It makes risky claims such as 'Natural GLP-1 Support' and 'No side effects*' with no footnote.",
+      "channels": "Own site, Amazon, Nykaa, Tira, 1mg, Apollo and BigBasket. Quick commerce not confirmed.",
+      "content": "Heavy celebrity use: Sania Mirza (Nov 2026), Bharti Singh (Mar 2026), the #MaaKaKhana campaign, and about 250 female influencers.",
+      "complaints": "Trustpilot 2.5, citing stomach upset, chalky texture and helpline problems (mostly older reviews).",
+      "borrow": "Campaigns that use real testers.",
+      "beat": "Dose honesty: 250 mg magnesium in SILT Nights against 16.5 mg in OZiva's magnesium-melatonin tablet.",
+      "threat": "HUL's scale and an ad budget of Rs 246 cr a year. It could launch a drink mix at any time.",
+      "sources": [
+        "https://inc42.com/buzz/hul-completes-acquisition-of-remaining-49-stake-in-oziva-for-%E2%82%B9824-cr/",
+        "https://pulse.d2cinsider.com/oziva-revenue-jumps-80-to-%E2%82%B9463-cr-in-fy26-as-hul-takes-full-ownership/",
+        "https://www.1mg.com/otc/oziva-magnesium-melatonin-vegetarian-tablet-60-each-otc1111941",
+        "https://mediabrief.com/oziva-collaborates-with-sania-mirza/"
+      ]
+    },
+    {
+      "name": "Cosmix",
+      "origin": "India, Bengaluru",
+      "owner": "Marico (60%), founders run it",
+      "closest": "Sleep Like A Baby, Bring Me Bliss, My Happy Gut powders",
+      "price": "12 to 31",
+      "transparency_short": "Ingredients listed, no doses",
+      "channels_short": "Own site (60%), Amazon, marketplaces",
+      "threat_level": "medium",
+      "about": "Marico bought 60% for Rs 225.67 cr (Feb 2026), valuing it at Rs 375 cr. Revenue was Rs 50.9 cr in FY25, with about Rs 100 cr annualised and profitable. Founders Vibha Harish and Soorya Jagadish.",
+      "overlap": "Herbal powder blends: Sleep Like A Baby (chamomile, jatamansi, schisandra), Bring Me Bliss (ashwagandha, brahmi, rhodiola), My Happy Gut, Hydration Mix (Oct 2026), and a multivitamin.",
+      "price_detail": "Sleep Like A Baby Rs 605 for 50 (Rs 12). Bring Me Bliss Rs 592 for 50 (Rs 12). My Happy Gut Rs 625 for 40 (Rs 16). Hydration Mix Rs 499 for 16 (Rs 31).",
+      "positioning": "'Root-cause, no BS' herbal wellness, no sugar, monk fruit.",
+      "transparency": "Lists ingredients but no doses, so it is effectively a blend. The sleep product's copy mentions ashwagandha but its ingredient list doesn't. Claims 'Third Party Tested' and 'USFDA Certified' with no reports.",
+      "channels": "About 60% from its own site, the rest from Amazon and marketplaces. Marico points to quick commerce for growth.",
+      "content": "Instagram-led with about 152K followers, Shark Tank India season 3, wellness education and community stories.",
+      "complaints": "Mostly about its protein: chalky taste, taste varying between batches, price.",
+      "borrow": "A sachet bundle builder and community-led content.",
+      "beat": "Clinical doses you can see, against undisclosed herbal blends with vague sleep and stress claims.",
+      "threat": "At Rs 12 a serving with Marico's reach, it raises the question 'why pay Rs 60?'.",
+      "sources": [
+        "https://entrackr.com/news/marico-acquires-60-stake-in-d2c-nutrition-startup-cosmix-11076402",
+        "https://inc42.com/features/a-wellness-buyout-what-makes-cosmix-a-high-conviction-bet-for-marico/",
+        "https://cosmix.in"
+      ]
+    },
+    {
+      "name": "The Stack",
+      "origin": "India, Goa",
+      "owner": "Founder-led (Kshitij Rihal, Shreya Jain)",
+      "closest": "Complete Sleep Stack (Deep Rest magnesium + Dream On 3 g glycine), Daily Fibre Bomb",
+      "price": "22 to 51",
+      "transparency_short": "Branded ingredients named, doses partly missing, no COAs",
+      "channels_short": "Own site only, subscriptions",
+      "threat_level": "medium",
+      "about": "Raised Rs 21.5 cr on 14 Oct 2026 (Sauce, OTP Ventures, Huddle, AYRA), after Rs 5.5 cr pre-seed in Jan 2026. Angels include the founders of Ultrahuman and Delhivery. FY25 revenue was only Rs 5 lakh. It claims 1 in 3 customers reorder within 6 months.",
+      "overlap": "Deep Rest (MetaMag magnesium bisglycinate, dose not stated), Dream On (3,000 mg glycine powder), Complete Sleep Stack, Daily Fibre Bomb (PHGG, inulin, citrus fibre, GOS) and Daily Gut Balance (NCFM probiotic).",
+      "price_detail": "Dream On Rs 659 for 30 (Rs 22). Deep Rest Rs 989 for 30 (Rs 33). Fibre Bomb Rs 1,089 for 30 (Rs 36). Complete Sleep Stack Rs 1,544 for 30 (Rs 51).",
+      "positioning": "'Science-led, trust-first', a deliberately small range, and named branded ingredients (Balchem MetaMag, EpiCor).",
+      "transparency": "Names its ingredient suppliers, but magnesium and fibre doses are missing and there are no COAs. No return policy.",
+      "channels": "Own site only, with a subscription portal (StackBack). Frequent stockouts.",
+      "content": "Instagram and YouTube @thestack_club, a separate Supplement Decoder site, and community framing.",
+      "complaints": "Stockouts, and one review says the effect took time.",
+      "borrow": "Naming branded ingredient suppliers, and the Supplement Decoder idea of an education site that ranks in search.",
+      "beat": "Glycine, magnesium, ashwagandha and theanine in one drink with every dose and lab report published. It has no morning product.",
+      "threat": "The same buyer and the same trust pitch, with fresh money and well-connected investors (Sauce and AYRA also back The Whole Truth).",
+      "sources": [
+        "https://thestack.club/pages/about-us",
+        "https://startuptalky.com/news/the-stack-raises-21-5-cr-supplements/",
+        "https://www.indianstartuptimes.com/interviews/interview-with-kshitij-rihal-founder-of-the-stack-building-a-science-backed-wellness-brand-for-indias-informed-consumers/"
+      ]
+    },
+    {
+      "name": "The Whole Truth",
+      "origin": "India, Mumbai",
+      "owner": "Founder-led (Shashank Mehta), VC-backed",
+      "closest": "No sleep, stress or vitamin products. Protein sachets and kids' drink mixes only",
+      "price": "50 to 177",
+      "transparency_short": "Publishes batch lab reports (protein)",
+      "channels_short": "Own site, 2,500+ stores, Amazon, Zepto, Instamart",
+      "threat_level": "low",
+      "about": "Raised about $51M Series D in Feb 2026 (Sofina, Sauce.vc, Peak XV, Rainmatter Health, AYRA) and is preparing for an IPO. Revenue Rs 216 cr in FY25, with a Rs 28 cr loss.",
+      "overlap": "Overlaps only on format: single-serve protein sachets and 'Food Drink' milk mixes for kids. It has not entered sleep, stress, electrolytes or vitamins (179 products checked).",
+      "price_detail": "Cold Coffee whey Rs 2,129 for 12 sachets (Rs 177). Raw whey Rs 1,599 for 10 (Rs 160). Food Drink Pre-Teen Rs 349 for 7 (Rs 50).",
+      "positioning": "India's best-known transparency brand: ingredients on the front of the pack and founder-led label education.",
+      "transparency": "Publishes batch lab reports and runs its own certified plant. In May 2026, after ASCI and FSSAI action, it dropped the claim 'cleanest whey ever' and is replacing 'No Added Sugar' with 'sweetened with dates'.",
+      "channels": "Own site, over 2,500 offline outlets, Amazon, Zepto and Instamart.",
+      "content": "Long label-reading posts from the founder, side-by-side label comparisons, and a Feb 2026 ad mocking kids' food brands.",
+      "complaints": "Sugar in bars, whey that mixes poorly, and a reviewer calling the lab reports misleading.",
+      "borrow": "Public lab reports as content, and founder-led label education.",
+      "beat": "SILT is functional nutrition (energy, sleep, gut) where TWT has no products. Also learn from its ASCI trouble: no superlatives, and say exactly how the drink is sweetened.",
+      "threat": "It owns the transparency story in India and could move into drink mixes. If it does, it arrives with a large, trusting audience.",
+      "sources": [
+        "https://entrackr.com/news/the-whole-truth-raises-51-mn-in-series-d-funding-11074658",
+        "https://twtprotein.notion.site/Protein-Lab-Test-Reports-1d0fae391f3f4c8f9f398306890cedff",
+        "https://www.storyboard18.com/brand-marketing/clean-label-boom-faces-a-reality-check-the-whole-truth-finds-itself-at-the-center-of-a-food-marketing-debate-ws-l-97731.htm"
+      ]
+    },
+    {
+      "name": "AG1",
+      "origin": "Global (US/NZ), not sold in India",
+      "owner": "Private",
+      "closest": "AG1 morning greens and AGZ night drink (Aug 2025)",
+      "price": "≈230 to 290 (US), ≈670 via resellers",
+      "transparency_short": "NSF Certified, proprietary blends",
+      "channels_short": "US/global DTC and retail, no India",
+      "threat_level": "low",
+      "about": "The original 'one daily drink' brand. In 2026 it entered Vitamin Shoppe, Target and Ulta and launched AG1 Pro with creatine. A class action filed in Feb 2026 alleges subscriptions that are hard to cancel.",
+      "overlap": "AG1 has added AGZ, a melatonin-free night drink (magnesium L-threonate, saffron, L-theanine, ashwagandha, valerian, lemon balm, doses not disclosed). That makes it the same morning-and-night idea as SILT.",
+      "price_detail": "$99 for 30 one-time ($3.30, about Rs 290) or $79 on subscription (about Rs 230). Not shipped to India. One Indian reseller lists it at about Rs 670 a serving.",
+      "positioning": "Foundational daily nutrition, built through podcasts (Ferriss, Rogan, Huberman, Attia), long-term ambassadors (Hugh Jackman, 2026) and subscriptions.",
+      "transparency": "NSF Certified for Sport, but proprietary blends with undisclosed doses and small company-funded studies.",
+      "channels": "DTC subscriptions plus US retail. No India presence.",
+      "content": "Podcast sponsorships, ambassadors, a free starter kit, subscription-first.",
+      "complaints": "Price, blends, and subscription cancellation (the lawsuit).",
+      "borrow": "Subscription as the default with a starter kit, long-term creator and podcast partnerships, and one clear daily ritual.",
+      "beat": "About a quarter of the price, actually sold in India, every dose disclosed, and an Indian context.",
+      "threat": "Low directly. It validates the morning-and-night idea and shapes what urban Indians expect. Also a lesson: make cancelling a subscription easy.",
+      "sources": [
+        "https://www.prnewswire.com/news-releases/ag1-launches-first-new-product-in-15-years-focused-on-rest-and-restoration-302534956.html",
+        "https://knowledge.wharton.upenn.edu/podcast/marketing-matters/how-ag1-built-trust-through-podcast-marketing/",
+        "https://topclassactions.com/lawsuit-settlements/lawsuit-news/ag1-hit-with-class-action-over-alleged-unauthorized-auto-renewal-subscriptions/"
+      ]
+    },
+    {
+      "name": "IM8",
+      "origin": "Global (Prenetics, with David Beckham), not sold in India",
+      "owner": "Prenetics (listed)",
+      "closest": "Daily Ultimate Essentials (one sachet, about 90 ingredients)",
+      "price": "≈230 to 330 (abroad)",
+      "transparency_short": "NSF Certified, some proprietary complexes",
+      "channels_short": "DTC in 31 countries, no India",
+      "threat_level": "low",
+      "about": "Launched with David Beckham as co-founder and owner. Guidance for FY26 revenue is $220 to 230M, backed by $1B of growth financing from General Catalyst. Recent deals: NBA partner for Australia and SE Asia (Oct 2026), and a 10-year Care Bears by IM8 family line (Nov 2026).",
+      "overlap": "A single 'replace 16 supplements' daily drink. No separate night product.",
+      "price_detail": "$78 a month on subscription with a first-order discount (about Rs 230 a serving), and about $89 to $112 a month otherwise. Not sold or shipped to India as far as found.",
+      "positioning": "Longevity, with Mayo Clinic and NASA advisers and very heavy Meta advertising, including ads that compare it with AG1.",
+      "transparency": "NSF Certified for Sport, but several proprietary complexes without individual doses, and interim company-reported trial data.",
+      "channels": "DTC only, about 80% on subscription.",
+      "content": "A visible CEO (Danny Yeung), Beckham as an owner rather than a paid face, a micro-creator ambassador programme, and celebrity ambassadors such as Lily Collins.",
+      "complaints": "Not researched.",
+      "borrow": "Founder-forward content and a micro-creator ambassador programme, which suit SILT's budget.",
+      "beat": "Price, availability in India, full doses, and two drinks matched to the time of day.",
+      "threat": "Low now. Watch for an India launch, since Prenetics has Asian roots.",
+      "sources": [
+        "https://im8health.com/",
+        "https://beautymatter.com/articles/david-beckham-backed-im8-off-to-108-million-first-year-start",
+        "https://www.globenewswire.com/news-release/2026/11/05/3396443/0/en/prenetics-im8-and-authentic-brands-group-announce-10-year-exclusive-global-partnership-to-create-care-bears-by-im8-authentic-to-become-strategic-shareholder-in-prenetics.html"
+      ]
+    },
+    {
+      "name": "Others to watch",
+      "origin": "India",
+      "owner": "Various",
+      "closest": "The Good Bug fibre and probiotic sachets, NeoGreens Daily Greens, Carbamide Forte magnesium glycinate",
+      "price": "11 to 83",
+      "transparency_short": "Varies",
+      "channels_short": "Online and marketplaces",
+      "threat_level": "low",
+      "about": "Smaller or adjacent rivals that compete with one part of SILT.",
+      "overlap": "The Good Bug Fibre Boost uses Sunfiber PHGG, the same fibre as SILT Mornings (Smooth Move Rs 629 for 15, Rs 42). NeoGreens Daily Greens launched Sep 2026 as an Indian AG1 alternative (Rs 2,499 for 30 days, about Rs 83). Carbamide Forte magnesium glycinate tablets cost Rs 10.8 a serving and set the price people expect for magnesium.",
+      "price_detail": "As above. Prices as of 16 Nov 2026.",
+      "positioning": "Gut specialist (The Good Bug), greens drink (NeoGreens), and low-price pills (Carbamide Forte).",
+      "transparency": "Not researched in depth.",
+      "channels": "Online and marketplaces.",
+      "content": "Not researched in depth.",
+      "complaints": "Not researched in depth.",
+      "borrow": "The Good Bug's gut-health education is strong. Worth studying.",
+      "beat": "None of them pairs a caffeine + L-theanine morning drink with gut and vitamins. The research found no Indian caffeine + theanine drink mix at all, only capsules and gum.",
+      "threat": "Each one pulls on a single benefit and a single price point.",
+      "sources": [
+        "https://truemeds.in/otc/the-good-bug-daily-probiotics-smooth-move-powder-4gm-pack-of-15-sachets-tm-poer1-003754",
+        "https://www.tribuneindia.com/news/business/neogreens-unveils-daily-greens-worlds-first-microgreens-blend-redefining-daily-nutrition-2-2",
+        "https://www.nykaa.com/carbamide-forte-chelated-magnesium-glycinate-2000mg-muscle-recovery-better-sleep-veg-tablets/p/29420753"
+      ]
+    }
+  ],
+  "opportunities": [
+    {
+      "title": "Own 'every dose, every lab report'",
+      "detail": "Of the ten brands checked, none publishes a named lab report for every ingredient. Only The Whole Truth publishes lab reports, and only for protein. Make the lab reports the hero of SILT's content: one ingredient a week, its dose, its study and its COA."
+    },
+    {
+      "title": "Win the night drink on dose",
+      "detail": "SILT Nights has 3 g glycine and 300 mg KSM-66, against 1.25 g and 150 mg in Supply6 Mellow. Explain why the dose studied matters, without naming rivals (see the check list below)."
+    },
+    {
+      "title": "The morning drink has no direct rival",
+      "detail": "The research found no caffeine + L-theanine drink mix in India. Rivals sell capsules or gum. Mornings also adds PHGG fibre, probiotics and vitamins. Lead with Mornings where Nights faces close rivals."
+    },
+    {
+      "title": "Argue the price as a stack",
+      "detail": "Rs 60 looks expensive next to Rs 12 to 19 tablets. Price what one stick replaces: caffeine + theanine, PHGG fibre, a probiotic and daily vitamins, sold separately by these same brands. Use a real comparison with prices and dates."
+    },
+    {
+      "title": "For people at a desk, not at the gym",
+      "detail": "Fast&Up speaks to athletes, OZiva to women, Wellbeing to format fans, and Cosmix to herbal fans. Nobody speaks to Indian professionals in the 3 PM slump and the late-night scroll. Keep every post there."
+    },
+    {
+      "title": "Claims as a brand habit",
+      "detail": "After the ASCI report, write 'the dose studied in X' and never promise outcomes. That protects SILT and is itself a message: we're the brand you can check."
+    },
+    {
+      "title": "Prepare for quick commerce",
+      "detail": "Every funded rival is on Blinkit and Zepto. Once the repeat rate holds, test one quick-commerce platform in Bengaluru, where SILT's audience is."
+    },
+    {
+      "title": "Subscriptions with easy cancel",
+      "detail": "AG1 and IM8 run on subscriptions, and AG1 is being sued over hard-to-cancel renewals. A monthly SILT subscription with one-tap cancel is both a revenue and a trust story."
+    }
+  ],
+  "content_ideas": [
+    {
+      "platform": "X",
+      "idea": "'Same ingredients, different doses': how much glycine a night drink needs, and what the studies used (3 g).",
+      "note": "Don't name competitors. Compare against the dose in the study."
+    },
+    {
+      "platform": "X",
+      "idea": "'Why there's no maltodextrin in SILT', and what maltodextrin and fructose do in many effervescent tablets.",
+      "note": "Talk about the ingredient, not a brand."
+    },
+    {
+      "platform": "LinkedIn (Mon)",
+      "idea": "Who owns Indian wellness now: HUL, Marico, USV and Unilever Ventures, and what that means for buyers.",
+      "note": "Company-page voice, built on the deal list in this analysis."
+    },
+    {
+      "platform": "LinkedIn (Wed)",
+      "idea": "Carousel on 3 g glycine: the dose in the studies, why lower doses are common, and our lab report.",
+      "note": "Fits the ingredient series."
+    },
+    {
+      "platform": "LinkedIn (Fri)",
+      "idea": "Why we publish a lab report for every ingredient when most brands show badges.",
+      "note": "Show a real COA and walk through it line by line."
+    },
+    {
+      "platform": "Reddit r/SILTNutrition",
+      "idea": "How to read any supplement label in 60 seconds: doses, blends, sweeteners, and what 'third-party tested' does and doesn't mean.",
+      "note": "Educational, no brand bashing."
+    },
+    {
+      "platform": "Reddit r/Supplements",
+      "idea": "Discussion: effervescent tablets vs powders vs capsules. What do you actually stick with?",
+      "note": "Founder account, no product mention."
+    }
+  ],
+  "watch": [
+    "Don't name competitors or put their doses in public posts without legal and ASCI comparative-advertising checks. Compare against study doses instead.",
+    "Setu's doses come from secondary pages, and its site showed everything sold out. Check the real pack.",
+    "Supply6 Mellow's magnesium form differs between its site and Amazon.",
+    "The caffeine cap of 200 mg a dose comes from a secondary source. Check the FSSAI Gazette.",
+    "Confirm with the supplier that SILT's KSM-66 is root-only before saying so.",
+    "drinksilt.com still shows up in search as a 'pre-launch concept' at 'Rs 50 per stick'. Update or redirect it so people don't see an old price.",
+    "All prices are snapshots from 16 Nov 2026. Re-check before using them in posts."
+  ],
+  "based_on": "16 Nov 2026",
+  "updates": [
+    {
+      "date": "2026-11-23",
+      "items": [
+        {
+          "brand": "Meta ads: night-time push",
+          "what": "Since 17 Nov the Nights rivals have stepped up sleep ads. Supply6 is running 12 Mellow ads (7 new this week), every one of The Upside's 32 running ads is about sleep (18 new), The Stack has 93 sleep or magnesium ads running (17 new), and Wellbeing added 27 new magnesium and sleep ads around its Triple Magnesium.",
+          "so_what": "Sleep is the most contested ad space for SILT right now. Nights ads should lead with what is different (3 g glycine, no melatonin, every dose printed) rather than generic sleep claims. See the Ad teardowns tab for the new ads.",
+          "source": ""
+        },
+        {
+          "brand": "AG1",
+          "what": "AG1 launched AG1 Energy+ on 17 Nov: 100 mg plant caffeine and 100 mg L-theanine added to its greens, vitamins and probiotics formula, with Lewis Hamilton as global ambassador. It is US-led and not sold in India.",
+          "so_what": "The biggest global daily-drink brand now sells close to the SILT Mornings idea (caffeine, L-theanine and gut support in one drink). That backs the category. In India, Mornings still has no direct drink-mix rival.",
+          "source": "https://www.prnewswire.com/news-releases/ag1-launches-ag1-energy-with-lewis-hamilton-as-new-global-ambassador-302941403.html"
+        },
+        {
+          "brand": "IM8",
+          "what": "IM8 named DJ Diplo as global ambassador and shareholder (16 Nov), and Prenetics reported Q3 IM8 revenue of 62.9 million USD, up 266% year on year, with a larger loss from heavier customer acquisition spend (18 Nov).",
+          "so_what": "A premium all-in-one powder is scaling fast on celebrity spend. SILT should not try to outspend on fame, and should lean on founder-led trust and proof instead. IM8 is still not in India or sleep.",
+          "source": "https://www.globenewswire.com/news-release/2026/11/16/3403521/0/en/prenetics-im8-announces-three-time-grammy-winning-dj-and-producer-diplo-as-im8-global-ambassador-and-shareholder-in-multi-year-partnership.html"
+        },
+        {
+          "brand": "Category (FSSAI)",
+          "what": "FSSAI suspended licences of several contract nutraceutical manufacturers on 16 and 23 Nov (including Vedant Remedies, Ambico and Lucid Healthcare). None of the tracked brands was named.",
+          "so_what": "Contract manufacturing is under the microscope. It is worth confirming our own manufacturer is not on any list, and it keeps our lab-report-per-ingredient story timely.",
+          "source": "https://lapaasvoice.com/fssai-takes-action-against-six-nutraceutical-makers-over-serious-food-safety-violations/"
+        },
+        {
+          "brand": "Supply6 Mellow",
+          "what": "Mellow is on supplysix.com at Rs 680 (it was Rs 700). Per sachet: 200 mg magnesium, 200 mg L-theanine, 1,250 mg glycine and 150 mg KSM-66 ashwagandha. No dated launch or campaign this week.",
+          "so_what": "Still the closest Nights rival on price. Our dose advantage (3 g glycine, 300 mg KSM-66) stands.",
+          "source": "https://supplysix.com/pages/mellow-preview"
+        },
+        {
+          "brand": "Meta ads: AG1 surge",
+          "what": "AG1 started 167 new Meta ads since 17 Nov (400 running, capped), and 143 of them match our category keywords, the biggest jump of any tracked brand in the week of its Energy+ launch.",
+          "so_what": "Expect US caffeine + L-theanine creative to set the template Indian brands copy next. Use the Ad teardowns tab to borrow formats for Mornings, not claims.",
+          "source": "https://www.facebook.com/ads/library/"
+        }
+      ]
+    }
+  ]
+}

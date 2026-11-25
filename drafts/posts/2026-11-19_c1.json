@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: Why does coffee send me straight to the toilet? Is that normal?",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "thread_summary": "Look for someone asking why coffee causes urgency, bloating or an upset stomach.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "Very normal. Coffee gets the colon moving within minutes for a lot of people, and decaf does it for some too, so it isn't only the caffeine. A Copenhagen study this month also found regular coffee drinkers had a more diverse gut microbiome, though what that means for health is still open. If the urgency is a problem, try a smaller cup with food rather than on an empty stomach, and check whether milk makes it worse, since lactose is a common second culprit.",
+  "why": "Recurring question, ties to this week's coffee and gut study, zero pitch.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting.",
+  "id": "2026-11-19_c1"
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "developersIndia",
+  "thread_title": "Find a post from the last 3 days: WFH and never leave the house, my sleep and energy are all over the place",
+  "thread_summary": "Look for a remote worker who feels groggy, sleeps late, or has no routine since working from home.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Losing the commute often means losing your morning daylight, and that light is the main signal that sets your body clock. Without it, sleep drifts later and mornings feel heavier. A 10 to 15 minute walk outside within an hour of waking does a lot of what the commute used to do. Keep a fixed start time and a fixed log-off time too, because WFH days without edges tend to run into the night.",
+  "why": "WFH routines are a recurring thread in this sub. Different from the 17 Nov late-calls and 18 Nov burnout comments.",
+  "thread_url": "https://www.reddit.com/r/developersIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/developersIndia sidebar before commenting."
+}

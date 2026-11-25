@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: D2C founders: how did you get your first 100 customers?",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "thread_summary": "Look for a founder asking how others found early customers or validated demand before launch.",
+  "product": "brand",
+  "angle": "Community help",
+  "text": "For us it was a pre-booking list built before launch. We had 1,870 pre-bookings by the time we launched in late October, and about 250 people bought in the first 15 days. The most useful thing we did was ask pre-bookers what stopped them from buying similar products, and the answer shaped the product. The honest lesson: first customers come from people who already trust you, so build that list before you spend on ads.",
+  "why": "Founder sub where saying who we are is welcome. Real numbers from the playbook.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting.",
+  "id": "2026-11-19_c7"
+}

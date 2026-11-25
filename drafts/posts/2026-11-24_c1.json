@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "sleep",
+  "thread_title": "Find a post from the last 3 days: what temperature should my bedroom be? Fan, AC or blanket?",
+  "thread_summary": "Look for someone who sleeps badly in a hot room, or asks about AC settings and sleep.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Cooler than most people keep it. Your core temperature has to drop a little for you to fall asleep and stay asleep, so a warm room works against you. Sleep researchers usually suggest somewhere around 18 to 20 C, which isn't realistic in a lot of Indian homes, so aim for the coolest you can manage with a fan or AC on a timer, light cotton bedding, and a warm shower an hour before bed, which helps your body shed heat afterwards.",
+  "why": "Bedroom heat and AC settings come up constantly on r/sleep, and it's practical, safe advice.",
+  "thread_url": "https://www.reddit.com/r/sleep/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/sleep sidebar before commenting. r/sleep is strict about promotion. Never mention SILT here unless someone asks directly."
+}

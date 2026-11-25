@@ -1,0 +1,1166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>SILT Content Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an editorial desk. Navy masthead band, day picker, then a two-lane queue (X / Reddit) of draft cards with review controls. */
+:root{
+  --bg:#F3F4F7; --surface:#FFFFFF; --sunk:#E9EBF1; --line:#D6DAE4;
+  --fg:#16203A; --muted:#5B6479; --navy:#1B2A4A; --on-navy:#F5F1E6;
+  --gold:#C99A2E; --gold-soft:#F6E9C6;
+  --ok:#2F7D5B; --ok-soft:#DDF0E6; --warn:#A8670E; --warn-soft:#FBEBD2;
+  --bad:#B23A3A; --bad-soft:#F7DEDE; --info:#3A5BA8; --info-soft:#DFE6F6;
+  --display:"Jost",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1524; --surface:#172034; --sunk:#111829; --line:#2A3550;
+  --fg:#E7EAF2; --muted:#9AA3B8; --navy:#0B1222; --on-navy:#F5F1E6;
+  --gold:#EBB858; --gold-soft:#3A3120;
+  --ok:#6CC69A; --ok-soft:#1C3329; --warn:#E8A84C; --warn-soft:#3A2B17; --bad:#EE8A8A; --bad-soft:#3B1E22; --info:#93AEEB; --info-soft:#1E2A47;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1524; --surface:#172034; --sunk:#111829; --line:#2A3550;
+  --fg:#E7EAF2; --muted:#9AA3B8; --navy:#0B1222; --on-navy:#F5F1E6;
+  --gold:#EBB858; --gold-soft:#3A3120;
+  --ok:#6CC69A; --ok-soft:#1C3329; --warn:#E8A84C; --warn-soft:#3A2B17; --bad:#EE8A8A; --bad-soft:#3B1E22; --info:#93AEEB; --info-soft:#1E2A47;
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.mast{background:var(--navy);color:var(--on-navy)}
+header.mast .wrap{padding-block:22px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand .mark{font-family:var(--display);font-weight:600;letter-spacing:.32em;font-size:13px;color:var(--gold)}
+.brand h1{margin:0;font-family:var(--display);font-weight:500;font-size:28px;letter-spacing:.01em;text-wrap:balance}
+.brand p{margin:0;font-size:13px;opacity:.75}
+.daynav{display:flex;align-items:center;gap:8px}
+.daynav button{background:transparent;border:1px solid rgba(245,241,230,.35);color:var(--on-navy);border-radius:6px;height:34px;min-width:34px;font:inherit;cursor:pointer}
+.daynav button:disabled{opacity:.35;cursor:default}
+.daynav select{height:34px;border-radius:6px;border:1px solid rgba(245,241,230,.35);background:rgba(255,255,255,.06);color:var(--on-navy);font:500 14px var(--body);padding:0 10px}
+.daynav select option{color:#16203A}
+main .wrap{padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stat .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:var(--display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat.pending .v{color:var(--info)} .stat.approved .v{color:var(--ok)} .stat.changes .v{color:var(--warn)} .stat.rejected .v{color:var(--bad)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.tabs,.filters{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:8px;flex-wrap:wrap}
+.tabs button,.filters button{border:0;background:transparent;color:var(--muted);font:500 13px var(--body);padding:7px 12px;border-radius:6px;cursor:pointer}
+.tabs .tablink{color:var(--muted);font:500 13px var(--body);padding:7px 12px;border-radius:6px;text-decoration:none}
+.tabs .tablink:hover{color:var(--fg)}
+.tabs button[aria-pressed="true"],.filters button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.brief h2{margin:0;font-family:var(--display);font-weight:600;font-size:18px}
+.brief .lede{margin:0;color:var(--muted);max-width:70ch}
+.trends{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.trend{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.trend b{font-weight:600}
+.trend span{color:var(--muted);font-size:13px}
+.trend a{font-size:12px;color:var(--info);word-break:break-all}
+.lane{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;grid-template-columns:4px 1fr;overflow:hidden}
+.card .stripe{background:var(--info)}
+.card[data-status="approved"] .stripe{background:var(--ok)}
+.card[data-status="changes"] .stripe{background:var(--warn)}
+.card[data-status="rejected"] .stripe{background:var(--bad)}
+.card[data-status="posted"] .stripe{background:var(--gold)}
+.card .inner{padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.chip.slot{font-family:var(--mono);background:transparent;border:1px solid var(--line)}
+.chip.mornings{background:var(--gold-soft);color:var(--fg)}
+.chip.nights{background:var(--info-soft);color:var(--fg)}
+.chip.status{margin-left:auto}
+.chip.status.pending{background:var(--info-soft);color:var(--info)}
+.chip.status.approved{background:var(--ok-soft);color:var(--ok)}
+.chip.status.changes{background:var(--warn-soft);color:var(--warn)}
+.chip.status.rejected{background:var(--bad-soft);color:var(--bad)}
+.chip.status.posted{background:var(--gold-soft);color:var(--fg)}
+.sub{font-family:var(--mono);font-size:12.5px;color:var(--gold)}
+.rtitle{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.3;margin:0;text-wrap:balance}
+.text{white-space:pre-wrap;word-wrap:break-word;font-size:14.5px;line-height:1.6;max-width:72ch}
+.reddit .text{font-size:14px}
+.k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hook{background:var(--sunk);border-radius:6px;padding:8px 10px;font-size:13px;display:flex;flex-direction:column;gap:2px;max-width:72ch}
+.poll{border:1px solid var(--info);background:var(--info-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;max-width:72ch}
+.poll .opt{display:flex;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:500}
+.pollnote{font-size:12.5px;color:var(--muted)}
+.weekbox{border:1px solid var(--info);background:var(--info-soft);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;font-size:13px}
+.weekbox ul{margin:0;padding-left:18px}
+.agerule{border:1px solid var(--bad);background:var(--bad-soft);color:var(--fg);border-radius:6px;padding:7px 10px;font-size:13px;font-weight:500;max-width:72ch}
+.imgidea{border:1px solid var(--gold);background:var(--gold-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:13px;max-width:72ch}
+.imgidea a{color:var(--info);font-size:12.5px}
+.why{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;display:flex;flex-direction:column;gap:2px}
+.why a{color:var(--info);word-break:break-all}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.count.over{color:var(--bad);font-weight:600}
+.actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn{font:500 13px var(--body);border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 11px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn:hover{border-color:var(--muted)}
+.btn.ok[aria-pressed="true"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.btn.warn[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.btn.bad[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.btn.post[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:default}
+.spacer{flex:1}
+textarea,input.ttl{width:100%;font:14px/1.55 var(--body);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;resize:vertical}
+input.ttl{font-family:var(--display);font-weight:600;font-size:16px}
+.note{display:flex;gap:6px;align-items:flex-start}
+.note textarea{min-height:36px;font-size:13px}
+.reviewed{font-size:12px;color:var(--muted)}
+.edited{font-size:11px;color:var(--warn);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:28px 22px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.empty b{color:var(--fg);font-family:var(--display);font-size:17px;font-weight:600}
+.notice{font-size:13px;color:var(--warn)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px}
+.comp{display:flex;flex-direction:column;gap:14px}
+.comp ul{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px;max-width:80ch}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ctable{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+.ctable th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+.ctable td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.ctable td b{display:block}
+.ctable .num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);white-space:nowrap}
+.ctable tr.us td{background:var(--gold-soft)}
+.chip.status.ok{background:var(--ok-soft);color:var(--ok)} .chip.status.warn{background:var(--warn-soft);color:var(--warn)} .chip.status.bad{background:var(--bad-soft);color:var(--bad)}
+details.brand{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+details.brand summary{cursor:pointer;padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;list-style:none}
+details.brand summary::-webkit-details-marker{display:none}
+details.brand summary::before{content:"▸";color:var(--muted)}
+details.brand[open] summary::before{content:"▾"}
+details.brand summary .chip{margin-left:auto}
+.bbody{padding:0 16px 14px;display:flex;flex-direction:column;gap:10px}
+.bbody p{margin:2px 0 0;max-width:80ch}
+.forus{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;background:var(--sunk);border-radius:8px;padding:10px 12px}
+.who{font-size:13px;display:flex;gap:8px;align-items:center;opacity:.9}
+.who button{background:transparent;border:1px solid rgba(245,241,230,.35);color:var(--on-navy);border-radius:6px;padding:4px 10px;font:inherit;cursor:pointer}
+.login{max-width:420px;margin:24px auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:8px}
+.login h2{margin:0;font-family:var(--display);font-weight:600;font-size:20px}
+.login p{margin:0 0 6px;color:var(--muted);font-size:13px}
+.login label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
+.login input{font:15px var(--body);padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.btn.primary{background:var(--navy);color:var(--on-navy);border-color:var(--navy);justify-content:center;padding:9px 12px;margin-top:10px}
+.loginErr{color:var(--bad)!important;font-weight:500}
+.guide{font-size:12.5px;color:var(--muted);max-width:80ch}
+/* Ideas and content calendar */
+.plan{display:flex;flex-direction:column;gap:16px}
+.planhead{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.cal-nav{color:var(--fg)} .cal-nav b{font-family:var(--display);font-weight:600;min-width:140px;text-align:center}
+.cal-nav button{border-color:var(--line)!important;color:var(--fg)!important}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:760px}
+.cal .dow{background:var(--sunk);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 8px;font-weight:600}
+.cal .cell{background:var(--surface);min-height:84px;padding:6px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cal .cell.out{background:var(--sunk)}
+.cal .cell.today{box-shadow:inset 0 0 0 2px var(--gold)}
+.cal .dn{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.cal .ev{display:block;width:100%;text-align:left;border:0;border-left:3px solid var(--ok);background:var(--ok-soft);color:var(--fg);font:500 11.5px/1.3 var(--body);padding:3px 5px;border-radius:3px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal .ev.maybe{border-left:3px dashed var(--muted);background:var(--sunk);color:var(--muted)}
+.card.idea{scroll-margin-top:16px}
+.card.idea.flash{border-color:var(--gold)}
+.datein{font:13px var(--body);padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+.pdetail{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 18px;margin-top:8px;font-size:13.5px}
+.pdetail ol,.pdetail ul{margin:2px 0 0;padding-left:18px}
+.pdetail .script{white-space:pre-wrap;background:var(--sunk);border-radius:6px;padding:8px 10px;grid-column:1/-1;max-width:80ch}
+.pdetail a{color:var(--info);word-break:break-all}
+details.howto summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--info)}
+.decide{border:1px solid var(--warn);background:var(--warn-soft);border-radius:8px;padding:10px 12px;font-size:13.5px}
+.decide ul{margin:4px 0 0;padding-left:18px} .decide a{color:var(--fg)}
+.addidea .formgrid{display:flex;flex-direction:column;gap:6px;max-width:760px}
+.addidea label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.addidea input,.addidea select,.addidea textarea{font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:100%}
+.addidea .formrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:4px}
+.addidea .formrow span{display:flex;flex-direction:column;gap:6px}
+.addidea .btn.primary{margin-top:0}
+.teardowns{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.teardown{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.reelchip{align-self:flex-start;font-size:12.5px;background:var(--gold-soft);color:var(--fg);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums}
+.reelline{margin:0;font-size:13.5px;max-width:80ch;border-left:3px solid var(--gold);padding-left:10px}
+.teardown b{font-family:var(--display);font-size:17px;font-weight:600}
+.teardown ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:3px}
+@media (max-width:560px){.brand h1{font-size:23px}.chip.status{margin-left:0}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+/* Content agent tab */
+.agent{display:flex;flex-direction:column;gap:16px}
+.agent .runform{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px 14px;align-items:end}
+.agent .runform label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:var(--muted)}
+.agent .runform .wide{grid-column:1/-1}
+.agent input,.agent select,.agent textarea{font:14px var(--body);padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:100%}
+.agent textarea{resize:vertical}
+.agent .datein{width:auto}
+.agent .research{display:flex;flex-direction:column;gap:6px}
+.agent .plus{border:1px solid var(--gold);background:var(--gold-soft);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:12px}
+.agent .plus.mini{gap:8px;padding:10px 12px}
+.agent .plus .step{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.agent .plus .step>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.agent .plus .num{font:600 14px var(--mono);background:var(--navy);color:var(--on-navy);border-radius:6px;text-align:center;padding:2px 0}
+.agent .plus textarea{background:var(--surface)}
+.agent .upl{cursor:pointer}.agent .upl.off{opacity:.45;pointer-events:none}
+.agent .chip.newchip{background:var(--gold-soft);color:var(--fg)}
+.agent .note textarea{flex:1}
+.agent .runform .btn.primary{margin-top:0}
+.agent .progress{font-size:13.5px;color:var(--info);background:var(--info-soft);border-radius:6px;padding:8px 12px}
+.agent .alert{font-size:13.5px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:8px 12px;margin:0}
+.agent h2.sec{margin:6px 0 0;font-family:var(--display);font-weight:600;font-size:19px}
+.agent .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.agent .pillar{background:var(--sunk);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.agent .pillar b{font-family:var(--display);font-size:15px}
+.agent .insights{margin:0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:4px;max-width:90ch}
+.stcard .inner{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:16px}
+.stcard .shot{display:flex;flex-direction:column;gap:6px}
+.stcard .shot img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--sunk)}
+.stcard .shot .ph{aspect-ratio:9/16;border-radius:8px;border:1px dashed var(--line);background:var(--sunk);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:12.5px;color:var(--muted)}
+.stcard .vers{display:flex;flex-wrap:wrap;gap:4px}
+.stcard .vers button{width:34px;padding:0;border:2px solid transparent;border-radius:4px;background:none;cursor:pointer}
+.stcard .vers button[aria-pressed="true"]{border-color:var(--gold)}
+.stcard .vers img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:3px;display:block}
+.stcard .body{display:flex;flex-direction:column;gap:10px;min-width:0}
+.agent .words{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.agent .words .hl{font-family:var(--display);font-size:16px;font-weight:600;flex-basis:100%}
+.agent .words .pill{background:var(--navy);color:var(--on-navy);border-radius:999px;padding:3px 10px;font-size:12.5px}
+.agent details.edit summary,.agent details.rules summary{cursor:pointer;font-weight:500;font-size:13.5px}
+.agent details.edit .formgrid{display:grid;gap:8px;margin-top:8px}
+.agent .scripttext{font:13px/1.55 var(--mono);min-height:260px}
+.agent .scriptbox{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.agent .runsel{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.agent .runsel select{width:auto}
+.agent .rulesbox{font:12.5px/1.5 var(--mono);min-height:320px}
+.ideaimg img{max-width:180px;border-radius:8px;border:1px solid var(--line);display:block}
+@media (max-width:640px){.stcard .inner{grid-template-columns:1fr}.stcard .shot{max-width:220px}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark">S I L T</span>
+      <h1>Content Desk</h1>
+      <p>Five X posts and eight Reddit comments a day, plus LinkedIn on Monday, Wednesday and Friday, drafted each morning for your review.</p>
+    </div>
+    <div class="who" id="who" hidden>Signed in as <b id="whoName"></b> <button id="logoutBtn" type="button">Sign out</button></div>
+    <div class="daynav" aria-label="Choose a day">
+      <button id="prevDay" aria-label="Previous day">&#8249;</button>
+      <select id="daySel" aria-label="Day"></select>
+      <button id="nextDay" aria-label="Next day">&#8250;</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap" id="loginWrap" hidden>
+    <form class="login" id="loginForm" autocomplete="on">
+      <h2>Sign in to review</h2>
+      <p>Use the team password. Your name is shown next to the posts you approve, edit or reject.</p>
+      <label for="loginName">Your name</label>
+      <input id="loginName" name="name" autocomplete="name" maxlength="40" required>
+      <label for="loginPw">Team password</label>
+      <input id="loginPw" name="password" type="password" autocomplete="current-password" required>
+      <button class="btn primary" type="submit" id="loginBtn">Sign in</button>
+      <p class="loginErr" id="loginErr" role="alert" hidden></p>
+    </form>
+  </div>
+  <div class="wrap" id="deskWrap">
+    <section class="summary" id="summary" aria-label="Review status for this day"></section>
+
+    <div class="toolbar">
+      <div class="tabs" role="group" aria-label="Platform">
+        <button id="tab-x" data-tab="x" aria-pressed="true">X posts</button>
+        <button id="tab-reddit_comment" data-tab="reddit_comment" aria-pressed="false">Reddit comments</button>
+        <button id="tab-reddit" data-tab="reddit" aria-pressed="false">Reddit posts</button>
+        <button id="tab-linkedin" data-tab="linkedin" aria-pressed="false">LinkedIn</button>        <button id="tab-brief" data-tab="brief" aria-pressed="false">Today's trends</button>
+        <button id="tab-competitors" data-tab="competitors" aria-pressed="false">Competitors</button>
+        <button id="tab-teardowns" data-tab="teardowns" aria-pressed="false">Ad teardowns</button>
+        <button id="tab-retention" data-tab="retention" aria-pressed="false">Retention</button>
+        <button id="tab-scripts" data-tab="scripts" aria-pressed="false">Ad scripts</button>
+        <button id="tab-ideas" data-tab="ideas" aria-pressed="false">Ideas &amp; calendar</button>
+        <button id="tab-agent" data-tab="agent" aria-pressed="false">Content agent</button>
+        <a class="tablink" href="/retention/" target="_blank" rel="noopener">Retention playbook ↗</a>
+        <a class="tablink" href="https://silt-static-engine.pages.dev" target="_blank" rel="noopener">Static Engine ↗</a>
+      </div>
+      <div class="filters" role="group" aria-label="Filter by status">
+        <button id="f-all" data-f="all" aria-pressed="true">All</button>
+        <button id="f-pending" data-f="pending" aria-pressed="false">To review</button>
+        <button id="f-approved" data-f="approved" aria-pressed="false">Approved</button>
+        <button id="f-changes" data-f="changes" aria-pressed="false">Needs changes</button>
+        <button id="f-rejected" data-f="rejected" aria-pressed="false">Rejected</button>
+      </div>
+    </div>
+
+    <p class="notice" id="notice" hidden></p>
+    <section id="view" aria-live="polite"></section>
+    <p class="guide">Approve, ask for changes, or reject each draft. Edits and notes are saved for everyone on the team, and the next morning's run reads your notes and rejections to adjust the drafts. Mark a post as posted once it is live.</p>
+  </div>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const STATUS_LABEL={pending:"To review",approved:"Approved",changes:"Needs changes",rejected:"Rejected",posted:"Posted"};
+const PRODUCT_LABEL={mornings:"Mornings",nights:"Nights",both:"Mornings + Nights",brand:"Brand / founder",education:"Education"};
+const state={db:null,user:null,me:null,canWrite:true,days:[],day:null,posts:[],brief:null,tab:"x",filter:"all",editing:new Set(),names:{},unsubPosts:null,unsubBrief:null,loaded:false};
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,1800)}
+function notice(m){const n=$("#notice");n.textContent=m||"";n.hidden=!m}
+function fmtDay(d){try{const t=new Date();const iso=x=>`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;const today=iso(t);const tm=new Date(t);tm.setDate(t.getDate()+1);const tag=d===today?" (today)":d===iso(tm)?" (tomorrow)":"";return new Date(d+"T00:00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"})+tag}catch(e){return d}}
+function xLen(t){return [...String(t||"").replace(/https?:\/\/\S+/g,"x".repeat(23))].reduce((n,c)=>{const p=c.codePointAt(0);return n+((p<=4351||(p>=8192&&p<=8205)||(p>=8208&&p<=8223)||(p>=8242&&p<=8247))?1:2)},0)}
+function current(p){return p.edited_text??p.text}
+try{const s=JSON.parse(localStorage.getItem("silt-desk")||"{}");if(s.tab)state.tab=s.tab==="plan"?"ideas":s.tab;if(s.filter)state.filter=s.filter}catch(e){}
+function savePrefs(){try{localStorage.setItem("silt-desk",JSON.stringify({tab:state.tab,filter:state.filter}))}catch(e){}}
+
+function renderSummary(){
+  const c={pending:0,approved:0,changes:0,rejected:0,posted:0};
+  state.posts.forEach(p=>c[p.status||"pending"]=(c[p.status||"pending"]||0)+1);
+  const x=state.posts.filter(p=>p.platform==="x").length, r=state.posts.filter(p=>p.platform==="reddit").length, l=state.posts.filter(p=>p.platform==="linkedin").length, cm=state.posts.filter(p=>p.platform==="reddit_comment").length;
+  $("#summary").innerHTML=`
+    <div class="stat"><span class="k">Drafts</span><span class="v">${state.posts.length}</span><span class="count">${x} X · ${cm?`${cm} Reddit comments · `:""}${r} Reddit posts${l?` · ${l} LinkedIn`:""}</span></div>
+    <div class="stat pending"><span class="k">To review</span><span class="v">${c.pending}</span></div>
+    <div class="stat approved"><span class="k">Approved</span><span class="v">${c.approved+c.posted}</span><span class="count">${c.posted} posted</span></div>
+    <div class="stat changes"><span class="k">Needs changes</span><span class="v">${c.changes}</span></div>
+    <div class="stat rejected"><span class="k">Rejected</span><span class="v">${c.rejected}</span></div>`;
+}
+
+function renderTabs(){
+  document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tab===state.tab)));
+  document.querySelectorAll("[data-f]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.f===state.filter)));
+  $(".filters").hidden=state.tab==="brief"||state.tab==="competitors"||state.tab==="teardowns"||state.tab==="retention"||state.tab==="scripts";
+  $("#summary").hidden=state.tab==="teardowns"||state.tab==="competitors"||state.tab==="ideas"||state.tab==="agent"||state.tab==="retention"||state.tab==="scripts";
+  $(".daynav").hidden=state.tab==="teardowns"||state.tab==="ideas"||state.tab==="agent"||state.tab==="retention"||state.tab==="scripts";
+}
+
+/* ---------- Ideas and content calendar ---------- */
+const CHANNELS=["Instagram reel","Instagram carousel","Instagram static","Instagram story","Meta ad (video)","Meta ad (static)","X","LinkedIn","Reddit","YouTube","Other"];
+const ISTATUS={pending:"To review",approved:"Approved",changes:"Needs changes",rejected:"Rejected"};
+const isoDay=x=>`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
+async function loadIdeas(){
+  try{const r=await api("/api/ideas");state.ideas=r.ideas}
+  catch(e){if(e.signedOut)return;state.ideas={error:e.message}}
+  if(state.tab==="ideas")render();
+}
+function ideaDate(d){return new Date(d+"T00:00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"})}
+function ideaCard(p){
+  const st=p.status||"pending", ro=!state.canWrite?"disabled":"";
+  const who=p.source==="team"?`Added by ${esc(nameFromEmail(p.proposed_by))}`:p.source==="agent"?"From the content agent":"Suggested by Claude";
+  const refs=(p.references||[]).map(r=>`<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.label||r.url)}</a></li>`).join("");
+  const extra=p.script||(p.shotlist||[]).length||refs;
+  return `<article class="card idea" id="idea-${esc(p._id)}" data-status="${st}"><div class="stripe"></div><div class="inner">
+    <div class="meta">
+      ${p.channel?`<span class="chip slot">${esc(p.channel)}</span>`:""}
+      ${p.product?`<span class="chip ${esc(p.product)}">${esc(PRODUCT_LABEL[p.product]||p.product)}</span>`:""}
+      <span class="chip">${p.date?`On the calendar: ${esc(ideaDate(p.date))}`:"No date yet"}</span>
+      <span class="chip status ${st}">${ISTATUS[st]}</span></div>
+    <h3 class="rtitle">${esc(p.title)}</h3>
+    ${p.image_url?`<a class="ideaimg" href="${esc(p.image_url)}" target="_blank" rel="noopener"><img src="${esc(p.image_url)}" alt="Approved static: ${esc(p.title)}" loading="lazy"></a>`:""}
+    ${p.summary?`<div class="text">${esc(p.summary)}</div>`:""}
+    ${extra?`<details class="howto"><summary>Script, shots and references</summary><div class="pdetail">
+      ${p.script?`<div class="script">${esc(p.script)}</div>`:""}
+      ${(p.shotlist||[]).length?`<div><span class="k">Shots</span><ol>${p.shotlist.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></div>`:""}
+      ${refs?`<div><span class="k">References</span><ul>${refs}</ul></div>`:""}</div></details>`:""}
+    <span class="reviewed">${who} · ${new Date(p.created_at).toLocaleDateString(undefined,{day:"numeric",month:"short"})}</span>
+    <div class="actions">
+      <button class="btn ok" data-iact="status" data-s="approved" data-id="${esc(p._id)}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+      <button class="btn warn" data-iact="status" data-s="changes" data-id="${esc(p._id)}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+      <button class="btn bad" data-iact="status" data-s="rejected" data-id="${esc(p._id)}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>
+      <span class="spacer"></span>
+      <label class="k" for="idd-${esc(p._id)}">Calendar date</label>
+      <input type="date" class="datein" id="idd-${esc(p._id)}" value="${esc(p.date||"")}" ${ro}>
+      <button class="btn" data-iact="date" data-id="${esc(p._id)}" ${ro}>Save date</button>
+    </div>
+    <div class="note"><textarea id="idn-${esc(p._id)}" rows="1" placeholder="Note, e.g. shoot this with the founder, or move to Friday" aria-label="Note" ${ro}>${esc(p.note||"")}</textarea><button class="btn" data-iact="note" data-id="${esc(p._id)}" ${ro}>Save note</button></div>
+    ${p.reviewed_at?`<span class="reviewed">${ISTATUS[st]} by ${esc(nameFromEmail(p.reviewed_by))} · ${new Date(p.reviewed_at).toLocaleString()}</span>`:""}
+  </div></article>`;
+}
+function renderCalendar(all){
+  const now=new Date();
+  const ym=state.calMonth||`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+  const [y,m]=ym.split("-").map(Number);
+  const first=new Date(y,m-1,1), last=new Date(y,m,0);
+  const start=new Date(first);start.setDate(1-((first.getDay()+6)%7));
+  const today=isoDay(now);
+  const byDay={};all.filter(i=>i.date&&(i.status==="approved"||i.status==="pending"||i.status==="changes")).forEach(i=>(byDay[i.date]=byDay[i.date]||[]).push(i));
+  let cells="";
+  for(const d=new Date(start);d<=last||((d.getDay()+6)%7)!==0;d.setDate(d.getDate()+1)){
+    const k=isoDay(d);
+    cells+=`<div class="cell ${d.getMonth()!==m-1?"out":""} ${k===today?"today":""}"><span class="dn">${d.getDate()}</span>${(byDay[k]||[]).sort((a,b)=>(a.status==="approved"?0:1)-(b.status==="approved"?0:1)).map(i=>`<button class="ev ${i.status==="approved"?"ok":"maybe"}" data-igo="${esc(i._id)}" title="${esc((i.status==="approved"?"":"Not approved yet: ")+i.title)}">${esc(i.title)}</button>`).join("")}</div>`;
+  }
+  const unscheduled=all.filter(i=>i.status==="approved"&&!i.date);
+  return `<div class="brief">
+    <div class="planhead"><h2>Content calendar</h2>
+      <div class="daynav cal-nav"><button data-cal="-1" aria-label="Previous month">&#8249;</button><b>${first.toLocaleDateString(undefined,{month:"long",year:"numeric"})}</b><button data-cal="1" aria-label="Next month">&#8250;</button></div></div>
+    <p class="lede">Approved ideas show in solid colour. Ideas still waiting for a decision are faded.</p>
+    <div class="tablewrap"><div class="cal">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>`<div class="dow">${d}</div>`).join("")}${cells}</div></div>
+    ${unscheduled.length?`<div class="decide"><b>Approved, waiting for a date</b><ul>${unscheduled.map(i=>`<li><a href="#idea-${esc(i._id)}" data-igo="${esc(i._id)}">${esc(i.title)}</a></li>`).join("")}</ul></div>`:""}
+  </div>`;
+}
+function renderIdeas(){
+  const all=state.ideas;
+  if(all==null)return `<div class="empty"><b>Loading ideas…</b></div>`;
+  if(all.error)return `<div class="empty"><b>Couldn't load ideas</b><span>${esc(all.error)}</span></div>`;
+  const c={pending:0,approved:0,changes:0,rejected:0};all.forEach(i=>c[i.status||"pending"]++);
+  let list=all.slice();
+  if(state.filter!=="all")list=list.filter(i=>(i.status||"pending")===state.filter);
+  list.sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||String(b.created_at).localeCompare(String(a.created_at)));
+  const ro=!state.canWrite?"disabled":"";
+  return `<div class="plan">
+    <form class="brief addidea" id="ideaForm">
+      <h2>Add an idea</h2>
+      <p class="lede">Anyone on the team can add one. Approve it and give it a date to put it on the content calendar.</p>
+      <div class="formgrid">
+        <label for="iTitle">Idea</label>
+        <input id="iTitle" maxlength="160" required placeholder="e.g. Reel: what 250 mg of magnesium actually means" ${ro}>
+        <label for="iDetails">Details</label>
+        <textarea id="iDetails" rows="3" maxlength="4000" placeholder="Hook, what we show, who is in it, any reference link" ${ro}></textarea>
+        <div class="formrow">
+          <span><label for="iChannel">Where</label><select id="iChannel" ${ro}>${CHANNELS.map(x=>`<option>${x}</option>`).join("")}</select></span>
+          <span><label for="iProduct">Product</label><select id="iProduct" ${ro}><option value="">None</option><option value="mornings">Mornings</option><option value="nights">Nights</option><option value="both">Mornings + Nights</option><option value="brand">Brand / founder</option></select></span>
+          <span><label for="iDate">Date (optional)</label><input type="date" id="iDate" ${ro}></span>
+        </div>
+      </div>
+      <div class="actions"><button class="btn primary" type="submit" id="iSubmit" ${ro}>Add idea</button></div>
+    </form>
+    ${renderCalendar(all)}
+    <div class="summary">
+      <div class="stat pending"><span class="k">To review</span><span class="v">${c.pending}</span></div>
+      <div class="stat approved"><span class="k">Approved</span><span class="v">${c.approved}</span><span class="count">${all.filter(i=>i.status==="approved"&&i.date).length} on the calendar</span></div>
+      <div class="stat changes"><span class="k">Needs changes</span><span class="v">${c.changes}</span></div>
+      <div class="stat rejected"><span class="k">Rejected</span><span class="v">${c.rejected}</span></div>
+    </div>
+    <div class="lane">${list.length?list.map(ideaCard).join(""):`<div class="empty"><b>${all.length?"No ideas match this filter":"No ideas yet"}</b><span>${all.length?"Pick another filter above.":"Add the first one with the form above."}</span></div>`}</div>
+  </div>`;
+}
+async function ideaWrite(id,patch){
+  try{
+    const doc=await api("/api/ideas/"+encodeURIComponent(id),{method:"POST",body:JSON.stringify(patch)});
+    const i=state.ideas.findIndex(p=>p._id===id);if(i>=0)state.ideas[i]=doc;
+    render();document.getElementById("idea-"+id)?.scrollIntoView({block:"nearest"});return true;
+  }catch(e){notice("Couldn't save ("+e.message+"). Try again in a moment.");return false}
+}
+async function ideaAct(b){
+  const id=b.dataset.id,p=state.ideas.find(x=>x._id===id);if(!p)return;
+  const act=b.dataset.iact;
+  if(act==="status"){const s=p.status===b.dataset.s?"pending":b.dataset.s;b.disabled=true;if(await ideaWrite(id,{status:s}))toast(ISTATUS[s]);return}
+  if(act==="note"){const n=document.getElementById("idn-"+id).value;if(n.trim()===(p.note||""))return;if(await ideaWrite(id,{note:n}))toast("Note saved");return}
+  if(act==="date"){const d=document.getElementById("idd-"+id).value;if(d===(p.date||""))return;if(await ideaWrite(id,{date:d}))toast(d?"On the calendar for "+ideaDate(d):"Date removed")}
+}
+async function addIdea(){
+  const btn=$("#iSubmit"),title=$("#iTitle").value.trim();if(!title)return;
+  btn.disabled=true;btn.textContent="Adding…";
+  try{
+    const doc=await api("/api/ideas",{method:"POST",body:JSON.stringify({title,details:$("#iDetails").value,channel:$("#iChannel").value,product:$("#iProduct").value,date:$("#iDate").value})});
+    state.ideas.unshift(doc);if(state.filter!=="all"&&state.filter!=="pending")state.filter="all";
+    render();toast("Idea added");document.getElementById("idea-"+doc._id)?.scrollIntoView({block:"center"});
+  }catch(e){notice("Couldn't add the idea ("+e.message+").");btn.disabled=false;btn.textContent="Add idea"}
+}
+
+/* ---------- Content agent ---------- */
+// Strategy from competitor research, statics made with ChatGPT images, reel ideas then scripts.
+// Approving a static, or a reel idea and then its script, puts it on the content calendar.
+const DRIVER_LABEL={founder_trust:"Founder trust",replaces_the_stack:"Replaces the stack",evidence_backed:"Evidence backed",ingredient_quality:"Ingredient quality",clinical_dosing:"Clinical dosing",value_for_money:"Value for money",transparency:"Transparency"};
+state.abusy=new Set();state.ashow={};
+async function loadAgent(){
+  try{state.agent=await api("/api/agent")}
+  catch(e){if(e.signedOut)return;state.agent={error:e.message}}
+  if(state.tab==="agent")render();
+}
+function agentPut(doc){const a=state.agent.items,i=a.findIndex(x=>x._id===doc._id);if(i>=0)a[i]=doc;else a.unshift(doc)}
+function agentRerender(id){const y=window.scrollY;render();if(id)document.getElementById("ag-"+id)?.scrollIntoView({block:"nearest"});else window.scrollTo(0,y)}
+function agentProgress(m){state.aprogress=m;const el=document.getElementById("agProgress");if(el){el.textContent=m||"";el.hidden=!m}}
+const dchip=d=>d?`<span class="chip">${esc(DRIVER_LABEL[d]||d)}</span>`:"";
+const pchip=p=>p?`<span class="chip ${esc(p)}">${esc(PRODUCT_LABEL[p]||p)}</span>`:"";
+const stchip=s=>`<span class="chip status ${s||"pending"}">${ISTATUS[s||"pending"]}</span>`;
+function reviewBtns(id,st,field,ro){
+  const f=field||"status";
+  return `<button class="btn ok" data-aact="${f}" data-s="approved" data-id="${esc(id)}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+    <button class="btn warn" data-aact="${f}" data-s="changes" data-id="${esc(id)}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+    <button class="btn bad" data-aact="${f}" data-s="rejected" data-id="${esc(id)}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>`;
+}
+function staticCard(p){
+  const st=p.status||"pending",busy=state.abusy.has(p._id),ro=!state.canWrite||busy?"disabled":"";
+  const imgs=p.images||[],shown=state.ashow[p._id]||p.image_id,t=p.text||{};
+  const img=shown?`<a href="/api/media/${esc(shown)}" target="_blank" rel="noopener"><img src="/api/media/${esc(shown)}" alt="Generated static: ${esc(p.title)}"></a>`
+    :`<div class="ph">${busy?(state.agent.mode==="plus"?"Uploading…":"Making the image with ChatGPT… this takes about a minute."):state.agent.mode==="plus"?"No image yet. Make it in ChatGPT with the steps on the right, then upload it.":"No image yet."}</div>`;
+  return `<article class="card stcard" id="ag-${esc(p._id)}" data-status="${st}"><div class="stripe"></div><div class="inner">
+    <div class="shot">${img}
+      ${imgs.length>1?`<div class="vers" aria-label="Versions">${imgs.map((m,i)=>`<button data-aact="show" data-id="${esc(p._id)}" data-m="${esc(m.id)}" aria-pressed="${m.id===shown}" title="Version ${i+1}${m.note?": "+esc(m.note):""}"><img src="/api/media/${esc(m.id)}" alt="Version ${i+1}"></button>`).join("")}</div>`:""}
+      ${shown?`<a class="btn" href="/api/media/${esc(shown)}" download>Download</a>`:""}
+    </div>
+    <div class="body">
+      <div class="meta"><span class="chip slot">Static</span>${pchip(p.product)}${dchip(p.driver)}${p.pillar?`<span class="chip">${esc(p.pillar)}</span>`:""}<span class="chip">${p.date?"Planned: "+esc(ideaDate(p.date)):"No date yet"}</span>${stchip(st)}</div>
+      <h3 class="rtitle">${esc(p.title)}</h3>
+      ${p.visual_idea?`<div class="text"><b>Idea:</b> ${esc(p.visual_idea)}</div>`:""}
+      <div class="words">${t.headline?`<span class="hl">“${esc(t.headline)}”</span>`:""}${t.line?`<span>${esc(t.line)}</span>`:""}${(t.chips||[]).map(c=>`<span class="pill">${esc(c)}</span>`).join("")}</div>
+      ${p.why?`<div class="why">${esc(p.why)}</div>`:""}
+      ${p.meta&&(p.meta.primary||p.meta.headline)?`<div><span class="k">Meta ad copy</span><div class="text">${esc(p.meta.primary||"")}${p.meta.headline?`\n<b>Headline:</b> ${esc(p.meta.headline)}`:""}</div></div>`:""}
+      <details class="edit"><summary>Edit the words or scene</summary><div class="formgrid">
+        <label class="k" for="ah-${esc(p._id)}">Headline</label><input id="ah-${esc(p._id)}" maxlength="120" value="${esc(t.headline||"")}" ${ro}>
+        <label class="k" for="al-${esc(p._id)}">Short line (optional)</label><input id="al-${esc(p._id)}" maxlength="120" value="${esc(t.line||"")}" ${ro}>
+        <label class="k" for="ac-${esc(p._id)}">Chips, separated by commas (max 3)</label><input id="ac-${esc(p._id)}" value="${esc((t.chips||[]).join(", "))}" ${ro}>
+        <label class="k" for="as-${esc(p._id)}">Scene</label><textarea id="as-${esc(p._id)}" rows="3" ${ro}>${esc(p.scene||"")}</textarea>
+        <label class="k" for="amp-${esc(p._id)}">Meta primary text</label><textarea id="amp-${esc(p._id)}" rows="2" ${ro}>${esc(p.meta?.primary||"")}</textarea>
+        <label class="k" for="amh-${esc(p._id)}">Meta headline</label><input id="amh-${esc(p._id)}" maxlength="60" value="${esc(p.meta?.headline||"")}" ${ro}>
+        <div class="actions"><button class="btn" data-aact="savewords" data-id="${esc(p._id)}" ${ro}>Save words</button><span class="count">Then press "Make a new image" to see them on the static.</span></div>
+      </div></details>
+      <div class="actions">${reviewBtns(p._id,st,"status",ro||(!p.image_id?"disabled":""))}<span class="spacer"></span>
+        <label class="k" for="ad-${esc(p._id)}">Date</label><input type="date" class="datein" id="ad-${esc(p._id)}" value="${esc(p.date||"")}" ${ro}><button class="btn" data-aact="date" data-id="${esc(p._id)}" ${ro}>Save date</button></div>
+      <div class="note"><textarea id="an-${esc(p._id)}" rows="1" placeholder="What to change, e.g. make the glass bigger, warmer light" aria-label="Note" ${ro}>${esc(p.note||"")}</textarea>
+        <button class="btn" data-aact="note" data-id="${esc(p._id)}" ${ro}>Save note</button>
+        ${state.agent.mode==="api"?`<button class="btn primary" style="margin-top:0" data-aact="image" data-id="${esc(p._id)}" ${ro}>${busy?"Working…":p.image_id?"Make a new image":"Make the image"}</button>`:""}</div>
+      ${state.agent.mode==="plus"?`<div class="plus mini"><b>${p.image_id?"Make another version in ChatGPT":"Make the image in ChatGPT"}</b>
+        <div class="actions">
+          ${p.product!=="brand"?`<a class="btn" href="/teardowns/assets/silt-${p.product==="nights"?"nights":"mornings"}-pack.png" download="silt-${p.product==="nights"?"nights":"mornings"}-pack.png">1. Save the pack photo</a>`:""}
+          <button class="btn" data-aact="copyprompt" data-id="${esc(p._id)}">${p.product!=="brand"?"2":"1"}. Copy the prompt</button>
+          <a class="btn" href="${CHATGPT_URL}" target="_blank" rel="noopener">${p.product!=="brand"?"3":"2"}. Open ChatGPT</a>
+          <label class="btn primary upl ${ro?"off":""}" style="margin-top:0">${busy?"Uploading…":`${p.product!=="brand"?"4":"3"}. Upload the image`}<input type="file" accept="image/png,image/jpeg,image/webp" data-up="${esc(p._id)}" hidden ${ro}></label>
+        </div>
+        <span class="count">${p.product!=="brand"?"Attach the pack photo in ChatGPT and paste the prompt. ":"Paste the prompt in ChatGPT. "}Any note above is added to the prompt. Then save ChatGPT's image and upload it here.</span></div>`:""}
+      ${p.reviewed_at?`<span class="reviewed">${ISTATUS[st]} by ${esc(nameFromEmail(p.reviewed_by))} · ${new Date(p.reviewed_at).toLocaleString()}${st==="approved"?" · on the content calendar":""}</span>`:""}
+    </div></div></article>`;
+}
+function reelCard(p){
+  const st=p.status||"pending",busy=state.abusy.has(p._id),ro=!state.canWrite||busy?"disabled":"";
+  const ss0=p.script_status||"pending",requested=ss0==="requested",ss=requested?(p.script_text?"pending":"pending"):ss0,hasScript=!!p.script_text;
+  const waitBox=requested?`<p class="alert" style="background:var(--info-soft);color:var(--info)">Claude is ${p.script_request?.rewrite?"rewriting":"writing"} this script${p.script_request?.note?` with your note: “${esc(p.script_request.note)}”`:""}. It usually appears within the hour; this page shows it once it's saved. <button class="btn" data-aact="refresh" data-id="${esc(p._id)}">Check now</button></p>`:"";
+  return `<article class="card" id="ag-${esc(p._id)}" data-status="${hasScript&&st==="approved"?ss:st}"><div class="stripe"></div><div class="inner">
+    <div class="meta"><span class="chip slot">Reel</span>${pchip(p.product)}${dchip(p.driver)}${p.pillar?`<span class="chip">${esc(p.pillar)}</span>`:""}<span class="chip">${p.date?"Planned: "+esc(ideaDate(p.date)):"No date yet"}</span><span class="chip status ${st}">Idea: ${ISTATUS[st]}</span>${requested?`<span class="chip status pending">Script: Claude is writing</span>`:hasScript?`<span class="chip status ${ss}">Script: ${ISTATUS[ss]}</span>`:""}</div>
+    <h3 class="rtitle">${esc(p.title)}</h3>
+    ${p.hook?`<div class="words"><span class="hl">“${esc(p.hook)}”</span></div>`:""}
+    <div class="text">${p.format?`<b>Format:</b> ${esc(p.format)}\n`:""}${esc(p.outline||"")}</div>
+    ${p.based_on||p.why?`<div class="why">${p.based_on?`<b>Borrows from:</b> ${esc(p.based_on)}. `:""}${esc(p.why||"")}</div>`:""}
+    <div class="actions">${reviewBtns(p._id,st,"status",ro)}<span class="spacer"></span>
+      <label class="k" for="ad-${esc(p._id)}">Date</label><input type="date" class="datein" id="ad-${esc(p._id)}" value="${esc(p.date||"")}" ${ro}><button class="btn" data-aact="date" data-id="${esc(p._id)}" ${ro}>Save date</button></div>
+    <div class="note"><textarea id="an-${esc(p._id)}" rows="1" placeholder="Note on the idea" aria-label="Note on the idea" ${ro}>${esc(p.note||"")}</textarea><button class="btn" data-aact="note" data-id="${esc(p._id)}" ${ro}>Save note</button></div>
+    ${st==="approved"?waitBox:""}
+    ${st==="approved"?(hasScript?`<div class="scriptbox">
+        <div class="actions"><span class="k">Script${p.script_by?` by ${esc(p.script_by)}`:""}${p.script_versions>1?` · version ${p.script_versions}`:""}${p.script?.length_s?` · about ${p.script.length_s} s`:""}</span><span class="spacer"></span><button class="btn" data-aact="copyscript" data-id="${esc(p._id)}">Copy</button></div>
+        <textarea class="scripttext" id="ast-${esc(p._id)}" aria-label="Script" ${ro}>${esc(p.script_text)}</textarea>
+        <div class="actions"><button class="btn" data-aact="savescript" data-id="${esc(p._id)}" ${ro}>Save my edits</button>${p.script_edited_by?`<span class="count">Edited by ${esc(nameFromEmail(p.script_edited_by))}</span>`:""}<span class="spacer"></span>${reviewBtns(p._id,ss,"script_status",ro)}</div>
+        <div class="note"><textarea id="asn-${esc(p._id)}" rows="1" placeholder="What to change in the script, e.g. shorter hook, more Hinglish" aria-label="Script note" ${ro}>${esc(p.script_note||"")}</textarea><button class="btn" data-aact="script" data-id="${esc(p._id)}" ${ro||(requested?"disabled":"")}>${busy?"Sending…":"Ask Claude to rewrite with this note"}</button></div>
+        ${p.script_reviewed_at?`<span class="reviewed">Script ${ISTATUS[ss].toLowerCase()} by ${esc(nameFromEmail(p.script_reviewed_by))} · ${new Date(p.script_reviewed_at).toLocaleString()}${ss==="approved"?" · on the content calendar":""}</span>`:""}
+      </div>`:requested?"":`<div class="actions"><button class="btn primary" style="margin-top:0" data-aact="script" data-id="${esc(p._id)}" ${ro}>${busy?"Sending…":"Ask Claude to write the script"}</button><span class="count">The idea is on the calendar (faded) until its script is approved.</span></div>`):""}
+    ${p.reviewed_at?`<span class="reviewed">Idea ${ISTATUS[st].toLowerCase()} by ${esc(nameFromEmail(p.reviewed_by))} · ${new Date(p.reviewed_at).toLocaleString()}</span>`:""}
+  </div></article>`;
+}
+function researchPanel(R){
+  if(!R)return "";
+  const fmt=d=>d?new Date(d.length===10?d+"T00:00:00":d).toLocaleDateString(undefined,{day:"numeric",month:"short"}):"";
+  const fresh=[R.competitors_new?"the competitor analysis":"",...R.brands.filter(b=>b.new).map(b=>b.brand+"'s ad teardown"),...R.pending.map(p=>p.brand+"'s ad teardown")].filter(Boolean);
+  return `<div class="research"><span class="k">Research the agent reads on every run</span>
+    <div class="meta">${R.competitors_updated?`<span class="chip ${R.competitors_new?"newchip":""}">Competitor analysis · ${esc(fmt(R.competitors_updated))}</span>`:`<span class="chip">No competitor analysis yet</span>`}
+      ${R.brands.map(b=>`<span class="chip ${b.new?"newchip":""}">${esc(b.brand)} ads${b.pulled?" · "+esc(fmt(b.pulled)):""}</span>`).join("")}
+      ${R.pending.map(p=>`<span class="chip newchip">${esc(p.brand)} ads · read on next run</span>`).join("")}</div>
+    ${R.last_run&&fresh.length?`<p class="alert">New since the last run: ${esc(fresh.join(", "))}. Run the agent to use it.</p>`:""}
+  </div>`;
+}
+const CHATGPT_URL="https://chatgpt.com/";
+function plusPanel(){
+  const b=state.abrief,ro=!state.canWrite||state.arunning?"disabled":"";
+  return `<div class="plus">
+    <div class="step"><span class="num">1</span><div><b>Copy the brief into ChatGPT</b>
+      <p class="count">${esc(Math.round(b.text.length/1000))}k characters: every brand's ad teardown, the competitor analysis, the calendar, the rules and your feedback. If ChatGPT says it's too long, download it as a file and attach that instead.</p>
+      <div class="actions"><button class="btn" type="button" data-aact="copybrief">Copy the brief</button><button class="btn" type="button" data-aact="dlbrief">Download as a file</button><a class="btn" href="${CHATGPT_URL}" target="_blank" rel="noopener">Open ChatGPT</a></div></div></div>
+    <div class="step"><span class="num">2</span><div><b>Paste ChatGPT's whole answer here</b>
+      <textarea id="agPaste" rows="6" placeholder="Paste the reply, including the code block" ${ro}></textarea>
+      <div class="actions"><button class="btn primary" type="button" style="margin-top:0" data-aact="importrun" ${ro}>Save the answer</button><button class="btn" type="button" data-aact="dropbrief" ${ro}>Cancel</button></div></div></div>
+  </div>`;
+}
+function renderAgent(){
+  const A=state.agent;
+  if(A==null)return `<div class="empty"><b>Loading the content agent…</b></div>`;
+  if(A.error)return `<div class="empty"><b>Couldn't load the content agent</b><span>${esc(A.error)}</span></div>`;
+  const ro=!state.canWrite||state.arunning?"disabled":"";
+  const runs=A.items.filter(i=>i.kind==="strategy");
+  const runId=state.arun&&runs.some(r=>r.run_id===state.arun)?state.arun:runs[0]?.run_id;
+  const strat=runs.find(r=>r.run_id===runId);
+  const f=state.filter,match=i=>f==="all"||(i.kind==="reel"&&i.status==="approved"&&i.script_text?(i.script_status||"pending")===f||i.status===f:(i.status||"pending")===f);
+  const inRun=A.items.filter(i=>i.run_id===runId&&i.kind!=="strategy");
+  const statics=inRun.filter(i=>i.kind==="static"&&match(i)),reels=inRun.filter(i=>i.kind==="reel"&&match(i));
+  return `<div class="agent">
+    <form class="brief" id="agentForm">
+      <h2>Content agent</h2>
+      <p class="lede">Reads the competitor analysis and ad teardowns, writes a two-week content strategy, makes static ads with ChatGPT in our brand look, and suggests reel ideas. Approve a static to put it on the content calendar. Approve a reel idea, then write and approve its script.</p>
+      ${A.mode==="api"&&!A.key_set&&!A.mock?`<p class="alert">The OpenAI key isn't set yet, so the agent can't run. Add OPENAI_API_KEY as a Pages secret (see SETUP.md).</p>`:""}
+      ${A.mock&&A.mode==="api"?`<p class="alert">Test mode: answers are made up locally and no OpenAI calls are made.</p>`:""}
+      ${A.mode==="plus"?`<p class="count">Runs through ChatGPT Plus: the Desk writes the brief, you paste it into ChatGPT and paste the answer back. Reel scripts are written by Claude.</p>`:""}
+      <div class="runform">
+        <label>Statics<select id="agStatics" ${ro}>${[2,3,4,5,6,8].map(n=>`<option ${n===4?"selected":""}>${n}</option>`).join("")}</select></label>
+        <label>Reel ideas<select id="agReels" ${ro}>${[2,3,4,5,6,8].map(n=>`<option ${n===4?"selected":""}>${n}</option>`).join("")}</select></label>
+        <label class="wide">Focus for this run (optional)<input id="agFocus" maxlength="500" placeholder="e.g. Nights launch push, answer Supply6 Mellow, value for money" ${ro}></label>
+        <button class="btn primary" type="submit" ${ro}>${state.arunning?"Working…":A.mode==="plus"?(state.abrief?"Make a fresh brief":"Make the brief for ChatGPT"):"Run the agent"}</button>
+      </div>
+      ${researchPanel(A.research)}
+      <p class="progress" id="agProgress" ${state.aprogress?"":"hidden"}>${esc(state.aprogress||"")}</p>
+      ${A.mode==="plus"&&state.abrief?plusPanel():""}
+      ${A.mode==="api"?`<span class="count">Text: ${esc(A.models.text)} · Images: ${esc(A.models.image)} at ${esc(A.models.size)}</span>`:""}
+    </form>
+    ${strat?`<section class="brief">
+      <div class="runsel"><h2 style="flex:1">Strategy for ${esc(ideaDate(strat.period.start))} to ${esc(ideaDate(strat.period.end))}</h2>
+        ${runs.length>1?`<label class="k" for="agRun">Run</label><select id="agRun">${runs.map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===runId?"selected":""}>${esc(new Date(r.created_at).toLocaleString())} · ${esc(nameFromEmail(r.created_by))}</option>`).join("")}</select>`:""}</div>
+      ${strat.focus?`<span class="count">Focus: ${esc(strat.focus)}</span>`:""}
+      ${strat.summary?`<p class="lede">${esc(strat.summary)}</p>`:""}
+      ${strat.whats_new?`<p class="alert" style="background:var(--gold-soft);color:var(--fg)"><b>What changed with new research:</b> ${esc(strat.whats_new)}</p>`:""}
+      ${strat.sources?`<span class="count">Read: ${strat.sources.competitors_updated?"competitor analysis, ":""}ad teardowns of ${esc((strat.sources.brands||[]).map(b=>b.brand).join(", ")||"no brands")}</span>`:""}
+      ${(strat.pillars||[]).length?`<div class="pillars">${strat.pillars.map(p=>`<div class="pillar"><b>${esc(p.name)}</b>${dchip(p.driver)}<span>${esc(p.why)}</span>${p.evidence?`<span class="count">${esc(p.evidence)}</span>`:""}</div>`).join("")}</div>`:""}
+      ${(strat.category_patterns||[]).length?`<div><span class="k">What works across brands</span><ul class="insights">${strat.category_patterns.map(c=>`<li><b>${esc(c.pattern)}</b> <span class="chip ${c.strength==="proven"?"approved":""} status">${c.strength==="proven"?"Proven":"Emerging"}</span>${(c.brands||[]).length?` <span class="count">(${esc(c.brands.join(", "))})</span>`:""}. ${esc(c.use)}</li>`).join("")}</ul></div>`:""}
+      ${(strat.gaps||[]).length?`<div><span class="k">Gaps no brand covers</span>${list(strat.gaps)}</div>`:""}
+      ${(strat.insights||[]).length?`<div><span class="k">What competitors do, and our answer</span><ul class="insights">${strat.insights.map(i=>`<li><b>${esc(i.what)}</b>${i.source?` <span class="count">(${esc(i.source)})</span>`:""}. ${esc(i.so_what)}</li>`).join("")}</ul></div>`:""}
+      ${(strat.avoid||[]).length?`<div><span class="k">Avoid</span>${list(strat.avoid)}</div>`:""}
+    </section>
+    <h2 class="sec">Statics</h2>
+    <div class="lane">${statics.length?statics.map(staticCard).join(""):`<div class="empty"><b>No statics match this filter</b></div>`}</div>
+    <h2 class="sec">Reel ideas</h2>
+    <div class="lane">${reels.length?reels.map(reelCard).join(""):`<div class="empty"><b>No reel ideas match this filter</b></div>`}</div>`
+    :`<div class="empty"><b>No strategy yet</b><span>Press "Run the agent" to make the first one.</span></div>`}
+    <details class="brief rules"><summary>Agent rules: brand, statics and reels${A.rules.custom?` · edited${A.rules.updated_by?` by ${esc(nameFromEmail(A.rules.updated_by))}`:""}`:" · default"}</summary>
+      <p class="lede">The agent follows these rules on every run. Paste your statics instructions here to change how statics are made.</p>
+      <textarea class="rulesbox" id="agRules" aria-label="Agent rules" ${ro}>${esc(A.rules.text)}</textarea>
+      <div class="actions"><button class="btn" data-aact="saverules" ${ro}>Save rules</button><button class="btn" data-aact="resetrules" ${ro}>Restore the default rules</button></div>
+    </details>
+  </div>`;
+}
+async function agentCall(id,path,body,msg){
+  state.abusy.add(id);agentRerender(id);
+  try{const doc=await api(path,{method:"POST",body:JSON.stringify(body||{})});agentPut(doc);if(msg)toast(msg);return doc}
+  catch(e){if(!e.signedOut)notice("Couldn't finish that ("+e.message+").");return null}
+  finally{state.abusy.delete(id);agentRerender(id)}
+}
+const agentPatch=(id,patch,msg)=>agentCall(id,"/api/agent/items/"+encodeURIComponent(id),patch,msg);
+async function readPending(){
+  // Read any newly added teardown pages first, one request each, so every brand counts in this run.
+  for(const p of (state.agent.research?.pending||[])){
+    state.aprogress=`Reading ${p.brand}'s ad teardown…`;render();
+    try{await api("/api/agent/digest",{method:"POST",body:JSON.stringify({page:p.page})})}catch(e){if(e.signedOut)throw e}
+  }
+}
+async function makeBrief(){
+  const body={statics:Number($("#agStatics").value),reels:Number($("#agReels").value),focus:$("#agFocus").value};
+  state.arunning=true;notice("");render();
+  try{
+    await readPending();
+    state.aprogress="Putting the brief together…";render();
+    state.abrief=await api("/api/agent/brief",{method:"POST",body:JSON.stringify(body)});
+    state.aprogress="";
+  }catch(e){state.aprogress="";if(!e.signedOut)notice("Couldn't make the brief ("+e.message+").")}
+  finally{state.arunning=false;render()}
+}
+async function importRun(){
+  const text=$("#agPaste").value;if(!text.trim()){toast("Paste ChatGPT's answer first");return}
+  state.arunning=true;notice("");state.aprogress="Saving ChatGPT's answer…";render();
+  try{
+    const r=await api("/api/agent/import",{method:"POST",body:JSON.stringify({text,meta:state.abrief.meta})});
+    r.items.slice().reverse().forEach(agentPut);state.arun=r.items[0]?.run_id;state.abrief=null;
+    state.aprogress="";toast("Strategy, statics and reel ideas saved");
+    try{state.agent.research=(await api("/api/agent")).research}catch(e){}
+  }catch(e){state.aprogress="";if(!e.signedOut)notice(e.message)}
+  finally{state.arunning=false;render();const t=$("#agPaste");if(t&&state.abrief)t.value=text}
+}
+async function runAgent(){
+  if(state.arunning)return;
+  if(state.agent.mode==="plus")return makeBrief();
+  const body={statics:Number($("#agStatics").value),reels:Number($("#agReels").value),focus:$("#agFocus").value};
+  state.arunning=true;notice("");state.aprogress="Reading the research and writing the strategy… this can take a minute or two.";render();
+  try{
+    await readPending();
+    state.aprogress="Reading the research and writing the strategy… this can take a minute or two.";render();
+    const r=await api("/api/agent/strategy",{method:"POST",body:JSON.stringify(body)});
+    r.items.slice().reverse().forEach(agentPut);
+    state.arun=r.items[0]?.run_id;
+    const statics=r.items.filter(i=>i.kind==="static");
+    for(let i=0;i<statics.length;i++){
+      state.aprogress=`Strategy done. Making static ${i+1} of ${statics.length} with ChatGPT…`;
+      await agentCall(statics[i]._id,"/api/agent/items/"+encodeURIComponent(statics[i]._id)+"/image",{});
+    }
+    state.aprogress="";toast("Strategy, statics and reel ideas are ready");
+    try{state.agent.research=(await api("/api/agent")).research}catch(e){}
+  }catch(e){state.aprogress="";if(!e.signedOut)notice("The agent couldn't finish ("+e.message+").")}
+  finally{state.arunning=false;render()}
+}
+async function agentAct(b){
+  const act=b.dataset.aact,id=b.dataset.id,p=state.agent?.items.find(x=>x._id===id);
+  if(act==="saverules"||act==="resetrules"){
+    if(act==="resetrules"&&!confirm("Replace the rules with the defaults?"))return;
+    try{state.agent.rules=await api("/api/agent/rules",{method:"POST",body:JSON.stringify({text:act==="resetrules"?"":$("#agRules").value})});render();toast(act==="resetrules"?"Default rules restored":"Rules saved")}
+    catch(e){if(!e.signedOut)notice("Couldn't save the rules ("+e.message+").")}
+    return;
+  }
+  if(act==="copybrief"){copy(state.abrief.text);return}
+  if(act==="dlbrief"){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([state.abrief.text],{type:"text/plain"}));a.download=`silt-content-brief-${isoDay(new Date())}.txt`;document.body.appendChild(a);a.click();a.remove();return}
+  if(act==="importrun"){importRun();return}
+  if(act==="dropbrief"){state.abrief=null;render();return}
+  if(!p)return;
+  if(act==="show"){state.ashow[id]=b.dataset.m;agentRerender(id);return}
+  if(act==="copyprompt"){const n=document.getElementById("an-"+id)?.value.trim()||"";copy((p.image_prompt||"")+(n?`\n\nCHANGES REQUESTED BY THE TEAM: ${n}`:""));return}
+  if(act==="refresh"){try{const a=await api("/api/agent");state.agent.items=a.items;agentRerender(id);const q=a.items.find(x=>x._id===id);toast(q?.script_status==="requested"?"Not ready yet":"Script is here")}catch(e){}return}
+  if(act==="status"||act==="script_status"){const cur=act==="status"?p.status:p.script_status;const s=cur===b.dataset.s?"pending":b.dataset.s;
+    await agentPatch(id,{[act]:s},s==="approved"&&(p.kind==="static"||act==="script_status")?"Approved and added to the content calendar":ISTATUS[s]);
+    state.ideas=undefined; // the calendar reloads next time it opens
+    return}
+  if(act==="date"){const d=document.getElementById("ad-"+id).value;if(d===(p.date||""))return;await agentPatch(id,{date:d},d?"Date saved":"Date removed");state.ideas=undefined;return}
+  if(act==="note"){const n=document.getElementById("an-"+id).value;if(n.trim()===(p.note||""))return;await agentPatch(id,{note:n,...(p.status==="pending"||!p.status?{status:"changes"}:{})},"Note saved");return}
+  if(act==="image"){const n=document.getElementById("an-"+id)?.value.trim()||"";delete state.ashow[id];await agentCall(id,"/api/agent/items/"+encodeURIComponent(id)+"/image",{note:p.image_id?n:""},"New image ready");return}
+  if(act==="savewords"){await agentPatch(id,{text:{headline:document.getElementById("ah-"+id).value,line:document.getElementById("al-"+id).value,chips:document.getElementById("ac-"+id).value.split(",").map(x=>x.trim()).filter(Boolean)},scene:document.getElementById("as-"+id).value,meta:{primary:document.getElementById("amp-"+id).value,headline:document.getElementById("amh-"+id).value}},"Words saved");return}
+  if(act==="script"){const n=document.getElementById("asn-"+id)?.value.trim()||"";if(p.script_text&&n!==(p.script_note||""))await agentPatch(id,{script_note:n});await agentCall(id,"/api/agent/items/"+encodeURIComponent(id)+"/script",{note:p.script_text?n:""},"Sent to Claude");return}
+  if(act==="savescript"){const t=document.getElementById("ast-"+id).value;if(t===p.script_text)return;await agentPatch(id,{script_text:t},"Script edits saved");return}
+  if(act==="copyscript"){copy(document.getElementById("ast-"+id).value);return}
+}
+document.addEventListener("submit",e=>{if(e.target.id==="agentForm"){e.preventDefault();runAgent()}});
+document.addEventListener("change",e=>{
+  if(e.target.id==="agRun"){state.arun=e.target.value;render();return}
+  if(e.target.dataset?.up&&e.target.files?.[0])uploadImage(e.target.dataset.up,e.target.files[0]);
+});
+// Shrinks a ChatGPT image to at most 1080 x 1920 JPEG in the browser, so it fits the database, then uploads it.
+async function shrink(file){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>no(new Error("That file isn't an image the browser can open."));i.src=url});
+    const k=Math.min(1,1080/img.naturalWidth,1920/img.naturalHeight);
+    const c=document.createElement("canvas");c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    for(const qual of [.88,.8,.7,.6]){const d=c.toDataURL("image/jpeg",qual);if(d.length<1_850_000)return d.split(",")[1]}
+    throw new Error("The image is too large even after shrinking.");
+  }finally{URL.revokeObjectURL(url)}
+}
+async function uploadImage(id,file){
+  const p=state.agent.items.find(x=>x._id===id);if(!p)return;
+  state.abusy.add(id);agentRerender(id);
+  try{
+    const b64=await shrink(file);
+    const note=document.getElementById("an-"+id)?.value.trim()||"";
+    const doc=await api("/api/agent/items/"+encodeURIComponent(id)+"/upload",{method:"POST",body:JSON.stringify({b64,mime:"image/jpeg",note})});
+    agentPut(doc);delete state.ashow[id];toast("Image added");
+  }catch(e){if(!e.signedOut)notice("Couldn't upload the image ("+e.message+").")}
+  finally{state.abusy.delete(id);agentRerender(id)}
+}
+
+function card(p){
+  const st=p.status||"pending", editing=state.editing.has(p._id), isX=p.platform==="x", isLI=p.platform==="linkedin", isR=p.platform==="reddit", isC=p.platform==="reddit_comment";
+  const txt=current(p), len=xLen(txt);
+  const ro=!state.canWrite?"disabled":"";
+  const nm=p.reviewed_by&&state.names[p.reviewed_by];const reviewer=nm?` by ${esc(nm)}`:"";
+  const head=`<div class="meta">
+      <span class="chip slot">${isX?"X":isLI?"LI":isC?"C":"R"}${esc(p.slot)}</span>
+      ${isC&&p.account?`<span class="chip">From: ${esc(p.account)}</span>`:""}
+      ${p.product?`<span class="chip ${esc(p.product)}">${esc(PRODUCT_LABEL[p.product]||p.product)}</span>`:""}
+      ${p.pillar?`<span class="chip ${p.pillar==="Trust"?"nights":"mornings"}">${esc(p.pillar)}</span>`:""}
+      ${p.angle?`<span class="chip">${esc(p.angle)}</span>`:""}
+      ${p.format?`<span class="chip">${esc(p.format)}</span>`:""}
+      ${p.edited_text!=null||p.edited_title!=null?`<span class="edited">Edited</span>`:""}
+      <span class="chip status ${st}">${STATUS_LABEL[st]}</span></div>`;
+  const body = editing
+    ? `${isR?`<input class="ttl" id="t-${p._id}" value="${esc(p.edited_title??p.title)}" aria-label="Post title">`:""}
+       <textarea id="e-${p._id}" rows="${isX?5:14}" aria-label="Post text">${esc(txt)}</textarea>
+       <div class="actions"><button class="btn" data-act="save" data-id="${p._id}">Save edit</button><button class="btn" data-act="cancel" data-id="${p._id}">Cancel</button>${p.edited_text!=null?`<button class="btn" data-act="revert" data-id="${p._id}">Restore original</button>`:""}${isX?`<span class="count" id="c-${p._id}">${len}/280</span>`:""}</div>`
+    : `${isR?`<div class="sub">r/${esc(p.subreddit)}${p.flair?` · flair: ${esc(p.flair)}`:""}</div><h3 class="rtitle">${esc(p.edited_title??p.title)}</h3>`:""}
+       ${isC?`<div class="sub">Reply in r/${esc(p.subreddit)}${p.thread_age?` · thread ${esc(p.thread_age)} old`:""}${p.thread_comments!=null?` · ${esc(p.thread_comments)} comments`:""}</div>
+         <h3 class="rtitle"><a href="${esc(p.thread_url)}" target="_blank" rel="noopener">${esc(p.thread_title)}</a></h3>
+         <div class="agerule">Only reply to a post from the last ${esc(p.max_age_days||3)} days. Check the date under the title before you comment; if nothing that recent fits, skip it.</div>
+         ${p.thread_summary?`<div class="hook"><span class="k">What they're asking</span>${esc(p.thread_summary)}</div>`:""}
+         <span class="k">Our comment</span>`:""}
+       ${isLI?`<div class="hook"><span class="k">Shows before “see more”</span>${esc(txt.slice(0,210))}${txt.length>210?"…":""}</div>`:""}
+       <div class="text">${esc(txt)}</div>
+       ${isX&&p.poll&&(p.poll.options||[]).length?`<div class="poll"><span class="k">Poll · add these options in X's poll button · ${esc(p.poll.duration||"1 day")}</span>${p.poll.options.map(o=>`<div class="opt"><span>${esc(o)}</span><span class="count ${[...String(o)].length>25?"over":""}">${[...String(o)].length}/25</span></div>`).join("")}${p.poll.followup?`<span class="pollnote"><b>Next day:</b> ${esc(p.poll.followup)}</span>`:""}</div>`:""}
+       ${isX?`<span class="count ${len>280?"over":""}">${len}/280 characters${p.thread?" · first post of a thread":""}</span>`:""}
+       ${isLI?`<span class="count ${[...txt].length>3000?"over":""}">${[...txt].length}/3000 characters</span>`:""}`;
+  const img=p.image;
+  const imgBlock=img?`<div class="imgidea"><span class="k">Image to tag along</span>
+      <b>${esc(img.concept||"")}</b>
+      ${img.source?`<span><b>Use:</b> ${esc(img.source)}</span>`:""}
+      ${img.overlay?`<span><b>Text on image:</b> ${esc(img.overlay)}</span>`:""}
+      ${img.alt?`<span><b>Backup idea:</b> ${esc(img.alt)}</span>`:""}
+      ${img.link?`<a href="${esc(img.link)}" target="_blank" rel="noopener">Open asset folder</a>`:""}</div>`:"";
+  const why=`<div class="why">
+      ${p.trend?`<span><b>Hook:</b> ${esc(p.trend)}</span>`:""}
+      ${p.why?`<span><b>Why now:</b> ${esc(p.why)}</span>`:""}
+      ${p.competitor?`<span><b>Competitor angle:</b> ${esc(p.competitor)}</span>`:""}
+      ${(isR||isC)&&p.rules?`<span><b>Sub rules:</b> ${esc(p.rules)}</span>`:""}
+      ${p.source?`<a href="${esc(p.source)}" target="_blank" rel="noopener">${esc(p.source)}</a>`:""}
+    </div>`;
+  const postUrl=isX?`https://x.com/intent/post?text=${encodeURIComponent(txt)}`:isLI?`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(txt)}`:isC?(p.thread_url||"#"):`https://www.reddit.com/r/${encodeURIComponent(p.subreddit||"")}/submit`;
+  const acts=`<div class="actions">
+      <button class="btn ok" data-act="status" data-s="approved" data-id="${p._id}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+      <button class="btn warn" data-act="status" data-s="changes" data-id="${p._id}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+      <button class="btn bad" data-act="status" data-s="rejected" data-id="${p._id}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>
+      <button class="btn post" data-act="status" data-s="posted" data-id="${p._id}" aria-pressed="${st==="posted"}" ${ro}>Posted</button>
+      <span class="spacer"></span>
+      ${!editing?`<button class="btn" data-act="edit" data-id="${p._id}" ${ro}>Edit</button>`:""}
+      ${isR?`<button class="btn" data-act="copytitle" data-id="${p._id}">Copy title</button>`:""}
+      <button class="btn" data-act="copy" data-id="${p._id}">Copy ${isR?"body":isC?"comment":"post"}</button>
+      <a class="btn" href="${postUrl}" target="_blank" rel="noopener">${isX?"Open in X":isLI?"Open in LinkedIn":isC?(String(p.format||"").startsWith("Comment bank")?`Open r/${esc(p.subreddit)} newest posts`:"Open thread"):"Open subreddit"}</a>
+    </div>
+    <div class="note"><textarea id="n-${p._id}" rows="1" placeholder="Note for tomorrow's run, e.g. too salesy, use a Bengaluru example" aria-label="Review note" ${ro}>${esc(p.note||"")}</textarea><button class="btn" data-act="note" data-id="${p._id}" ${ro}>Save note</button></div>
+    ${p.reviewed_at?`<span class="reviewed">${STATUS_LABEL[st]}${reviewer} · ${new Date(p.reviewed_at).toLocaleString()}</span>`:""}`;
+  return `<article class="card ${p.platform}" data-status="${st}"><div class="stripe"></div><div class="inner">${head}${body}${imgBlock}${why}${acts}</div></article>`;
+}
+
+function renderBrief(){
+  const b=state.brief;
+  if(!b){return `<div class="empty"><b>No trend brief for this day yet</b><span>The morning run writes a short list of what is moving on X and Reddit, with links, before drafting the posts.</span></div>`}
+  return `<div class="brief"><h2>What's moving today</h2>${b.summary?`<p class="lede">${esc(b.summary)}</p>`:""}
+    <div class="trends">${(b.trends||[]).map(t=>`<div class="trend"><b>${esc(t.topic)}</b><span>${esc(t.angle||"")}</span>${t.platform?`<span class="chip" style="align-self:flex-start">${esc(t.platform)}</span>`:""}${t.source?`<a href="${esc(t.source)}" target="_blank" rel="noopener">${esc(t.source)}</a>`:""}</div>`).join("")}</div>
+    ${b.instagram?`<p class="lede"><b>From our Instagram:</b> ${esc(b.instagram)}</p>`:""}
+    ${b.competitors?`<p class="lede"><b>What other brands are doing:</b> ${esc(b.competitors)}</p>`:""}
+    ${(b.linkedin_trends||[]).length?`<h2>Going around on LinkedIn</h2><div class="trends">${b.linkedin_trends.map(t=>`<div class="trend"><b>${esc(t.topic)}</b>${t.date?`<span class="count">${esc(t.date)}${t.day?` · fits ${esc(t.day)}`:""}</span>`:""}<span>${esc(t.angle||"")}</span>${t.source?`<a href="${esc(t.source)}" target="_blank" rel="noopener">${esc(t.source)}</a>`:""}</div>`).join("")}</div>`:""}
+    ${(b.linkedin_week||[]).length?`<h2>LinkedIn plan this week</h2><div class="trends">${b.linkedin_week.map(w=>`<div class="trend"><b>${esc(w.day)}: ${esc(w.title)}</b>${w.format?`<span><b>Format:</b> ${esc(w.format)}</span>`:""}<span>${esc(w.notes||"")}</span></div>`).join("")}</div>`:""}
+    ${(b.linkedin_formats||[]).length?`<h2>What's working on LinkedIn now</h2><ul class="lede">${b.linkedin_formats.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`:""}
+    ${(b.linkedin_competitors||[]).length?`<h2>Competitor watch on LinkedIn</h2><div class="trends">${b.linkedin_competitors.map(c=>`<div class="trend"><b>${esc(c.brand)}</b><span>${esc(c.what||"")}</span>${c.takeaway?`<span><b>For us:</b> ${esc(c.takeaway)}</span>`:""}${c.source?`<a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.source)}</a>`:""}</div>`).join("")}</div>`:""}</div>`;
+}
+
+async function loadCompetitors(){
+  state.comp=null;
+  const [c,t]=await Promise.allSettled([api("/api/doc?key=competitors"),api("/api/doc?key=teardowns")]);
+  if([c,t].some(r=>r.status==="rejected"&&r.reason&&r.reason.signedOut))return;
+  state.comp=c.status==="fulfilled"?c.value:{error:c.reason.message};
+  state.teardowns=t.status==="fulfilled"?(t.value.teardowns||[]):[];
+  state.teardownsChecked=t.status==="fulfilled"?(t.value.weekly_checked||null):null;
+  if(state.tab==="competitors"||state.tab==="teardowns")render();
+}
+const THREAT={high:"bad",medium:"warn",low:"ok"};
+function list(a){return (a||[]).length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+function teardownCard(x){
+  const meta=[x.country==="US"?"US ads":x.kind==="tool"?"":"India ads",x.date?`pulled ${new Date(x.date+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}`:""].filter(Boolean).join(" · ");
+  const r=x.reel;
+  const reel=r?`<span class="reelchip" title="Average length of their 15 longest-running videos${r.all_n?`; across all ${r.all_n} videos: ${r.all_avg}s`:""}">Avg reel <b>${r.avg}s</b> · ${r.min} to ${r.max}s</span>`:"";
+  const w=x.week;
+  const fmtD=d=>d?new Date(d+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}):"";
+  const week=w?`<div class="weekbox"><span class="k">This week · checked ${esc(fmtD(w.date))}${w.since?` vs ${esc(fmtD(w.since))}`:""}</span>
+      <span><b>${esc(w.active)}</b> ads running${w.capped?"+":""} · <b>+${esc(w.started)}</b> new${w.stopped!=null?` · <b>${esc(w.stopped)}</b> stopped`:""}${w.watchHits?` · <b>${esc(w.watchHits)}</b> new in our categories`:""}</span>
+      ${w.longest&&w.longest.days?`<span><b>Longest running:</b> ${esc(w.longest.days)} days${w.longest.text?`, "${esc(w.longest.text)}"`:""}</span>`:""}
+      ${(w.newAds||[]).length?`<span><b>New ads to look at:</b></span><ul>${w.newAds.map(a=>`<li>${esc(a.text||"(no copy)")}${a.versions>1?` <span class="count">(${esc(a.versions)} versions)</span>`:""}${a.link?` <a href="${esc(a.link)}" target="_blank" rel="noopener">open</a>`:""}</li>`).join("")}</ul>`:""}
+    </div>`:"";
+  return `<div class="teardown"><div class="meta"><b>${esc(x.brand)}</b>${x.watch?`<span class="chip status bad">${esc(x.watch)}</span>`:""}</div>${meta?`<span class="count">${esc(meta)}</span>`:""}${reel}${week}<span>${esc(x.summary||"")}</span>${(x.highlights||[]).length?`<ul>${x.highlights.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}<a class="btn" style="align-self:flex-start" href="${esc(x.url)}" target="_blank" rel="noopener">${x.kind==="tool"?"Open the prompts":"Open the full teardown"}</a></div>`;
+}
+function renderTeardownsTab(){
+  if(state.comp==null&&state.teardowns===undefined)return `<div class="empty"><b>Loading the ad teardowns…</b></div>`;
+  const t=state.teardowns||[];
+  if(!t.length)return `<div class="empty"><b>No ad teardowns yet</b><span>Each brand's teardown appears here once it's added.</span></div>`;
+  const tools=t.filter(x=>x.kind==="tool"), brands=t.filter(x=>x.kind!=="tool");
+  const watch=brands.filter(x=>x.watch), india=brands.filter(x=>!x.watch&&x.country!=="US"), global=brands.filter(x=>!x.watch&&x.country==="US");
+  const sec=(title,lede,list)=>list.length?`<div class="brief"><h2>${title}</h2>${lede?`<p class="lede">${lede}</p>`:""}<div class="teardowns">${list.map(teardownCard).join("")}</div></div>`:"";
+  const withReel=brands.filter(x=>x.reel&&x.reel.avg);
+  const inR=withReel.filter(x=>x.country!=="US"), usR=withReel.filter(x=>x.country==="US");
+  const avgOf=a=>a.length?Math.round(a.reduce((s,x)=>s+x.reel.avg,0)/a.length):null;
+  const reelLine=withReel.length?`<p class="reelline"><b>Reel length:</b> the longest-running videos average <b>${avgOf(withReel)}s</b> across these ${withReel.length} brands${inR.length&&usR.length?` (${avgOf(inR)}s for the Indian brands, ${avgOf(usR)}s for the US ones)`:""}. Shortest average: ${withReel.slice().sort((a,b)=>a.reel.avg-b.reel.avg)[0].brand} at ${withReel.slice().sort((a,b)=>a.reel.avg-b.reel.avg)[0].reel.avg}s. Longest: ${withReel.slice().sort((a,b)=>b.reel.avg-a.reel.avg)[0].brand} at ${withReel.slice().sort((a,b)=>b.reel.avg-a.reel.avg)[0].reel.avg}s. Every teardown opens with its own length breakdown, and every video plays on the page.</p>`:"";
+  return `<div class="comp">
+    <div class="brief"><h2>Ad teardowns</h2><p class="lede">What competitors run on Meta: their longest-running videos and statics, how many versions each got, how long each ran, and what SILT can borrow. Ads that keep running are the ones that pay for themselves, so days running is the signal to read.</p>${state.teardownsChecked?`<p class="lede"><b>Checked weekly.</b> Last check ${esc(new Date(state.teardownsChecked+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}))}: each brand card shows what they started and stopped since the previous check. The full teardowns are from the date shown on each card.</p>`:""}${reelLine}</div>
+    ${sec("Watch closely","Brands selling the same thing as SILT Nights or Mornings.",watch)}
+    ${sec("Make ads from this","",tools)}
+    ${sec("Indian brands","",india)}
+    ${sec("Global brands","US ads from the category leaders, translated into what works for SILT in India.",global)}
+  </div>`;
+}
+function renderCompetitors(){
+  const c=state.comp;
+  if(c==null)return `<div class="empty"><b>Loading the competitor analysis…</b></div>`;
+  if(c.error)return `<div class="empty"><b>No competitor analysis yet</b><span>${esc(c.error==="Not found"?"It will appear here once it's added.":c.error)}</span></div>`;
+  const brands=c.brands||[];
+  const ups=(c.updates||[]).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  const updatesHtml=ups.length?`<div class="brief"><h2>What changed</h2><p class="lede">Checked every week. The newest week is first; the full analysis below is from ${esc(c.based_on||"16 Nov 2026")}.</p>${ups.slice(0,4).map(u=>`<div><span class="k">Week of ${esc(new Date(u.date+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}))}</span>${(u.items||[]).length?`<div class="trends">${u.items.map(i=>`<div class="trend"><b>${esc(i.brand)}</b><span>${esc(i.what||"")}</span>${i.so_what?`<span><b>For us:</b> ${esc(i.so_what)}</span>`:""}${i.source?`<a href="${esc(i.source)}" target="_blank" rel="noopener">${esc(i.source)}</a>`:""}</div>`).join("")}</div>`:`<p class="lede">${esc(u.note||"Nothing notable changed this week.")}</p>`}</div>`).join("")}</div>`:"";
+  return `<div class="comp">
+    ${updatesHtml}
+    <div class="brief"><h2>Competitor analysis</h2>
+      ${c.summary?`<p class="lede">${esc(c.summary)}</p>`:""}
+      ${c.updated_at?`<span class="count">Updated ${esc(new Date(c.updated_at).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}))}</span>`:""}
+      ${(c.lens||[]).length?`<div><span class="k">The Indian lens</span>${list(c.lens)}</div>`:""}
+    </div>
+    ${brands.length?`<div class="brief"><h2>At a glance</h2><div class="tablewrap"><table class="ctable">
+      <thead><tr><th>Brand</th><th>Closest to SILT</th><th class="num">₹ per serving</th><th>Transparency</th><th>Channels</th><th>Threat</th></tr></thead>
+      <tbody>
+        <tr class="us"><td><b>SILT</b><span class="count">India · launched Oct 2026</span></td><td>Mornings and Nights drink mixes</td><td class="num">≈60</td><td>Full doses, lab report per ingredient</td><td>Own site</td><td>—</td></tr>
+        ${brands.map(b=>`<tr><td><b>${esc(b.name)}</b><span class="count">${esc(b.origin||"")}</span></td><td>${esc(b.closest||"")}</td><td class="num">${esc(b.price||"?")}</td><td>${esc(b.transparency_short||"")}</td><td>${esc(b.channels_short||"")}</td><td><span class="chip status ${THREAT[b.threat_level]||""}">${esc(b.threat_level||"")}</span></td></tr>`).join("")}
+      </tbody></table></div></div>`:""}
+    ${(c.market||[]).length?`<div class="brief"><h2>Market facts</h2><div class="trends">${c.market.map(m=>`<div class="trend"><b>${esc(m.fact)}</b>${m.so_what?`<span>${esc(m.so_what)}</span>`:""}${m.source?`<a href="${esc(m.source)}" target="_blank" rel="noopener">${esc(m.source)}</a>`:""}</div>`).join("")}</div></div>`:""}
+    <div class="lane">${brands.map(b=>`<details class="brand"><summary><b>${esc(b.name)}</b><span class="count">${esc(b.origin||"")}${b.owner?` · ${esc(b.owner)}`:""}</span><span class="chip status ${THREAT[b.threat_level]||""}">${esc(b.threat_level||"")} threat</span></summary>
+      <div class="bbody">
+        ${[["Who they are",b.about],["Products that overlap",b.overlap],["Price",b.price_detail],["Positioning",b.positioning],["Transparency",b.transparency],["Channels",b.channels],["Content and social",b.content],["What customers complain about",b.complaints]].filter(r=>r[1]).map(r=>`<div><span class="k">${r[0]}</span><p>${esc(r[1])}</p></div>`).join("")}
+        <div class="forus">${b.borrow?`<div><span class="k">Borrow</span><p>${esc(b.borrow)}</p></div>`:""}${b.beat?`<div><span class="k">Where SILT wins</span><p>${esc(b.beat)}</p></div>`:""}${b.threat?`<div><span class="k">Watch out</span><p>${esc(b.threat)}</p></div>`:""}</div>
+        ${(b.sources||[]).length?`<div class="why">${b.sources.map(s=>`<a href="${esc(s)}" target="_blank" rel="noopener">${esc(s)}</a>`).join("")}</div>`:""}
+      </div></details>`).join("")}</div>
+    ${(c.opportunities||[]).length?`<div class="brief"><h2>Where SILT can win</h2><div class="trends">${c.opportunities.map(o=>`<div class="trend"><b>${esc(o.title)}</b><span>${esc(o.detail)}</span></div>`).join("")}</div></div>`:""}
+    ${(c.content_ideas||[]).length?`<div class="brief"><h2>Content ideas from this</h2><div class="trends">${c.content_ideas.map(o=>`<div class="trend"><span class="chip" style="align-self:flex-start">${esc(o.platform)}</span><b>${esc(o.idea)}</b>${o.note?`<span>${esc(o.note)}</span>`:""}</div>`).join("")}</div></div>`:""}
+    ${(c.watch||[]).length?`<div class="brief"><h2>Check before using</h2>${list(c.watch)}</div>`:""}
+  </div>`;
+}
+// ---------- Retention tab (flow from the "SILT Plan of Action" doc) ----------
+const RSTATUS={pending:"To review",approved:"Approved",changes:"Needs changes",rejected:"Rejected",live:"Live"};
+async function loadRetention(){
+  state.ret=null;
+  try{state.ret=await api("/api/doc?key=retention")}catch(e){if(e.signedOut)return;state.ret={error:e.message}}
+  if(state.tab==="retention")render();
+}
+function retMsgCard(m){
+  const st=m.status||"pending", editing=state.retEdit===m.id, hi=state.retLang==="hi"&&m.text_hi, ek=hi?"edited_text_hi":"edited_text", txt=hi?(m.edited_text_hi??m.text_hi):(m.edited_text??m.text);
+  const ro=!state.canWrite?"disabled":"";
+  return `<article class="card rmsg" data-status="${st==="live"?"posted":st}"><div class="stripe"></div><div class="inner">
+    <div class="meta"><span class="chip slot">${esc(m.day)}</span><span class="chip ${m.pillar==="Trust"?"nights":"mornings"}">${esc(m.pillar)}</span><span class="chip">${esc(m.product)}</span><span class="chip">${esc(m.channel)}</span>${m.format?`<span class="chip">${esc(m.format)}</span>`:""}${hi?`<span class="chip">Hindi</span>`:""}${m[ek]!=null?`<span class="edited">Edited</span>`:""}<span class="chip status ${st==="live"?"posted":st}">${RSTATUS[st]}</span></div>
+    <div class="sub">${esc(m.goal)}${m.who?` · who: ${esc(m.who)}`:""}${m.trigger?` · when: ${esc(m.trigger)}`:""}</div>
+    ${m.image?`<div class="sub">🖼 Image: ${esc(m.image)}</div>`:""}
+    ${m.metric?`<div class="sub"><b>Success:</b> ${esc(m.metric)}</div>`:""}
+    ${m.check?`<div class="sub"><b>Check before it goes live:</b> ${esc(m.check)}</div>`:""}
+    ${editing?`<textarea id="re-${m.id}" rows="7" aria-label="Message text">${esc(txt)}</textarea>
+      <div class="actions"><button class="btn" data-ract="save" data-rid="${m.id}">Save edit</button><button class="btn" data-ract="cancel" data-rid="${m.id}">Cancel</button>${m[ek]!=null?`<button class="btn" data-ract="revert" data-rid="${m.id}">Restore original</button>`:""}</div>`
+      :`<div class="text">${esc(txt)}</div>`}
+    ${(m.branches||[]).length?`<div class="why"><span><b>If they reply:</b></span>${m.branches.map(b=>`<span>${esc(b)}</span>`).join("")}</div>`:""}
+    <div class="actions">
+      <button class="btn ok" data-ract="status" data-s="approved" data-rid="${m.id}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+      <button class="btn warn" data-ract="status" data-s="changes" data-rid="${m.id}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+      <button class="btn bad" data-ract="status" data-s="rejected" data-rid="${m.id}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>
+      <button class="btn post" data-ract="status" data-s="live" data-rid="${m.id}" aria-pressed="${st==="live"}" ${ro}>Live in WhatsApp</button>
+      <span class="spacer"></span>
+      ${!editing?`<button class="btn" data-ract="edit" data-rid="${m.id}" ${ro}>Edit</button>`:""}
+      <button class="btn" data-ract="copy" data-rid="${m.id}">Copy message</button>
+    </div>
+    <div class="note"><textarea id="rn-${m.id}" rows="1" placeholder="Note, e.g. too cheeky for day 0, or use a Hindi line" aria-label="Review note" ${ro}>${esc(m.note||"")}</textarea><button class="btn" data-ract="note" data-rid="${m.id}" ${ro}>Save note</button></div>
+    ${m.reviewed_at?`<span class="reviewed">${RSTATUS[st]}${m.reviewed_by?` by ${esc(m.reviewed_by)}`:""} · ${new Date(m.reviewed_at).toLocaleString()}</span>`:""}
+  </div></article>`;
+}
+function renderRetention(){
+  const r=state.ret;
+  if(r==null)return `<div class="empty"><b>Loading the retention flow…</b></div>`;
+  if(r.error)return `<div class="empty"><b>No retention flow yet</b><span>${esc(r.error)}</span></div>`;
+  const msgs=r.messages||[];
+  const cnt=s=>msgs.filter(m=>(m.status||"pending")===s).length;
+  return `<div class="comp">
+    <div class="brief"><h2>${esc(r.title||"Retention flow")}</h2><p class="lede">${esc(r.summary||"")}</p>
+      <p class="lede"><b>Voice:</b> ${esc(r.persona||"")}</p>
+      <span class="count">${msgs.length} messages · ${cnt("approved")+cnt("live")} approved · ${cnt("live")} live · ${cnt("pending")} to review${r.source?` · from ${esc(r.source)}`:""}</span></div>
+    <div class="brief"><h2>Message language</h2><p class="lede">Every message has English and Hindi (Hinglish) copy. Customers get Hindi only if they ask for it (the first message offers it), never because of their city.</p><div class="actions"><button class="btn" data-rlang="en" aria-pressed="${state.retLang!=="hi"}">English</button><button class="btn" data-rlang="hi" aria-pressed="${state.retLang==="hi"}">Hindi</button></div></div>
+    ${(r.decisions||[]).length?`<div class="brief"><h2>Agreed in the meeting</h2>${list(r.decisions)}</div>`:""}
+    ${(r.ideas||[]).length?`<div class="brief"><h2>Ideas discussed, not decided</h2>${list(r.ideas)}</div>`:""}
+    ${(r.open_questions||[]).length?`<div class="brief"><h2>Open questions</h2>${list(r.open_questions)}</div>`:""}
+    ${r.experiment?`<div class="brief"><h2>First experiment</h2><p class="lede">${esc(r.experiment.note)}</p>${list(r.experiment.steps)}</div>`:""}
+    ${(r.insights||[]).length?`<div class="brief"><h2>What customers told us</h2>${list(r.insights)}</div>`:""}
+    ${r.ritual?`<div class="brief"><h2>The ritual</h2><p class="lede">${esc(r.ritual.note||"")}</p><div class="trends">${(r.ritual.angles||[]).map(a=>`<div class="trend"><b>${esc(a.name)}</b><span>${esc(a.detail)}</span></div>`).join("")}</div>${r.ritual.lines?`<h3>A line people remember</h3><p class="lede">${esc(r.ritual.lines.note)}</p>${list(r.ritual.lines.options)}`:""}${r.ritual.newsletter?`<h3>Newsletter name</h3><p class="lede">${esc(r.ritual.newsletter.note)}</p>${list(r.ritual.newsletter.options)}`:""}</div>`:""}
+    ${r.framework?`<div class="brief"><h2>Cohorts</h2><p class="lede">${esc(r.framework.note)}</p><div class="tablewrap"><table class="ctable"><thead><tr><th>Group</th><th>Cohort</th><th>Who</th><th>Goal</th><th>How often</th><th>Success metric</th><th>When</th></tr></thead><tbody>${r.framework.rows.map(x=>`<tr><td>${esc(x.group)}</td><td><b>${esc(x.cohort)}</b></td><td>${esc(x.who)}</td><td>${esc(x.goal)}</td><td>${esc(x.frequency)}</td><td>${esc(x.metric)}</td><td>${x.when==="Now"?`<span class="chip status approved">Now</span>`:esc(x.when)}</td></tr>`).join("")}</tbody></table></div><p class="lede">${esc(r.framework.metrics_note||"")}</p></div>`:""}
+    ${r.segmentation?`<div class="brief"><h2>Who, what, when</h2><p class="lede">${esc(r.segmentation.note)}</p><div class="tablewrap"><table class="ctable"><thead><tr><th>Field</th><th>Values</th><th>What it decides</th></tr></thead><tbody>${r.segmentation.params.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.values)}</td><td>${esc(x.use)}</td></tr>`).join("")}</tbody></table></div><div class="trends">${r.segmentation.cuts.map(c=>`<div class="trend"><b>${esc(c.name)}</b><span>${esc(c.detail)}</span></div>`).join("")}</div>${r.segmentation.open?`<p class="lede">${esc(r.segmentation.open)}</p>`:""}</div>`:""}
+    ${(r.pillars||[]).length?`<div class="brief"><h2>Pillars</h2><div class="trends">${r.pillars.map(p=>`<div class="trend"><b>${esc(p.name)}</b>${list(p.points)}</div>`).join("")}</div></div>`:""}
+    ${r.expectations?`<div class="brief"><h2>When customers feel it</h2><p class="lede">${esc(r.expectations.note)}</p><div class="tablewrap"><table class="ctable"><thead><tr><th>Product</th><th>Benefit</th><th>When</th><th>How it feels</th></tr></thead><tbody>${r.expectations.rows.map(x=>`<tr><td>${esc(x.product)}</td><td>${esc(x.benefit)}</td><td>${esc(x.when)}</td><td>${esc(x.feel)}</td></tr>`).join("")}</tbody></table></div><p class="lede">${esc(r.expectations.rule||"")}</p></div>`:""}
+    ${(r.stages||[]).map(s=>{const ms=msgs.filter(m=>m.stage===s.id);return ms.length?`<div class="brief"><h2>${esc(s.name)} <span class="count">${esc(s.days)}</span></h2><p class="lede">${esc(s.goal)}</p><div class="lane">${ms.map(retMsgCard).join("")}</div></div>`:""}).join("")}
+    ${(r.mechanics||[]).length?`<div class="brief"><h2>Long term: the ritual as a game</h2><p class="lede">${esc(r.mechanics_note||"Engagement, leaderboard and community. Start once the two cohorts above are live.")}</p><div class="trends">${r.mechanics.map(x=>`<div class="trend"><b>${esc(x.name)}</b><span>${esc(x.how)}</span>${x.needs?`<span><b>Needs:</b> ${esc(x.needs)}</span>`:""}</div>`).join("")}</div></div>`:""}
+    ${r.data?`<div class="brief"><h2>Website data and Quick Pass</h2><p class="lede">${esc(r.data.note)}</p>${list(r.data.points)}${(r.data.ask||[]).length?`<h3>Ask the data contact</h3>${list(r.data.ask)}`:""}</div>`:""}
+    ${(r.setup||[]).length?`<div class="brief"><h2>Next steps</h2>${list(r.setup)}${r.inspiration?`<p class="lede"><b>Inspiration:</b> ${esc(r.inspiration)}</p>`:""}</div>`:""}
+  </div>`;
+}
+async function retWrite(id,patch){
+  try{const m=await api("/api/retention/"+encodeURIComponent(id),{method:"POST",body:JSON.stringify(patch)});
+    const i=state.ret.messages.findIndex(x=>x.id===id);if(i>=0)state.ret.messages[i]=m;render();return true}
+  catch(e){if(!e.signedOut)notice("Couldn't save ("+e.message+"). Try again in a moment.");return false}
+}
+document.addEventListener("click",async ev=>{
+  const b=ev.target.closest("[data-ract]");if(!b||!state.ret||!state.ret.messages)return;
+  const id=b.dataset.rid,m=state.ret.messages.find(x=>x.id===id);if(!m)return;
+  const a=b.dataset.ract;
+  const hi=state.retLang==="hi"&&m.text_hi, ek=hi?"edited_text_hi":"edited_text", orig=hi?m.text_hi:m.text;
+  if(a==="copy")return copy(m[ek]??orig);
+  if(a==="edit"){state.retEdit=id;render();document.getElementById("re-"+id)?.focus();return}
+  if(a==="cancel"){state.retEdit=null;render();return}
+  if(a==="status"){const s=m.status===b.dataset.s?"pending":b.dataset.s;b.disabled=true;if(await retWrite(id,{status:s}))toast(RSTATUS[s]);return}
+  if(a==="note"){const n=document.getElementById("rn-"+id).value.trim();if(n===(m.note||""))return;if(await retWrite(id,{note:n,...((m.status||"pending")==="pending"?{status:"changes"}:{})}))toast("Note saved");return}
+  if(a==="revert"){if(await retWrite(id,{[ek]:null})){state.retEdit=null;toast("Original restored")}return}
+  if(a==="save"){const t=document.getElementById("re-"+id).value;if(await retWrite(id,{[ek]:t===orig?null:t})){state.retEdit=null;toast("Edit saved")}}
+});
+document.addEventListener("click",ev=>{const b=ev.target.closest("[data-rlang]");if(!b)return;state.retLang=b.dataset.rlang;state.retEdit=null;render()});
+
+// ---------- Ad scripts tab (scripts for Sanya, docs key "scripts") ----------
+const SSTATUS={pending:"To review",approved:"Approved",changes:"Needs changes",rejected:"Rejected",shot:"Shot",live:"Live on Meta"};
+async function loadScripts(){
+  state.scr=null;
+  try{state.scr=await api("/api/doc?key=scripts")}catch(e){if(e.signedOut)return;state.scr={error:e.message}}
+  if(state.tab==="scripts")render();
+}
+function scriptText(s){
+  return [`${s.id.toUpperCase()} · ${s.product} · ${s.format} · ${s.kind}`,`Angle: ${s.angle}`,"",`Hook options:`,...s.hooks.map(h=>`- ${h}`),"",...s.beats.map(b=>`${b.part}${b.time?` (${b.time})`:""}\n  Visual: ${b.visual}\n  Text / VO: ${b.text}`),"",`Caption: ${s.caption}`,s.needs?`Needs: ${s.needs}`:""].join("\n");
+}
+function scriptCard(s){
+  const st=s.status||"pending",ro=!state.canWrite?"disabled":"";
+  return `<article class="card rmsg" id="scr-${s.id}" data-status="${st==="live"||st==="shot"?"posted":st}"><div class="stripe"></div><div class="inner">
+    <div class="meta"><span class="chip slot">${esc(s.id.toUpperCase())}</span>${s.funnel?`<span class="chip">${esc(s.funnel)} · ${esc(s.concept)}</span>`:""}<span class="chip ${s.product==="Nights"?"nights":s.product==="Mornings"?"mornings":""}">${esc(s.product)}</span><span class="chip">${esc(s.pillar)}</span><span class="chip">${esc(s.kind)}</span><span class="chip status ${st==="live"||st==="shot"?"posted":st}">${SSTATUS[st]}</span></div>
+    <h3 style="margin:6px 0 2px">${esc(s.format)}</h3>
+    ${s.message?`<div class="sub"><b>Message:</b> ${esc(s.message)}</div>`:""}
+    <div class="sub">${esc(s.angle)} · ${esc(s.why)}</div>
+    <div class="why"><span><b>Hook options:</b></span>${s.hooks.map(h=>`<span>${esc(h)}</span>`).join("")}</div>
+    <div class="tablewrap"><table class="ctable"><thead><tr><th>Beat</th><th>Visual</th><th>On screen / voiceover</th></tr></thead><tbody>${s.beats.map(b=>`<tr><td><b>${esc(b.part)}</b>${b.time?`<br><span class="count">${esc(b.time)}</span>`:""}</td><td>${esc(b.visual)}</td><td>${esc(b.text)}</td></tr>`).join("")}</tbody></table></div>
+    <div class="text"><b>Caption:</b> ${esc(s.caption)}</div>
+    ${s.needs?`<div class="sub"><b>Needs:</b> ${esc(s.needs)}</div>`:""}
+    ${s.test?`<div class="sub"><b>Test:</b> ${esc(s.test)}</div>`:""}
+    <div class="actions">
+      <button class="btn ok" data-sact="status" data-s="approved" data-sid="${s.id}" aria-pressed="${st==="approved"}" ${ro}>Approve</button>
+      <button class="btn warn" data-sact="status" data-s="changes" data-sid="${s.id}" aria-pressed="${st==="changes"}" ${ro}>Needs changes</button>
+      <button class="btn bad" data-sact="status" data-s="rejected" data-sid="${s.id}" aria-pressed="${st==="rejected"}" ${ro}>Reject</button>
+      <button class="btn post" data-sact="status" data-s="shot" data-sid="${s.id}" aria-pressed="${st==="shot"}" ${ro}>Shot</button>
+      <button class="btn post" data-sact="status" data-s="live" data-sid="${s.id}" aria-pressed="${st==="live"}" ${ro}>Live on Meta</button>
+      <span class="spacer"></span>
+      <button class="btn" data-sact="copy" data-sid="${s.id}">Copy script</button>
+    </div>
+    <div class="note"><textarea id="sn-${s.id}" rows="1" placeholder="Note, e.g. change hook 2, or ROAS after week 1" aria-label="Review note" ${ro}>${esc(s.note||"")}</textarea><button class="btn" data-sact="note" data-sid="${s.id}" ${ro}>Save note</button></div>
+    ${s.reviewed_at?`<span class="reviewed">${SSTATUS[st]}${s.reviewed_by?` by ${esc(s.reviewed_by)}`:""} · ${new Date(s.reviewed_at).toLocaleString()}</span>`:""}
+  </div></article>`;
+}
+function renderScripts(){
+  const r=state.scr;
+  if(r==null)return `<div class="empty"><b>Loading the ad scripts…</b></div>`;
+  if(r.error)return `<div class="empty"><b>No ad scripts yet</b><span>${esc(r.error)}</span></div>`;
+  const ss=r.scripts||[],cnt=s=>ss.filter(x=>(x.status||"pending")===s).length;
+  return `<div class="comp">
+    <div class="brief"><h2>${esc(r.title)}</h2><p class="lede">${esc(r.summary)}</p>
+      <span class="count">${ss.length} scripts · ${cnt("approved")} approved · ${cnt("shot")} shot · ${cnt("live")} live · ${cnt("pending")} to review · from ${esc(r.source)}</span></div>
+    ${(r.messaging||[]).length?`<div class="brief"><h2>One message per stage</h2><div class="trends">${r.messaging.map(m=>`<div class="trend"><span class="chip" style="align-self:flex-start">${esc(m.funnel)}</span><b>${esc(m.line)}</b><span>${esc(m.detail)}</span></div>`).join("")}</div><p class="lede">Matching statics: <a href="https://silt-static-engine.pages.dev" target="_blank" rel="noopener">SILT Static Engine ↗</a></p></div>`:""}
+    ${r.results?`<div class="brief"><h2>Where Meta stands</h2><p class="lede">${esc(r.results.note)}</p>${list(r.results.points)}</div>`:""}
+    <div class="brief"><h2>Before anything goes live</h2>${list(r.rules||[])}<p class="lede"><b>Facts to use:</b> ${esc(r.facts||"")}</p></div>
+    ${(r.funnel||[]).length?`<div class="brief"><h2>The funnel</h2><p class="lede">Which script covers which concept. Click a script id to jump to it.</p><div class="tablewrap"><table class="ctable"><thead><tr><th>Stage</th><th>Concept</th><th>Scripts</th></tr></thead><tbody>${r.funnel.map(f=>f.concepts.map((c,i)=>`<tr>${i===0?`<td rowspan="${f.concepts.length}"><b>${esc(f.name)}</b></td>`:""}<td>${esc(c)}</td><td>${ss.filter(x=>x.funnel===f.id&&x.concept===c).map(x=>`<a href="#scr-${x.id}">${esc(x.id.toUpperCase())}</a> ${esc(x.product)} · ${esc(x.format)} <span class="chip status ${(x.status||"pending")==="live"||(x.status||"pending")==="shot"?"posted":(x.status||"pending")}">${SSTATUS[x.status||"pending"]}</span>`).join("<br>")}</td></tr>`).join("")).join("")}</tbody></table></div></div>`:""}
+    ${(r.funnel||[{id:null,name:"Scripts",concepts:[]}]).map(f=>{const xs=f.id?ss.filter(s=>s.funnel===f.id):ss;return xs.length?`<div class="brief"><h2>${esc(f.name)}</h2><div class="lane">${xs.map(scriptCard).join("")}</div></div>`:""}).join("")}
+    ${(r.later||[]).length?`<div class="brief"><h2>Formats for later</h2>${list(r.later)}</div>`:""}
+  </div>`;
+}
+document.addEventListener("click",async ev=>{
+  const b=ev.target.closest("[data-sact]");if(!b||!state.scr||!state.scr.scripts)return;
+  const id=b.dataset.sid,s=state.scr.scripts.find(x=>x.id===id);if(!s)return;
+  const write=async patch=>{try{const m=await api("/api/scripts/"+encodeURIComponent(id),{method:"POST",body:JSON.stringify(patch)});Object.assign(s,m);render();return true}catch(e){if(!e.signedOut)notice("Couldn't save ("+e.message+"). Try again in a moment.");return false}};
+  const a=b.dataset.sact;
+  if(a==="copy")return copy(scriptText(s));
+  if(a==="status"){const v=s.status===b.dataset.s?"pending":b.dataset.s;b.disabled=true;if(await write({status:v}))toast(SSTATUS[v]);return}
+  if(a==="note"){const n=document.getElementById("sn-"+id).value.trim();if(n===(s.note||""))return;if(await write({note:n,...((s.status||"pending")==="pending"?{status:"changes"}:{})}))toast("Note saved")}
+});
+
+function render(){
+  renderTabs();renderSummary();
+  const v=$("#view");
+  if(!state.loaded){v.innerHTML=`<div class="empty"><b>Loading drafts…</b><span>Fetching this day's posts.</span></div>`;return}
+  if(state.tab==="brief"){v.innerHTML=renderBrief();return}
+  if(state.tab==="competitors"){v.innerHTML=renderCompetitors();if(state.comp===undefined)loadCompetitors();return}
+  if(state.tab==="teardowns"){v.innerHTML=renderTeardownsTab();if(state.comp===undefined)loadCompetitors();return}
+  if(state.tab==="retention"){v.innerHTML=renderRetention();if(state.ret===undefined)loadRetention();return}
+  if(state.tab==="scripts"){v.innerHTML=renderScripts();if(state.scr===undefined)loadScripts();return}
+  if(state.tab==="ideas"){if(state.ideas===undefined){state.ideas=null;loadIdeas()}v.innerHTML=renderIdeas();return}
+  if(state.tab==="agent"){if(state.agent===undefined){state.agent=null;loadAgent()}v.innerHTML=renderAgent();return}
+  if(!state.day){v.innerHTML=`<div class="empty"><b>No drafts yet</b><span>Each morning the content run adds 5 X posts and 5 Reddit posts here, with the trend each one rides on. Check back after the next run.</span></div>`;return}
+  let list=state.posts.filter(p=>p.platform===state.tab).sort((a,b)=>(a.slot||0)-(b.slot||0));
+  if(state.filter!=="all")list=list.filter(p=>(p.status||"pending")===state.filter||(state.filter==="approved"&&p.status==="posted"));
+  const liDay=[1,3,5].includes(new Date(state.day+"T00:00:00").getDay());
+  const name={x:"X",reddit:"Reddit post",reddit_comment:"Reddit comment",linkedin:"LinkedIn"}[state.tab];
+  v.innerHTML=list.length?`<div class="lane">${list.map(card).join("")}</div>`
+    :(state.tab==="linkedin"&&!liDay&&state.filter==="all")?`<div class="empty"><b>No LinkedIn post on ${fmtDay(state.day)}</b><span>LinkedIn posts go out on Monday, Wednesday and Friday.</span></div>`
+    :`<div class="empty"><b>Nothing here</b><span>No ${name} drafts match this filter for ${fmtDay(state.day)}.</span></div>`;
+}
+
+function renderDays(){
+  const sel=$("#daySel");
+  sel.innerHTML=state.days.length?state.days.map(d=>`<option value="${d}" ${d===state.day?"selected":""}>${fmtDay(d)}</option>`).join(""):`<option>No days yet</option>`;
+  const i=state.days.indexOf(state.day);
+  $("#prevDay").disabled=i<0||i>=state.days.length-1;
+  $("#nextDay").disabled=i<=0;
+}
+
+async function api(path,opts){
+  const r=await fetch(path,{credentials:"same-origin",cache:"no-store",...opts,headers:{"content-type":"application/json",...(opts&&opts.headers)}});
+  let body=null;try{body=await r.json()}catch(e){}
+  if(r.status===401&&path!=="/api/login"){showLogin();const e=new Error("signed out");e.signedOut=true;throw e}
+  if(!r.ok)throw new Error((body&&body.error)||("HTTP "+r.status));
+  return body;
+}
+function nameFromEmail(e){return e?String(e).split("@")[0].replace(/[._]/g," "):""}
+function resolveNames(){state.posts.forEach(p=>{if(p.reviewed_by)state.names[p.reviewed_by]=nameFromEmail(p.reviewed_by)})}
+
+async function loadDay(d,quiet){
+  try{
+    const res=await api("/api/day?date="+encodeURIComponent(d));
+    if(state.day!==d)return;
+    // Keep posts that are open in the editor untouched so a refresh doesn't wipe typing.
+    state.posts=res.posts;state.brief=res.brief;resolveNames();
+    if(!state.editing.size&&!document.activeElement?.id?.startsWith("n-")&&state.tab!=="agent")render();
+    notice("");
+  }catch(e){if(!quiet)notice("Couldn't load this day's drafts ("+e.message+"). Reload the page to try again.")}
+}
+function selectDay(d){
+  state.day=d;state.editing.clear();renderDays();
+  clearInterval(state.poll);
+  if(!d){state.posts=[];state.brief=null;render();return}
+  state.posts=[];state.brief=null;render();
+  loadDay(d);
+  // Pick up teammates' reviews every 30 seconds while the tab is open.
+  state.poll=setInterval(()=>{if(document.visibilityState==="visible")loadDay(d,true)},30000);
+}
+
+async function write(id,patch){
+  try{
+    const doc=await api("/api/posts/"+encodeURIComponent(id),{method:"POST",body:JSON.stringify(patch)});
+    const i=state.posts.findIndex(p=>p._id===id);if(i>=0)state.posts[i]=doc;
+    resolveNames();render();return true;
+  }catch(e){notice("Couldn't save ("+e.message+"). Try again in a moment.");return false}
+}
+function reviewStamp(){return {}}
+
+async function copy(t){try{await navigator.clipboard.writeText(t);toast("Copied")}catch(e){toast("Copy blocked here. Select the text and copy it.")}}
+
+document.addEventListener("click",async ev=>{
+  const tb=ev.target.closest("[data-tab]");if(tb){state.tab=tb.dataset.tab;savePrefs();if(state.tab==="ideas"&&Array.isArray(state.ideas))loadIdeas();render();return}
+  const fb=ev.target.closest("[data-f]");if(fb){state.filter=fb.dataset.f;savePrefs();render();return}
+  const cb=ev.target.closest("[data-cal]");if(cb){const n=new Date();const [y,m]=(state.calMonth||`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,"0")}`).split("-").map(Number);const d=new Date(y,m-1+Number(cb.dataset.cal),1);state.calMonth=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;render();return}
+  const ig=ev.target.closest("[data-igo]");if(ig){ev.preventDefault();if(state.filter!=="all"){state.filter="all";render()}const el=document.getElementById("idea-"+ig.dataset.igo);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600)}return}
+  const ia=ev.target.closest("[data-iact]");if(ia){ideaAct(ia);return}
+  const aa=ev.target.closest("[data-aact]");if(aa){agentAct(aa);return}
+  const b=ev.target.closest("[data-act]");if(!b)return;
+  const id=b.dataset.id,p=state.posts.find(x=>x._id===id);if(!p)return;
+  const act=b.dataset.act;
+  if(act==="copy")return copy(current(p));
+  if(act==="copytitle")return copy(p.edited_title??p.title);
+  if(act==="edit"){state.editing.add(id);render();document.getElementById("e-"+id)?.focus();return}
+  if(act==="cancel"){state.editing.delete(id);render();return}
+  if(act==="status"){const s=p.status===b.dataset.s?"pending":b.dataset.s;b.disabled=true;if(await write(id,{status:s,...reviewStamp()}))toast(STATUS_LABEL[s]);return}
+  if(act==="note"){const n=document.getElementById("n-"+id).value.trim();if(n===(p.note||""))return;if(await write(id,{note:n,...reviewStamp(),status:p.status==="pending"||!p.status?"changes":p.status}))toast("Note saved");return}
+  if(act==="revert"){if(await write(id,{edited_text:null,edited_title:null})){state.editing.delete(id);toast("Original restored")}return}
+  if(act==="save"){
+    const t=document.getElementById("e-"+id).value;const ti=document.getElementById("t-"+id);
+    const patch={edited_text:t===p.text?null:t,...reviewStamp()};
+    if(ti)patch.edited_title=ti.value===p.title?null:ti.value;
+    if(await write(id,patch)){state.editing.delete(id);toast("Edit saved")}
+  }
+});
+document.addEventListener("input",ev=>{
+  if(ev.target.id?.startsWith("e-")){const c=document.getElementById("c-"+ev.target.id.slice(2));if(c){const n=xLen(ev.target.value);c.textContent=n+"/280";c.classList.toggle("over",n>280)}}
+});
+$("#daySel").addEventListener("change",e=>selectDay(e.target.value));
+document.addEventListener("submit",e=>{if(e.target.id==="ideaForm"){e.preventDefault();addIdea()}});
+$("#prevDay").addEventListener("click",()=>{const i=state.days.indexOf(state.day);if(i<state.days.length-1)selectDay(state.days[i+1])});
+$("#nextDay").addEventListener("click",()=>{const i=state.days.indexOf(state.day);if(i>0)selectDay(state.days[i-1])});
+
+render();renderDays();
+
+function showLogin(){
+  clearInterval(state.poll);
+  $("#deskWrap").hidden=true;$("#loginWrap").hidden=false;$("#who").hidden=true;
+  try{const n=localStorage.getItem("silt-desk-name");if(n&&!$("#loginName").value)$("#loginName").value=n}catch(e){}
+  ($("#loginName").value?$("#loginPw"):$("#loginName")).focus();
+}
+async function boot(){
+  try{
+    const res=await api("/api/days");
+    $("#loginWrap").hidden=true;$("#deskWrap").hidden=false;
+    state.me=res.me;state.days=res.days;state.loaded=true;
+    $("#whoName").textContent=res.me||"";$("#who").hidden=!res.me;
+    selectDay(state.days[0]||null);render();
+  }catch(e){if(e.signedOut)return;state.loaded=true;notice("Couldn't load the desk ("+e.message+").");render()}
+}
+$("#loginForm").addEventListener("submit",async ev=>{
+  ev.preventDefault();
+  const name=$("#loginName").value.trim(),password=$("#loginPw").value,err=$("#loginErr"),btn=$("#loginBtn");
+  err.hidden=true;btn.disabled=true;btn.textContent="Signing in…";
+  try{
+    await api("/api/login",{method:"POST",body:JSON.stringify({name,password})});
+    try{localStorage.setItem("silt-desk-name",name)}catch(e){}
+    $("#loginPw").value="";await boot();
+  }catch(e){err.textContent=e.message;err.hidden=false}
+  finally{btn.disabled=false;btn.textContent="Sign in"}
+});
+$("#logoutBtn").addEventListener("click",async()=>{try{await api("/api/logout",{method:"POST",body:"{}"})}catch(e){}state.posts=[];state.days=[];showLogin()});
+boot();
+</script>
+</body>
+</html>

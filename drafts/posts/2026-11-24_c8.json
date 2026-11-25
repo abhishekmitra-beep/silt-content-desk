@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "GetMotivated",
+  "thread_title": "Find a post from the last 3 days: how do I stop hitting snooze every morning?",
+  "thread_summary": "Look for someone who snoozes for half an hour, or can't get out of bed on time.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Snoozing usually gives you broken, light sleep that leaves you groggier than getting up at the first alarm. Two things help most. Put the alarm across the room so you have to stand up, and open a curtain or step outside straight away, since light is what shuts off the sleepy feeling. If you still need four alarms, it usually means you need an earlier bedtime rather than more willpower.",
+  "why": "A perennial r/GetMotivated question. Practical, habit-based answer with no product.",
+  "thread_url": "https://www.reddit.com/r/GetMotivated/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/GetMotivated sidebar before commenting."
+}

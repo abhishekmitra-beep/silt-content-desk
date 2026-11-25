@@ -1,0 +1,542 @@
+{
+  "teardowns": [
+    {
+      "brand": "SILT static ad prompts",
+      "date": "2026-11-17",
+      "url": "/teardowns/silt-statics.html",
+      "summary": "20 SILT statics modelled on Supply6's statics, each with a ChatGPT image prompt, the Supply6 reference, and Meta ad copy. Start with the ones based on 20+ day runners.",
+      "highlights": [
+        "Attach the real pack photo (linked on the page) so ChatGPT uses our actual box and stick.",
+        "10 are based on Supply6 statics that ran 20 to 67 days; 10 copy newer formats they are still testing.",
+        "Make 2 or 3 versions of each and run them together as dynamic creative."
+      ],
+      "kind": "tool"
+    },
+    {
+      "brand": "Supply6",
+      "date": "2026-11-17",
+      "url": "/teardowns/supply6.html",
+      "summary": "Every Supply6 Meta ad in India: the 15 longest-running Instagram videos with transcripts and frames, statics, versions, days run, and ten ad ideas for SILT.",
+      "highlights": [
+        "230 ads, 171 of them started in November. Longest runner: 67 days (Salts).",
+        "10 of the top 15 videos are creators talking to camera, symptom first, product after 10 to 15 seconds.",
+        "Biggest offer: the 60-day welcome kit with a free bottle and frother (36 ads, 97 versions).",
+        "Mellow (their Nights rival) started Meta ads around 5 Nov: watch it."
+      ],
+      "country": "IN",
+      "watch": "Nights rival: Mellow",
+      "reel": {
+        "avg": 37,
+        "median": 39,
+        "min": 14,
+        "max": 58,
+        "all_avg": 38,
+        "all_n": 120
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 204,
+        "capped": true,
+        "started": 98,
+        "stopped": null,
+        "watchHits": 80,
+        "longest": {
+          "days": 69,
+          "text": "{{product.short_description}}",
+          "format": "DPA"
+        },
+        "newAds": [
+          {
+            "text": "Dehydration alert! 3 in 5 Indians are dehydrated despite drinking enough water. 💧 It's not about how much you drink, but what's missing. I…",
+            "format": "DCO",
+            "versions": 3,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=2367929423951492"
+          },
+          {
+            "text": "Dehydration alert! 3 in 5 Indians are dehydrated despite drinking enough water. 💧 It's not about how much you drink, but what's missing. I…",
+            "format": "DCO",
+            "versions": 3,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=28455622250779404"
+          },
+          {
+            "text": "Supply6 Salts Comes with 4 Key Electrolytes: Sodium, Zinc, Magnesium and Potassium Zero Added Sugar Helps with: Recovery Minimising Fatigue…",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-20",
+            "link": "https://www.facebook.com/ads/library/?id=2217863322153355"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "The Stack Club",
+      "date": "2026-11-17",
+      "url": "/teardowns/thestack.html",
+      "summary": "The closest SILT Nights rival: magnesium bisglycinate capsules plus a 3 g glycine powder, sold with the same 'no melatonin, every dose on the label' lines. 115 ads, 91 under two weeks old.",
+      "highlights": [
+        "Proof is the customer's own sleep tracker: 32 ads cite sleep scores; 'Reviews can be faked, but your sleep score can't'.",
+        "Their magnesium is 92.2 mg elemental a capsule; SILT Nights has 250 mg elemental, plus KSM-66 and L-theanine, in one stick.",
+        "Their statics teach '14% elemental' and 'sludge means buffered': be ready to answer with the lab report.",
+        "Best idea for SILT: a two-week 'ask your own tracker' test with real customers' screenshots, aimed at desk workers."
+      ],
+      "country": "IN",
+      "watch": "Nights rival",
+      "reel": {
+        "avg": 61,
+        "median": 57,
+        "min": 32,
+        "max": 125,
+        "all_avg": 50,
+        "all_n": 56
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 105,
+        "capped": true,
+        "started": 22,
+        "stopped": null,
+        "watchHits": 17,
+        "longest": {
+          "days": 34,
+          "text": "Glycine + fully chelated magnesium bisglycinate. A clean, two-product approach to supporting better-quality sleep and recovery.",
+          "format": "VIDEO"
+        },
+        "newAds": [
+          {
+            "text": "We got a few people to try The Stack and followed up to see how their sleep changed. Here’s what they had to say.",
+            "format": "VIDEO",
+            "versions": 4,
+            "started": "2026-11-23",
+            "link": "https://www.facebook.com/ads/library/?id=1838951540497894"
+          },
+          {
+            "text": "Glycine + fully chelated magnesium bisglycinate. A clean, two-product approach to supporting better-quality sleep and recovery.",
+            "format": "VIDEO",
+            "versions": 4,
+            "started": "2026-11-17",
+            "link": "https://www.facebook.com/ads/library/?id=1674389324348879"
+          },
+          {
+            "text": "",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-21",
+            "link": "https://www.facebook.com/ads/library/?id=2060973221232619"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "The Upside",
+      "date": "2026-11-17",
+      "url": "/teardowns/theupside.html",
+      "summary": "39 ads, none older than 18 days. They own the 3 AM wake-up with a 3 g glycine chewable, and just launched a bedtime product at about Rs 20 a night.",
+      "highlights": [
+        "Two longest runners are founder confessions, with cortisol drawn as a simple curve.",
+        "Sleep Repair (launched 16 Nov): 3 g glycine, 30 servings, 'just Rs 599'. Check on 1 Dec; price may become the bigger threat.",
+        "Never copy their 'fast-acting, non-habit forming' or 'back to sleep in minutes' claims.",
+        "Best idea for SILT: they say 'not for bedtime', so take the evening: a Notes-app static at 11:40 PM ending 'Nights, then lights off'."
+      ],
+      "country": "IN",
+      "watch": "Nights rival",
+      "reel": {
+        "avg": 46,
+        "median": 46,
+        "min": 25,
+        "max": 91,
+        "all_avg": 46,
+        "all_n": 11
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 32,
+        "capped": true,
+        "started": 18,
+        "stopped": null,
+        "watchHits": 18,
+        "longest": {
+          "days": 21,
+          "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+          "format": "IMAGE"
+        },
+        "newAds": [
+          {
+            "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=2352500681956285"
+          },
+          {
+            "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=1193460840008330"
+          },
+          {
+            "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=1120432177407640"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "CosMix",
+      "date": "2026-11-17",
+      "url": "/teardowns/cosmix.html",
+      "summary": "328 ads, run as a quick-commerce catalogue: 251 send people to Instamart or Blinkit. Nothing competes directly with Mornings or Nights.",
+      "highlights": [
+        "183 of 328 are catalogue ads with plain packshots and no headline.",
+        "Creator scripts go skeptic to fan, and attack 'flavoured' rivals with place-name ingredients (Indonesian cacao in 69 ads).",
+        "Their herbal sleep powders exist but aren't advertised; the hydration mix is pitched for workouts.",
+        "Best idea for SILT: 'People who read labels are annoying. And they're right.' with every dose and 293 lab checks on screen."
+      ],
+      "country": "IN",
+      "reel": {
+        "avg": 38,
+        "median": 36,
+        "min": 24,
+        "max": 56,
+        "all_avg": 31,
+        "all_n": 81
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 367,
+        "capped": true,
+        "started": 140,
+        "stopped": null,
+        "watchHits": 9,
+        "longest": {
+          "days": 132,
+          "text": "{{product.brand}}",
+          "format": "DCO"
+        },
+        "newAds": [
+          {
+            "text": "India’s most-loved REAL strawberry protein. Straight from the hills of Mahabaleshwar. 100% Real strawberries. 100% Gut-friendly. 🌱 easy on…",
+            "format": "DCO",
+            "versions": 3,
+            "started": "2026-11-22",
+            "link": "https://www.facebook.com/ads/library/?id=1679539810221496"
+          },
+          {
+            "text": "Our MOST requested, most drool-worthy flavour yet, using the juiciest berries! Nothing like any strawberry-flavoured treat you've ever had …",
+            "format": "DCO",
+            "versions": 3,
+            "started": "2026-11-22",
+            "link": "https://www.facebook.com/ads/library/?id=2132846940666901"
+          },
+          {
+            "text": "NEW LAUNCH! 🍓 Meet Cosmix 100% Fermented Yeast Protein with real Mahabaleshwar strawberries! It's smooth, delicious and made with real fru…",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=1474810034794229"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "The Whole Truth",
+      "date": "2026-11-17",
+      "url": "/teardowns/wholetruth.html",
+      "summary": "249 ads in India. Their transparency positioning is the closest to SILT's: how they turn 'no tricks' labels into ads that keep running, and where SILT can go further.",
+      "highlights": [
+        "Longest runner: a 17s wordless ingredient close-up of a bar, 146 days, 6 ads, 12 versions.",
+        "They show transparency as a document: the label read out, recipe percentages on screen, an honest flaw admitted.",
+        "Alert: since 16 Nov they let buyers look up a batch's lab report. SILT should go more specific: every dose against the dose used in studies.",
+        "92 of November's 112 new ads are for a 17 to 19 Nov sale."
+      ],
+      "country": "IN",
+      "reel": {
+        "avg": 41,
+        "median": 38,
+        "min": 12,
+        "max": 152,
+        "all_avg": 27,
+        "all_n": 94
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 183,
+        "capped": true,
+        "started": 26,
+        "stopped": null,
+        "watchHits": 7,
+        "longest": {
+          "days": 168,
+          "text": "It’s 4 PM on a Sunday. A show you’ve been waiting for just dropped. You’re setting the scene: blanket on the couch (or lights dimmed on the…",
+          "format": "CAROUSEL"
+        },
+        "newAds": [
+          {
+            "text": "Drink protein. Not chemicals. Made with just 5–7 real ingredients you can actually pronounce. No additives, no artificial anything—just pur…",
+            "format": "DPA",
+            "versions": 1,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=2061639941172704"
+          },
+          {
+            "text": "\"My lactose sensitive gut feels nauseous with anything else. Not with this one.\" Our Cold Coffee Whey is primarily whey isolate, a more fil…",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=1318593510720597"
+          },
+          {
+            "text": "Real pista. Real badaam. Real kulfi energy. Zero artificial anything. Get it now at ₹̶𝟸̶𝟿̶𝟻̶𝟶̶ ₹2199/- ✔ 24g protein per scoop ✔ Made w…",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=1424748886299810"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "OZiva",
+      "date": "2026-11-17",
+      "url": "/teardowns/oziva.html",
+      "summary": "554 ads in India from August to November, so there are real long runners. Nothing competes directly with Mornings or Nights.",
+      "highlights": [
+        "The hair growth serum holds 10 of the 15 longest-running videos (86 to 108 days): a named man on a stool telling a month-by-month timeline.",
+        "Their fat-metabolism fibre uses Sunfiber, the same PHGG as Mornings, sold as weight support: keep SILT's fibre message on the 5 g dose, never weight.",
+        "Only energy message: 'Feeling tired and foggy after meals?' for a sugar-support tablet.",
+        "Best idea for SILT: a named-customer timeline for Mornings, and an 'Always zoned out after lunch?' desk static."
+      ],
+      "country": "IN",
+      "reel": {
+        "avg": 38,
+        "median": 37,
+        "min": 25,
+        "max": 52,
+        "all_avg": 35,
+        "all_n": 319
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 500,
+        "capped": true,
+        "started": 153,
+        "stopped": null,
+        "watchHits": 33,
+        "longest": {
+          "days": 114,
+          "text": "{{product.brand}}",
+          "format": "DCO"
+        },
+        "newAds": [
+          {
+            "text": "Weight? Stop scrolling! Meet OZiva Daily Fat Metabolism + Plant Fiber—plant-based support for your daily fat-management routine. 🌿 One sac…",
+            "format": "IMAGE",
+            "versions": 7,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=1156382263709618"
+          },
+          {
+            "text": "Weight? Stop scrolling! Meet OZiva Daily Fat Metabolism + Plant Fiber—plant-based support for your daily fat-management routine. 🌿 One sac…",
+            "format": "IMAGE",
+            "versions": 7,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=1123450330314225"
+          },
+          {
+            "text": "Weight? Stop scrolling! Meet OZiva Daily Fat Metabolism + Plant Fiber—plant-based support for your daily fat-management routine. 🌿 One sac…",
+            "format": "IMAGE",
+            "versions": 7,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=1802501617628838"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "Wellbeing Nutrition",
+      "date": "2026-11-17",
+      "url": "/teardowns/wellbeing.html",
+      "summary": "720 ads in India, but 713 started in November, so almost nothing is proven yet. A buy-1-get-1 sale dominates.",
+      "highlights": [
+        "Only proven ads: two creator travel videos for their melatonin sleep strip ('I fly a lot for work'), 55 days each.",
+        "New magnesium push (75 ads, 3 days old) uses Nights-style hooks like 'quiet a racing mind', but it is magnesium only.",
+        "Watch their '₹22 a night' price line against SILT's ₹60 a stick.",
+        "Best idea for SILT: a professional on a work trip, airport then hotel room, one Nights stick in the hotel glass."
+      ],
+      "country": "IN",
+      "reel": {
+        "avg": 38,
+        "median": 36,
+        "min": 19,
+        "max": 64,
+        "all_avg": 29,
+        "all_n": 166
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 141,
+        "capped": true,
+        "started": 29,
+        "stopped": null,
+        "watchHits": 19,
+        "longest": {
+          "days": 61,
+          "text": "Poor sleep can really have you feeling washed out and LIFELESS 😞 Meet the coolest, revolutionary sleeping strips - a one-stop solution to …",
+          "format": "VIDEO"
+        },
+        "newAds": [
+          {
+            "text": "Unlock the Power of Triple Magnesium! Our unique formula combines Magnesium Glycinate, Aquamin® Magnesium Citrate, and Magnesium Threonate …",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=1537520391527629"
+          },
+          {
+            "text": "#Ad Feeling tired, low on energy or more drained around your period isn’t something to keep ignoring. Sometimes, your body just needs a lit…",
+            "format": "VIDEO",
+            "versions": 1,
+            "started": "2026-11-20",
+            "link": "https://www.facebook.com/ads/library/?id=1151646217252721"
+          },
+          {
+            "text": "Poor sleep can really have you feeling washed out and LIFELESS 😞 Meet the coolest, revolutionary sleeping strips - a one-stop solution to …",
+            "format": "VIDEO",
+            "versions": 1,
+            "started": "2026-11-22",
+            "link": "https://www.facebook.com/ads/library/?id=1679345553669496"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "AG1",
+      "date": "2026-11-17",
+      "country": "US",
+      "url": "/teardowns/ag1.html",
+      "summary": "The category leader at scale: 1,007 US ads captured, 832 started in November, longest runner 118 days. Not in India, so this is about what to borrow.",
+      "highlights": [
+        "They flood each launch with variants: AG1 Pro alone has 637 ads, 2,692 versions and 390 unique videos.",
+        "They never write \"morning\" in ad copy (0 of 1,007); it only shows on screen. \"The first five minutes of my workday\" is open for SILT Mornings.",
+        "Offers are free things, not discounts: welcome kit, YETI shaker, tote; longest static is \"Try AG1 risk-free for 90 days\".",
+        "Watch AG1 Energy+ (their drink plus 100 mg caffeine): only 3 ads so far."
+      ],
+      "reel": {
+        "avg": 22,
+        "median": 15,
+        "min": 7,
+        "max": 44,
+        "all_avg": 36,
+        "all_n": 652
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 400,
+        "capped": true,
+        "started": 167,
+        "stopped": null,
+        "watchHits": 143,
+        "longest": {
+          "days": 124,
+          "text": "{{product.brand}}",
+          "format": "DCO"
+        },
+        "newAds": [
+          {
+            "text": "Sold out after launch. It's back (for now). Built on the clinically backed AG1 Next Gen formula, AG1 Pro adds 5g of Creavitalis® creatine m…",
+            "format": "VIDEO",
+            "versions": 14,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=2661053240992606"
+          },
+          {
+            "text": "Sold out after launch. It's back (for now). Built on the clinically backed AG1 Next Gen formula, AG1 Pro adds 5g of Creavitalis® creatine m…",
+            "format": "VIDEO",
+            "versions": 14,
+            "started": "2026-11-17",
+            "link": "https://www.facebook.com/ads/library/?id=1702525788114976"
+          },
+          {
+            "text": "Sold out after launch. It's back (for now). Built on the clinically backed AG1 Next Gen formula, AG1 Pro adds 5g of Creavitalis® creatine m…",
+            "format": "VIDEO",
+            "versions": 14,
+            "started": "2026-11-19",
+            "link": "https://www.facebook.com/ads/library/?id=4525342421128933"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "IM8",
+      "date": "2026-11-17",
+      "country": "US",
+      "url": "/teardowns/im8.html",
+      "summary": "The Beckham-backed all-in-one drink. Meta lists 42,281 US ads; this is a sample of 1,009, mostly May to October and 940 of them stopped, so it shows their past playbook, not today.",
+      "highlights": [
+        "They borrow trust: Beckham is named in 357 ads but on screen in only 1 of the top 15. Doctors, one trial number and athlete shareholders do the selling.",
+        "One of their longest statics (80 days, 69 versions) sells a day and night pair, the same logic as Mornings + Nights.",
+        "Their newest angle is SILT territory: every dose on the label, no proprietary blend, glycinate not oxide.",
+        "Best idea for SILT: founder to camera, \"Skeptical of supplements? Good. Here is every report.\", opening each lab report."
+      ],
+      "reel": {
+        "avg": 65,
+        "median": 55,
+        "min": 6,
+        "max": 140,
+        "all_avg": 70,
+        "all_n": 449
+      },
+      "week": {
+        "date": "2026-11-23",
+        "since": "2026-11-17",
+        "active": 400,
+        "capped": true,
+        "started": 200,
+        "stopped": null,
+        "watchHits": 20,
+        "longest": {
+          "days": 83,
+          "text": "Taking care of myself isn’t part of my training It’s the foundation of everything else @im8health 🤜🏼🤛🏼 #IM8Health #IM8 🔋",
+          "format": "VIDEO"
+        },
+        "newAds": [
+          {
+            "text": "Buy 2. Get 1 free. That's the whole offer. IM8 Daily Ultimate Essentials Pro: 90 ingredients in one daily sachet, replacing up to 16 supple…",
+            "format": "DCO",
+            "versions": 1,
+            "started": "2026-11-17",
+            "link": "https://www.facebook.com/ads/library/?id=1447247977522000"
+          },
+          {
+            "text": "Buy 2. Get 1 free. That's the whole offer. IM8 Daily Ultimate Essentials Pro: 90 ingredients in one daily sachet, replacing up to 16 supple…",
+            "format": "DCO",
+            "versions": 1,
+            "started": "2026-11-18",
+            "link": "https://www.facebook.com/ads/library/?id=1476571201076665"
+          },
+          {
+            "text": "Race after race, city after city. The racing is the easy part. The real challenge is everything in between. Staying healthy through constan…",
+            "format": "VIDEO",
+            "versions": 1,
+            "started": "2026-11-21",
+            "link": "https://www.facebook.com/ads/library/?id=1044441698669379"
+          }
+        ]
+      }
+    }
+  ],
+  "weekly_checked": "2026-11-23"
+}

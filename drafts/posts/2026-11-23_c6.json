@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: how did you get your first customer reviews?",
+  "thread_summary": "Look for founders asking how to collect reviews, testimonials or social proof early.",
+  "product": "brand",
+  "angle": "Founder insight",
+  "text": "What worked for us (a small wellness brand, launched last month) was asking only verified buyers, and only after they'd used the product for a couple of weeks. Earlier than that, people have nothing real to say. We use a verified-review tool so every review is tied to an actual order, which also makes them more believable to new visitors. Expect fewer reviews than you'd like. The few detailed ones are worth more than a pile of five-word ratings.",
+  "why": "Founder-friendly subreddit. We genuinely have verified reviews, so this is honest experience.",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting. Founder-friendly subreddit: it's fine to say who we are once, but don't link."
+}

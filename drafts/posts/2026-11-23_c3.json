@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "thread_title": "Find a post from the last 3 days: getting leg cramps at night, should I take magnesium?",
+  "thread_summary": "Look for someone with night cramps after training asking about magnesium or electrolytes.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "For ordinary night cramps, the evidence for magnesium is weak. A Cochrane review found it's unlikely to help most people, though it may help if you're actually low. What tends to work better: stretch your calves before bed, keep up fluids and salt on heavy training days, and don't jump your training volume too fast. If cramps are frequent or come with swelling or numbness, see a doctor rather than guessing.",
+  "why": "Honest about magnesium, which is in our Nights stick. Being straight about where it doesn't help builds trust.",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting. Touches on health: keep the 'see a doctor' line. Don't mention SILT."
+}

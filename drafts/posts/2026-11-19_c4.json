@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "thread_title": "Find a post from the last 3 days: How do I stop sugar cravings after lunch and in the evening?",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "thread_summary": "Look for someone struggling with sweet cravings or snacking at work.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "A few things make a real difference. Put protein and fibre on the lunch plate (dal, chana, curd, a sabzi with some bulk) so the meal keeps you full longer, and drink water before reaching for a snack, since thirst often reads as hunger. Short sleep is the one people miss: a bad night raises appetite the next day, especially for sweet food. Keep a planned snack like fruit with a handful of nuts for 4 PM so the craving doesn't make the decision for you.",
+  "why": "Hunger cravings is one of our quiz answers. Practical Indian food help.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting.",
+  "id": "2026-11-19_c4"
+}

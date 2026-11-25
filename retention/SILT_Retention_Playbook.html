@@ -1,0 +1,504 @@
+<title>SILT Retention Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a field manual for one product loop. Navy masthead, then a day-by-day timeline shaped like a WhatsApp thread, flanked by cohort and idea grids. Mornings gold and Nights blue mark which stick a message is about. */
+:root{
+  --bg:#F4F5F8; --surface:#FFFFFF; --sunk:#E9ECF2; --line:#D5DAE5;
+  --ink:#14203A; --muted:#5A6378; --navy:#16233F; --on-navy:#F4F1E8;
+  --am:#C98A12; --am-soft:#FBEFD3; --pm:#4D72C9; --pm-soft:#E2EAFB;
+  --chat:#E7F6E3; --chat-ink:#16341F; --warn:#A8530E; --warn-soft:#FBE9D6; --ok:#2E7A55; --ok-soft:#DDF1E6;
+  --display:"Jost",ui-sans-serif,system-ui,sans-serif; --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1424; --surface:#161F33; --sunk:#10182A; --line:#2A3550; --ink:#E7EAF2; --muted:#9AA3B8; --navy:#0A1020; --on-navy:#F4F1E8;
+  --am:#EBB858; --am-soft:#3A3120; --pm:#9FC0FF; --pm-soft:#1E2A47; --chat:#173024; --chat-ink:#D8F2DE; --warn:#E8A15C; --warn-soft:#3A2816; --ok:#6CC69A; --ok-soft:#163026; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1424; --surface:#161F33; --sunk:#10182A; --line:#2A3550; --ink:#E7EAF2; --muted:#9AA3B8; --navy:#0A1020; --on-navy:#F4F1E8;
+  --am:#EBB858; --am-soft:#3A3120; --pm:#9FC0FF; --pm-soft:#1E2A47; --chat:#173024; --chat-ink:#D8F2DE; --warn:#E8A15C; --warn-soft:#3A2816; --ok:#6CC69A; --ok-soft:#163026; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--body)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15;text-wrap:balance}
+h2{font-size:clamp(24px,3vw,32px);font-weight:600}
+h3{font-size:18px;font-weight:600}
+p{margin:0}
+a{color:inherit;text-decoration-color:var(--am);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--am);outline-offset:2px}
+.hero{background:var(--navy);color:var(--on-navy);margin-top:calc(-1 * env(safe-area-inset-top,0px));padding-top:calc(env(safe-area-inset-top,0px) + 40px);padding-bottom:36px}
+.hero .wrap{display:grid;gap:18px}
+.mark{font:600 13px var(--display);letter-spacing:.32em;color:#EBB858}
+.hero h1{font-size:clamp(34px,5.2vw,58px);font-weight:600;max-width:20ch}
+.hero p.lede{max-width:66ch;opacity:.86;font-size:16px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:rgba(244,241,232,.18);border-radius:10px;overflow:hidden;margin-top:6px}
+.fact{background:var(--navy);padding:14px 16px;display:grid;gap:2px}
+.fact b{font:600 28px/1.1 var(--display);font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;opacity:.78}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+nav.toc a{white-space:nowrap;font:500 13px var(--body);text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+nav.toc a:hover{color:var(--ink)}
+main .wrap{display:grid;gap:56px;padding-block:36px 72px}
+section{display:grid;gap:18px;scroll-margin-top:64px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--am)}
+.prose{max-width:70ch;display:grid;gap:10px;color:var(--ink)}
+.muted{color:var(--muted)}
+.jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.job{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:8px;align-content:start}
+.job .n{font:600 13px var(--mono);color:var(--muted)}
+/* cohorts */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:880px;font-size:13.5px}
+th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--sunk)}
+tr:last-child td{border-bottom:0}
+td b{font-family:var(--display);font-size:15px;font-weight:600;display:block}
+.tag{display:inline-block;font:500 11.5px var(--body);padding:2px 8px;border-radius:999px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.tag.am{background:var(--am-soft);color:var(--ink)} .tag.pm{background:var(--pm-soft);color:var(--ink)} .tag.both{background:linear-gradient(90deg,var(--am-soft),var(--pm-soft));color:var(--ink)}
+.tag.util{background:var(--ok-soft);color:var(--ok)} .tag.mkt{background:var(--warn-soft);color:var(--warn)} .tag.svc{background:var(--sunk);color:var(--muted)}
+.overlays{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.overlay{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;display:grid;gap:4px}
+/* timeline */
+.timeline{display:grid;gap:0;position:relative}
+.step{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding-block:14px;border-top:1px solid var(--line)}
+.step:first-child{border-top:0}
+.day{display:grid;gap:4px;align-content:start}
+.day b{font:600 22px/1 var(--display)}
+.day span{font-size:12px;color:var(--muted)}
+.stepbody{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px}
+.bubble{background:var(--chat);color:var(--chat-ink);border-radius:4px 14px 14px 14px;padding:12px 14px;font-size:14px;white-space:pre-wrap;position:relative;max-width:46ch}
+.bubble .btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;white-space:normal}
+.bubble .btns span{background:var(--surface);color:var(--pm);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font:500 12.5px var(--body)}
+.bubble .media{display:block;font:500 12px var(--mono);opacity:.75;margin-bottom:6px;white-space:normal}
+.why{display:grid;gap:6px;font-size:13.5px;align-content:start}
+.why .tags{display:flex;flex-wrap:wrap;gap:6px}
+.copybtn{justify-self:start;font:500 12px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 10px;cursor:pointer}
+/* ideas */
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start}
+.idea h3{display:flex;gap:10px;align-items:baseline}
+.idea h3 .k{font:600 12px var(--mono);color:var(--muted)}
+.idea .how{font-size:14px}
+.idea .ev{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.meter{display:flex;gap:6px;flex-wrap:wrap}
+.assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.asset{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface);display:grid;gap:4px;font-size:13.5px}
+.asset b{font-family:var(--display);font-size:15px}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.lever{border-left:3px solid var(--am);padding:4px 0 4px 14px;display:grid;gap:6px}
+.lever:nth-child(even){border-left-color:var(--pm)}
+.comp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.cbrand{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.cbrand ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13.5px}
+.cbrand .src{font-size:12px;color:var(--muted);word-break:break-word}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.rule ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:13.5px}
+.say{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13.5px}
+.say div{border-radius:10px;padding:12px 14px}
+.say .no{background:var(--warn-soft)} .say .yes{background:var(--ok-soft)}
+.say ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:4px}
+.kpi b{font:600 22px var(--display);font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+.roll{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.phase ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:13.5px}
+.social{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:6px;align-content:start;font-size:13.5px}
+.post .who{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.post q{font-style:italic}
+.post .src{font-size:12px;color:var(--muted);word-break:break-word}
+.sources{font-size:12.5px;color:var(--muted);columns:2 320px;column-gap:28px}
+.sources li{break-inside:avoid;margin-bottom:6px;word-break:break-word}
+.note{background:var(--am-soft);border-radius:10px;padding:12px 16px;font-size:14px;max-width:80ch}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;z-index:20}
+@media (max-width:760px){.step{grid-template-columns:1fr;gap:8px}.stepbody{grid-template-columns:1fr}.say{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.idea,.cbrand{transition:transform .15s}.idea:hover{transform:translateY(-2px)}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="mark">S I L T</span>
+    <h1>Make the second box automatic.</h1>
+    <p class="lede">A WhatsApp retention plan for SILT Mornings and Nights: who to message, what to say on which day, the out-of-the-box mechanics, and how competitors and well-loved brands do it. Built for a 15-stick box and the 66 days it takes a habit to stick.</p>
+    <div class="facts">
+      <div class="fact"><b>1,870</b><span>pre-bookers, of whom about 250 have bought. The biggest cohort is people who already raised their hand.</span></div>
+      <div class="fact"><b>15 days</b><span>one box. The refill nudge has to land around day 9 to 11, before it runs out and before couriers take 3 days.</span></div>
+      <div class="fact"><b>~66 days</b><span>median time for a daily habit to become automatic (Lally et al., 2010). That is 4 to 5 boxes.</span></div>
+      <div class="fact"><b>₹0.86 / ₹0.12</b><span>Meta's India price per marketing / utility message (plus 18% GST). A full first-month journey costs about ₹6 a customer.</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections"><div class="wrap">
+  <a href="#jobs">The 3 jobs</a><a href="#cohorts">Cohorts</a><a href="#journey">Day-by-day journey</a><a href="#ideas">Out-of-the-box ideas</a><a href="#creatives">Creatives & videos</a><a href="#repeat">Repeat-purchase engine</a><a href="#competitors">What competitors do</a><a href="#social">What people love</a><a href="#rules">Rules & claims</a><a href="#kpis">What to measure</a><a href="#rollout">Rollout</a><a href="#sources">Sources</a>
+</div></nav>
+
+<main><div class="wrap">
+
+<section id="jobs">
+  <span class="eyebrow">The idea in one screen</span>
+  <h2>WhatsApp has three jobs, in this order</h2>
+  <div class="jobs">
+    <div class="job"><span class="n">Job 1 · days 0 to 7</span><h3>Make the ritual happen</h3><p>Tie each stick to something the customer already does: first chai, the first call, laptop closing, brushing at night. Reminders at the time they pick, not ours. "If this, then that" plans roughly double follow-through in studies.</p></div>
+    <div class="job"><span class="n">Job 2 · days 3 to 30</span><h3>Let them notice it themselves</h3><p>We can't claim results, so we ask. Taste check, a one-tap 3 PM energy poll, their own sleep-tracker screenshot. When the customer says it, it is proof, and it is legal.</p></div>
+    <div class="job"><span class="n">Job 3 · days 9 to 66</span><h3>Make reordering zero effort</h3><p>One-tap reorder before the box runs out, pause and skip without friction, subscribe-and-save, and a small reward for coming back after a miss. Keep going until day 66, when the habit should hold on its own.</p></div>
+  </div>
+</section>
+
+<section id="cohorts">
+  <span class="eyebrow">Who gets what</span>
+  <h2>Nine cohorts, each with one goal</h2>
+  <p class="prose muted">Rules are written so a WhatsApp tool (Interakt, AiSensy, WATI, Gallabox or LimeChat with Shopify) can tag people automatically. Sizes are rough, from today's numbers. A customer sits in one lifecycle cohort at a time, plus any overlays below.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Cohort</th><th>Rule</th><th>Goal</th><th>First message angle</th><th>Max marketing / week</th></tr></thead>
+    <tbody id="cohortRows"></tbody>
+  </table></div>
+  <h3 style="margin-top:6px">Overlays that change timing or tone</h3>
+  <div class="overlays" id="overlays"></div>
+</section>
+
+<section id="journey">
+  <span class="eyebrow">First 66 days, one message at a time</span>
+  <h2>The day-by-day journey for a first-time buyer</h2>
+  <p class="prose muted">Copy is in SILT's voice: "we", plain, no hard selling, no health claims. [Name], [Mornings/Nights] and times are fields the tool fills in. Each message notes whether Meta treats it as utility (cheap, transactional) or marketing (charged more, counts toward Meta's per-person limit). Buttons that invite a reply open a 24-hour window, inside which follow-ups don't count toward that limit.</p>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<section id="ideas">
+  <span class="eyebrow">Slightly out of the box</span>
+  <h2>Fifteen ideas that make people come back</h2>
+  <p class="prose muted">Each idea says how it works, what it borrows from, and roughly how much effort it is. Start with the ones marked "Week 1".</p>
+  <div class="ideas" id="ideaGrid"></div>
+</section>
+
+<section id="creatives">
+  <span class="eyebrow">What to send, not just what to say</span>
+  <h2>Creatives and videos to make once and reuse</h2>
+  <div class="assets" id="assets"></div>
+</section>
+
+<section id="repeat">
+  <span class="eyebrow">The money part</span>
+  <h2>The repeat-purchase engine</h2>
+  <div class="levers" id="levers"></div>
+</section>
+
+<section id="competitors">
+  <span class="eyebrow">Research</span>
+  <h2>What competitors and category leaders actually do</h2>
+  <p class="prose muted">Public evidence only, checked 21 Nov 2026. Most supplement brands in India publish nothing about their WhatsApp setup; where a vendor case study exists, the figures are the vendor's own and not audited.</p>
+  <div class="comp" id="compGrid"></div>
+</section>
+
+<section id="social">
+  <span class="eyebrow">Research</span>
+  <h2>Messages people screenshot and share</h2>
+  <p class="prose muted" id="socialLede">Notifications and WhatsApp campaigns that people shared on X and LinkedIn or that marketing press wrote up, plus the backlashes to avoid. Reddit couldn't be read for this pass, and most public praise is about push notifications; WhatsApp numbers are vendor or award-entry figures, not audited.</p>
+  <div class="social" id="socialGrid"></div>
+</section>
+
+<section id="rules">
+  <span class="eyebrow">Guardrails</span>
+  <h2>WhatsApp rules, claims rules and our own limits</h2>
+  <div class="rules" id="ruleGrid"></div>
+  <div class="say">
+    <div class="no"><b>Never in a message</b><ul>
+      <li>"Fixes your sleep", "cures insomnia", "treats anxiety", "boosts immunity"</li>
+      <li>"Recommended by doctors" or anything implying medical endorsement</li>
+      <li>"Take two for a bigger boost"</li>
+      <li>"Melatonin is dangerous, unlike us" or naming another brand</li>
+      <li>"Only 2 hours left!" when it isn't true, or "You broke your streak"</li>
+      <li>SILT improves X in Y days</li>
+    </ul></div>
+    <div class="yes"><b>Say this instead</b><ul>
+      <li>"Part of your wind-down", "your morning stick", "before your first call"</li>
+      <li>"3 g glycine, the dose used in sleep studies"</li>
+      <li>"One stick a day, every dose printed on the box"</li>
+      <li>"How did this week feel?" and the customer's own words, with permission</li>
+      <li>"Your box has about 4 sticks left", plain and true</li>
+      <li>"Missed a day? Pick up tonight. Your streak waits."</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="kpis">
+  <span class="eyebrow">Scoreboard</span>
+  <h2>What to measure, and starting targets</h2>
+  <p class="prose muted">10 repeat buyers out of 250 at day 15 is too early to judge: most first boxes had only just run out. Measure a 30-day and 60-day repeat rate per cohort instead. Targets below are starting points, not benchmarks for SILT.</p>
+  <div class="kpis" id="kpiGrid"></div>
+</section>
+
+<section id="rollout">
+  <span class="eyebrow">Order of work</span>
+  <h2>Rollout in three phases</h2>
+  <div class="roll" id="rollGrid"></div>
+</section>
+
+<section id="sources">
+  <span class="eyebrow">Sources</span>
+  <h2>Where this comes from</h2>
+  <ol class="sources" id="sourceList"></ol>
+</section>
+
+</div></main>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const P={am:'<span class="tag am">Mornings</span>',pm:'<span class="tag pm">Nights</span>',both:'<span class="tag both">Both</span>'};
+const CAT={util:'<span class="tag util">Utility</span>',mkt:'<span class="tag mkt">Marketing</span>',svc:'<span class="tag svc">Reply / service</span>'};
+
+/* ---------- cohorts ---------- */
+const cohorts=[
+ ["Pre-bookers who never bought","~1,600","Pre-booked before launch, no order since.","First order","\"You were one of 1,870 who asked for this before it existed. It's here, and your early-bird price still holds till Sunday.\" Then the 2-question quiz to pick Mornings or Nights.","2"],
+ ["Quiz takers, no order","grows daily","Took the 2-question quiz, no order in 3 days.","First order","Send their quiz answer back to them: \"You said 3 PM is the worst. That's what Mornings is built around.\" One product, not the catalogue.","2"],
+ ["New: Mornings only","~half of buyers","First order, Mornings only, days 0 to 15.","Daily ritual, then refill","Pick-your-time reminder, taste check, 3 PM poll. Sample of Nights in box two.","2"],
+ ["New: Nights only","~a third","First order, Nights only, days 0 to 15.","Daily ritual, then refill","Wind-down time picked by them, 60-second audio, ask-your-tracker test. Sample of Mornings in box two.","2"],
+ ["New: Combo","the rest","First order includes both, days 0 to 15.","Two anchors, then subscribe","Two reminders (morning cue, night cue), one weekly card. Earliest subscribe-and-save offer.","2"],
+ ["Second box","2nd order","Exactly 2 orders.","Third box, subscription","Halfway mark of the 66-day habit. Subscribe-and-save, swap-or-add the other stick, desk-buddy referral.","2"],
+ ["Ritual Club","3+ orders or subscribed","3 or more orders, or an active subscription.","Stay, refer, review","Fewer messages, more surprise: early flavours, founder notes, a free stick on day 66. Ask for a review and a story.","1"],
+ ["At risk","day 16 to 25","Expected run-out passed by 1 to 10 days, no reorder.","Save the habit","Plain question first: \"Out of sticks or taking a break?\" Buttons for both. Small come-back reward, never guilt.","2"],
+ ["Lapsed","30+ days","More than 2 boxes overdue.","Win back or learn why","Founder voice note, one honest question (taste, price, didn't notice anything, stock), then a fresh-start offer. Stop after two tries.","1"],
+];
+$("#cohortRows").innerHTML=cohorts.map(c=>`<tr><td><b>${esc(c[0])}</b><span class="tag">${esc(c[1])}</span></td><td>${esc(c[2])}</td><td>${esc(c[3])}</td><td>${esc(c[4])}</td><td class="mono">${esc(c[5])}</td></tr>`).join("");
+const overlays=[
+ ["COD buyers","Move them to prepaid: prepaid-only perks (free sticks, faster dispatch). OZiva and Supply6 both push prepaid with extra discounts."],
+ ["Late-call crew","Customers who pick a Nights reminder after 11:30 PM: shift all evening messages later, and skip anything before 10 AM."],
+ ["Tracker wearers","Anyone who mentions a ring or watch: invite them to the two-week \"ask your own tracker\" test (idea 4)."],
+ ["Gift and referral receivers","Their first message thanks the friend by name and explains the stick from zero."],
+ ["Hinglish replies","If a customer writes in Hinglish, the tool switches templates to the Hinglish variants."],
+];
+$("#overlays").innerHTML=overlays.map(o=>`<div class="overlay"><b>${esc(o[0])}</b><span class="muted">${esc(o[1])}</span></div>`).join("");
+
+/* ---------- journey ---------- */
+const steps=[
+ {d:"Day 0",t:"Order placed",p:"both",c:"util",m:"Order confirmation",
+  msg:"Hi [Name], we've got your SILT [Mornings/Nights] order. 🌅🌙\nIt ships within 24 hours and should reach you by [date].\n\nOne question while you wait: want a gentle nudge at your stick time?",btn:["Yes, remind me","No thanks"],
+  why:"Asks for reminder consent separately from order updates (Meta and DPDP both want purpose-specific opt-in). A reply opens the 24-hour window for free-flowing set-up."},
+ {d:"Day 0",t:"If they said yes",p:"both",c:"svc",m:"Interactive list",
+  msg:"Pick the moment SILT fits into. We'll message you then, and never at night unless you pick night.\n\nMornings: with first chai / before first call / after the gym\nNights: when the laptop closes / after dinner / at brushing time",btn:["Choose times"],
+  why:"Implementation intention: the cue is something they already do. Habit stacking (brushing → flossing) beat a free-floating habit in Judah et al. 2013."},
+ {d:"Day 1–2",t:"Delivered",p:"both",c:"util",m:"15-sec video + text",
+  msg:"[media: 15-second video, stick into 200 ml water, stir, sip]\nYour box is home. Tomorrow at [time]: one stick, 200 ml water, stir, sip.\nMornings tastes best cold. Nights tastes best warm.",btn:["Watch again","I have a question"],
+  why:"Removes the 'how do I take this' friction on the first day, which is where most supplement routines die."},
+ {d:"Day 2",t:"First stick done",p:"both",c:"mkt",m:"Founder voice note (30 s)",
+  msg:"[media: 30-second voice note from Abhishek]\n\"Hi [Name], I'm Abhishek, I made SILT after ten years of running on coffee. Thank you for trying it. If anything about the taste or the routine feels off, just reply here. It comes to me.\"",btn:["Reply to Abhishek"],
+  why:"Traya credits its coach check-ins for most of its retention. A real human voice is the cheapest version of that."},
+ {d:"Day 3",t:"Taste check",p:"both",c:"mkt",m:"Quick reply poll",
+  msg:"Three sticks in. Honest question: how's the taste?",btn:["😋 Love it","😐 It's fine","😕 Not for me"],
+  why:"😕 gets tips (colder water, more water, mix with coconut water for Mornings) and an offer to swap. Bad taste is a silent churn reason we can fix early."},
+ {d:"Day 5",t:"Trust drop",p:"both",c:"mkt",m:"Image card + link",
+  msg:"[media: lab report card for your batch]\nYour box is batch [B-0412]. Here are the lab reports for every ingredient in it. 293 checks so far, 0 failed. Nothing hidden.",btn:["See my batch report"],
+  why:"Our real edge. The Whole Truth just launched batch lookups; we go one level deeper with a report per ingredient."},
+ {d:"Day 7",t:"Halfway",p:"both",c:"mkt",m:"Personal card + poll",
+  msg:"[media: card '7 / 15 · Halfway', with their streak dots]\nHalfway through your first box. Quick one: how was 3 PM this week?",btn:["Better","Same","Worse"],
+  why:"They say it, we don't. Answers feed personalisation and, with permission, reviews."},
+ {d:"Day 9–10",t:"Refill window",p:"both",c:"mkt",m:"One-tap reorder",
+  msg:"About 5 sticks left, [Name]. Delivery takes around 3 days, so this is the easy moment to top up and not miss a day.",btn:["Reorder same","Add the other stick","Subscribe & save"],
+  why:"Replenishment best practice is 3 to 5 days before run-out, adjusted for shipping. Pay by UPI inside WhatsApp or one link to a pre-filled cart."},
+ {d:"Day 12",t:"If no reorder",p:"both",c:"mkt",m:"Text",
+  msg:"2 or 3 sticks left. Want us to send the next box, or are you taking a break after this one?",btn:["Send next box","Remind me in 3 days","Taking a break"],
+  why:"Gives an honest exit. 'Taking a break' tags them, stops refill nudges, and schedules one check-in later. No fake urgency (CCPA dark-patterns rules)."},
+ {d:"Day 15",t:"Run-out day",p:"both",c:"mkt",m:"Text",
+  msg:"Last stick today? 15 days in a row is a real routine. Most people need about two months before it runs on autopilot. Want to keep it going?",btn:["Reorder","Not now"],
+  why:"Frames the next box as continuing a habit, not buying a product. Cites the habit research, not a health claim."},
+ {d:"Day 18–20",t:"At risk",p:"both",c:"mkt",m:"Text + small reward",
+  msg:"Missed a few days? Happens to everyone. Your streak is waiting. Restart this week and we'll add 3 free sticks of [the other one] to your box.",btn:["Restart","Tell you why I stopped"],
+  why:"The best arm in a 61,000-person gym megastudy was a small reward for coming back after a miss. Shame-free wording avoids the broken-streak drop-off."},
+ {d:"Day 21",t:"Box two arrives",p:"both",c:"util",m:"Text",
+  msg:"Box two is here. You're 21 days into a 66-day habit. Your sample of [the other stick] is inside: try it on a weekend.",btn:["How to use it"],
+  why:"Cross-sell by sampling, not discounting. Mornings buyers meet Nights at home."},
+ {d:"Day 30",t:"One month",p:"both",c:"mkt",m:"WhatsApp Flow (3 questions)",
+  msg:"One month of SILT. Three quick taps, then a thank-you from us.\n1. Your stick time now?\n2. What changed, in your words?\n3. Can we share your answer (first name only)?",btn:["Start"],
+  why:"Collects reviews and customer stories with consent. Flows keep it inside WhatsApp."},
+ {d:"Day 45",t:"Desk buddy",p:"both",c:"mkt",m:"Shareable link",
+  msg:"Know someone at work who runs on their third coffee? Send them 3 free sticks from you. When they order, you both get ₹150 off.",btn:["Share with a colleague"],
+  why:"Referral that fits the buyer: desk colleagues share the same 3 PM. Supply6 and IM8 both run refer-and-earn."},
+ {d:"Day 66",t:"Habit milestone",p:"both",c:"mkt",m:"Card + surprise",
+  msg:"[media: 'Day 66' card]\nDay 66. Research says this is about when a daily habit runs itself. You did that. A free stick of our next flavour is in your next box, and you're now in the Ritual Club.",btn:["What's the Ritual Club?"],
+  why:"Celebrates the habit, not the purchase, and hands over to the lower-frequency loyalty track."},
+];
+$("#timeline").innerHTML=steps.map((s,i)=>`<div class="step"><div class="day"><b>${esc(s.d)}</b><span>${esc(s.t)}</span></div><div class="stepbody"><div class="bubble" id="msg${i}">${s.msg.includes("[media:")?"":""}${esc(s.msg).replace(/\[media: ([^\]]+)\]\n?/,(m,x)=>`<span class="media">▶ ${x}</span>`)}${s.btn?`<div class="btns">${s.btn.map(b=>`<span>${esc(b)}</span>`).join("")}</div>`:""}</div><div class="why"><div class="tags">${P[s.p]}${CAT[s.c]}<span class="tag">${esc(s.m)}</span></div><p>${esc(s.why)}</p><button class="copybtn" data-copy="${i}">Copy message</button></div></div></div>`).join("");
+
+/* ---------- ideas ---------- */
+const ideas=[
+ ["Your time, not ours","Week 1","Low","Customers pick their stick moment (first chai, laptop closing). Reminders go out then, and move with them on weekends.","If-then plans: d = 0.65 across 94 studies (Gollwitzer & Sheeran 2006). Habit stacking: Judah et al. 2013."],
+ ["The 15/15 Club, with a streak freeze","Week 1","Low","Reply 🌅 or 🌙 after each stick. 15 in a box earns the 15/15 badge card. One free 'freeze' per box, so a missed day never resets the streak.","Streaks lift engagement while intact but backfire when broken without repair (Silverman & Barasch 2023)."],
+ ["Come-back reward","Week 1","Low","Miss 3 days? No guilt message. 'Restart this week and the next box has 3 free sticks.'","Best arm of the Milkman 2021 megastudy (61,293 people): a micro-reward for returning after a miss, +27%."],
+ ["Ask your own tracker","Month 2","Medium","For ring and watch wearers: send your sleep or recovery screenshot on day 1 and day 14. We send back a side-by-side card. They judge it, not us.","The Stack Club's most-scaled ad: 'Reviews can be faked, but your sleep score can't.'"],
+ ["Your week in sticks","Week 2","Medium","Every Sunday, a personal card: stick dots for the week, their 3 PM poll answers, one tip. Looks like a Spotify Wrapped for a routine.","Same idea as Spotify Wrapped: it's about the customer, so they look at it and share it."],
+ ["Laptop-closed audio","Week 2","Low","With the Nights reminder, a 60-second wind-down audio: breathing pace, a line from Abhishek, silence. Content, not a claim.","Gives the Nights reminder value of its own, so it isn't 'buy more'."],
+ ["3 PM poll","Week 1","Low","Weekday 3 PM: 'Energy right now?' 🔋🔋🔋 / 🔋🔋 / 🪫. Answers tag them and feed the Sunday card.","Polls invite a reply, which opens a 24-hour window and doesn't count toward Meta's marketing cap."],
+ ["Batch report on delivery","Week 1","Low","Every box has a batch number. The delivery message links that batch's lab reports.","Answers The Whole Truth's 16 Nov batch-lookup ad, one level deeper (a report per ingredient)."],
+ ["Founder voice notes","Week 1","Low","Abhishek records 6 short voice notes (welcome, day 15, lapsed, Ritual Club, festival, new flavour). Replies go to a real person.","Traya credits WhatsApp coach check-ins for about 70% retention (company claim)."],
+ ["Try your other half","Week 2","Medium","Box two for a single-product buyer includes 2 sticks of the other product, with its own mini onboarding.","Cross-sell by sampling. Beastlife and Supply6 both cross-sell to past buyers."],
+ ["Payday refill week","Month 2","Low","Bulk refill reminders and any offers go out in the salary window (last 5 days and first 5 days of the month), not mid-month.","Beastlife timed broadcasts to the last 5 days of the month and reports 28% of revenue from WhatsApp (vendor figure)."],
+ ["Desk buddy referral","Month 2","Medium","Send 3 free sticks to a colleague from inside WhatsApp. Both get ₹150 off when they order.","Professionals share the same 3 PM. Refer-and-earn at Supply6, IM8, Wellbeing."],
+ ["Welcome kit with subscription","Month 2","High","First subscription box: a glass, a stick tin and 3 bonus sticks. After that, refills only.","AG1 and IM8 both give a welcome kit only with the first subscription; refills follow."],
+ ["SILT sticker pack","Month 2","Medium","WhatsApp stickers people use with friends: '3 PM again', 'laptop closed', '15/15', 'chai + stick'. Brand in every group chat.","Free reach in group chats. Netflix India and Meta made a sticker pack for The Archies (2023) for the same reason."],
+ ["Ritual Club","Month 3","Medium","3+ orders or subscribed: early flavours, a founder note each month, a free stick on day 66 and day 180, first look at new products.","Wellbeing Access (₹149 a quarter) and HK Premium show Indian buyers pay for membership perks."],
+];
+$("#ideaGrid").innerHTML=ideas.map((x,i)=>`<article class="idea"><h3><span class="k">${String(i+1).padStart(2,"0")}</span>${esc(x[0])}</h3><div class="meter"><span class="tag ${x[1]==="Week 1"?"util":""}">${esc(x[1])}</span><span class="tag">Effort: ${esc(x[2])}</span></div><p class="how">${esc(x[3])}</p><p class="ev">${esc(x[4])}</p></article>`).join("");
+
+/* ---------- creatives ---------- */
+const assets=[
+ ["15-sec how-to video","Stick into 200 ml water, stir, sip. One for Mornings (cold), one for Nights (warm). Vertical, no talking, captions in brand colours."],
+ ["Founder voice notes ×6","30 seconds each, recorded on a phone, unedited. Welcome, day 15, lapsed, Ritual Club, festival, new flavour."],
+ ["Batch report card","Image template: batch number, 'every ingredient tested', 293 / 0, link. Filled per batch."],
+ ["Weekly 'week in sticks' card","Image template with 7 dots, the 3 PM answers and one tip. Generated per customer by the tool or a small script."],
+ ["Milestone cards","7/15 halfway, 15/15 Club, Day 30, Day 66, Day 180. Gold for Mornings, powder blue for Nights."],
+ ["Laptop-closed audio","60 seconds: soft cue, slow breathing pace, one line from Abhishek, quiet."],
+ ["What's in my stick carousel","Mornings and Nights ingredient cards with doses, 'the dose used in studies' where true."],
+ ["Customer story clips","30-second phone videos from Ritual Club members, with written consent and no health claims."],
+ ["Sticker pack","10 stickers: 3 PM again, laptop closed, 15/15, chai + stick, Monday mode, on a call, done for the day."],
+ ["Hinglish variants","Every template has a Hinglish twin for people who write in Hinglish."],
+];
+$("#assets").innerHTML=assets.map(a=>`<div class="asset"><b>${esc(a[0])}</b><span class="muted">${esc(a[1])}</span></div>`).join("");
+
+/* ---------- levers ---------- */
+const levers=[
+ ["Time the nudge to the box","A 15-stick box runs out on day 15. Remind on day 9 to 11 (shipping takes about 3 days), follow up on day 12 and 15, and stop the moment they reorder."],
+ ["Subscribe & save, easy to leave","Every 15 or 30 days, with pause, skip and one-tap cancel in WhatsApp. Lead with per-day price (about ₹60). Hard cancellation is a banned dark pattern in India."],
+ ["Pay inside WhatsApp","Use WhatsApp's UPI order-details message or a payment link (Razorpay, PayU, Cashfree), so a reorder is two taps without opening the site."],
+ ["Upgrade to the Combo","Single-product buyers get a sample of the other stick in box two, then a Combo offer on box three. Combo is ₹1,800 for both."],
+ ["A 30-stick box (product decision)","A bigger box halves the number of reorder moments. Worth testing once the 30-day repeat rate is known."],
+ ["Prepaid over COD","Prepaid-only perks cut returns-to-origin and give us the customer's UPI for one-tap reorders. OZiva and Supply6 both do this."],
+ ["Win back by asking why","Lapsed customers get one honest question before any discount. Their reasons (taste, price, didn't notice a change, forgot) decide the next message."],
+];
+$("#levers").innerHTML=levers.map(l=>`<div class="lever"><h3>${esc(l[0])}</h3><p class="muted">${esc(l[1])}</p></div>`).join("");
+
+/* ---------- competitors ---------- */
+const comp=[
+ ["Traya (hair)","The best Indian example of coach-led retention.",["Onboards with an online hair test, then a monthly kit plan.","A hair coach checks in by WhatsApp and calls: month 0 onboarding, month 1 check-in, then at month-end a refill reminder, a scalp photo request and a link to the next kit.","Co-founder credits proactive coaches with about 70% retention (company claim)."],"traya.health · outlookbusiness.com"],
+ ["AG1","Welcome kit, then refills only.",["First subscription: canister, scoop, shaker, 5 travel packs, a bonus bottle.","Every later shipment is a refill pouch.","Pause, skip or cancel anytime; 90-day money-back.","'AG1 Sync' smart canister tracks scoops and triggers the refill (beta)."],"drinkag1.com"],
+ ["IM8","Per-day pricing and plan-based guarantees.",["Quarterly or monthly plans, 'from $2.61/day', one-click cancel.","Welcome kit for new subscribers: 5 bonus sachets, storage box, mixer, shaker.","90-day guarantee on quarterly, 30 on monthly. Refer-a-friend."],"im8health.com"],
+ ["Wellbeing Nutrition","A paid membership.",["'Wellbeing Access': 3 months for ₹149, up to 20% off every order, a ₹300 free gift each month, early access.","Prepaid only. Sale-time contest points (+100 profile, +200 joining)."],"wellbeingnutrition.com/pages/membership-access"],
+ ["Supply6","Prepaid push and bundles.",["Standing code GLAD15 plus extra off on prepaid.","Refer & Earn, 'Join the Club' email, goal-based shopping (Energy, Gut).","No public subscription or WhatsApp program found."],"supplysix.com"],
+ ["OZiva","Support on WhatsApp, cashback wallet.",["Help button opens WhatsApp with a pre-filled greeting.","15% cashback on prepaid into 'OZiva Cash'.","No public vendor case study."],"oziva.in"],
+ ["The Whole Truth","Education as retention.",["'Truth Be Told' weekly newsletter, read by 50,000+, no discounts.","Reorder link in the header, loyalty points, a 'TruthSeekers' community."],"thewholetruthfoods.com · socialsamosa.com"],
+ ["The Stack Club","Subscriptions on Shopify.",["Subscriptions portal (StackBack app), loyalty and referral page.","Symptom-led product framing ('for light, broken sleep')."],"thestack.club"],
+ ["CosMix · The Upside","The baseline.",["CosMix: a flavour quiz, 'Cosmix Collective' creators, build-your-sachet bundles.","The Upside: only a 10% welcome code. No subscription, loyalty or WhatsApp found."],"cosmix.in · theupside.in"],
+ ["Vendor case studies (supplements)","What WhatsApp can do, by the vendors' own numbers.",["Beastlife (LimeChat): payday-week broadcasts, shaker cross-sell; 28% of revenue via WhatsApp.","Menoveda (QuickReply): monthly restock to past buyers with skip rules; ₹1,092 spent, ₹46,477 sales.","What's Up Wellness (WebEngage): 74% of CRM revenue from WhatsApp; +12.3% first-month retention.","Kapiva (LimeChat): health-question bot handles 86% of queries."],"limechat.ai · quickreply.ai · webengage.com"],
+];
+$("#compGrid").innerHTML=comp.map(c=>`<article class="cbrand"><h3>${esc(c[0])}</h3><p class="muted">${esc(c[1])}</p><ul>${c[2].map(x=>`<li>${esc(x)}</li>`).join("")}</ul><span class="src">${esc(c[3])}</span></article>`).join("");
+
+/* ---------- social (filled from research) ---------- */
+const social=[
+ {brand:"Blinkit",platform:"Push · India",what:"\"Pending emails\" … \"Pending… pehle breakfast karlo.\"",why:"Shared as a reminder written for workaholics: Hinglish, timed to the workday. The closest match to a Mornings nudge.",src:"freepressjournal.in, Sep 2022"},
+ {brand:"Blinkit",platform:"X · India",what:"\"We have noticed your order is from a hospital. Sending you and your dear ones our warm wishes.\"",why:"Called humane and loyalty-building. A clean model of the \"we noticed…\" note.",src:"indiatvnews.com, 31 Dec 2024"},
+ {brand:"Zomato",platform:"X · India",what:"A push saying a colleague was on leave, asking the user to order lunch, signed by a named person on the marketing team.",why:"A person's voice, not a brand's. A user's reply went viral (80k+ views).",src:"newskarnataka.com, Nov 2024"},
+ {brand:"Zomato",platform:"TV · India",what:"Deepinder Goyal: the team was told to build a relationship with customers, and took it literally.",why:"Relationship-style banter made notifications something people talk about.",src:"businesstoday.in, Nov 2024"},
+ {brand:"Swiggy",platform:"Pop-up · India",what:"\"Adulting is tough… Treat yourself for keeping up like a champ.\"",why:"Rode a live meme with empathy instead of an offer.",src:"freepressjournal.in, Feb 2022"},
+ {brand:"CRED",platform:"Email & push · India",what:"A \"farewell letter\" from the app's bugs, blaming a developer who'd had too much coffee.",why:"Turned a dull fix into a story. afaqs called it the wittiest copy since Zomato.",src:"afaqs.com, Jan 2021"},
+ {brand:"Duolingo",platform:"Push · global meme",what:"\"These reminders don't seem to be working. We'll stop sending them for now.\"",why:"Became a meme, but backing off when ignored also builds trust. We copy the back-off, not the guilt.",src:"taplytics.com"},
+ {brand:"Duolingo Friend Streak",platform:"Company blog",what:"Share a streak with up to 5 friends.",why:"People with a shared streak were 22% more likely to finish their daily lesson. Fits a SILT desk-buddy streak.",src:"blog.duolingo.com/friend-streak"},
+ {brand:"Bombay Sweet Shop",platform:"WhatsApp · India",what:"On a rainy evening, a craving GIF to past savoury buyers.",why:"100 orders in an hour (₹90k+). Cart reminders on WhatsApp recovered ~20% vs 8% on email. Weather + past-purchase segment + GIF.",src:"restofworld.org, 2022"},
+ {brand:"Swiggy",platform:"WhatsApp · India",what:"Searched a dish but didn't order? An influencer video about that dish. Plus a bot to pre-book tomorrow's breakfast.",why:"3.5× engagement on pre-order; dormant users reactivated 1.5× better than other channels (Gupshup case study).",src:"gupshup.ai"},
+ {brand:"Flipkart",platform:"WhatsApp · India",what:"Big Billion Days bot in the style of Kaun Banega Crorepati, with emoji deals and celebrity video.",why:"A familiar game format. 1.3 lakh users, 9.8 lakh interactions in 5 days (Netcore).",src:"socialsamosa.com, 2019"},
+ {brand:"Cadbury Celebrations",platform:"WhatsApp · India",what:"#MyBirthdaySong: an AI-written birthday song about a specific friend.",why:"The gift is about the receiver, so people forward it. 1.2M+ songs (award entry).",src:"exchange4media.com"},
+ {brand:"Saffola FITTIFY",platform:"WhatsApp · India",what:"\"Beat the Crave\": audio skits on WhatsApp for the moment a craving hits.",why:"The closest wellness precedent: an accountability buddy on demand. 64,000+ plays (award entry).",src:"shortyawards.com"},
+ {brand:"BharatPe",platform:"WhatsApp · India",what:"Messages in the customer's own language, then personalised.",why:"Vernacular lifted CTR 40%, personalisation another 20% (CleverTap).",src:"clevertap.com"},
+ {brand:"Hellmann's WhatsCook",platform:"WhatsApp · Brazil",what:"Send a photo of your fridge, a real chef replies with a recipe.",why:"Input from the customer, answer from a human. Webby winner. Same mechanic as \"send us your sleep score\".",src:"warc.com"},
+ {brand:"Absolut",platform:"WhatsApp · Argentina",what:"\"Sven\", a fictional bouncer, guarding two party tickets. Fans had to convince him.",why:"A persona can carry a whole campaign: 1,000+ voice notes, photos and songs in 3 days.",src:"rasayel.io"},
+ {brand:"Maggi Germany",platform:"WhatsApp · global",what:"\"Kim\", a cooking coach running a free course in chat.",why:"200k messages in 8 weeks. A coach persona people talk back to.",src:"clevertap.com"},
+ {brand:"Netflix India × Meta",platform:"WhatsApp stickers",what:"A sticker pack for The Archies, made for Gen Z group chats.",why:"Puts the brand in conversations it isn't part of. The model for SILT stickers.",src:"afaqs.com, Dec 2023"},
+ {brand:"Avoid: Zepto",platform:"LinkedIn · backlash",what:"\"I miss you, [Name]\" paired with an emergency contraceptive product she had never bought.",why:"Flirty copy plus a sensitive product plus a name = public apology. Never pair cute copy with health or sleep.",src:"theprint.in, Oct 2024"},
+ {brand:"Avoid: Zepto",platform:"X · backlash",what:"Vir Das got 4 notifications in 10 minutes and asked them to stop.",why:"Frequency kills charm. Hence our 2-a-week cap.",src:"storyboard18.com, Jun 2024"},
+ {brand:"Avoid: ignoring STOP",platform:"News · backlash",what:"Customers kept getting WhatsApp promos after opting out (Bombay Shaving Company, Croma).",why:"96% of Indian WhatsApp users get unwanted messages daily and 59% block (LocalCircles, Feb 2026). Blocks lower our quality rating.",src:"asianetnews.com · restofworld.org · outlookbusiness.com"},
+ {brand:"Avoid: wrong language",platform:"X · backlash",what:"A Hindi \"Deliver ho gaya\" notification angered a Kannada-speaking user in Bengaluru.",why:"Use Hinglish only for people who write in it.",src:"indiatvnews.com, Jul 2024"},
+];
+if(!social.length){$("#socialGrid").innerHTML=`<p class="muted">Research still being added.</p>`}
+else $("#socialGrid").innerHTML=social.map(s=>`<article class="post"><div class="who"><b>${esc(s.brand)}</b><span class="tag">${esc(s.platform)}</span></div><p><q>${esc(s.what)}</q></p><p class="muted">${esc(s.why)}</p><span class="src">${esc(s.src)}</span></article>`).join("");
+
+/* ---------- rules ---------- */
+const rules=[
+ ["Meta's WhatsApp rules (India)",["Marketing ≈ ₹0.86 per delivered message, utility ≈ ₹0.115, both plus 18% GST. Since 1 Oct 2026 utility inside the 24-hour window is charged again; customer replies are free.","Refill nudges with a buy button are marketing, even if the customer asked. A plain 'about 3 sticks left' may pass as utility.","Meta caps marketing per person based on their read rate. Replies open a 24-hour window, and messages in it don't count.","Low quality (blocks, reports) pauses templates for 3 h, then 6 h, then disables them."]],
+ ["Consent (DPDP Act 2023 + Meta)",["Separate, unticked opt-ins: order updates, stick reminders, offers.","Every marketing message ends with 'Reply STOP to pause offers'. Stopping must be as easy as joining.","Store when and how each person opted in. DPDP Rules (Nov 2025) apply in full by about May 2027; build for them now."]],
+ ["Claims (FSSAI 2018 + ASCI)",["FSSAI's advertising rules cover direct marketing, so WhatsApp counts.","No prevent, treat or cure claims. No 'recommended by doctors'. No 'take more'. No fear or competitor-bashing.","Ingredient facts and 'the dose used in studies' are fine where true. Customer stories need consent and no health claims."]],
+ ["Our own limits",["Max 2 marketing messages a week per person, 1 for Ritual Club and lapsed.","Quiet hours 10 PM to 8 AM, except a Nights reminder the customer chose.","No false urgency, no shaming copy, no pre-ticked boxes, cancel in one tap (CCPA dark-patterns guidelines).","Stop all refill nudges the moment they reorder or tap 'taking a break'.","Ignored 4 reminders in a row? Say we'll pause them, Duolingo-style, and stop.","Never pair playful copy with a person's name and a sleep or health situation (Zepto's i-Pill apology)."]],
+];
+$("#ruleGrid").innerHTML=rules.map(r=>`<div class="rule"><h3>${esc(r[0])}</h3><ul>${r[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+
+/* ---------- KPIs ---------- */
+const kpis=[
+ ["30-day repeat rate","Second order within 30 days, per cohort. Start target: 25%."],
+ ["60-day repeat rate","Third order within 60 days. Start target: 15%."],
+ ["Reminder opt-in","Share of buyers who pick a stick time on day 0. Target: 50%."],
+ ["Reply rate","Replies to polls and check-ins. Target: 30%+ (each reply also opens a free window for follow-ups)."],
+ ["Refill conversion","Reorders within 72 hours of the day 9 to 11 nudge. Target: 15%."],
+ ["Block / report rate","Per 1,000 messages. Keep under 5. Above that, cut frequency first."],
+ ["Cost per repeat order","WhatsApp spend ÷ repeat orders. The first month costs about ₹6 a customer in messages."],
+ ["Pre-booker conversion","Share of ~1,600 non-buying pre-bookers who order in 30 days. Target: 8%."],
+];
+$("#kpiGrid").innerHTML=kpis.map(k=>`<div class="kpi"><b>${esc(k[0])}</b><span>${esc(k[1])}</span></div>`).join("");
+
+/* ---------- rollout ---------- */
+const roll=[
+ ["Week 1: foundations",["Pick a WhatsApp tool with Shopify triggers (Interakt, AiSensy, WATI, Gallabox or LimeChat).","Add the three separate opt-ins at checkout.","Submit templates: order, delivered, pick-your-time, taste check, refill day 9 to 11, day 12, day 15.","Record the founder welcome voice note and the 15-sec how-to videos.","Send the pre-booker message in two waves of ~800."]],
+ ["Weeks 2 to 3: the habit loop",["Turn on reminders at chosen times, the 3 PM poll and the 15/15 streak with a freeze.","Batch report card on delivery.","At-risk and come-back reward flows.","Weekly 'week in sticks' card (start manual for the first 50 people)."]],
+ ["Month 2 onward: compounding",["Subscribe & save with pause and skip; welcome kit test.","Desk-buddy referral and the sticker pack.","Ask-your-tracker test for Nights buyers.","Ritual Club at 3+ orders. Review 30 and 60-day repeat by cohort every two weeks and cut what doesn't move it."]],
+];
+$("#rollGrid").innerHTML=roll.map(r=>`<div class="phase"><h3>${esc(r[0])}</h3><ul>${r[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+
+/* ---------- sources ---------- */
+const sources=[
+ ["Meta: WhatsApp pricing","https://developers.facebook.com/docs/whatsapp/pricing"],
+ ["Meta: WhatsApp Business Platform docs (marketing limits, template quality, opt-in)","https://developers.facebook.com/docs/whatsapp/"],
+ 
+
+ ["Lally et al. 2010, how habits form (UCL)","https://onlinelibrary.wiley.com/doi/10.1002/ejsp.674"],
+ ["Gollwitzer & Sheeran 2006, implementation intentions meta-analysis","https://doi.org/10.1016/S0065-2601(06)38002-1"],
+ ["Judah, Gardner & Aunger 2013, habit stacking","https://doi.org/10.1111/j.2044-8287.2012.02086.x"],
+ ["Silverman & Barasch 2023, streaks","https://doi.org/10.1093/jcr/ucac029"],
+ ["Milkman et al. 2021, 61,293-person exercise megastudy","https://www.nature.com/articles/s41586-021-04128-4"],
+ ["Recharge: subscription churn benchmarks","https://rechargepayments.com/blog/"],
+ ["FSSAI Advertising and Claims Regulations 2018","https://www.fssai.gov.in/upload/uploadfiles/files/Compendium_Advertising_Claims_Regulations.pdf"],
+ ["PIB: DPDP Rules 2025 notified","https://pib.gov.in/"],
+ ["CCPA guidelines on dark patterns 2023","https://consumeraffairs.nic.in/"],
+ ["Traya: hair coach and kit plan","https://traya.health/blogs"],
+ ["AG1 welcome kit and subscription","https://drinkag1.com/"],
+ ["IM8 subscription plans","https://im8health.com/"],
+ ["Wellbeing Nutrition Access membership","https://wellbeingnutrition.com/pages/membership-access"],
+ ["Supply6","https://supplysix.com/"],
+ ["OZiva","https://www.oziva.in/"],
+ ["The Whole Truth","https://thewholetruthfoods.com/"],
+ ["The Stack Club","https://thestack.club/"],
+ ["LimeChat case studies (Beastlife, Kapiva)","https://www.limechat.ai/"],
+ ["QuickReply case study (Menoveda)","https://www.quickreply.ai/"],
+ ["WebEngage case study (What's Up Wellness)","https://webengage.com/"],
+ ["Rest of World: India's WhatsApp spam problem","https://restofworld.org/2022/india-whatsapp-spam/"],
+ ["Gupshup: Swiggy case study","https://www.gupshup.ai/resources/case-studies/swiggy"],
+ ["CleverTap: WhatsApp campaign examples","https://clevertap.com/blog/whatsapp-marketing-campaign-examples/"],
+ ["Meta: Tata CLiQ success story","https://business.whatsapp.com/resources/success-stories/tata-cliq"],
+ ["Duolingo: Friend Streak","https://blog.duolingo.com/friend-streak/"],
+ ["Taplytics: Duolingo's back-off notification","https://taplytics.com/blog/duolingo-sends-push-notifications-to-let-users-know-they-know-theyre-not-engaging-with-their-reminders"],
+ ["Blinkit breakfast reminder","https://www.freepressjournal.in/viral/pending-emails-vs-breakfast-check-blinkits-quirky-reminder-for-workaholics"],
+ ["Blinkit hospital message","https://www.indiatvnews.com/trending/news/made-my-day-blinkit-s-compassionate-message-for-customer-ordering-from-hospital-wins-hearts-online-2024-12-31-968799"],
+ ["Zomato notification reply goes viral","https://newskarnataka.com/india/delhi-mans-hilarious-response-to-zomato-notification-goes-viral/27112024/"],
+ ["Zomato's flirty notifications (Business Today)","https://businesstoday.in/latest/trends/story/whats-the-secret-behind-zomatos-flirty-notifications-ceo-deepinder-goyal-reveals-on-kapil-sharmas-show-453052-2024-11-08"],
+ ["Zomato revises notification strategy (afaqs)","https://www.afaqs.com/news/advertising/zomato-revises-notification-strategy-to-avoid-prompting-unhealthy-eating-10978803"],
+ ["CRED farewell letter for bugs (afaqs)","https://www.afaqs.com/news/mktg/cred-scripts-a-farewell-letter-for-bugs-and-errors"],
+ ["Flipkart KBC-style WhatsApp bot","https://socialsamosa.com/2019/10/flipkart-whatsapp-bot-big-billion-days"],
+ ["Cadbury #MyBirthdaySong","https://www.exchange4media.com/marketing-news/my-birthday-song-how-cadbury-celebration-hit-the-sweet-spot-between-idea-and-tech-128984.html"],
+ ["Saffola Beat the Crave","https://shortyawards.com/11th/beat-the-crave"],
+ ["Hellmann's WhatsCook (WARC)","https://www.warc.com/newsandopinion/news/hellmanns-successfully-taps-whatsapp/en-gb/33683"],
+ ["Absolut Sven the doorman","https://learn.rasayel.io/en/books/whatsapp/marketing/case-study-absolut-argentina/"],
+ ["Netflix × Meta Archies stickers","https://www.afaqs.com/news/mktg/meta-and-netflix-team-up-to-launch-archies-themed-stickers-on-whatsapp"],
+ ["Zepto i-Pill notification (ThePrint)","https://theprint.in/opinion/pov/push-notification-are-annoying-intrusive-see-what-zepto-ipill-did/2318489"],
+ ["Vir Das vs Zepto notifications","https://www.storyboard18.com/brand-marketing/tired-of-persistent-zepto-notifications-vir-das-asks-quick-commerce-brand-to-stop-34683.htm"],
+ ["LocalCircles WhatsApp spam survey","https://www.outlookbusiness.com/ampstories/corporate/whatsapp-daily-spam-hits-96-users-heres-what-survey-revealed"],
+ ["Blinkit Hindi notification backlash","https://www.indiatvnews.com/trending/news/bengaluru-man-takes-on-blinkit-over-hindi-notifications-faces-backlash-2024-07-17-942224"],
+];
+$("#sourceList").innerHTML=sources.map(s=>`<li>${esc(s[0])}: <a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[1].replace(/^https?:\/\/(www\.)?/,"").slice(0,70))}</a></li>`).join("");
+
+/* ---------- copy buttons ---------- */
+document.addEventListener("click",async e=>{const b=e.target.closest("[data-copy]");if(!b)return;const s=steps[+b.dataset.copy];const t=s.msg.replace(/\[media: [^\]]+\]\n?/,"")+(s.btn?"\n\n["+s.btn.join("] [")+"]":"");
+ try{await navigator.clipboard.writeText(t);toast("Message copied")}catch(_){const r=document.createRange();r.selectNodeContents($("#msg"+b.dataset.copy));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast("Selected. Press Ctrl+C to copy.")}});
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,1800)}
+</script>

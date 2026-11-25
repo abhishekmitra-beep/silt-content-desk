@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "pillar": "Trust",
+  "thread_title": "Find a post from the last 3 days: does coffee dehydrate you?",
+  "thread_summary": "Look for someone asking whether coffee counts towards water intake.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Not really, for regular drinkers. Caffeine has a mild diuretic effect, but studies on habitual coffee drinkers found moderate amounts (a few cups a day) hydrate about as well as water. Your body gets used to it. The bigger issues are what comes with the coffee, like sugar, and drinking it late enough to hurt sleep. So count it towards your fluids, but don't let it replace water entirely.",
+  "why": "A common coffee-community myth question, with a clean evidence-based answer.",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting."
+}

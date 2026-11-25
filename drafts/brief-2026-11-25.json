@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-25",
+  "summary": "Wednesday 25 Nov, drafted at noon on the day after the 24 Nov 6 PM run stalled. The first set built to the Plan of Action: every draft is tagged Adherence or Trust (X is 3 Adherence, 2 Trust). Leaning on what the team approved yesterday (ingredient explainers, classic trials) and away from what it rejected (regulator data posts, the dinner-timing study). LinkedIn's ingredient series covers L-theanine, timely because a big global brand just launched a caffeine + L-theanine drink.",
+  "trends": [
+    {
+      "topic": "L-theanine + caffeine: better task switching without feeling more alert (2010 trial)",
+      "angle": "X Trust post and the LinkedIn ingredient post.",
+      "platform": "X / LinkedIn",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/20079786/"
+    },
+    {
+      "topic": "High-dose L-theanine + caffeine improved attention after a night without sleep (British Journal of Nutrition, 2025)",
+      "angle": "Background for LinkedIn. Not used on X, since 18 Nov already covered sleep loss.",
+      "platform": "LinkedIn",
+      "source": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12491391/"
+    },
+    {
+      "topic": "Coffee, the gut microbiome and mood (University College Cork, 62 adults, reported 31 Oct)",
+      "angle": "Small study, so treat it carefully. A possible Trust post later this week.",
+      "platform": "X",
+      "source": "https://www.psypost.org/scientists-discover-how-coffee-interacts-with-the-gut-microbiome-to-affect-the-human-brain/"
+    },
+    {
+      "topic": "AG1 Energy+ (caffeine + L-theanine), launched 17 Nov",
+      "angle": "Category validation for Mornings. Never name it in posts.",
+      "platform": "Context",
+      "source": "https://www.prnewswire.com/news-releases/ag1-launches-ag1-energy-with-lewis-hamilton-as-new-global-ambassador-302941403.html"
+    },
+    {
+      "topic": "Plan of Action: Combo ritual, 'tastiest night drink', the 'placebo' column",
+      "angle": "Three of today's X posts come straight from the team's plan.",
+      "platform": "X",
+      "source": "https://siltnutrition.com"
+    },
+    {
+      "topic": "Wedding season sleep (Nov to Dec)",
+      "angle": "Seasonal comment for r/bangalore.",
+      "platform": "Reddit",
+      "source": "https://www.reddit.com/r/bangalore/new/"
+    }
+  ],
+  "instagram": "Not re-checked today. The latest seen are the 19 Nov 'Sleep isn't one problem, it's five' reel and the 18 Nov verified-reviews post.",
+  "competitors": "This week's competitor moves are on the Competitors tab under 'What changed'. Nights rivals are scaling sleep ads, and AG1 launched Energy+.",
+  "linkedin_trends": [
+    {
+      "topic": "Caffeine + L-theanine becomes a global launch format",
+      "date": "17 Nov",
+      "day": "Wed",
+      "angle": "Today's ingredient post. We've had both at 200 mg L-theanine since launch.",
+      "source": "https://www.prnewswire.com/news-releases/ag1-launches-ag1-energy-with-lewis-hamilton-as-new-global-ambassador-302941403.html"
+    }
+  ]
+}

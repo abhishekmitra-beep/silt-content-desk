@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "sleep",
+  "thread_title": "Find a post from the last 3 days: I sleep 8 hours but still wake up exhausted",
+  "thread_summary": "Look for someone who gets enough hours but wakes unrefreshed.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "If the hours are there but you still wake up wrecked, the problem is usually sleep quality. The common culprits are alcohol in the evening, a late heavy dinner, an irregular wake time, and a warm or bright room. Loud snoring, gasping, or a partner noticing pauses in your breathing are signs of sleep apnea, which is common and very treatable, so that's worth a doctor's visit. Try a fixed wake time for two weeks first and see what changes.",
+  "why": "A classic r/sleep question. The apnea pointer is genuinely helpful and keeps us on the right side of medical advice.",
+  "thread_url": "https://www.reddit.com/r/sleep/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/sleep sidebar before commenting. r/sleep is strict about promotion. Never mention SILT here unless someone asks directly."
+}

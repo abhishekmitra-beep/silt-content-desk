@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "thread_title": "Find a post from the last 3 days: vegetarian and always tired, could it be B12?",
+  "thread_summary": "Look for a vegetarian asking about B12, low energy, or whether they need a B12 supplement.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "B12 is worth checking. It comes almost entirely from animal foods, so vegetarians in India are commonly low, especially if they don't eat much dairy. Tiredness has many causes though, so get a blood test before guessing. If it's low, your doctor will tell you whether you need a regular supplement or a course of injections first. Milk, curd, paneer and eggs (if you eat them) help, and so do fortified foods.",
+  "why": "B12 deficiency among Indian vegetarians comes up constantly, and B12 is in Mornings. The answer points to testing, not to us.",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting. This touches on health. Keep the 'get tested, ask a doctor' line in, and don't mention SILT."
+}

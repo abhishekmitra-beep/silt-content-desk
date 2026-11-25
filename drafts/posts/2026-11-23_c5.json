@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: brain fog and low focus every afternoon, what helps?",
+  "thread_summary": "Look for someone with afternoon brain fog asking about focus, energy or routines.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Check water before anything else. In a controlled study, losing just over 1% of body water was enough to lower mood and make tasks feel harder, and most of us drink very little during a busy workday. Then look at lunch: a big refined-carb meal followed by sitting makes the dip worse, and a short walk after eating helps. If you still rely on a late coffee to get through, move it before 2 PM so it doesn't cost you tonight's sleep.",
+  "why": "Afternoon fog is a recurring productivity question, and the hydration study adds a fresh angle beyond 'drink coffee'.",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting."
+}

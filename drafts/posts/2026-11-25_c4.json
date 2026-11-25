@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "pillar": "Adherence",
+  "thread_title": "Find a post from the last 3 days: how much water should I actually drink in a day?",
+  "thread_summary": "Look for someone asking about daily water intake, especially for gym-goers or hot weather.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "There's no single magic number, but a simple check works: pale yellow urine through the day means you're fine. Most active adults in Indian weather land somewhere around 2.5 to 3.5 litres, more on training days. Losing even about 1% of body water has been shown to lower mood and make tasks feel harder, so the afternoon slump is sometimes just thirst. Keep a bottle on your desk and finish it by lunch.",
+  "why": "A recurring question. It links the slump to hydration, an angle the team liked.",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting."
+}

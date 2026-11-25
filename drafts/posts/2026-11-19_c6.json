@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "bangalore",
+  "thread_title": "Find a post from the last 3 days: Quick healthy breakfast ideas before a long commute to office?",
+  "thread_url": "https://www.reddit.com/r/bangalore/new/",
+  "thread_summary": "Look for someone asking for fast breakfasts, office-goer meal prep, or eating before a commute.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "Things that take under 10 minutes and hold you till lunch: overnight oats with curd and a banana, besan or moong dal chilla (the batter keeps 2 days in the fridge), boiled eggs with a fruit, or poha with peanuts and some sprouts thrown in. The trick is getting protein and some fibre in, so you don't crash by 11 and grab whatever the canteen has. If you're out the door at 7, prep the night before and eat it in the cab.",
+  "why": "Local, useful and food-specific. Mornings audience, no pitch.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/bangalore sidebar before commenting.",
+  "id": "2026-11-19_c6"
+}

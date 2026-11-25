@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 3,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "thread_title": "Find a post from the last 3 days: is it okay to take isabgol (psyllium) every day?",
+  "thread_summary": "Look for someone asking about daily isabgol, how much to take, or bloating from fibre.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "For most people, yes. Isabgol is one of the better-studied fibres. Start small, around a teaspoon, and build up over a week or two, because jumping straight to a big dose is what causes the bloating people complain about. Take it with a full glass of water, and keep it a couple of hours away from any medicines, since it can slow how they're absorbed. Dal, rajma, fruit and whole grains still count, so it works best as a top-up rather than your only fibre.",
+  "why": "Isabgol is the most common fibre question in Indian fitness subs. Different from the 17 Nov fibre-on-Indian-diet comment.",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting. Touches on medicines. Keep the 'away from medicines' line, and don't mention SILT."
+}

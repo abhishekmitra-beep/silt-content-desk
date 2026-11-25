@@ -1,0 +1,332 @@
+{
+  "month": "2026-12",
+  "overview": {
+    "goal": "Find two or three Meta ads that sell Mornings and Nights at a cost we can scale, and have New Year creative live by 26 Dec.",
+    "summary": "Built from the Supply6 ad teardown (230 ads, 17 Nov) and our playbook. Their long-runners are creators talking to camera, symptom-first hooks, one proof number, and offer-led statics. We use the same formats with our own edge: two rituals, every dose printed, a lab report for each ingredient. Two in-house shoot days, one creator wave, four ad tests, three Instagram posts a week.",
+    "sources": "Supply6 teardown 17 Nov 2026, PLAYBOOK.md, LEARNINGS.md",
+    "decisions": [
+      "Monthly Meta budget and target cost per purchase. The testing rules below are written around that number.",
+      "Starter kit offer for the statics: a free bottle or frother with the Combo, a discount, or no offer. Needed by 30 Nov.",
+      "Creator budget: 3 to 4 creators, each with partnership-ad (whitelisting) access for 60 days.",
+      "New Year offer for 26 Dec to 5 Jan.",
+      "Owners for shoots, editing, statics and Ads Manager. Add them on each card below."
+    ],
+    "rules": [
+      "New creatives go into a separate testing campaign: one ad set per concept, 3 to 5 creatives each, equal budget.",
+      "Judge after 3 days, or once an ad has spent about 2x the target cost per purchase, whichever comes first.",
+      "Video: pause if the 3-second hook rate is under 25% or link CTR is under 0.8% after about 2,000 impressions. These are starting thresholds; tighten them once we have our own averages.",
+      "Statics: pause if link CTR is under 0.8% after about 2,000 impressions.",
+      "Keep anything at or under target cost per purchase. Move keepers to the scaling campaign on Monday review days.",
+      "Never edit a live winner. Make an iteration (new first 3 seconds, same body) as a new ad.",
+      "Every new video concept gets 3 hook versions."
+    ],
+    "kpis": [
+      "Hook rate (3-second views / impressions) and hold rate (ThruPlays / 3-second views)",
+      "Link CTR, cost per add to cart, cost per purchase, ROAS",
+      "Instagram: saves and shares per reel, quiz completions from the bio link"
+    ],
+    "cadence": [
+      "Monday: review last week's ads and check Supply6 Mellow for new ads",
+      "Tuesday: launch new tests",
+      "Wednesday, Friday, Sunday: Instagram posts",
+      "Thursday: edit day",
+      "Saturday (twice a month): shoot day"
+    ],
+    "weeks": [
+      { "start": "2026-11-16", "title": "Decide and brief", "focus": "Lock budget and offer, brief creators, prepare the first shoot." },
+      { "start": "2026-11-23", "title": "Set up and shoot", "focus": "Ads Manager set-up, landing page, in-house shoot on Saturday 28 Nov." },
+      { "start": "2026-11-30", "title": "Test 1: founder, skit, Nights and statics", "focus": "Edit shoot 1, launch the first statics and videos, creators shoot at home." },
+      { "start": "2026-12-07", "title": "Test 2: creator videos", "focus": "Creator ads go live as partnership ads. Brief iterations for shoot 2." },
+      { "start": "2026-12-14", "title": "Iterate on winners", "focus": "New hooks on whatever won, Hindi and Hinglish cuts, the AI explainer, retargeting." },
+      { "start": "2026-12-21", "title": "New Year creative", "focus": "Finish New Year videos and statics, check everything is approved before Christmas." },
+      { "start": "2026-12-28", "title": "New Year push and month review", "focus": "New Year campaign runs. Wrap up the month and feed the January plan." }
+    ]
+  },
+  "items": [
+    {
+      "id": "2026-12_prep1", "date": "2026-11-18", "type": "prep", "role": "Founder",
+      "title": "Lock budget, starter kit offer and creator budget", "short": "Lock budget + offer",
+      "summary": "Nothing downstream can be briefed until these are set. Supply6's biggest ad bet is a bundle with a free physical item (36 ads, 97 versions), so decide whether we match that with the Combo.",
+      "checklist": ["Monthly Meta budget and target cost per purchase", "Starter kit offer (free bottle or frother with the Combo, discount, or none)", "Creator fee range and partnership-ad access for 60 days", "New Year offer for 26 Dec to 5 Jan", "Owners for shoots, editing, statics, Ads Manager"],
+      "references": [{ "label": "Supply6 teardown (statics and offers)", "url": "https://claude.ai/artifact/Tv2gpBJH2r7P3KSbppC1Gr" }]
+    },
+    {
+      "id": "2026-12_prep2", "date": "2026-11-19", "type": "prep", "role": "Content lead",
+      "title": "Shortlist and brief 4 creators", "short": "Brief 4 creators",
+      "summary": "10 of Supply6's 15 longest-running videos are creators talking to a phone. We need people our buyer recognises: working professionals at a desk, not fitness influencers.",
+      "talent": "Working professionals in Bengaluru, Mumbai, Delhi NCR or Pune with 10k to 100k followers who post about work life, productivity or routines. At least one who speaks Hinglish on camera. Two for Mornings, two for Nights.",
+      "deliverables": ["One 35 to 45s video per creator, vertical 9:16, natural light, phone camera", "3 extra versions of the first 3 seconds (different hook lines)", "Raw footage and 5 product B-roll clips", "Partnership-ad access to their handle for 60 days", "Shoot by 4 Dec, deliver by 6 Dec"],
+      "script": "Pick one hook, then say it in your own words.\nMornings hooks: \"Between the 9 to 5, the gym and 10,000 steps, I quick-fix everything.\" / \"My third coffee is at 3 PM. That's the problem.\" / \"I read the label before I drink anything now.\"\nNights hooks: \"My brain starts its shift when my laptop closes.\" / \"I used to scroll till 1 AM. Now this is my cue to stop.\"\n\nMust say (Mornings): 80 mg caffeine with 200 mg L-theanine, fibre and probiotics, every dose printed on the box.\nMust say (Nights): 3 g glycine, the dose used in sleep studies, magnesium bisglycinate, KSM-66 ashwagandha, no melatonin.\nNever say: cures, treats, fixes insomnia, improves sleep, clinically proven. No other brand names.\nShow: stick into water, the label close up, the drink in your real day (desk, commute, bedside).",
+      "references": [
+        { "label": "Supply6 #14: '9-5, gym, 10,000 steps' (closest to our buyer)", "url": "https://www.facebook.com/ads/library/?id=2231851127392784" },
+        { "label": "Supply6 #10: their most-scaled creator ad (6 ads, 20 versions)", "url": "https://www.facebook.com/ads/library/?id=1423789459880647" },
+        { "label": "Supply6 #6: 'If your alarm goes off and you're already exhausted'", "url": "https://www.facebook.com/ads/library/?id=1799964914525900" }
+      ]
+    },
+    {
+      "id": "2026-12_prep3", "date": "2026-11-21", "type": "prep", "role": "Content lead",
+      "title": "Prepare shoot 1: scripts, location, props, people", "short": "Shoot 1 prep",
+      "summary": "Lock the four scripts on the shoot card, book an office desk and a home bedroom or living room for the evening scenes, and confirm who plays the skit.",
+      "checklist": ["Final scripts for A to D printed", "Office desk location for the morning (natural window light)", "Home set for the night scenes, warm lamps", "One team member for the skit, one for the Nights video", "Phone with 4K 30fps, lapel mic, tripod, small LED light", "Product: 2 Mornings boxes, 2 Nights boxes, 20 sticks, lab report printouts"],
+      "depends_on": ["2026-12_prep1"]
+    },
+    {
+      "id": "2026-12_prep4", "date": "2026-11-24", "type": "prep", "role": "Performance",
+      "title": "Set up Ads Manager for testing", "short": "Ads Manager set-up",
+      "summary": "A clean testing structure now saves guesswork later.",
+      "checklist": ["Testing campaign (sales objective) with one ad set per concept", "Scaling campaign (Advantage+ shopping) ready but off", "Pixel and Conversions API: view content, add to cart, purchase all firing", "Partnership-ad permissions requested from each creator", "Naming: DATE_PRODUCT_CONCEPT_HOOK, e.g. 1201_MOR_FOUNDER_H2", "UTMs on every ad"]
+    },
+    {
+      "id": "2026-12_prep5", "date": "2026-11-26", "type": "prep", "role": "Founder + designer",
+      "title": "Landing page: why two sticks, every dose printed", "short": "Listicle landing page",
+      "summary": "Supply6 sends cold traffic to listicle pages (energy, constipation, isabgol vs fibre) instead of product pages. We build one for cold traffic: 5 short reasons, each with a dose, a photo and a lab report link, then the Combo.",
+      "deliverables": ["siltnutrition.com/pages/two-rituals (name to confirm)", "Sections: the 3 PM slump, the mind that won't switch off, every dose printed, a lab report per ingredient, no melatonin or added sugar", "Combo and single-product buttons, reviews, quiz link"],
+      "references": [{ "label": "Supply6 constipation listicle ad (#12)", "url": "https://www.facebook.com/ads/library/?id=1014667701647031" }]
+    },
+    {
+      "id": "2026-12_shoot1", "date": "2026-11-28", "type": "shoot", "role": "Founder + content lead",
+      "title": "Shoot 1 (in-house): founder, skit, Nights video, lifestyle loops, stills", "short": "SHOOT 1 in-house",
+      "summary": "One day, two sets. Morning: office desk. Evening: home. Produces the videos for Test 1 and two weeks of Instagram.",
+      "location": "Office desk with window light (morning). A bedroom or living room with warm lamps (evening).",
+      "talent": "Abhishek (founder video), one team member (skit, plays both parts), one team member or friend (Nights video)",
+      "shotlist": [
+        "A. Founder talking head, 45s, eye level, desk behind. Record all 3 hooks, then the body twice.",
+        "B. Skit '3 PM crash': same person in two outfits, locked-off camera, both sides of the conversation.",
+        "C. Nights video: laptop closing, phone face down, kettle, stick into warm water, sip at the bedside. Talking head for the voiceover lines.",
+        "D. Lifestyle loops, no talking, 12 to 15s each: stick into a bottle at the desk at 9 AM, on the commute, before a call, Nights mug at the bedside at 11 PM.",
+        "E. Stills for statics: Mornings and Nights label close-ups with doses readable, lab reports fanned out, Combo box flat lay, kit with bottle (if the offer is on).",
+        "F. B-roll: pouring, stirring, the powder dissolving, hands opening the box, 10 clips of 5s."
+      ],
+      "script": "A. FOUNDER (45s)\nHooks: 1) \"Why we didn't put sixty things in one sachet.\" 2) \"I spent ten years at a desk before I made this.\" 3) \"Every milligram in this stick is printed on the box. Here's why.\"\nBody: \"Before SILT I spent ten years in corporate. Mornings ran on coffee, nights ran on scrolling. When we built SILT we kept two rules. An ingredient goes in at the dose used in studies, or it doesn't go in. And every dose is printed on the pack, with a lab report for each ingredient. That's why there are two sticks. Mornings has 80 mg caffeine with 200 mg L-theanine, plus fibre and probiotics. Nights has 3 grams of glycine, magnesium bisglycinate and KSM-66 ashwagandha, with no melatonin. One in the morning, one at night. The lab reports are on our site.\"\n\nB. SKIT '3 PM CRASH' (35 to 40s)\nA: \"It's 3 PM and I'm done.\" B: \"Coffee?\" A: \"That would be number three.\" B: \"What did you have this morning?\" A: \"Coffee. And a biscuit.\" B: \"Start the day with this instead. SILT Mornings. 80 mg caffeine with 200 mg L-theanine, fibre, probiotics, B12 and D3.\" A: \"That's it?\" B: \"One stick in water. Every dose is on the box.\" End card: SILT Mornings, about Rs 60 a day.\n\nC. NIGHTS (35s)\nHook: \"Laptop closed at 11. My brain didn't.\"\nBody: \"This is the part of the day nobody plans for. I used to scroll till one. Now the last thing I do is this. SILT Nights, chamomile lemon in warm water. 3 grams of glycine, the dose used in sleep studies, magnesium from bisglycinate, KSM-66 ashwagandha and L-theanine. No melatonin. It's my cue that work is over.\"\n\nD. LOOP OVERLAYS (one line each)\n\"9:05 AM. Before the first call.\" / \"One stick. Every dose on the box.\" / \"11 PM. Laptop closed.\"",
+      "props": ["2 Mornings boxes, 2 Nights boxes, 20 sticks", "Clear glass bottle, ceramic mug, kettle", "Laptop, phone, notebook, desk lamp", "Printed lab reports", "Starter kit items if the offer is approved"],
+      "deliverables": ["Founder video, 3 hooks", "Skit, 2 takes", "Nights video, 3 hooks", "4 lifestyle loops", "12+ stills for statics", "10 B-roll clips"],
+      "depends_on": ["2026-12_prep3"],
+      "references": [
+        { "label": "Supply6 #5 dialogue skit ('I'm tired all the time')", "url": "https://www.facebook.com/ads/library/?id=3317367601784976" },
+        { "label": "Supply6 #1 lifestyle loop (14s, no talking)", "url": "https://www.facebook.com/ads/library/?id=1466666141965031" }
+      ]
+    },
+    {
+      "id": "2026-12_research1", "date": "2026-11-30", "type": "research", "role": "Claude (planning run)",
+      "title": "Weekly Supply6 Mellow check", "short": "Mellow check",
+      "summary": "Rerun the Supply6 harvest and list new or stopped Mellow ads. A Mellow ad still live after 3 weeks is a message worth answering.",
+      "checklist": ["node silt-ad-tools/harvest.mjs 1915368921828337 IN ...", "Compare with the 17 Nov file", "Note new Mellow hooks on this card"]
+    },
+    {
+      "id": "2026-12_edit1", "date": "2026-11-30", "type": "edit", "role": "Editor",
+      "title": "Edit shoot 1 videos for Test 1", "short": "Edit shoot 1",
+      "summary": "Cut every hook version as its own file so Ads Manager can test them.",
+      "deliverables": ["Founder: 3 versions (hooks 1 to 3), 9:16 and 4:5", "Skit: 2 versions", "Nights: 3 versions", "4 lifestyle loops, 12 to 15s", "Captions on every ad (most people watch muted): Jost 700, gold active word, below the chin", "End card: product, about Rs 60 a day, Shop now"],
+      "checklist": ["One take per video, pauses cut, 1.0 to 1.2x speed", "Hook as a floating card at the top, no header bar", "B-roll hard cuts with a small settle, no fades", "No colour grade", "No claims beyond the script"],
+      "depends_on": ["2026-12_shoot1"]
+    },
+    {
+      "id": "2026-12_edit2", "date": "2026-12-01", "type": "edit", "role": "Designer",
+      "title": "Design statics batch 1 (4 concepts x 3 images)", "short": "Statics batch 1",
+      "summary": "Supply6 runs most statics as dynamic creative: 2 to 4 images under one copy. We do the same with 4 concepts.",
+      "deliverables": [
+        "Transparency: 'Every milligram is on the box.' Label close-ups for Mornings and Nights, plus lab report flat lay",
+        "Routine timeline: 'Day 1. Day 14. Day 30.' as habits (first stick before the first call; it's automatic; you've stopped thinking about it). No outcome claims.",
+        "Starter kit offer (only if approved in prep1): Combo + free item, 'worth Rs X'",
+        "Price per day: 'About Rs 60 a day for your morning and your night.' Set against the second cafe coffee",
+        "Sizes 1:1, 4:5 and 9:16. Minimal text, SILT logo, one line."
+      ],
+      "depends_on": ["2026-12_shoot1"],
+      "references": [{ "label": "Supply6 statics: welcome kit, timeline, Rs 72 a day", "url": "https://claude.ai/artifact/Tv2gpBJH2r7P3KSbppC1Gr" }]
+    },
+    {
+      "id": "2026-12_ad1", "date": "2026-12-01", "type": "ad", "role": "Performance", "channel": "Meta ads",
+      "title": "Test 1A: statics (4 concepts)", "short": "TEST 1A statics",
+      "summary": "One ad set per concept, dynamic creative with the 3 images, same copy across. Send cold traffic to the listicle page if it's ready, otherwise the Combo page.",
+      "budget": "Equal split across 4 ad sets from the testing budget",
+      "depends_on": ["2026-12_edit2", "2026-12_prep4"]
+    },
+    {
+      "id": "2026-12_ad2", "date": "2026-12-02", "type": "ad", "role": "Performance", "channel": "Meta ads",
+      "title": "Test 1B: founder, skit, Nights video, lifestyle loops", "short": "TEST 1B videos",
+      "summary": "4 ad sets (founder, skit, Nights, loops), each with its hook versions as separate ads.",
+      "depends_on": ["2026-12_edit1", "2026-12_prep4"]
+    },
+    {
+      "id": "2026-12_post1", "date": "2026-12-02", "type": "post", "product": "brand", "channel": "Instagram reel",
+      "title": "Reel: Why we didn't put sixty things in one sachet", "short": "Reel: founder",
+      "summary": "The founder video, organic cut (no end card). Caption ends with a question: what do you check first on a supplement label?",
+      "depends_on": ["2026-12_edit1"]
+    },
+    {
+      "id": "2026-12_research2", "date": "2026-12-02", "type": "research", "role": "Claude",
+      "title": "Ad teardown: OZiva", "short": "Teardown: OZiva",
+      "summary": "Same process as Supply6: longest-running Instagram videos, statics, versions and days run. Output goes to the Competitors folder and a report link here."
+    },
+    {
+      "id": "2026-12_shoot2", "date": "2026-12-03", "type": "shoot", "role": "Creators",
+      "title": "Creator shoots (4 creators, at home or office)", "short": "SHOOT 2 creators",
+      "summary": "Creators shoot between 1 and 4 Dec from the brief in prep2. Check in on day 1 and ask for one raw clip to confirm framing and audio.",
+      "depends_on": ["2026-12_prep2"]
+    },
+    {
+      "id": "2026-12_review1", "date": "2026-12-04", "type": "review", "role": "Performance",
+      "title": "Test 1 first cut", "short": "Review: Test 1 cut",
+      "summary": "Apply the testing rules: pause what is under the thresholds, keep the rest running. Write the hook rate and CTR of every ad in the note.",
+      "depends_on": ["2026-12_ad1", "2026-12_ad2"]
+    },
+    {
+      "id": "2026-12_post2", "date": "2026-12-04", "type": "post", "product": "nights", "channel": "Instagram carousel",
+      "title": "Carousel: every dose in Nights, next to the dose used in studies", "short": "Carousel: Nights doses",
+      "summary": "One slide per ingredient: our dose, the dose used in the studies, one line on where the evidence is thin. Last slide: lab reports."
+    },
+    {
+      "id": "2026-12_post3", "date": "2026-12-06", "type": "post", "product": "mornings", "channel": "Instagram reel",
+      "title": "Reel: 9:05 AM, before the first call", "short": "Reel: morning loop",
+      "summary": "Lifestyle loop with a trending audio. No voiceover, one overlay line.",
+      "depends_on": ["2026-12_edit1"]
+    },
+    {
+      "id": "2026-12_review2", "date": "2026-12-07", "type": "review", "role": "Founder + performance",
+      "title": "Weekly review: move keepers to scaling, brief shoot 3", "short": "Weekly review",
+      "summary": "Which concept and which hook won? Shoot 3 makes 5 new hooks for the best concept and a Hindi or Hinglish version of the best script. Also check Mellow.",
+      "checklist": ["Keepers moved to the scaling campaign", "Top concept and top hook named in the note", "Shoot 3 brief updated", "Mellow check done"]
+    },
+    {
+      "id": "2026-12_edit3", "date": "2026-12-07", "type": "edit", "role": "Editor",
+      "title": "Edit creator videos", "short": "Edit creator videos",
+      "summary": "Each creator: the main video plus the 3 hook versions, captions, end card. Keep their voice; trim only pauses and claims that go beyond the brief.",
+      "depends_on": ["2026-12_shoot2"]
+    },
+    {
+      "id": "2026-12_ad3", "date": "2026-12-08", "type": "ad", "role": "Performance", "channel": "Meta ads (partnership ads)",
+      "title": "Test 2: creator videos as partnership ads", "short": "TEST 2 creators",
+      "summary": "Run from the creators' handles (85 of Supply6's 230 ads are creator-tagged). One ad set per creator, hook versions as separate ads.",
+      "depends_on": ["2026-12_edit3"]
+    },
+    {
+      "id": "2026-12_post4", "date": "2026-12-09", "type": "post", "product": "mornings", "channel": "Instagram reel",
+      "title": "Reel: the 3 PM crash skit", "short": "Reel: 3 PM skit",
+      "summary": "Organic cut of the skit. Caption asks: what's your 3 PM fix?",
+      "depends_on": ["2026-12_edit1"]
+    },
+    {
+      "id": "2026-12_research3", "date": "2026-12-09", "type": "research", "role": "Claude",
+      "title": "Ad teardown: The Upside (3AM Rescue is a Nights rival)", "short": "Teardown: Upside"
+    },
+    {
+      "id": "2026-12_edit4", "date": "2026-12-10", "type": "edit", "role": "Content lead (AI video)",
+      "title": "AI explainer: 11 PM, inside a busy mind", "short": "AI explainer",
+      "summary": "Two of Supply6's long-runners are AI 3D explainers. Ours: a 3D mind that keeps running after the laptop closes, then each Nights ingredient appears with its dose. 20 to 30s. Make it with the connected AI video tool.",
+      "script": "Text on screen only, no medical claims:\n\"Laptop closed. Brain still on.\" / \"3 g glycine. The dose used in sleep studies.\" / \"250 mg magnesium, from bisglycinate.\" / \"300 mg KSM-66 ashwagandha.\" / \"200 mg L-theanine.\" / \"No melatonin.\" / \"SILT Nights.\"",
+      "references": [{ "label": "Supply6 #8 AI gut-tunnel explainer", "url": "https://www.facebook.com/ads/library/?id=931150296521423" }]
+    },
+    {
+      "id": "2026-12_review3", "date": "2026-12-11", "type": "review", "role": "Performance",
+      "title": "Test 2 first cut", "short": "Review: Test 2 cut",
+      "depends_on": ["2026-12_ad3"]
+    },
+    {
+      "id": "2026-12_post5", "date": "2026-12-11", "type": "post", "product": "brand", "channel": "Instagram carousel",
+      "title": "Carousel: 293 lab checks, 0 failed. How we test every batch", "short": "Carousel: lab checks",
+      "summary": "Lab report crops, what each test looks for, where to find the reports."
+    },
+    {
+      "id": "2026-12_shoot3", "date": "2026-12-12", "type": "shoot", "role": "Founder + content lead",
+      "title": "Shoot 3 (in-house): iterations, Hindi cuts, New Year", "short": "SHOOT 3 in-house",
+      "summary": "Shoot more of whatever won in Test 1, plus the New Year videos.",
+      "shotlist": [
+        "5 new hooks for the winning concept from the 7 Dec review (same body)",
+        "Hindi or Hinglish version of the best script with a Hindi-speaking team member or creator",
+        "New Year founder video: 'Two rituals for 2027'",
+        "New Year lifestyle loops: 1 Jan morning desk, New Year's Eve night wind-down",
+        "Stills for New Year statics"
+      ],
+      "script": "NEW YEAR (40s)\nHook: \"Most New Year routines are dead by 15 January. Here's one that's two steps long.\"\nBody: \"One stick before your first call, one stick when the laptop closes. Mornings, with 80 mg caffeine and 200 mg L-theanine, fibre and probiotics. Nights, with 3 grams of glycine, magnesium bisglycinate and KSM-66 ashwagandha, no melatonin. Every dose is on the box. Start on the first, and it's automatic by the fifteenth.\"",
+      "depends_on": ["2026-12_review2"]
+    },
+    {
+      "id": "2026-12_post6", "date": "2026-12-13", "type": "post", "product": "nights", "channel": "Instagram reel",
+      "title": "Reel: Laptop closed at 11. My brain didn't.", "short": "Reel: Nights",
+      "depends_on": ["2026-12_edit1"]
+    },
+    {
+      "id": "2026-12_review4", "date": "2026-12-14", "type": "review", "role": "Founder + performance",
+      "title": "Weekly review: scale winners, pick creators to rebook", "short": "Weekly review",
+      "checklist": ["Keepers moved to scaling", "Which creator to rebook for January", "Mellow check"]
+    },
+    {
+      "id": "2026-12_edit5", "date": "2026-12-14", "type": "edit", "role": "Editor",
+      "title": "Edit shoot 3: iterations, Hindi cuts, New Year videos", "short": "Edit shoot 3",
+      "depends_on": ["2026-12_shoot3"]
+    },
+    {
+      "id": "2026-12_ad4", "date": "2026-12-15", "type": "ad", "role": "Performance", "channel": "Meta ads",
+      "title": "Test 3: iterations, Hindi cuts, AI explainer", "short": "TEST 3 iterations",
+      "depends_on": ["2026-12_edit4", "2026-12_edit5"]
+    },
+    {
+      "id": "2026-12_ad5", "date": "2026-12-16", "type": "ad", "role": "Performance", "channel": "Meta ads (retargeting)",
+      "title": "Retargeting: reviews, lab reports and the quiz", "short": "Retargeting set-up",
+      "summary": "For people who watched 50% of a video or visited the site in the last 14 days: 4.9/5 review static (quotes with permission), lab report static, and the 2-question quiz.",
+      "references": [{ "label": "Quiz", "url": "https://siltnutrition.com/pages/quiz" }]
+    },
+    {
+      "id": "2026-12_post7", "date": "2026-12-16", "type": "post", "product": "both", "channel": "Instagram reel (collab)",
+      "title": "Reel: creator collab post", "short": "Reel: creator collab",
+      "summary": "Post the best creator video as a Collab so it shows on both profiles.",
+      "depends_on": ["2026-12_edit3"]
+    },
+    {
+      "id": "2026-12_research4", "date": "2026-12-16", "type": "research", "role": "Claude",
+      "title": "Ad teardown: Wellbeing Nutrition", "short": "Teardown: Wellbeing"
+    },
+    {
+      "id": "2026-12_post8", "date": "2026-12-18", "type": "post", "product": "nights", "channel": "Instagram carousel",
+      "title": "Carousel: 3 g glycine, and why that number", "short": "Carousel: glycine",
+      "summary": "Ingredient series. What the studies used, what we put in, where the evidence is thin."
+    },
+    {
+      "id": "2026-12_edit6", "date": "2026-12-18", "type": "edit", "role": "Designer",
+      "title": "New Year statics and offer", "short": "New Year statics",
+      "summary": "'Two rituals for 2027' with the New Year offer from prep1. Timeline static (1 Jan, 15 Jan, 31 Jan) as habits, not results.",
+      "depends_on": ["2026-12_shoot3"]
+    },
+    {
+      "id": "2026-12_review5", "date": "2026-12-21", "type": "review", "role": "Founder + performance",
+      "title": "Weekly review and New Year readiness", "short": "Review + NY check",
+      "checklist": ["All New Year ads approved in Ads Manager before 24 Dec", "Offer code works on the site", "Stock checked for the Combo", "Mellow check"]
+    },
+    {
+      "id": "2026-12_post9", "date": "2026-12-21", "type": "post", "product": "nights", "channel": "Instagram reel",
+      "title": "Reel: 11 PM, inside a busy mind (AI explainer)", "short": "Reel: AI explainer",
+      "depends_on": ["2026-12_edit4"]
+    },
+    {
+      "id": "2026-12_post10", "date": "2026-12-23", "type": "post", "product": "brand", "channel": "Instagram reel",
+      "title": "Reel: our first 60 days, in numbers", "short": "Reel: first 60 days",
+      "summary": "Building in public: pre-bookers, customers, repeat buyers, one thing we changed. Founder to camera."
+    },
+    {
+      "id": "2026-12_research5", "date": "2026-12-23", "type": "research", "role": "Claude",
+      "title": "Ad teardown: The Whole Truth and Cosmix", "short": "Teardown: TWT + Cosmix"
+    },
+    {
+      "id": "2026-12_ad6", "date": "2026-12-26", "type": "ad", "role": "Performance", "channel": "Meta ads",
+      "title": "New Year campaign live (26 Dec to 5 Jan)", "short": "NEW YEAR live",
+      "summary": "Winners from Tests 1 to 3 plus the New Year videos and statics, in the scaling campaign with the New Year offer.",
+      "depends_on": ["2026-12_edit5", "2026-12_edit6", "2026-12_review5"]
+    },
+    {
+      "id": "2026-12_post11", "date": "2026-12-26", "type": "post", "product": "both", "channel": "Instagram reel",
+      "title": "Reel: Two rituals for 2027", "short": "Reel: New Year",
+      "depends_on": ["2026-12_edit5"]
+    },
+    {
+      "id": "2026-12_review6", "date": "2026-12-30", "type": "review", "role": "Founder + performance",
+      "title": "Month review: what won, what to carry into January", "short": "MONTH REVIEW",
+      "summary": "Write the top 3 ads, their hook rate, CTR and cost per purchase in the note. The January planning run reads every note and status on this board.",
+      "checklist": ["Top 3 ads with numbers", "Concepts to retire", "Creators to rebook", "What the team wants more or less of"]
+    },
+    {
+      "id": "2026-12_post12", "date": "2026-12-30", "type": "post", "product": "both", "channel": "Instagram carousel",
+      "title": "Carousel: a 30-day morning and night routine for January", "short": "Carousel: Jan routine",
+      "summary": "A save-worthy checklist: light, caffeine cut-off, screens, the two sticks. Habits only, no outcome claims."
+    }
+  ]
+}

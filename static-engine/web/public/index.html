@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>SILT Static Engine</title><link rel="icon" href="/favicon.svg">
+<style>
+@font-face{font-family:Jost;src:url(/fonts/jost-400.ttf);font-weight:400}@font-face{font-family:Jost;src:url(/fonts/jost-700.ttf);font-weight:700}
+:root{--bg:#F4F1EA;--ink:#17245C;--sub:#5A6378;--card:#FFFFFF;--line:#DEDAD0;--acc:#E2801A;--acc-ink:#fff;--warn:#9A4A0A;--warn-bg:#FBE9D6;--ok:#1F7A4D;--ok-bg:#DDF1E6;--chip:#ECE8DE;--bad:#B3261E}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0E1424;--ink:#E7EAF2;--sub:#9AA3B8;--card:#161F33;--line:#2A3550;--acc:#EBB858;--acc-ink:#111B3D;--warn:#F3C08A;--warn-bg:#3A2A18;--ok:#8FD6AE;--ok-bg:#16301F;--chip:#1E2944;--bad:#F2928A}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Jost,system-ui,sans-serif;font-size:15px}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 20px 0;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}h1{margin:0;font-size:22px}.spacer{flex:1}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}.tabs button{border-radius:10px 10px 0 0;border-bottom:0;padding:8px 14px;font-weight:700}
+button,select,.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:4px}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}button.primary,.btn.primary{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:700}button:disabled{opacity:.5;cursor:default}
+input,textarea{font:inherit;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--card);color:var(--ink)}#name{width:160px;border-radius:999px;padding:5px 10px}
+.lab{font-size:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.08em}.sub{font-size:13px;color:var(--sub)}
+main{padding:14px 20px 60px;max-width:1500px;margin:0 auto}
+/* the idea bar */
+.ideabar{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:10px 10px 10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;box-shadow:0 6px 24px rgba(10,20,50,.06)}
+.ideabar:focus-within{border-color:var(--acc)}.ideabar input[type=text]{flex:1 1 320px;border:0;font-size:18px;padding:10px 4px;background:transparent;outline:none}
+.ideabar select{border-radius:999px}.ideabar .go{font-size:16px;padding:10px 20px}
+.attach{position:relative}.attach input{position:absolute;inset:0;opacity:0;cursor:pointer}.imgchip{display:flex;align-items:center;gap:6px;background:var(--chip);border-radius:999px;padding:3px 8px 3px 3px;font-size:13px}.imgchip img{width:30px;height:30px;object-fit:cover;border-radius:50%}
+.status{font-size:14px;color:var(--sub);min-height:1.2em;margin:8px 4px}
+details.own{margin-top:6px}details.own summary{cursor:pointer;font-size:13px;color:var(--sub)}details.own .inner{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{background:var(--chip);position:relative;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb iframe{border:0;position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}
+.meta{padding:10px 12px;display:flex;flex-direction:column;gap:6px;flex:1}.meta .t{font-weight:700;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:4px}.chip{font-size:12px;background:var(--chip);border-radius:999px;padding:2px 8px}.chip.team{background:var(--ok-bg);color:var(--ok)}
+.check{font-size:12.5px;background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:6px 8px}
+.dl{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}.dl .btn,.dl button{font-size:13px;padding:5px 10px}
+.idea{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:14px}.idea h3{margin:0 0 4px;font-size:17px}.idea .head{display:flex;gap:12px;align-items:flex-start}.idea .head img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}.strip .thumb{border-radius:10px;cursor:pointer}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:12px}.panel h2{margin:0;font-size:18px}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.rule b{min-width:24px}
+dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:95vh;background:var(--card);color:var(--ink)}dialog::backdrop{background:rgba(5,10,25,.6)}
+.ed{display:grid;grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);max-height:95vh}.pane{padding:16px;overflow:auto;max-height:95vh;display:flex;flex-direction:column;gap:10px}.pane+.pane{border-left:1px solid var(--line)}
+.pane label{font-size:12px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}.pane textarea,.pane input,.pane select{width:100%;background:var(--bg)}
+.stage{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.2);align-self:center}.stage iframe{border:0;transform-origin:0 0;position:absolute;left:0;top:0}
+@media (max-width:820px){.ed{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}header.top,main{padding-left:16px;padding-right:16px}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head><body>
+<header class="top">
+  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><label class="lab" for="name">Your name</label><input id="name" placeholder="e.g. Sanya" autocomplete="name"><button id="zipAll">Download everything (ZIP)</button></div>
+  <div class="tabs" id="tabs"></div>
+</header>
+<main id="view"></main>
+
+<dialog id="dlg"><div class="ed">
+  <div class="pane"><div class="row"><b id="edTitle" style="font-size:17px"></b><span class="spacer"></span><button id="close">Close</button></div><div id="fields"></div>
+    <p class="sub">Write **bold** for bold and *word* for the accent colour. Lists take one item per line. Keep it to about 22 words.</p></div>
+  <div class="pane"><div class="row" id="edSize"></div><div class="stage" id="stage"><iframe id="frame" title="Preview"></iframe></div><div id="live"></div>
+    <div class="row" style="justify-content:center"><button class="primary" id="save">Save</button><button id="export">Export PNG</button><button id="exportAll">Export all 3 sizes</button><button id="del" hidden>Delete</button></div><p class="status" id="edMsg" style="text-align:center"></p></div>
+</div></dialog>
+
+<script type="module">
+import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS } from "/engine.js";
+import { STATICS } from "/statics.js";
+import { LIBRARY } from "/library.js";
+
+const TABS = [["IDEAS", "Ideas"], ["APPROVAL", "Approval"], ["TOFU", "TOFU"], ["MOFU", "MOFU"], ["BOFU", "BOFU"], ["RET", "Retention"], ["RULES", "Rules"]];
+const FUN = { TOFU: "New audience · Replaces the stack", MOFU: "Retargeting · Replaces the stack, with proof", BOFU: "Ready to buy · Replaces the stack + COMBO10", RET: "Existing customers · the ritual" };
+const st = { tab: "IDEAS", prod: "all", size: "4x5", apf: "all", items: [], rules: [], q: "", img: null, thumb: null, gCount: "6", gFunnel: "auto", gProd: "auto" };
+try { const p = JSON.parse(localStorage.getItem("silt-se-ui") || "{}"); if (p.tab && TABS.some(t => t[0] === p.tab)) st.tab = p.tab; if (p.size) st.size = p.size; } catch {}
+const saveUi = () => { try { localStorage.setItem("silt-se-ui", JSON.stringify({ tab: st.tab, size: st.size })); } catch {} };
+const $ = id => document.getElementById(id), esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+let myName = ""; try { myName = localStorage.getItem("silt-se-name") || ""; } catch {}
+$("name").value = myName; $("name").addEventListener("change", () => { myName = $("name").value.trim().slice(0, 40); try { localStorage.setItem("silt-se-name", myName); } catch {} });
+let rulesKey = ""; try { rulesKey = localStorage.getItem("silt-se-rules-key") || ""; } catch {}
+async function api(path, opts = {}) {
+  const r = await fetch(path, { ...opts, headers: { "content-type": "application/json", "x-silt-name": encodeURIComponent(myName || "team"), ...(opts.headers || {}) } });
+  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || r.statusText); return j;
+}
+
+// ---------- data ----------
+const LIVE = i => i.status === "approved";
+const PENDING = i => ["approval", "draft", "changes", "active"].includes(i.status);
+const team = () => st.items.filter(i => i.kind === "static" && LIVE(i)).map(i => ({ ...i.doc, _item: i }));
+const overrides = () => Object.fromEntries(st.items.filter(i => i.kind === "override" && LIVE(i)).map(i => [i.id, i]));
+// Built-in and library statics start unapproved too (user, 25 Nov: "nothing is approved yet"). A decision item records the team's call.
+const decisions = () => Object.fromEntries(st.items.filter(i => i.kind === "decision").map(i => [i.doc.id, i.status]));
+const pendingOverrideFor = () => new Set(st.items.filter(i => i.kind === "override" && PENDING(i)).map(i => i.id));
+const pending = () => { const d = decisions(), o = overrides(), po = pendingOverrideFor();
+  return [...st.items.filter(i => (i.kind === "static" || i.kind === "override") && PENDING(i)).map(i => ({ ...i.doc, _item: i })),
+    ...STATICS.filter(s => !d[s.id] && !o[s.id] && !po.has(s.id)), ...LIBRARY.filter(s => !d[s.id]), ...uploads(PENDING)]; };
+function allStatics() { const o = overrides(), d = decisions(); return [...team(), ...STATICS.filter(s => o[s.id] || d[s.id] === "approved").map(s => o[s.id] ? { ...o[s.id].doc, _item: o[s.id] } : s), ...LIBRARY.filter(s => d[s.id] === "approved"), ...uploads(LIVE)]; }
+const ideas = () => st.items.filter(i => i.kind === "idea" && i.status !== "archived");
+// Uploaded finished statics (kind "upload"): images stored as they are, files = { "4x5": fileId, "9x16": fileId, ... }
+const uploads = test => st.items.filter(i => i.kind === "upload" && test(i)).map(i => ({ ...i.doc, kind: "upload", _item: i }));
+const isImg = s => s.kind === "library" || s.kind === "upload";
+const imgUrl = (s, k, small) => s.kind === "library" ? (small ? "/library/thumb/" + s.files[k] + ".jpg" : "/library/png/" + s.files[k] + ".png") : "/api/file/" + s.files[k];
+const imgName = (s, k) => s.kind === "library" ? s.files[k] + ".png" : (s.names?.[k] || s.files[k] + ".jpg");
+const findAny = id => { const it = st.items.find(i => i.id === id && (i.kind === "static" || i.kind === "override")); return it ? { ...it.doc, _item: it } : allStatics().find(s => s.id === id); };
+async function load() {
+  try { st.items = (await api("/api/items")).items; } catch (e) { status("Couldn't load: " + e.message); }
+  try { st.rules = (await api("/api/rules")).rules || []; } catch {}
+  draw();
+}
+
+// ---------- shell ----------
+function drawTabs() {
+  const n = id => id === "IDEAS" ? ideas().length : id === "RULES" ? st.rules.length : id === "APPROVAL" ? pending().length : allStatics().filter(s => s.funnel === id).length;
+  $("tabs").innerHTML = TABS.map(([id, name]) => `<button data-tab="${id}" aria-pressed="${st.tab === id}">${name} <span class="sub">${n(id)}</span></button>`).join("");
+}
+$("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (!b) return; st.tab = b.dataset.tab; saveUi(); draw(); });
+function draw() { drawTabs(); (st.tab === "IDEAS" ? drawIdeas : st.tab === "RULES" ? drawRules : st.tab === "APPROVAL" ? drawApproval : drawFunnel)(); hydrate(); }
+function status(t) { const el = $("genMsg") || $("zipMsg"); if (el) el.textContent = t; }
+const chips = (key, opts) => opts.map(([v, l]) => `<button data-k="${key}" data-v="${v}" aria-pressed="${st[key] === v}">${l}</button>`).join("");
+
+function thumb(s, size = st.size) {
+  const z = SIZES[size];
+  if (isImg(s)) { const k = s.files[size] ? size : (s.files["4x5"] ? "4x5" : Object.keys(s.files)[0]); const zz = SIZES[k]; return `<div class="thumb" style="aspect-ratio:${zz ? zz.w + "/" + zz.h : "4/5"}"><img loading="lazy" src="${imgUrl(s, k, true)}" alt="${esc(s.title)}"></div>`; }
+  if (s._item) return `<div class="thumb" data-live="${esc(s._item.id)}" data-size="${size}" style="aspect-ratio:${z.w}/${z.h}"></div>`;
+  return `<div class="thumb" style="aspect-ratio:${z.w}/${z.h}"><img loading="lazy" src="/thumb/${fileName(s, size)}.jpg" alt="${esc(s.id)}"></div>`;
+}
+function hydrate() {
+  document.querySelectorAll("[data-live]").forEach(el => {
+    const s = findAny(el.dataset.live); if (!s) return; const z = SIZES[el.dataset.size || st.size];
+    const f = document.createElement("iframe"); f.style.width = z.w + "px"; f.style.height = z.h + "px"; f.style.transform = `scale(${el.clientWidth / z.w})`; f.srcdoc = render(s, el.dataset.size || st.size, "/"); f.title = s.id; el.appendChild(f);
+  });
+}
+function card(s) {
+  const lib = isImg(s), gen = !!s._item && !lib, id = s._item ? s._item.id : s.id;
+  const dl = lib ? Object.keys(s.files).map(k => `<a class="btn" href="${imgUrl(s, k)}${s.kind === "upload" ? "?dl=1" : ""}" download="${esc(imgName(s, k))}">${k.replace("x", ":")}</a>`).join("")
+    : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${k.replace("x", ":")}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${k.replace("x", ":")}</a>`).join("");
+  const tag = lib ? `<span class="chip${s.kind === "upload" ? " team" : ""}">${s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : "Library"}</span>` : gen ? `<span class="chip team">${s._item.kind === "override" ? "Edited" : "From an idea"} · ${esc(s._item.updated_by || s._item.created_by || "")}</span>` : "";
+  const warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
+  return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
+    <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}</div>
+    <div class="dl">${dl}${lib ? "" : `<button data-edit="${esc(id)}">Edit</button>`}</div></article>`;
+}
+
+// ---------- Ideas (home) ----------
+function drawIdeas() {
+  const q = st.q.toLowerCase();
+  const xs = ideas().filter(i => !q || (i.doc.text || "").toLowerCase().includes(q) || (i.doc.image_note || "").toLowerCase().includes(q));
+  const hits = q ? [...allStatics(), ...pending()].filter(s => JSON.stringify([s.headline, s.sub, s.title, s.question, s.top, s.bottom, s.concept, s.quote, s.text, s.items, s.options]).toLowerCase().includes(q)).slice(0, 24) : [];
+  $("view").innerHTML = `
+  <div class="ideabar"><input type="text" id="idea" placeholder="Type an idea, or add an image… e.g. Monday standups after a bad night" value="${esc(st.q)}" aria-label="Idea or search">
+    <span id="imgSlot">${st.img ? `<span class="imgchip"><img src="${st.thumb}" alt="">image added <button id="imgX" style="padding:0 6px">✕</button></span>` : `<label class="btn attach">🖼 Image<input type="file" id="imgIn" accept="image/*"></label>`}</span>
+    <select id="gCount" aria-label="How many"><option value="6">6 statics</option><option value="12">12</option><option value="30">30</option></select>
+    <select id="gFunnel" aria-label="Funnel"><option value="auto">Any funnel</option><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
+    <select id="gProd" aria-label="Product"><option value="auto">Any product</option><option>mornings</option><option>nights</option><option>combo</option></select>
+    <button class="primary go" id="gen">Generate</button></div>
+  <p class="status" id="genMsg">Type to search past ideas and statics. Press Generate to make new statics from the idea. They follow the Plan of Action, the brand facts and the ${st.rules.length} house rules.</p>
+  <div class="panel"><h2>Upload finished statics</h2>
+    <p class="sub">Already made a static in Canva, ChatGPT or Photoshop? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. Everything goes to Approval.</p>
+    <div class="row"><label class="btn attach">⬆ Choose images<input type="file" id="upIn" accept="image/png,image/jpeg,image/webp" multiple></label>
+      <select id="upFunnel" aria-label="Funnel"><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
+      <select id="upProd" aria-label="Product"><option>nights</option><option>mornings</option><option>combo</option></select>
+      <button class="primary" id="upGo" ${st.up?.length ? "" : "disabled"}>Upload ${st.up?.length || ""} to Approval</button></div>
+    ${(st.up || []).map(g => `<div class="sub">• ${esc(g.title)}: ${g.files.map(f => esc(f.name)).join(", ")}</div>`).join("")}<p class="status" id="upMsg"></p></div>
+  <details class="own"><summary>The free AI is out for today? Use your own Claude or ChatGPT instead</summary><div class="inner">
+    <p class="sub">Set up once on your own computer so your AI saves statics straight into this site and follows the house rules: <a href="/team-ai/silt-static-engine-skill.zip" download>Claude skill (zip)</a> · <a href="/team-ai/GPT_SETUP.md" target="_blank">ChatGPT GPT setup</a> (<a href="/team-ai/GPT_INSTRUCTIONS.txt" target="_blank">instructions</a>, <a href="/team-ai/openapi.json" target="_blank">action</a>). Or copy a prompt here:</p>
+    <div class="row"><button id="ownCopy">Copy the prompt for this idea</button><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude ↗</a><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT ↗</a></div>
+    <textarea id="ownReply" rows="4" placeholder="Paste the AI's JSON reply here"></textarea><div class="row"><button id="ownAdd">Add these statics</button></div></div></details>
+  ${hits.length ? `<div class="panel"><h2>Statics matching “${esc(st.q)}”</h2><div class="grid">${hits.map(card).join("")}</div></div>` : ""}
+  ${xs.map(i => { const d = i.doc, made = (d.made || []).map(id => findAny(id)).filter(Boolean);
+    return `<div class="idea"><div class="head">${d.image ? `<img src="${d.image}" alt="">` : ""}<div style="flex:1"><h3>${esc(d.text || "Image idea")}</h3><div class="sub">by ${esc(i.created_by || "")} · ${new Date(i.updated_at).toLocaleString()} · ${made.length} statics${d.rules_used ? ` · ${d.rules_used} house rules` : ""}</div></div>
+      <button data-more="${esc(i.id)}">Generate more</button></div>
+      <div class="strip">${made.map(s => `<div data-edit="${esc(s._item.id)}" title="Edit">${thumb(s, "4x5")}<div class="sub" style="text-align:center">${s._item.status === "approved" ? "✓ approved" : s._item.status === "rejected" ? "rejected" : "in Approval"}</div></div>`).join("")}</div></div>`; }).join("") || (q ? "" : `<p class="sub">No ideas yet. Type one above and press Generate.</p>`)}`;
+  for (const k of ["gCount", "gFunnel", "gProd"]) $(k).value = st[k];
+  const i = $("idea"); i.focus(); i.setSelectionRange(i.value.length, i.value.length);
+}
+$("view").addEventListener("input", e => { if (e.target.id === "idea") { st.q = e.target.value; clearTimeout(st.t); st.t = setTimeout(() => { draw(); }, 350); } });
+$("view").addEventListener("keydown", e => { if (e.target.id === "idea" && e.key === "Enter") $("gen").click(); });
+$("view").addEventListener("change", async e => {
+  if (e.target.id === "upIn") { st.up = groupFiles([...e.target.files]); return draw(); }
+  if (["gCount", "gFunnel", "gProd"].includes(e.target.id)) { st[e.target.id] = e.target.value; return; }
+  if (e.target.id !== "imgIn" || !e.target.files[0]) return;
+  const f = e.target.files[0]; const [big, small] = await Promise.all([shrink(f, 1024, .85), shrink(f, 160, .7)]);
+  st.img = big; st.thumb = small; draw();
+});
+async function shrink(file, max, q) {
+  const img = await createImageBitmap(file); const sc = Math.min(1, max / Math.max(img.width, img.height));
+  const c = document.createElement("canvas"); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL("image/jpeg", q);
+}
+async function generate(text, opts) {
+  const btn = $("gen"); if (btn) btn.disabled = true;
+  const n = +opts.count; status(`Writing ${n} statics${st.img ? " from your image" : ""}… about ${n > 10 ? "a minute" : "20 seconds"}.`);
+  try {
+    const r = await api("/api/generate", { method: "POST", body: JSON.stringify({ idea: text, image: st.img, thumb: st.thumb, count: n, funnel: opts.funnel, product: opts.product }) });
+    st.img = st.thumb = null; st.q = ""; await load();
+    status(`Made ${r.statics.length} statics. They're waiting in the Approval tab${r.statics.some(s => s.doc.flags) ? " (the Checker left notes on some)" : ""}.`);
+  } catch (e) { status("Couldn't generate: " + e.message); }
+  finally { const b = $("gen"); if (b) b.disabled = false; }
+}
+
+// ---------- Approval: every new or edited static waits here (TOFU / MOFU / BOFU / Retention inside) ----------
+function drawApproval() {
+  const all = pending(), xs = all.filter(s => st.apf === "all" || s.funnel === st.apf);
+  const c = f => all.filter(s => s.funnel === f).length;
+  const key = s => s._item ? s._item.id : "s:" + s.id;
+  const head = s => (s.headline || s.problem || s.question || s.top || s.title || s.text || s.format || "").replace(/\*/g, "");
+  $("view").innerHTML = '<p class="sub" style="margin:0 0 8px"><b>Approval.</b> Every static waits here until someone approves it: the built-in ones, the library, and everything made from an idea or edited. The Checker\'s notes are in orange. Approved statics move to their funnel tab and the downloads.</p>'
+    + '<div class="row">' + chips("apf", [["all", "All " + all.length], ["TOFU", "TOFU " + c("TOFU")], ["MOFU", "MOFU " + c("MOFU")], ["BOFU", "BOFU " + c("BOFU")], ["RET", "Retention " + c("RET")]])
+    + '<span class="lab">Preview</span>' + chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")])) + '<span class="spacer"></span>'
+    + (xs.length ? '<button class="primary" id="apAll">Approve all ' + xs.length + ' shown</button>' : "") + '</div><p class="status" id="zipMsg"></p>'
+    + '<div class="grid">' + (xs.map(s => { const id = key(s), warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
+      const who = s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : s._item ? (s._item.kind === "override" ? "Edit of " + esc(s._item.id) : "New") + " · " + esc(s._item.updated_by || s._item.created_by || "") : s.kind === "library" ? "Library" : "Built-in";
+      return '<article class="card">' + thumb(s) + '<div class="meta"><div class="t">' + esc(isImg(s) ? s.title : head(s)) + '</div>'
+        + '<div class="chips"><span class="chip">' + esc(s.funnel) + '</span><span class="chip">' + esc(s.product) + '</span><span class="chip">' + esc(s.concept || "") + '</span><span class="chip team">' + who + '</span></div>'
+        + (warn.length ? '<div class="check"><b>Checker:</b> ' + warn.map(esc).join("<br>") + '</div>' : '<div class="sub" style="color:var(--ok)">Checker: no problems found.</div>')
+        + (s.source ? '<div class="sub">Idea: ' + esc(s.source) + '</div>' : "") + '</div>'
+        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? "" : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button></div></article>'; }).join("")
+      || '<p class="sub">Nothing waiting. New statics from the Ideas tab land here.</p>') + '</div>';
+}
+
+// ---------- uploads ----------
+function groupFiles(files) {
+  const groups = {};
+  for (const f of files) {
+    const base = f.name.replace(/\.(png|jpe?g|webp)$/i, "").replace(/[_\- ]*(4x5|9x16|1x1|feed|story|stories|square|reels?|\d{3,4}x\d{3,4})/gi, "").replace(/[_\- ]+$/, "") || f.name;
+    (groups[base] = groups[base] || { title: base.replace(/[_-]+/g, " ").trim(), files: [] }).files.push(f);
+  }
+  return Object.values(groups).map(g => ({ ...g, files: g.files.slice(0, 3) }));
+}
+async function toPayload(file) {
+  let blob = file;
+  if (file.size > 1_850_000) { const bmp = await createImageBitmap(file); const c = document.createElement("canvas"); c.width = bmp.width; c.height = bmp.height; c.getContext("2d").drawImage(bmp, 0, 0); blob = await new Promise(r => c.toBlob(r, "image/jpeg", .9)); }
+  const bmp = await createImageBitmap(blob); const buf = new Uint8Array(await blob.arrayBuffer());
+  let bin = ""; for (let i = 0; i < buf.length; i += 32768) bin += String.fromCharCode.apply(null, buf.subarray(i, i + 32768));
+  return { name: blob === file ? file.name : file.name.replace(/\.\w+$/, ".jpg"), mime: blob.type || "image/jpeg", w: bmp.width, h: bmp.height, data: btoa(bin) };
+}
+async function uploadGroups() {
+  const gs = st.up || []; let n = 0;
+  for (const g of gs) {
+    $("upMsg").textContent = "Uploading " + (++n) + " of " + gs.length + "…";
+    const files = []; for (const f of g.files) files.push(await toPayload(f));
+    const name = g.title.toLowerCase(), funnel = /\btofu\b/.test(name) ? "TOFU" : /\bmofu\b/.test(name) ? "MOFU" : /\bbofu\b/.test(name) ? "BOFU" : /\b(ret|retention)\b/.test(name) ? "RET" : $("upFunnel").value;
+    const product = /mornings?/.test(name) ? "mornings" : /nights?/.test(name) ? "nights" : /combo/.test(name) ? "combo" : $("upProd").value;
+    await api("/api/upload", { method: "POST", body: JSON.stringify({ title: g.title, funnel, product, concept: "Uploaded", files }) });
+  }
+  st.up = null; await load(); status("Uploaded " + gs.length + " statics. They're waiting in Approval.");
+}
+
+// ---------- funnel tabs ----------
+function drawFunnel() {
+  const xs = allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod));
+  $("view").innerHTML = `<p class="sub" style="margin:0 0 8px"><b>${FUN[st.tab]}</b></p><div class="row"><span class="lab">Product</span>${chips("prod", [["all", "All"], ["mornings", "Mornings"], ["nights", "Nights"], ["combo", "Combo"]])}
+    <span class="lab">Preview</span>${chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")]))}<span class="spacer"></span>
+    <select id="zipSize" aria-label="Sizes in the ZIP"><option value="all">All sizes</option>${Object.keys(SIZES).map(z => `<option value="${z}">${z.replace("x", ":")} only</option>`).join("")}</select><button class="primary" id="zipTab">Download this tab (ZIP)</button></div>
+    <p class="status" id="zipMsg"></p><div class="grid">${xs.map(card).join("") || `<p class="sub">Nothing here yet.</p>`}</div>`;
+}
+
+// ---------- Rules ----------
+function drawRules() {
+  $("view").innerHTML = `<div class="panel"><h2>House rules</h2><p class="sub">Every static generated here follows these, on top of the brand facts and the Plan of Action. They come from Abhishek (or his Claude). Anyone can read them; changing them needs the rules key.</p>
+    ${st.rules.map((r, i) => `<div class="rule"><b>${i + 1}.</b><div style="flex:1">${esc(r.text)}<div class="sub">${esc(r.by)} · ${new Date(r.at).toLocaleDateString()}</div></div>${rulesKey ? `<button data-rm="${esc(r.id)}">Remove</button>` : ""}</div>`).join("") || `<p class="sub">No house rules yet.</p>`}
+    <label class="lab" for="rk">Rules key</label><input id="rk" type="password" placeholder="Only needed to add or remove rules" value="${esc(rulesKey)}" autocomplete="off">
+    <label class="lab" for="rNew">New rule</label><textarea id="rNew" rows="2" placeholder="e.g. Never show a phone screen with a fake notification"></textarea>
+    <div class="row"><button class="primary" id="rAdd">Add rule</button><span class="status" id="rMsg"></span></div></div>
+    <div class="panel"><h2>For Abhishek's Claude</h2><p class="sub">His Claude can add rules directly (the key is in the rules-key file on the PC that set up the site):</p>
+    <pre style="white-space:pre-wrap;font-size:12.5px;background:var(--bg);padding:10px;border-radius:8px">curl -X POST ${location.origin}/api/rules -H "content-type: application/json" -H "x-silt-name: Abhishek" -H "x-rules-key: THE_KEY" -d '{"add":"Your rule here"}'</pre>
+    <p class="sub">Replace all rules at once with {"replace": ["rule 1", "rule 2"]}. Read them with GET ${location.origin}/api/rules.</p></div>`;
+}
+
+// Approve / reject: team items change status; built-in and library statics get a decision record.
+function decide(key, status) {
+  if (key.startsWith("s:")) return api("/api/items", { method: "POST", body: JSON.stringify({ kind: "decision", doc: { id: key.slice(2) }, status }) });
+  return api("/api/items/" + encodeURIComponent(key), { method: "PUT", body: JSON.stringify({ status }) });
+}
+
+// ---------- clicks ----------
+$("view").addEventListener("click", async e => {
+  const t = e.target, id = t.id, b = q => t.closest(q);
+  const k = b("[data-k]"); if (k) { st[k.dataset.k] = k.dataset.v; saveUi(); return draw(); }
+  const ap = b("[data-appr]"); if (ap) { ap.disabled = true; await decide(ap.dataset.appr, "approved").catch(er => alert(er.message)); return load(); }
+  const rj = b("[data-rej]"); if (rj) { await decide(rj.dataset.rej, "rejected").catch(er => alert(er.message)); return load(); }
+  if (id === "apAll") { if (!confirm("Approve all the statics shown?")) return; t.disabled = true; const xs = pending().filter(s => st.apf === "all" || s.funnel === st.apf);
+    let n = 0; for (const s of xs) { $("zipMsg").textContent = "Approving " + (++n) + " of " + xs.length + "…"; await decide(s._item ? s._item.id : "s:" + s.id, "approved").catch(() => {}); } return load(); }
+  const ed = b("[data-edit]"); if (ed) return openEditor(findAny(ed.dataset.edit));
+  const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { save(await pngBlob(s, dl.dataset.z), fileName(s, dl.dataset.z) + ".png"); } finally { dl.disabled = false; } return; }
+  if (id === "zipTab") return zip(allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod)), $("zipSize").value, `SILT_Statics_${st.tab}`, $("zipMsg"));
+  if (id === "imgX") { st.img = st.thumb = null; return draw(); }
+  if (id === "upGo") { if (!myName) { $("name").focus(); return ($("upMsg").textContent = "Type your name at the top first."); } t.disabled = true; try { await uploadGroups(); } catch (er) { $("upMsg").textContent = "Upload failed: " + er.message; t.disabled = false; } return; }
+  if (id === "gen") { const text = $("idea").value.trim(); if (!text && !st.img) return status("Type an idea or add an image first."); if (!myName) { $("name").focus(); return status("Type your name at the top first."); } return generate(text, { count: $("gCount").value, funnel: $("gFunnel").value, product: $("gProd").value }); }
+  const more = b("[data-more]"); if (more) { const i = ideas().find(x => x.id === more.dataset.more); if (i) { $("idea").value = i.doc.text; return generate(i.doc.text, { count: 6, funnel: i.doc.funnel || "auto", product: i.doc.product || "auto" }); } }
+  if (id === "ownCopy") { const SK = {}; for (const s of STATICS) if (!SK[s.t]) SK[s.t] = Object.fromEntries(Object.entries(s).filter(([k]) => (!META_FIELDS.includes(k) || ["scene", "scene_a", "scene_b", "scene_problem", "scene_solution"].includes(k)) && !["note", "check"].includes(k)));
+    const p = batchPrompt({ count: +$("gCount").value, focus: ($("idea").value.trim() || "") + (st.rules.length ? "\nHOUSE RULES (must follow): " + st.rules.map(r => r.text).join(" | ") : "") + "\nScene keys for scene/meme: " + Object.entries(SCENES).map(([k, v]) => k + " (" + v.mood + ")").join("; ") }, SK, []);
+    try { await navigator.clipboard.writeText(p); status("Prompt copied. Paste it into Claude or ChatGPT, then paste the reply below."); } catch { $("ownReply").value = p; status("Copy the prompt from the box below."); } return; }
+  if (id === "ownAdd") { try { const m = $("ownReply").value.match(/[\[{][\s\S]*[\]}]/); let arr = JSON.parse(m[0]); if (!Array.isArray(arr)) arr = arr.statics || [];
+      let n = 0; for (const x of arr.slice(0, 30)) { const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "scene"); const doc = { ...JSON.parse(JSON.stringify(base)), ...Object.fromEntries(Object.entries(x).filter(([k, v]) => k in base && typeof v === typeof base[k])), t: base.t, format: base.format, id: "new", slug: "own-ai", concept: String(x.concept || "Idea").slice(0, 50), funnel: ["TOFU", "MOFU", "BOFU", "RET"].includes(x.funnel) ? x.funnel : base.funnel, product: ["mornings", "nights", "combo"].includes(x.product) ? x.product : base.product }; delete doc.check; const f = checkCopy(doc); if (f.length) doc.flags = f;
+        await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "static", doc, status: "approval" }) }); n++; }
+      $("ownReply").value = ""; await load(); status(`Added ${n} statics from your AI. They're waiting in Approval.`); } catch (er) { status("Couldn't read that reply: " + er.message); } return; }
+  if (id === "rAdd") { rulesKey = $("rk").value.trim(); try { localStorage.setItem("silt-se-rules-key", rulesKey); } catch {} const txt = $("rNew").value.trim(); if (!txt) return;
+    try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ add: txt }) })).rules; draw(); } catch (er) { $("rMsg").textContent = er.message; } return; }
+  const rm = b("[data-rm]"); if (rm) { try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ remove: rm.dataset.rm }) })).rules; draw(); } catch (er) { alert(er.message); } return; }
+});
+$("zipAll").addEventListener("click", () => { st.tab !== "IDEAS" || draw(); zip(allStatics(), "all", "SILT_Statics_All", { set textContent(v) { const el = $("genMsg") || $("zipMsg"); if (el) el.textContent = v; } }); });
+
+// ---------- PNG + ZIP ----------
+let h2i;
+async function pngBlob(s, z) {
+  if (isImg(s)) return (await fetch(imgUrl(s, z))).blob();
+  if (!s._item && !s._dirty) return (await fetch(`/png/${fileName(s, z)}.png`)).blob();
+  h2i = h2i || await import("https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm");
+  const S = SIZES[z], f = document.createElement("iframe"); f.style.cssText = `position:fixed;left:-99999px;top:0;width:${S.w}px;height:${S.h}px;border:0`; document.body.appendChild(f);
+  try { await new Promise(r => { f.onload = r; f.srcdoc = render(s, z, location.origin + "/"); }); const d = f.contentDocument; await d.fonts.ready;
+    await Promise.all([...d.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+    await new Promise(r => setTimeout(r, 150)); return await h2i.toBlob(d.querySelector(".frame"), { width: S.w, height: S.h, pixelRatio: 1, cacheBust: true }); } finally { f.remove(); }
+}
+function save(blob, name) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }
+const GROUP = { TOFU: "1_TOFU", MOFU: "2_MOFU", BOFU: "3_BOFU", RET: "4_Retention" };
+async function zip(list, size, name, msgEl) {
+  if (!window.JSZip) return (msgEl.textContent = "The ZIP library didn't load. Reload the page.");
+  const jobs = []; for (const s of list) for (const k of (size === "all" ? Object.keys(SIZES) : [size])) if (!isImg(s) || s.files[k]) jobs.push([s, k]);
+  const zf = new JSZip(); let n = 0;
+  for (const [s, k] of jobs) { msgEl.textContent = `Preparing ${++n} of ${jobs.length}…`; const nm = isImg(s) ? imgName(s, k) : fileName(s, k) + ".png"; zf.file(`${name}/${GROUP[s.funnel] || s.funnel}/${SIZES[k].label}_${k}/${nm}`, await pngBlob(s, k)); }
+  msgEl.textContent = "Zipping…"; save(await zf.generateAsync({ type: "blob" }), `${name}${size === "all" ? "" : "_" + size}.zip`); msgEl.textContent = `Downloaded ${jobs.length} files.`;
+}
+
+// ---------- editor ----------
+let cur = null, edSize = "4x5";
+const dlg = $("dlg"), frame = $("frame"), stage = $("stage");
+$("edSize").innerHTML = Object.keys(SIZES).map(z => `<button data-z="${z}" aria-pressed="${z === "4x5"}">${z.replace("x", ":")}</button>`).join("");
+$("edSize").addEventListener("click", e => { const b = e.target.closest("[data-z]"); if (!b) return; edSize = b.dataset.z; [...$("edSize").children].forEach(x => x.setAttribute("aria-pressed", x === b)); preview(); });
+const SCENE_KEYS = ["scene", "scene_a", "scene_b", "scene_problem", "scene_solution"];
+const HIDE = new Set([...META_FIELDS, "kicker"].filter(k => !SCENE_KEYS.includes(k)));
+const sel = (k, opts, v, blank) => `<label for="f-${k}">${k.replace("_", " ")}</label><select id="f-${k}" data-f="${k}">${blank ? `<option value="">${blank}</option>` : ""}${opts.map(o => `<option ${o === v ? "selected" : ""}>${o}</option>`).join("")}</select>`;
+function field(k, v) {
+  if (["scene_problem", "scene_solution"].includes(k)) return sel(k, ["product", "jars", ...Object.keys(SCENES)], v);
+  if (SCENE_KEYS.includes(k)) return sel(k, Object.keys(SCENES), v);
+  if (typeof v === "string") return `<label for="f-${k}">${k}</label><textarea id="f-${k}" data-f="${k}" data-type="s" rows="${Math.min(4, Math.ceil(v.length / 45) + 1)}">${esc(v)}</textarea>`;
+  if (Array.isArray(v) && v.every(x => typeof x === "string")) return `<label for="f-${k}">${k} (one per line)</label><textarea id="f-${k}" data-f="${k}" data-type="l" rows="${v.length + 1}">${esc(v.join("\n"))}</textarea>`;
+  return `<label for="f-${k}">${k} (JSON)</label><textarea id="f-${k}" data-f="${k}" data-type="j" rows="${Math.min(10, JSON.stringify(v, null, 1).split("\n").length)}">${esc(JSON.stringify(v, null, 1))}</textarea>`;
+}
+function openEditor(s) {
+  if (!s || isImg(s)) return;
+  const item = s._item || null; cur = JSON.parse(JSON.stringify(s)); delete cur._item; cur._kind = item ? item.kind : "builtin"; cur._itemId = item ? item.id : null;
+  $("edTitle").textContent = (cur.headline || cur.question || cur.top || cur.format || "").replace(/\*/g, "").slice(0, 60);
+  $("fields").innerHTML = sel("funnel", ["TOFU", "MOFU", "BOFU", "RET"], cur.funnel) + sel("product", ["mornings", "nights", "combo"], cur.product) + sel("theme", Object.keys(THEMES), cur.theme, "auto") + sel("shot", ["boxstick", "box", "stick", "sticks", "combo", "none"], cur.shot, "auto")
+    + Object.entries(cur).filter(([k]) => !HIDE.has(k) && !k.startsWith("_")).map(([k, v]) => field(k, v)).join("");
+  $("del").hidden = cur._kind !== "static"; $("edMsg").textContent = ""; if (!dlg.open) dlg.showModal(); preview();
+}
+$("fields").addEventListener("input", e => { const el = e.target.closest("[data-f]"); if (!el) return; const k = el.dataset.f;
+  try { if (el.tagName === "SELECT") { if (el.value) cur[k] = el.value; else delete cur[k]; } else if (el.dataset.type === "l") cur[k] = el.value.split("\n").filter(x => x.trim()); else if (el.dataset.type === "j") cur[k] = JSON.parse(el.value); else cur[k] = el.value; el.style.outline = ""; }
+  catch { el.style.outline = "2px solid var(--bad)"; return; } preview(); });
+function preview() {
+  const z = SIZES[edSize], w = Math.min(stage.parentElement.clientWidth - 32, 480), sc = Math.min(w / z.w, (innerHeight * .62) / z.h);
+  stage.style.width = z.w * sc + "px"; stage.style.height = z.h * sc + "px"; frame.style.width = z.w + "px"; frame.style.height = z.h + "px"; frame.style.transform = `scale(${sc})`; frame.srcdoc = render(cur, edSize, "/");
+  const p = checkCopy(cur), w2 = wordCount(cur); $("live").innerHTML = (p.length ? `<div class="check">${p.map(esc).join("<br>")}</div>` : "") + `<div class="sub" style="text-align:center">${w2} words (aim for ${TEXT_LIMIT.good})</div>`;
+}
+$("close").addEventListener("click", () => dlg.close());
+const docOf = () => { const d = Object.fromEntries(Object.entries(cur).filter(([k]) => !k.startsWith("_"))); const f = checkCopy(d); if (f.length) d.flags = f; else delete d.flags; return d; };
+$("save").addEventListener("click", async () => { $("save").disabled = true;
+  try { if (cur._kind === "static") await api("/api/items/" + encodeURIComponent(cur._itemId), { method: "PUT", body: JSON.stringify({ doc: docOf(), status: "approval" }) });
+    else await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "override", doc: { ...docOf(), id: cur._itemId || cur.id }, status: "approval" }) });
+    $("edMsg").textContent = "Saved. It's waiting in the Approval tab; the live version stays until it's approved."; await load(); } catch (e) { $("edMsg").textContent = "Couldn't save: " + e.message; } finally { $("save").disabled = false; } });
+$("del").addEventListener("click", async () => { if (!confirm("Delete this static for everyone?")) return; await api("/api/items/" + encodeURIComponent(cur._itemId), { method: "DELETE" }).catch(e => alert(e.message)); dlg.close(); load(); });
+async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (const z of sizes) save(await pngBlob({ ...cur, _dirty: true }, z), fileName(cur, z) + ".png"); $("edMsg").textContent = "Downloaded."; } catch (e) { $("edMsg").textContent = "Export failed: " + e.message; } }
+$("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
+
+draw(); load();
+</script></body></html>

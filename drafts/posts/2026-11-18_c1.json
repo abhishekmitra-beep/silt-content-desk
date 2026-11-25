@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndianFitness",
+  "thread_title": "Find a post from the last 3 days: How do I tell if a supplement label is legit? What should I check in India?",
+  "thread_url": "https://www.reddit.com/r/IndianFitness/new/",
+  "thread_summary": "Look for someone asking how to read a supplement label, spot fake or underdosed products, or what the numbers mean.",
+  "product": "brand",
+  "angle": "Community help",
+  "text": "A few quick checks: an FSSAI licence number on the pack, every ingredient with its dose in mg, and no 'proprietary blend' where the total is listed but not the parts. Then check the form of each ingredient. Magnesium is a good example, because a label that says 1,000 mg may contain only around 140 mg of actual magnesium, depending on the compound. If a brand will show you a lab report for what's in the pack, that is a good sign too.",
+  "why": "Label literacy is a recurring question and fits our transparency position with no pitch.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndianFitness sidebar before commenting.",
+  "id": "2026-11-18_c1"
+}

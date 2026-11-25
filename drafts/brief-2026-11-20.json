@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-20",
+  "summary": "Friday 20 Nov, drafted at 11 AM on the day because the 19 Nov evening run stalled on a permission prompt. It's a quiet news week. The fresh hook is ADP's finding that nearly 1 in 4 Indian workers put in 16+ unpaid hours a week. The rest is solid education (alcohol and sleep, ashwagandha root vs leaf, a quick way to check any supplement ad) plus the first quiz-based X poll, which echoes this week's 'sleep isn't one problem, it's five' reel. Reddit comments come from the comment bank, because Claude can't open Reddit.",
+  "trends": [
+    {
+      "topic": "ADP Research 2026: nearly 1 in 4 Indian workers put in 16+ unpaid hours a week",
+      "angle": "Long hours eat sleep; protect the wake time. Used on X today.",
+      "platform": "X",
+      "source": "https://cxotoday.com/research/adp-research-2026-young-workers-women-bear-heavy-workplace-stress-in-india-despite-wellbeing-gains/"
+    },
+    {
+      "topic": "Great Place To Work India: 13% high burnout, stable since 2022; Gen Z now 26% of the workforce",
+      "angle": "Future post on young workers and sleep.",
+      "platform": "X / LinkedIn",
+      "source": "https://www.freepressjournal.in/education/13-employees-report-high-burnout-as-gen-z-nearly-doubles-its-share-of-indias-workforce-to-26-study"
+    },
+    {
+      "topic": "FSSAI acts against six nutraceutical makers (16 Nov)",
+      "angle": "Used on X on 19 Nov. Mentioned in today's LinkedIn post.",
+      "platform": "LinkedIn",
+      "source": "https://lapaasvoice.com/fssai-takes-action-against-six-nutraceutical-makers-over-serious-food-safety-violations/"
+    },
+    {
+      "topic": "ASCI: 60 of 61 nutraceutical ads broke the code",
+      "angle": "A 10-second ad check on X today; also in LinkedIn.",
+      "platform": "X / LinkedIn",
+      "source": "https://www.mxmindia.com/advertising/asci-report-flags-evidence-gaps-in-nutraceutical-advertising-claims"
+    },
+    {
+      "topic": "Ashwagandha leaf restricted in India, root allowed",
+      "angle": "Our KSM-66 is root only. On X today.",
+      "platform": "X",
+      "source": "https://www.nutraingredients.com/Article/2026/04/28/india-bans-ashwagandha-leaf-use-in-any-form-industry-reacts/"
+    },
+    {
+      "topic": "Alcohol and sleep (Friday)",
+      "angle": "Lighter second half of the night, 3 AM waking. X and r/sleep today.",
+      "platform": "X / Reddit",
+      "source": "https://www.sleepfoundation.org/nutrition/alcohol-and-sleep"
+    },
+    {
+      "topic": "Fibre 'having a moment' in trade press (Sep 2026)",
+      "angle": "Fibre trend continues. PHGG content for next week.",
+      "platform": "X",
+      "source": "https://www.supplysidesj.com/formulation/caffeine-considerations"
+    },
+    {
+      "topic": "Our quiz: the two questions people answer",
+      "angle": "The poll series starts today with the sleep question. The day question (afternoon fatigue, bloating, cravings) comes next.",
+      "platform": "X",
+      "source": "https://siltnutrition.com/pages/quiz"
+    }
+  ],
+  "instagram": "19 Nov reel: 'Sleep isn't one problem, it's five', on SILT Nights. 18 Nov post: verified customer reviews. No comments or complaints on either yet. Today's sleep poll on X echoes the reel.",
+  "competitors": "Nothing new from competitors this week in what we checked. The full analysis is on the Competitors tab.",
+  "linkedin_trends": [
+    {
+      "topic": "ASCI nutraceutical ad report",
+      "date": "28 Oct",
+      "day": "Fri",
+      "angle": "Context for the three-weeks-in post.",
+      "source": "https://www.mxmindia.com/advertising/asci-report-flags-evidence-gaps-in-nutraceutical-advertising-claims"
+    },
+    {
+      "topic": "FSSAI action against six nutraceutical makers",
+      "date": "16 Nov",
+      "day": "Fri",
+      "angle": "Context for the three-weeks-in post.",
+      "source": "https://lapaasvoice.com/fssai-takes-action-against-six-nutraceutical-makers-over-serious-food-safety-violations/"
+    },
+    {
+      "topic": "ADP: Indian workers lead on unpaid hours",
+      "date": "2026",
+      "day": "Mon",
+      "angle": "A possible Monday category or work-culture post.",
+      "source": "https://cxotoday.com/research/adp-research-2026-young-workers-women-bear-heavy-workplace-stress-in-india-despite-wellbeing-gains/"
+    }
+  ]
+}

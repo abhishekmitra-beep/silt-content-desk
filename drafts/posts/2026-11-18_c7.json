@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: First-time founder: what does it take to launch a food or supplement product in India legally?",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "thread_summary": "Look for a founder asking about FSSAI licence, lab testing, labelling or claims for a food or supplement product.",
+  "product": "brand",
+  "angle": "Community help",
+  "text": "From our experience launching a supplement brand: you need an FSSAI licence for the business, products made at a licensed facility, and labels that follow FSSAI rules, including the mandatory statements. Be careful with claims, because ASCI reviewed 61 nutraceutical ads this year and found 60 broke the code. Talk about what an ingredient is and the dose studied, never that it treats or cures anything. We also had every ingredient tested by a lab, which costs more but means we are not guessing.",
+  "why": "Founder subreddit, honest operational help. Strongest proof is regulation awareness.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting.",
+  "id": "2026-11-18_c7"
+}

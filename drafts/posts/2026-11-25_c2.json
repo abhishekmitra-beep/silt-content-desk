@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "developersIndia",
+  "pillar": "Trust",
+  "thread_title": "Find a post from the last 3 days: which supplements actually matter for desk workers?",
+  "thread_summary": "Look for someone confused by supplement stacks or asking what is worth taking.",
+  "product": "education",
+  "angle": "Education",
+  "text": "Start with a blood test before buying anything. Vitamin D and B12 are the gaps that show up most in Indian office workers, and a test tells you whether you actually have them. Fix sleep, protein and fibre with food first. If you do add something, look for the dose of each ingredient on the label, and skip anything that hides it inside a proprietary blend. The best stack is short enough that you actually take it every day.",
+  "why": "A common question. The honest answer earns trust without pitching, and matches our transparency line.",
+  "thread_url": "https://www.reddit.com/r/developersIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/developersIndia sidebar before commenting."
+}

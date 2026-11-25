@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "pillar": "Trust",
+  "thread_title": "Find a post from the last 3 days: how do you get D2C customers to buy again?",
+  "thread_summary": "Look for founders asking about repeat purchases, retention or customer lifetime value.",
+  "product": "brand",
+  "angle": "Founder insight",
+  "text": "What we're learning at a small wellness brand: most people don't drop off because the product failed. They drop off because the habit never formed, or they expected results too early. So we set honest expectations on day one (what you'll feel in a week, and what takes a month), check in on day 3 and day 7 to ask how it's going, and remind people a few days before they run out, not after. It's early for us, but asking how they feel has taught us more than any dashboard.",
+  "why": "A founder subreddit. Shares our real retention thinking from the Plan of Action without claiming results we don't have.",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting. Founder-friendly subreddit: it's fine to say who we are once, but don't link."
+}

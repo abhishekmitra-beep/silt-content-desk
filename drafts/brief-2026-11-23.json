@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-23",
+  "summary": "Monday 23 Nov, drafted at 3 PM on the day. The 22 Nov 6 PM run never fired (app closed), and the catch-up run drafted Tuesday instead. Quiet news week. The lead hook is the large JAMA coffee and tea study, plus the second quiz poll (workday issues), a category take on the boom in Indian sleep products for LinkedIn, and practical how-to-use and hydration posts. Reddit comments are from the comment bank, because Claude can't open Reddit.",
+  "trends": [
+    {
+      "topic": "JAMA: moderate coffee or tea linked to lower dementia risk (131,821 people, 43 years)",
+      "angle": "Observational, so no proof of cause. On X today.",
+      "platform": "X",
+      "source": "https://content.health.harvard.edu/blog/harvard-study-a-couple-of-daily-cups-of-coffee-or-tea-linked-to-lower-dementia-risk"
+    },
+    {
+      "topic": "Indian nutraceutical funding estimated above $500M while scrutiny rises",
+      "angle": "Category takes on X and LinkedIn today.",
+      "platform": "X / LinkedIn",
+      "source": "https://www.entrepreneur.com/en-in/news-and-trends/inside-the-rise-and-risks-of-indias-booming-nutraceutical/500629"
+    },
+    {
+      "topic": "Sleep products crowding the Indian shelf (night drinks and chewables launched this year)",
+      "angle": "LinkedIn category take, with no brands named.",
+      "platform": "LinkedIn",
+      "source": "https://www.entrepreneur.com/en-in/news-and-trends/inside-the-rise-and-risks-of-indias-booming-nutraceutical/500629"
+    },
+    {
+      "topic": "Mild dehydration lowers mood and focus (Journal of Nutrition, 2012)",
+      "angle": "A cheap fix for the 3 PM slump. On X and r/productivity.",
+      "platform": "X / Reddit",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/22190027/"
+    },
+    {
+      "topic": "Quiz question 2: main workday issue",
+      "angle": "Monday poll. The follow-up goes out Tuesday.",
+      "platform": "X",
+      "source": "https://siltnutrition.com/pages/quiz"
+    },
+    {
+      "topic": "To-do list before bed helps people fall asleep faster (Scullin et al., 2018)",
+      "angle": "Sunday-night anxiety comment on r/bangalore.",
+      "platform": "Reddit",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/29058942/"
+    }
+  ],
+  "instagram": "Not re-checked today. The latest seen were the 19 Nov 'Sleep isn't one problem, it's five' reel and the 18 Nov verified-reviews post.",
+  "competitors": "There are no named competitor moves in the news this week. Today's LinkedIn post covers the category trend without naming brands, per the playbook.",
+  "linkedin_trends": [
+    {
+      "topic": "Indian nutraceutical funding above $500M",
+      "date": "Dec 2025 analysis",
+      "day": "Mon",
+      "angle": "Category context for today's post.",
+      "source": "https://www.entrepreneur.com/en-in/news-and-trends/inside-the-rise-and-risks-of-indias-booming-nutraceutical/500629"
+    },
+    {
+      "topic": "JAMA coffee and tea dementia study",
+      "date": "Feb 2026 (still widely covered)",
+      "day": "Wed",
+      "angle": "Could feed Wednesday's ingredient post on caffeine dose.",
+      "source": "https://content.health.harvard.edu/blog/harvard-study-a-couple-of-daily-cups-of-coffee-or-tea-linked-to-lower-dementia-risk"
+    }
+  ]
+}

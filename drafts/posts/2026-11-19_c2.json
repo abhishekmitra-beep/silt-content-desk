@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "sleep",
+  "thread_title": "Find a post from the last 3 days: Waking up at 3 or 4 AM every night and can't fall back asleep",
+  "thread_url": "https://www.reddit.com/r/sleep/new/",
+  "thread_summary": "Look for someone describing early waking without a medical diagnosis or medication question.",
+  "product": "nights",
+  "angle": "Community help",
+  "text": "Early waking often has boring causes worth ruling out first: alcohol in the evening (it wears off in the second half of the night), caffeine after early afternoon, a warm room, or going to bed so early that your sleep need is met by 3 AM. If you wake, keep the lights and phone off, and if you're still awake after about 20 minutes, get up and do something dull in dim light until you feel sleepy. A fixed wake time, even after a bad night, builds sleep pressure for the next one. If it has gone on for weeks alongside low mood, it's worth raising with a doctor.",
+  "why": "3 AM waking is one of our quiz answers and a core Nights pain point. Careful sub, so behavioural only.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/sleep sidebar before commenting.",
+  "id": "2026-11-19_c2"
+}

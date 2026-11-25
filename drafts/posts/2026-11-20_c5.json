@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: afternoon naps leave me groggy, how long should a nap be?",
+  "thread_summary": "Look for someone who naps after lunch and wakes up worse, or asks about nap length.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Keep it to 10 to 20 minutes and take it before about 3 PM. Past roughly 30 minutes you drop into deeper sleep, and waking from that is what leaves you groggy. Some people do a coffee nap: drink a small coffee right before lying down, since caffeine takes about 20 minutes to kick in, so you wake as it starts working. Set an alarm either way. If you need a long nap every day just to function, look at your night sleep first.",
+  "why": "Napping is a recurring productivity question, and the advice is practical and specific.",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting."
+}

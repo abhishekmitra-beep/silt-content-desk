@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "bangalore",
+  "thread_title": "Find a post from the last 3 days: why do Monday mornings feel so awful even after a long weekend sleep?",
+  "thread_summary": "Look for someone asking why they feel wrecked on Monday, or about sleeping late on weekends.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Sleeping in on weekends is the usual culprit. If you sleep 2 or 3 hours later on Saturday and Sunday, your body clock shifts, and Monday's alarm lands at what feels like 4 AM. Researchers call it social jetlag. Keeping your wake-up time within about an hour of your weekday time, even on weekends, fixes most of it. Get daylight in the first hour after you wake, and keep weekend naps short.",
+  "why": "Social jetlag is common and well studied, and it fits Bengaluru's late weekend culture.",
+  "thread_url": "https://www.reddit.com/r/bangalore/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/bangalore sidebar before commenting."
+}

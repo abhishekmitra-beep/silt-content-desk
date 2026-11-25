@@ -1,0 +1,165 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SILT Static Engine",
+    "version": "1.0.0",
+    "description": "Make SILT Nutrition Meta ad statics and save them to the team's Static Engine."
+  },
+  "servers": [
+    {
+      "url": "https://silt-static-engine.pages.dev"
+    }
+  ],
+  "paths": {
+    "/api/rules": {
+      "get": {
+        "operationId": "getHouseRules",
+        "summary": "Read the house rules every SILT static must follow",
+        "responses": {
+          "200": {
+            "description": "The rules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rules": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "string"
+                          },
+                          "by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/generate": {
+      "post": {
+        "operationId": "generateStatics",
+        "summary": "Turn an idea into finished statics (the site writes them with its own AI and saves them for the team)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "idea"
+                ],
+                "properties": {
+                  "idea": {
+                    "type": "string",
+                    "description": "The idea, in a sentence"
+                  },
+                  "count": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 30,
+                    "default": 6
+                  },
+                  "funnel": {
+                    "type": "string",
+                    "enum": [
+                      "auto",
+                      "TOFU",
+                      "MOFU",
+                      "BOFU",
+                      "RET"
+                    ],
+                    "default": "auto"
+                  },
+                  "product": {
+                    "type": "string",
+                    "enum": [
+                      "auto",
+                      "mornings",
+                      "nights",
+                      "combo"
+                    ],
+                    "default": "auto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The statics that were made",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/items": {
+      "post": {
+        "operationId": "saveStatic",
+        "summary": "Save one static you wrote yourself (it goes to the Approval tab)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "kind",
+                  "doc"
+                ],
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "static"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "approval"
+                    ],
+                    "default": "approval"
+                  },
+                  "doc": {
+                    "type": "object",
+                    "description": "The static: t (format), funnel, product, concept, slug, optional cta, and the format's text keys (see the GPT instructions)",
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Saved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

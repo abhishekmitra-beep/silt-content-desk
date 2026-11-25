@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 4,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Fitness_India",
+  "thread_title": "Find a post from the last 3 days: Vitamin D for office workers in India: should I get tested before taking anything?",
+  "thread_url": "https://www.reddit.com/r/Fitness_India/new/",
+  "thread_summary": "Look for someone with an indoor job asking if they need vitamin D, how much, or whether to test.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "Many Indians who work indoors do have low vitamin D, even in a sunny country, because of clothing, pollution and office hours. The sensible order is to get a blood test (25-OH vitamin D) first, then decide with a doctor, since the right dose depends on the result. Ten to fifteen minutes of midday sun on arms and legs a few days a week also helps. Avoid big random doses without a test.",
+  "why": "D3 is in Mornings at 100% RDA. A test-first answer keeps us honest and avoids deficiency claims.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Fitness_India sidebar before commenting.",
+  "id": "2026-11-18_c4"
+}

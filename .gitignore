@@ -1,0 +1,37 @@
+# ---- Secrets: never commit ----
+TEAM_PASSWORD*.txt
+RULES_KEY*.txt
+.dev.vars
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Installed / local tool state ----
+node_modules/
+.wrangler/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Old backups and third-party clones ----
+agent-addon-backup-*/
+archived-content-agent-*/
+pre-v3-merge-backup-*/
+external/
+
+# ---- Static Engine: generated files (rebuilt by `npm run render` and `node site.mjs`) ----
+static-engine/build/
+static-engine/out/
+static-engine/site/
+static-engine/incoming/
+static-engine/web/public/png/
+static-engine/web/public/thumb/
+static-engine/web/public/library/
+static-engine/web/public/assets/
+static-engine/web/public/fonts/
+static-engine/web/public/engine.js
+static-engine/web/public/statics.js
+static-engine/web/public/library.js
+static-engine/web/public/teardowns.json
+static-engine/web/wrangler.toml

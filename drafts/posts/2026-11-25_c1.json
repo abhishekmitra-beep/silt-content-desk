@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-25",
+  "platform": "reddit_comment",
+  "slot": 1,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "bangalore",
+  "pillar": "Adherence",
+  "thread_title": "Find a post from the last 3 days: wedding season late nights are wrecking my sleep",
+  "thread_summary": "Look for someone tired from back-to-back weddings, sangeets or late functions.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Wedding season does this to everyone. What helps most is protecting your wake-up time, even after a late night: sleep in by an hour at most, then get daylight early and take a 20 minute nap before 3 PM if you need it. Long lie-ins shift your body clock and make the next week worse. Go easy on the late heavy food and the last drink, since both make the second half of the night lighter.",
+  "why": "A seasonal, very Bengaluru topic in November and December.",
+  "thread_url": "https://www.reddit.com/r/bangalore/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/bangalore sidebar before commenting."
+}

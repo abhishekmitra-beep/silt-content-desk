@@ -1,0 +1,487 @@
+// Ad scripts for Sanya (docs key "scripts", shown on the Desk's "Ad scripts" tab).
+// Built 25 Nov 2026 from: the "SILT Plan of Action" doc (Problem, Solution, RTB, CTA per product), the 24 Nov
+// meeting (Meta results, ritual positioning) and the swipe file "Meta Ads That Should Be Illegal" (scalewithPB,
+// Drive file 1zw--y6tYiTrytwTZ3FajC4SDqOc1-mhj). Formats are borrowed; every line is ours.
+// Run: node ad-scripts/build-scripts.js -> ad-scripts/scripts.json
+// Store: cd cloudflare && node scripts/desk.mjs doc scripts ../ad-scripts/scripts.json  (wipes reviews on that tab)
+const fs = require("fs");
+const path = require("path");
+
+const doc = {
+  title: "Ad scripts: Replaces the stack + the ritual",
+  based_on: "2026-11-25",
+  source: "Plan of Action (Problem, Solution, RTB, CTA) + the 24 Nov meeting + the \"Meta Ads That Should Be Illegal\" swipe file",
+  summary: "12 draft scripts for new-customer Meta ads, each in the Plan of Action shape: Hook (0 to 3 s), Problem (3 to 15 s), Solution (15 to 25 s), RTB (25 to 40 s), CTA (40 to 45 s). Each uses a different format from the swipe file, because Meta's Andromeda update can treat near-identical ads as one. Statics use the same order, top to bottom. Approve the ones to shoot; leave a note for changes.",
+  results: {
+    note: "Figures said in the meeting. They're historical: recheck them in Ads Manager before deciding anything. This is why the scripts lean on gut, ritual and proof.",
+    points: [
+      "Overall ROAS about 1.67, with 3 as the level where it gets clearer what's working.",
+      "\"Replaces the stack\": about 1.56 on a Nights campaign, about 0.87 blended across all three products, with high spend and low CTR. One view: keep it, backed by proof. The other: the message, or this execution of it, isn't connecting. Scripts 1 and 5 test both, as new creatives instead of settling it on early numbers.",
+      "The gut angle looked promising. Scripts 2 and 3 build on it.",
+      "The Founder POV reel and a static either didn't perform or didn't get enough delivery. So no founder-to-camera ad here; founder stories go in organic content first.",
+      "A rule of thumb was mentioned: 2 ROAS after a creative's first week to scale it, otherwise replace it. Part of this was unclear in the recording, so confirm the exact rule.",
+      "Meta is the near-term focus. Google Ads brought only a few orders; ChatGPT ads might be explored in 1 to 2 months."
+    ]
+  },
+  rules: [
+    "Real reviews, ratings and customer words only. Hide names unless the customer gave written permission.",
+    "No fake play buttons, notification badges or tick boxes in statics: Meta doesn't allow images that pretend to be clickable.",
+    "No competitor names or logos. Compare against \"the usual supplement shelf\".",
+    "Every offer is true: COMBO10 gives an extra 10% off the Combo. No fake \"selling fast\" or deadlines (dark patterns under India's consumer rules).",
+    "Doses exactly as on the pack. No cure claims, no medical advice, no invented sleep scores (real customer exports only).",
+    "The Problem, Solution and RTB lines follow the meeting's creative directions, which are not approved claims. Check every health line against approved wording before it runs. Watch especially: the PHGG trial in s02, the fibre figures in s02, and the ingredient roles in s04.",
+    "Written consent from everyone on camera or in a voice note.",
+    "Put the product and the offer on screen in the first 2 seconds for people watching on mute."
+  ],
+  facts: "Mornings: 80 mg caffeine + 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, vitamins D3, K2, B12 and C at 100% RDA. Nights: 3 g glycine, 250 mg magnesium (bisglycinate), 300 mg KSM-66 ashwagandha, 200 mg L-theanine. No melatonin, no added sugar, no maltodextrin. Rs 900 for 15 sticks (Rs 60 a stick). COMBO10 = extra 10% off the Combo. Combo Rs 1,800. 80% of customers buy the Combo (Plan of Action): confirm the figure is still current before s05 or s09 goes live.",
+  scripts: [
+    {
+      id: "s01", product: "Mornings", pillar: "Adherence", kind: "Static (1:1 and 4:5)", format: "01 · The bad news ad",
+      angle: "Replaces the stack, with a proof subnote", test: "Against s05 (same message as a comparison). If both stay under 2 ROAS after a week, retire the stack message.",
+      why: "A headline that sounds like bad news gets read before a happy one, and it reads as information, not an ad.",
+      hooks: ["BAD NEWS: You bought 6 supplements. You took 2 this week.", "BAD NEWS: Your supplement shelf is a museum.", "BAD NEWS: The vitamins you skip don't work."],
+      beats: [
+        { part: "Hook", visual: "News-card layout: date line, \"BAD NEWS\" tag, bold headline. No real news outlet's name or look.", text: "BAD NEWS: You bought 6 supplements. You took 2 this week." },
+        { part: "Problem", visual: "Subhead under the headline.", text: "Too many jars, too many timings, and the habit never sticks." },
+        { part: "Solution", visual: "\"GOOD NEWS\" line, with a product shot of the Mornings stick.", text: "GOOD NEWS: One stick. Energy, gut and vitamins, in 60 seconds." },
+        { part: "RTB", visual: "Small proof line under the product.", text: "80 mg caffeine + 200 mg L-theanine · 5 g fibre · 6 bn probiotics · D3, K2, B12, C. Every dose on the pack." },
+        { part: "CTA", visual: "Button-free text line.", text: "Order now. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Fewer jars, more mornings that actually start well. SILT Mornings puts energy, gut and vitamins in one stick, every dose printed on the pack. Extra 10% off the Combo with COMBO10.",
+      needs: "Clean product photo of the Mornings stick. The date on the card should be the real date it runs."
+    },
+    {
+      id: "s02", product: "Mornings", pillar: "Trust", kind: "Reel (9:16) or carousel", format: "24 · The mistakes ad",
+      angle: "Gut (the angle that's working)", test: "Gut reel vs gut carousel. Keep whichever clears 2 ROAS.",
+      why: "Nobody wants to be doing it wrong, and teaching first earns the right to sell. It builds on the gut angle that is already working.",
+      hooks: ["3 mistakes you're making with your gut.", "Your gut isn't broken. Your routine is.", "Curd every day and still bloated?"],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Hand holding a glass of water, bold on-screen text.", text: "3 mistakes you're making with your gut." },
+        { part: "Problem", time: "3 to 15 s", visual: "One card per mistake, quick cuts.", text: "1. Counting on curd alone. 2. Eating about 12 g of fibre when the target is 25 to 30 g. 3. Buying a fibre that turns to sludge, so you stop drinking it." },
+        { part: "Solution", time: "15 to 25 s", visual: "Pour the Mornings stick into water, stir, it dissolves clear.", text: "SILT Mornings: 5 g of PHGG fibre that dissolves clear, plus 6 billion probiotics." },
+        { part: "RTB", time: "25 to 40 s", visual: "Back-of-pack panel, zoom to the fibre and probiotic lines.", text: "In one trial, 6 g of PHGG a day improved bloating scores over 12 weeks. Every dose is on the pack, and the lab reports are on our site." },
+        { part: "CTA", time: "40 to 45 s", visual: "Combo box on the counter.", text: "Gut, energy and vitamins in one stick. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Most of us eat half the fibre we need. SILT Mornings adds 5 g of PHGG fibre that dissolves clear, plus 6 billion probiotics. Extra 10% off the Combo with COMBO10.",
+      needs: "The pour-and-stir shot, and the back-of-pack panel (Shoot Photos on Drive). Say \"small trial\" in the caption if asked; don't stretch the result."
+    },
+    {
+      id: "s03", product: "Mornings", pillar: "Trust", kind: "Static (4:5)", format: "21 · The objection ad",
+      angle: "Gut + value", test: "Run next to s02 as the static version of the gut angle.",
+      why: "The buyer already has the doubt. Saying it out loud makes them feel heard, and they read on for the answer.",
+      hooks: ["\"Rs 60 a day for a drink mix? Are you serious?\"", "\"Another supplement? I already have 5.\"", "\"Isn't fibre just isabgol?\""],
+      beats: [
+        { part: "Hook", visual: "The objection as the headline, in quotes, big.", text: "\"Rs 60 a day for a drink mix? Are you serious?\"" },
+        { part: "Problem", visual: "Small line under it.", text: "Fair question. Here's what Rs 60 replaces." },
+        { part: "Solution", visual: "Three ticks, with the Mornings stick beside them.", text: "✓ Your morning coffee's focus, without the jitters (80 mg caffeine + 200 mg L-theanine) ✓ 5 g of fibre and 6 billion probiotics ✓ D3, K2, B12 and C at 100% RDA" },
+        { part: "RTB", visual: "Footer line.", text: "Every dose printed on the pack. Lab report for every ingredient." },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Rs 60 a stick, and every dose is printed on the pack. Extra 10% off the Combo with COMBO10.",
+      needs: "Product shot. Use the objection customers actually say most; swap the hook if the Leads tab shows a different one."
+    },
+    {
+      id: "s04", product: "Nights", pillar: "Trust", kind: "Reel (9:16)", format: "24 · The mistakes ad (Nights)",
+      angle: "Only magnesium isn't enough; melatonin isn't the answer", test: "Against s06. Two different Nights stories.",
+      why: "Straight from the Plan of Action's Nights problem: sleep has three parts, and one ingredient can't do all of it.",
+      hooks: ["Taking magnesium and still lying awake?", "Sleep has 3 problems. Magnesium fixes one.", "Why melatonin isn't our answer."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Someone in bed at night, eyes open, phone glow.", text: "Taking magnesium and still lying awake?" },
+        { part: "Problem", time: "3 to 15 s", visual: "Three cards appear: Falling asleep · Racing mind · Waking up tired.", text: "Sleep has three parts. Magnesium helps one of them. And melatonin is a hormone, not a long-term plan." },
+        { part: "Solution", time: "15 to 25 s", visual: "Pour SILT Nights, stir, sip.", text: "SILT Nights covers all three, without melatonin." },
+        { part: "RTB", time: "25 to 40 s", visual: "Ingredient chips land one by one on the Nights pack.", text: "3 g glycine for falling asleep. 200 mg L-theanine and 300 mg KSM-66 ashwagandha for the racing mind. 250 mg magnesium for recovery. Every dose on the pack." },
+        { part: "CTA", time: "40 to 45 s", visual: "Nights pack by the bed, lamp off.", text: "Sleep, sorted holistically. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Sleep has three parts. SILT Nights covers all three: glycine, L-theanine, ashwagandha and magnesium. No melatonin. Extra 10% off the Combo with COMBO10.",
+      needs: "Night bedroom shots, the pour shot, the Nights pack."
+    },
+    {
+      id: "s05", product: "Combo", pillar: "Adherence", kind: "Static (1:1 and 4:5)", format: "26 · Us vs them",
+      angle: "Replaces the stack, as an honest comparison", test: "Against s01. Same message, different format.",
+      why: "It does the comparison the buyer was going to do anyway, on our terms. Giving away one point makes the rest believable.",
+      hooks: ["Two sticks vs the supplement shelf.", "Your shelf vs your ritual.", "6 jars or 2 sticks?"],
+      beats: [
+        { part: "Hook", visual: "Two columns: \"SILT\" and \"The usual shelf\".", text: "Two sticks vs the supplement shelf." },
+        { part: "Problem", visual: "The shelf column: a crowded jar photo.", text: "Six jars, six timings, half of them forgotten." },
+        { part: "Solution", visual: "The SILT column: Mornings + Nights side by side.", text: "One for the morning, one for the night." },
+        { part: "RTB", visual: "Five rows with ticks and crosses.", text: "Every dose on the pack ✓ ✕ · No melatonin ✓ ✕ · Tastes good ✓ ✕ · Takes 60 seconds ✓ ✕ · Cheapest option ✕ ✓" },
+        { part: "CTA", visual: "Footer.", text: "80% of our customers pick the Combo. Extra 10% off with COMBO10." }
+      ],
+      caption: "One for the grind, one for the unwind. We're not the cheapest option, and we say so. Extra 10% off the Combo with COMBO10.",
+      needs: "A real cluttered-shelf photo (our own, no visible brand names) and the Combo shot."
+    },
+    {
+      id: "s06", product: "Nights", pillar: "Adherence", kind: "Static (4:5)", format: "20 · The \"don't buy this\" ad",
+      angle: "Tastiest night drink + no melatonin", test: "Against s04.",
+      why: "Reverse psychology makes people want to qualify, and it filters out the wrong buyers.",
+      hooks: ["Don't buy SILT Nights if...", "SILT Nights is not for everyone.", "Please don't order this if you love bitter sleep tonics."],
+      beats: [
+        { part: "Hook", visual: "Bold \"DON'T BUY THIS IF\" header over the Nights pack.", text: "Don't buy SILT Nights if:" },
+        { part: "Problem", visual: "Three crossed lines.", text: "✕ you want to be knocked out (there's no melatonin) ✕ you like your bedtime drink bitter ✕ you enjoy 1 AM doomscrolling" },
+        { part: "Solution", visual: "Turn line.", text: "Everyone else: a Chamomile Lemon bedtime drink you'll look forward to." },
+        { part: "RTB", visual: "Small dose line.", text: "3 g glycine · 250 mg magnesium · 300 mg ashwagandha · 200 mg L-theanine" },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Not for people who like bitter bedtime tonics. For everyone else: SILT Nights, no melatonin, Chamomile Lemon. Extra 10% off the Combo with COMBO10.",
+      needs: "Nights pack photo. Keep it playful, never mocking."
+    },
+    {
+      id: "s07", product: "Mornings", pillar: "Adherence", kind: "Static (1:1)", format: "08 · The family WhatsApp forward",
+      angle: "Ritual, tongue-in-cheek", test: "Run on Sunday mornings. Watch shares and saves, not only ROAS.",
+      why: "Every Indian has seen it in the family group. It's so un-ad-like that people stop, laugh and forward it.",
+      hooks: ["Good Morning 🌸", "Good Morning. Stay blessed, stay focused.", "Shubh Prabhat 🌅"],
+      beats: [
+        { part: "Hook", visual: "The classic look: sunrise, flowers, glittery \"Good Morning\".", text: "Good Morning 🌸 Stay blessed, stay focused" },
+        { part: "Problem", visual: "Smaller glitter line.", text: "No 3 PM slump today, beta" },
+        { part: "Solution", visual: "The Mornings stick in the middle of the flowers.", text: "SILT Mornings: one stick, 60 seconds" },
+        { part: "RTB", visual: "Clean, readable text box (keep the cringe in the design, not the offer).", text: "80 mg caffeine + 200 mg L-theanine · gut · vitamins" },
+        { part: "CTA", visual: "Footer in the forward style.", text: "Forward to all colleagues 🙏 Extra 10% off the Combo with COMBO10" }
+      ],
+      caption: "Forwarded many times 🙏 SILT Mornings: energy, gut and vitamins in one stick. Extra 10% off the Combo with COMBO10.",
+      needs: "Design only. The offer text must be clean and easy to read."
+    },
+    {
+      id: "s08", product: "Mornings", pillar: "Adherence", kind: "Static (4:5) or 15 s reel", format: "09 · The out-of-office email (as a calendar block)",
+      angle: "Your calendar is blocked; mornings are yours", test: "Ritual angle vs product angle (s01). This is the meeting's main positioning, so give it a fair week.",
+      why: "A familiar work format with a story built in. It carries the ritual line from the meeting: mornings and nights are yours.",
+      hooks: ["Out of office: 7:30 to 8:00 AM.", "Declined: your 7:30 AM call.", "Auto-reply: I'm in a meeting with myself."],
+      beats: [
+        { part: "Hook", visual: "An auto-reply email mock-up (no real email app logo).", text: "Subject: Out of office, 7:30 to 8:00 AM" },
+        { part: "Problem", visual: "Email body.", text: "My calendar belongs to everyone else from 9 to 9. These 30 minutes don't." },
+        { part: "Solution", visual: "Email body, with the Mornings stick next to a laptop that's closed.", text: "No phone. One SILT Mornings. One window." },
+        { part: "RTB", visual: "Email signature line.", text: "80 mg caffeine + 200 mg L-theanine for calm focus · 5 g fibre · D3, K2, B12, C" },
+        { part: "CTA", visual: "P.S. line.", text: "P.S. Back online at 8, sharper. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Your calendar is blocked all day. Mornings and nights are yours. SILT Mornings: the 60-second ritual. Extra 10% off the Combo with COMBO10.",
+      needs: "Design, or a 15 s reel of the email typing out over a morning desk shot."
+    },
+    {
+      id: "s09", product: "Combo", pillar: "Adherence", kind: "Reel (9:16)", format: "12 · The street interview",
+      angle: "Too many supplements per day", test: "Our first street format. Judge on hook rate in the first 3 seconds, then ROAS.",
+      why: "Real people, real reactions. Viewers try to answer the question themselves and wait for the reveal.",
+      hooks: ["How many supplements did you take this morning?", "Guess how many jars are on this person's shelf.", "Can you name your supplements without looking?"],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Office park or café, clip mic, first answer.", text: "\"How many supplements did you take this morning?\"" },
+        { part: "Problem", time: "3 to 15 s", visual: "4 or 5 of the best answers, quick cuts.", text: "Real answers: \"Zero, I forgot.\" \"Four?\" \"I have them, I just don't take them.\"" },
+        { part: "Solution", time: "15 to 25 s", visual: "Hand the person the Combo box.", text: "What if it was just two? One for the morning, one for the night." },
+        { part: "RTB", time: "25 to 40 s", visual: "They read the back of the pack, honest reaction.", text: "On-screen: every dose on the pack · no melatonin · no added sugar · 80% of our customers pick the Combo." },
+        { part: "CTA", time: "40 to 45 s", visual: "Combo packshot.", text: "Two sticks. Twenty-four hours. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "We asked people how many supplements they took this morning. Most had forgotten. Two sticks, one ritual. Extra 10% off the Combo with COMBO10.",
+      needs: "Shoot 10 to 15 people in Bengaluru, keep the best 4 to 5. Signed consent from everyone on camera. Use only their real answers."
+    },
+    {
+      id: "s10", product: "Combo", pillar: "Adherence", kind: "Reel (9:16)", format: "14 · The POV ad",
+      angle: "Ritual + travel (customers stopped while travelling)", test: "Against s09. Two Combo stories.",
+      why: "POV is native to Reels and casts the viewer as the main character. It answers a real reason people stopped: travel.",
+      hooks: ["POV: your whole supplement shelf fits in your laptop bag.", "POV: wedding season and you didn't skip a single day.", "POV: you packed your ritual in 5 seconds."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "First-person: packing a laptop bag, slipping in two sticks.", text: "POV: your whole supplement shelf fits in your laptop bag." },
+        { part: "Problem", time: "3 to 15 s", visual: "Quick memory flash: a shelf of jars left at home.", text: "Every trip, the jars stayed home, and so did the habit." },
+        { part: "Solution", time: "15 to 25 s", visual: "Hotel room: Mornings at the window, Nights by the bed.", text: "Two sticks a day. The ritual travels with you." },
+        { part: "RTB", time: "25 to 40 s", visual: "Close-ups of both packs.", text: "Mornings: energy, gut, vitamins. Nights: sleep and recovery, no melatonin. Every dose on the pack." },
+        { part: "CTA", time: "40 to 45 s", visual: "Bag zips shut.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Your mornings and nights don't stay home when you travel. Neither should your ritual. Extra 10% off the Combo with COMBO10.",
+      needs: "First-person shots: packing, hotel window, bedside. No voiceover; on-screen text carries it."
+    },
+    {
+      id: "s11", product: "Nights", pillar: "Trust", kind: "Reel (9:16)", format: "19 · The customer voice note",
+      angle: "Social proof, in a customer's own voice", test: "Only once we have a real voice note with written consent.",
+      why: "A voice note sounds like a friend, not a testimonial. It's the most believable proof we can run.",
+      hooks: ["A customer sent us this at 11 PM.", "We didn't script this.", "This voice note made our week."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "A waveform playing, with the time on screen.", text: "\"A customer sent us this at {real time}.\"" },
+        { part: "Problem", time: "3 to 15 s", visual: "Captions, word for word.", text: "Their real words about how their nights were before." },
+        { part: "Solution", time: "15 to 25 s", visual: "Captions continue over the Nights pack.", text: "Their real words about SILT Nights." },
+        { part: "RTB", time: "25 to 40 s", visual: "Ingredient chips.", text: "3 g glycine · 250 mg magnesium · 300 mg ashwagandha · 200 mg L-theanine · no melatonin" },
+        { part: "CTA", time: "40 to 45 s", visual: "Nights packshot.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "We didn't script this. SILT Nights, no melatonin. Extra 10% off the Combo with COMBO10.",
+      needs: "Ask happy customers (the day 7 check-in on the Retention tab tags them) for a 20-second voice note, with written permission. Edit for length only. Run it as a video; a still with a play icon breaks Meta's rules."
+    },
+    {
+      id: "s12", product: "Combo", pillar: "Adherence", kind: "Static (4:5)", format: "22 · The price breakdown",
+      angle: "Value for money", test: "Run to retargeting audiences (people who've seen the price already).",
+      why: "Transparency kills the \"it's overpriced\" thought. People pay more willingly when they understand the cost.",
+      hooks: ["Where your Rs 60 a stick goes.", "Rs 60 a day. Here's what's inside.", "What Rs 900 actually buys you."],
+      beats: [
+        { part: "Hook", visual: "Headline over a stacked bar.", text: "What Rs 60 a stick gets you." },
+        { part: "Problem", visual: "Small line.", text: "Supplements hide their doses. We print ours." },
+        { part: "Solution", visual: "Mornings stick, with its parts listed.", text: "Mornings: 80 mg caffeine + 200 mg L-theanine · 5 g fibre · 6 bn probiotics · D3, K2, B12, C" },
+        { part: "RTB", visual: "Nights stick, with its parts listed.", text: "Nights: 3 g glycine · 250 mg magnesium · 300 mg ashwagandha · 200 mg L-theanine" },
+        { part: "CTA", visual: "Footer.", text: "Rs 900 for 15 sticks. Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Rs 60 a stick, and you can see exactly what's in it. Extra 10% off the Combo with COMBO10.",
+      needs: "This lists what's inside, not our costs. Only switch to a real cost breakdown (making, packing, shipping, GST, margin) if the founders are happy to share real numbers."
+    },
+    {
+      id: "s13", product: "Combo", pillar: "Trust", kind: "Static (4:5) + 20 s reel", format: "03 · The handwritten ad",
+      angle: "Founder story, in the founder's own words", test: "The Founder POV reel didn't perform or didn't get delivery. Test the handwritten format instead of talking-to-camera.",
+      why: "Handwriting is the opposite of a polished ad. It says a real person took the time.",
+      hooks: ["A note from our founder.", "Why we made SILT, in pen.", "Before SILT, there was a shelf of 6 jars."],
+      beats: [
+        { part: "Hook", visual: "A real handwritten card on a desk, the Combo box in frame, natural light.", text: "The first line of the founder's note, in their own words (for example, the moment their own routine stopped working)." },
+        { part: "Problem", visual: "Lines 2 and 3 of the note.", text: "In the founder's words: what was wrong with the supplement shelf." },
+        { part: "Solution", visual: "Line 4.", text: "In the founder's words: why two sticks, one for the morning and one for the night." },
+        { part: "RTB", visual: "Line 5, then the signature.", text: "Every dose on the pack, every ingredient lab-tested. Signed with the founder's name." },
+        { part: "CTA", visual: "Primary text repeats the note in type.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "The note, typed out in full, so everyone can read it. Extra 10% off the Combo with COMBO10.",
+      needs: "The founder writes 4 to 6 lines by hand. We don't write the story for them; it has to be legible in the photo."
+    },
+    {
+      id: "s14", product: "Combo", pillar: "Adherence", kind: "Static (1:1) or carousel", format: "27 · Expectation vs reality, flipped",
+      angle: "Before and after, of the routine (not of the body)", test: "A safe before-after: it shows the routine changing, so it needs no health claim.",
+      why: "Everyone knows this format as a letdown. Flipping it breaks the pattern and works as a quiet flex.",
+      hooks: ["Before: 6 jars. After: 2 sticks.", "Expectation: chalky supplement water. Reality:", "Your morning, before and after."],
+      beats: [
+        { part: "Hook", visual: "Split frame with BEFORE and AFTER labels.", text: "Before: 6 jars. After: 2 sticks." },
+        { part: "Problem", visual: "BEFORE: a real cluttered shelf (our own photo, no brand names visible).", text: "Six timings, half of them forgotten." },
+        { part: "Solution", visual: "AFTER: Mornings and Nights side by side on a clean counter.", text: "One for the morning, one for the night." },
+        { part: "RTB", visual: "Small line under AFTER: a real, unretouched glass of SILT.", text: "Dissolves clear. Every dose on the pack. No melatonin, no added sugar." },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Same goals, fewer jars. Extra 10% off the Combo with COMBO10.",
+      needs: "Two real photos, no retouching. A before-after of how someone feels needs real customer words and approval, so it isn't used here."
+    },
+    {
+      id: "s15", product: "Combo", pillar: "Adherence", kind: "Reel (9:16), 15 to 20 s", format: "15 · The hands-only unboxing",
+      angle: "Unboxing", test: "For retargeting: people who visited but didn't buy see what arrives.",
+      why: "It recreates the moment of getting the order, so viewers picture their own hands opening the box.",
+      hooks: ["What Rs 1,800 gets you from us.", "Unboxing your next 15 mornings and nights.", "Sound on: opening a SILT Combo."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Top-down, clean table, the box arrives in frame. Product and offer on screen for viewers on mute.", text: "What the SILT Combo looks like when it lands." },
+        { part: "Problem", time: "3 to 8 s", visual: "Lid opens, real sound.", text: "On screen: no jars, no scoops." },
+        { part: "Solution", time: "8 to 13 s", visual: "Hands lift out a Mornings stick and a Nights stick.", text: "On screen: 15 Mornings. 15 Nights. One of each a day." },
+        { part: "RTB", time: "13 to 17 s", visual: "Turn a stick over to the dose panel.", text: "On screen: every dose on the pack." },
+        { part: "CTA", time: "17 to 20 s", visual: "Both sticks next to a glass of water.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "No jars, no scoops, no guesswork. Extra 10% off the Combo with COMBO10.",
+      needs: "Shoot with the box customers actually get today (the new two-piece box is still pending). Real sound; no voiceover."
+    },
+    {
+      id: "s16", product: "Combo", pillar: "Trust", kind: "Reel (9:16)", format: "18 · Behind the scenes",
+      angle: "Behind the scenes: the lab reports", test: "Trust angle for retargeting; compare against s05 (Us vs them).",
+      why: "People trust what they can see being checked. Real people and real paperwork prove there's a real brand behind the ad.",
+      hooks: ["293 lab checks. 0 failed.", "Most supplement brands won't show you this.", "This is what \"lab tested\" actually means."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Scrolling through a real lab report on a laptop.", text: "293 lab checks. 0 failed." },
+        { part: "Problem", time: "3 to 15 s", visual: "A plain supplement label with a \"proprietary blend\" line (generic, no brand).", text: "Most labels don't tell you how much of each ingredient you're getting." },
+        { part: "Solution", time: "15 to 25 s", visual: "Our back-of-pack panel, zooming along the dose lines.", text: "We print every dose, and every one of our 19 ingredients has a lab report." },
+        { part: "RTB", time: "25 to 40 s", visual: "The lab reports page on siltnutrition.com, then the packing table.", text: "Read them yourself on our website." },
+        { part: "CTA", time: "40 to 45 s", visual: "Combo box going into a courier bag.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "19 ingredients, 293 lab checks, 0 failed. Read every report on our site. Extra 10% off the Combo with COMBO10.",
+      needs: "Screen recording of the real reports page, a real packing moment. Keep it raw."
+    },
+    {
+      id: "s17", product: "Combo", pillar: "Trust", kind: "Reel (9:16)", format: "13 · The green-screen reaction",
+      angle: "Social proof: reacting to real customer feedback", test: "A team member, not the founder (the founder POV ad didn't get delivery).",
+      why: "It borrows attention from something people trust, a real customer's words, and adds a human take.",
+      hooks: ["A customer sent us this.", "We didn't expect this review.", "Reading our reviews out loud."],
+      beats: [
+        { part: "Hook", time: "0 to 3 s", visual: "Green-screen: a real verified review behind a team member, reviewer's name blurred.", text: "\"A customer sent us this.\"" },
+        { part: "Problem", time: "3 to 15 s", visual: "Zoom into the review.", text: "The customer's real words about life before SILT." },
+        { part: "Solution", time: "15 to 25 s", visual: "Team member reacts, holds up the stick.", text: "The team member's honest reaction, and which stick the customer uses." },
+        { part: "RTB", time: "25 to 40 s", visual: "Two or three more real reviews scroll past.", text: "More real reviews from siltnutrition.com." },
+        { part: "CTA", time: "40 to 45 s", visual: "Combo packshot.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Real reviews, read by the people who make SILT. Extra 10% off the Combo with COMBO10.",
+      needs: "Real reviews only, names blurred. Made in Instagram Edits or CapCut."
+    },
+    {
+      id: "s18", product: "Combo", pillar: "Adherence", kind: "Static (4:5)", format: "23 · The restaurant bill",
+      angle: "Offer-led: the Combo bundle", test: "Hot audiences: site visitors and add-to-carts in the last 14 days.",
+      why: "Everyone reads a bill line by line. Itemising the value makes the final price feel fair.",
+      hooks: ["Your bill for 15 better mornings and nights.", "Table for one: the SILT Combo.", "The bill nobody minds paying."],
+      beats: [
+        { part: "Hook", visual: "A restaurant bill on a tray, \"SILT\" at the top.", text: "Your bill for 15 mornings and 15 nights." },
+        { part: "Problem", visual: "Line items.", text: "SILT Mornings, 15 sticks: Rs 900 · SILT Nights, 15 sticks: Rs 900" },
+        { part: "Solution", visual: "Total, then the discount line.", text: "Total Rs 1,800 · COMBO10: extra 10% off" },
+        { part: "RTB", visual: "Small print on the bill.", text: "Every dose on the pack · no melatonin · no added sugar" },
+        { part: "CTA", visual: "\"YOU PAY\" stamped at the bottom.", text: "You pay: the real Combo total after COMBO10 (check it at checkout before printing)." }
+      ],
+      caption: "Mornings + Nights, with an extra 10% off using COMBO10. Every line on this bill is a real price.",
+      needs: "Confirm the exact checkout total with COMBO10, and whether shipping is charged, before the static is made. Every line must be a real selling price."
+    },
+    {
+      id: "s19", product: "Combo", pillar: "Adherence", kind: "Static (1:1)", format: "29 · The sold-out ad / a real deadline",
+      angle: "Urgency, only when it's true", test: "Only run with a real end date or a real sell-out. Otherwise don't run it.",
+      why: "Scarcity and social proof in one line. False urgency is a dark pattern under India's consumer rules, so this one is conditional.",
+      hooks: ["COMBO10 ends on {real date}.", "Batch 1 sold out. Batch 2 is live.", "Last week of this offer."],
+      beats: [
+        { part: "Hook", visual: "A bold date stamp, or a SOLD OUT stamp crossed over to \"BACK\".", text: "COMBO10 ends on {real end date}. Or: Batch {n} sold out. It's back." },
+        { part: "Problem", visual: "Small line.", text: "Don't start your ritual at full price next week." },
+        { part: "Solution", visual: "Combo packshot.", text: "Mornings + Nights, one for each end of the day." },
+        { part: "RTB", visual: "Small line.", text: "Every dose on the pack · lab-tested" },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10, until {real end date}." }
+      ],
+      caption: "COMBO10 ends on {real end date}. Mornings + Nights, extra 10% off.",
+      needs: "A real end date for COMBO10 (or a real sell-out). Ask the team before making this; no fake \"selling fast\" or countdowns."
+    },
+    {
+      id: "s20", product: "Combo", pillar: "Adherence", kind: "Static (4:5)", format: "06 · The Notes app ad",
+      angle: "Cart reminder", test: "Add-to-cart, no purchase, last 7 days.",
+      why: "A plain Notes screenshot reads like a personal list, not an ad. It's native to the feed.",
+      hooks: ["Things still in your cart:", "Note to self: finish checkout.", "Your cart misses you (a little)."],
+      beats: [
+        { part: "Hook", visual: "Default Notes look: plain background, bold title.", text: "Things still in your cart:" },
+        { part: "Problem", visual: "List item 1.", text: "1. SILT Combo (Mornings + Nights)" },
+        { part: "Solution", visual: "List items 2 and 3.", text: "2. 60 seconds, twice a day 3. Every dose printed on the pack" },
+        { part: "RTB", visual: "List item 4.", text: "4. No melatonin, no added sugar" },
+        { part: "CTA", visual: "Last line.", text: "5. Extra 10% off with COMBO10. Finish checkout." }
+      ],
+      caption: "You left something behind. Extra 10% off the Combo with COMBO10.",
+      needs: "Keep it under 8 lines. No fake notification badges or tick boxes."
+    },
+    {
+      id: "s21", product: "Combo", pillar: "Trust", kind: "Static (4:5)", format: "21 · The objection ad",
+      angle: "Guarantee: what we actually promise", test: "Hot audiences who stall at checkout.",
+      why: "The buyer already has the doubt. Saying it out loud makes them feel heard. We answer it with what our policy really says.",
+      hooks: ["\"What if it arrives damaged?\"", "\"What if I get the wrong one?\"", "\"Can I trust what's inside?\""],
+      beats: [
+        { part: "Hook", visual: "The objection as the headline, in quotes.", text: "\"What if it arrives damaged?\"" },
+        { part: "Problem", visual: "Small line.", text: "Fair question, so here's exactly what we do." },
+        { part: "Solution", visual: "Ticks.", text: "✓ Damaged or wrong product? Send photos within 72 hours and we replace it ✓ Every dose printed on the pack ✓ A lab report for every ingredient" },
+        { part: "RTB", visual: "Footer line.", text: "Delivery across India in 2 to 10 working days." },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "Damaged or wrong product? Photos within 72 hours and we replace it. Every dose on the pack. Extra 10% off the Combo with COMBO10.",
+      needs: "Don't promise easy returns: our refund policy says no returns once delivered. Add \"COD available\" only if checkout actually offers it."
+    },
+    {
+      id: "s22", product: "Nights", pillar: "Adherence", kind: "Static (1:1 and 4:5)", format: "Review snippet + product image",
+      angle: "Review snippet", test: "Hot audiences; swap in other real reviews to make variants.",
+      why: "The shortest proof there is: a real customer's line next to the product.",
+      hooks: ["\"Taste of SILT Night is really amazing.\"", "Verified buyer, 5 stars.", "What customers say about Nights."],
+      beats: [
+        { part: "Hook", visual: "Big quote marks, a real verified review line.", text: "\"Taste of SILT Night is really amazing.\"" },
+        { part: "Problem", visual: "Small line.", text: "Most bedtime drinks taste like a chore." },
+        { part: "Solution", visual: "The Nights pack, large.", text: "SILT Nights, Chamomile Lemon." },
+        { part: "RTB", visual: "Small dose line.", text: "3 g glycine · 250 mg magnesium · 300 mg ashwagandha · 200 mg L-theanine · no melatonin" },
+        { part: "CTA", visual: "Footer.", text: "Extra 10% off the Combo with COMBO10." }
+      ],
+      caption: "\"Taste of SILT Night is really amazing.\" A verified review. Extra 10% off the Combo with COMBO10.",
+      needs: "Use the review exactly as written, name hidden. More variants only from other real reviews."
+    }
+  ],
+  later: [
+    "02 · Zero-star reviews: only once we have a real harsh-but-funny review (\"finished it in a week\").",
+    "17 · The 15-second demo: the pour-and-dissolve shot as a standalone ad."
+  ]
+};
+
+// Retention scripts (existing customers): the ritual / routine (adherence). No discount push; the CTA is the ritual.
+doc.scripts.push(
+  {
+    id: "s23", product: "Nights", pillar: "Adherence", kind: "Reel (9:16), 15 to 20 s", format: "EOD report (POV)",
+    angle: "Night ritual: log off properly", test: "Customers: Meta purchaser audience, Instagram, WhatsApp status. Judge on saves and shares, then reorders.",
+    why: "It turns the night stick into the last task of the workday, a moment people already have.",
+    hooks: ["EOD report: one item left.", "Laptop closed. Brain still open.", "The last task of your workday."],
+    beats: [
+      { part: "Hook", time: "0 to 3 s", visual: "First-person: laptop lid closing at night.", text: "On screen: EOD REPORT." },
+      { part: "Problem", time: "3 to 8 s", visual: "Ticks appear: Laptop closed ✓ Tabs closed ✓", text: "On screen: but your brain is still in the meeting." },
+      { part: "Solution", time: "8 to 13 s", visual: "Pour SILT Nights into water, stir, sip.", text: "On screen: SILT Nights, 30 to 60 minutes before bed ✓" },
+      { part: "RTB", time: "13 to 17 s", visual: "Close-up of the stick's dose side.", text: "On screen: glycine, magnesium, ashwagandha, L-theanine. No melatonin." },
+      { part: "CTA", time: "17 to 20 s", visual: "Phone face-down, lamp off.", text: "On screen: Phone down ✓ Log off properly." }
+    ],
+    caption: "Your EOD report has one more item. SILT Nights, 30 to 60 minutes before bed. Log off properly.",
+    needs: "Night shots in a real home. No voiceover; on-screen text carries it."
+  },
+  {
+    id: "s24", product: "Combo", pillar: "Adherence", kind: "Reel (9:16) or static", format: "Big statement: \"Boring is interesting\"",
+    angle: "Routine: the habits that work are boring", test: "Customers in days 8 to 30 (the adherence cohort). Watch replies and reorders.",
+    why: "It makes doing the same thing every day feel like the point, which is what adherence needs.",
+    hooks: ["Hot take: boring is interesting.", "The most boring thing you'll do today.", "Brushing. Chai. SILT."],
+    beats: [
+      { part: "Hook", time: "0 to 3 s", visual: "Bold text on a plain background.", text: "Hot take: boring is interesting." },
+      { part: "Problem", time: "3 to 8 s", visual: "Quick cuts: toothbrush, chai, a SILT stick.", text: "On screen: Brushing. Chai. SILT." },
+      { part: "Solution", time: "8 to 13 s", visual: "The same morning, three days in a row, same spot on the counter.", text: "On screen: Same time. Same place. Every day." },
+      { part: "RTB", time: "13 to 17 s", visual: "Both sticks side by side.", text: "On screen: For best results, use for at least 3 months." },
+      { part: "CTA", time: "17 to 20 s", visual: "Hand picks up the stick.", text: "On screen: Day 9 of being wonderfully boring. Keep going." }
+    ],
+    caption: "The habits that work are the ones you stop thinking about. Same time, same place, every day.",
+    needs: "Three real mornings shot the same way. The 3-month line is from our pack and website."
+  },
+  {
+    id: "s25", product: "Combo", pillar: "Trust", kind: "Static (4:5) + WhatsApp image", format: "Timeline: when you'll feel it",
+    angle: "Expectations: stay with it", test: "Customers in week 1 (cohort 1). Pairs with the day 4 check-in on the Retention tab.",
+    why: "People quit when they expect everything in week one. An honest timeline keeps them going.",
+    hooks: ["Stay with it. Here's when you'll feel it.", "Week 1 vs month 3.", "Not feeling everything yet? Normal."],
+    beats: [
+      { part: "Hook", visual: "Headline.", text: "Stay with it. Here's when you'll feel it." },
+      { part: "Problem", visual: "Small line.", text: "Some of SILT works fast. Some works quietly." },
+      { part: "Solution", visual: "Timeline row 1.", text: "Week 1: steadier energy, falling asleep faster." },
+      { part: "RTB", visual: "Timeline rows 2 and 3.", text: "Weeks 2 to 4: digestion settles, muscles relax. Months: vitamin gaps filled, stress eased." },
+      { part: "CTA", visual: "Footer.", text: "For best results, use for at least 3 months." }
+    ],
+    caption: "What you'll feel in week 1, and what works quietly for months. Stay with the ritual.",
+    needs: "Wording from the website timeline; confirm it's the approved version."
+  }
+);
+
+// Messaging (user, 25 Nov): acquisition (TOFU / MOFU / BOFU) = REPLACES THE STACK; retention = RITUAL / ROUTINE (adherence).
+doc.messaging = [
+  { funnel: "TOFU, MOFU, BOFU", line: "Replaces the stack", detail: "Every acquisition script lands one clear line: Mornings replaces the morning stack, Nights replaces the sleep stack, the Combo replaces the whole stack. It sits in the Solution beat (or the CTA when the middle is a real customer's or the founder's own words) and in the caption." },
+  { funnel: "Retention", line: "Ritual / routine (adherence)", detail: "For existing customers: own the morning and the night, keep the routine going, no discount push. The CTA is the ritual itself." }
+];
+doc.funnel = [
+  { id: "TOFU", name: "TOFU: new audience · Replaces the stack", concepts: ["Founder story", "Educational", "Pattern interrupt", "Problem solution", "Before after"] },
+  { id: "MOFU", name: "MOFU: retargeting · Replaces the stack", concepts: ["Customer review", "Us vs them", "Unboxing", "Behind the scenes", "Social proof"] },
+  { id: "BOFU", name: "BOFU: hot audience · Replaces the stack", concepts: ["Offer-led / bundle", "Urgency (limited time)", "Cart reminder", "Guarantee", "Review snippet + product image"] },
+  { id: "RET", name: "Retention: existing customers · Ritual / routine", concepts: ["Morning ritual", "Night ritual", "Routine", "Expectations", "Routine on the move"] }
+];
+const PLACE = {
+  s13: ["TOFU", "Founder story"], s02: ["TOFU", "Educational"], s04: ["TOFU", "Educational"],
+  s01: ["TOFU", "Pattern interrupt"], s06: ["TOFU", "Pattern interrupt"], s07: ["TOFU", "Pattern interrupt"],
+  s03: ["TOFU", "Problem solution"], s09: ["TOFU", "Problem solution"], s14: ["TOFU", "Before after"],
+  s11: ["MOFU", "Customer review"], s05: ["MOFU", "Us vs them"], s15: ["MOFU", "Unboxing"], s16: ["MOFU", "Behind the scenes"], s17: ["MOFU", "Social proof"], s12: ["MOFU", "Social proof"],
+  s18: ["BOFU", "Offer-led / bundle"], s19: ["BOFU", "Urgency (limited time)"], s20: ["BOFU", "Cart reminder"], s21: ["BOFU", "Guarantee"], s22: ["BOFU", "Review snippet + product image"],
+  s08: ["RET", "Morning ritual"], s23: ["RET", "Night ritual"], s24: ["RET", "Routine"], s25: ["RET", "Expectations"], s10: ["RET", "Routine on the move"]
+};
+for (const s of doc.scripts) { const p = PLACE[s.id]; if (!p) { console.error(s.id, "has no funnel place"); process.exit(1); } [s.funnel, s.concept] = p; }
+for (const f of doc.funnel) for (const c of f.concepts) if (!doc.scripts.some(s => s.funnel === f.id && s.concept === c)) { console.error("no script for", f.id, c); process.exit(1); }
+
+// Land "Replaces the stack" in every acquisition script; turn the two ritual scripts that moved into Retention away from discounts.
+const STACK = { Mornings: "One stick replaces the morning stack.", Nights: "One stick replaces the sleep stack.", Combo: "Two sticks replace the whole stack." };
+for (const s of doc.scripts) {
+  if (s.funnel === "RET") { s.message = "Ritual / routine"; continue; }
+  const line = STACK[s.product]; s.message = "Replaces the stack: " + line;
+  const sol = s.beats.find(b => b.part === "Solution"), cta = s.beats.find(b => b.part === "CTA");
+  const realWords = /real words|founder's words|their own words/i.test(sol.text);
+  const target = realWords ? cta : sol;
+  if (!/stack/i.test(target.text)) target.text = realWords ? `On screen: ${line} ${target.text}` : `${line} ${target.text}`;
+  if (!/stack/i.test(s.caption)) s.caption = `${line} ${s.caption}`;
+}
+// Hand placement where a glued-on line would break a list, a bill or a ticked list.
+const beat = (id, part) => doc.scripts.find(x => x.id === id).beats.find(b => b.part === part);
+const unglue = (id) => { const b = beat(id, "Solution"); b.text = b.text.replace(/^(One stick replaces the (morning|sleep) stack.|Two sticks replace the whole stack.) /, ""); };
+beat("s01", "Solution").text = "GOOD NEWS: One stick replaces the morning stack. Energy, gut and vitamins in 60 seconds.";
+unglue("s03"); beat("s03", "Problem").text = "Fair question. Here's the stack Rs 60 replaces.";
+unglue("s18"); beat("s18", "RTB").text = "Small print: Two sticks replace the whole stack · every dose on the pack · no melatonin · no added sugar";
+unglue("s20"); beat("s20", "Problem").text = "1. SILT Combo: two sticks that replace the stack";
+unglue("s21"); doc.scripts.find(x => x.id === "s21").message = "Replaces the stack (caption only; this one answers a delivery doubt)";
+const s08 = doc.scripts.find(s => s.id === "s08");
+s08.beats.find(b => b.part === "CTA").text = "P.S. Back online at 8. Your 60-second ritual.";
+s08.caption = "Your calendar is blocked all day. Mornings and nights are yours. SILT Mornings: the 60-second ritual.";
+s08.test = "Customers (cohort 1 and 2) on Instagram and WhatsApp; also usable as a TOFU ritual test later.";
+const s10 = doc.scripts.find(s => s.id === "s10");
+s10.beats.find(b => b.part === "CTA").text = "On screen: Pack 2 sticks for every day away. The ritual travels with you.";
+s10.caption = "Your mornings and nights don't stay home when you travel. Neither should your ritual. Pack 2 sticks for every day away.";
+s10.test = "Customers before festive and wedding travel (customers told us travel broke their routine).";
+
+doc.summary = `${doc.scripts.length} draft scripts in four groups. TOFU (new audiences), MOFU (retargeting) and BOFU (hot audiences) all land one clear message: Replaces the stack. Retention (existing customers) is about the ritual and routine (adherence). Each follows the Plan of Action shape: Hook (0 to 3 s), Problem (3 to 15 s), Solution (15 to 25 s), RTB (25 to 40 s), CTA (40 to 45 s); statics use the same order, top to bottom. Formats come first from the swipe file "Meta Ads That Should Be Illegal" and differ from script to script, because Meta's Andromeda update can treat near-identical ads as one. The matching statics are on the SILT Static Engine.`;
+doc.source = "Creative Concepts (TOFU / MOFU / BOFU) + Retention ritual + the swipe file (first reference) + the Plan of Action + the 24 Nov meeting";
+doc.rules.push("Guarantee ads: our refund policy (siltnutrition.com, updated 20 Nov 2026) says no returns once delivered; damaged or wrong products are replaced with photos sent within 72 hours. Never say \"easy returns\". Say COD only if checkout offers it.");
+
+const bad = JSON.stringify(doc).match(/[—–]/g);
+if (bad) { console.error("Has dashes:", bad.length); process.exit(1); }
+for (const s of doc.scripts) {
+  if (!/^s\d{2}$/.test(s.id)) { console.error("bad id", s.id); process.exit(1); }
+  if (s.beats.length !== 5) { console.error(s.id, "needs 5 beats"); process.exit(1); }
+  if (/AG1|Supply ?6|Oziva|Upside|Wellbeing|Stack Club/i.test(JSON.stringify(s))) { console.error(s.id, "names a competitor"); process.exit(1); }
+}
+const out = path.join(__dirname, "scripts.json");
+fs.writeFileSync(out, JSON.stringify(doc, null, 2));
+console.log(`wrote ${doc.scripts.length} scripts -> ${out}`);

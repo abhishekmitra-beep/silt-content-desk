@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "developersIndia",
+  "thread_title": "Find a post from the last 3 days: rotating or night shifts are wrecking my sleep",
+  "thread_summary": "Look for devs on rotational, night or US-overlap shifts asking how to sleep properly.",
+  "product": "nights",
+  "angle": "Education",
+  "text": "Two things help most on rotating shifts. First, keep an anchor: about 4 hours of sleep at the same clock time every day, whatever the shift, and add naps around it. Second, treat light like a switch. Get bright light when your shift starts, wear dark glasses on the way home after a night shift, and make the bedroom properly dark. Have caffeine in the first half of the shift only, so it's out of your system when you need to sleep.",
+  "why": "Shift work is common in Indian IT and services, and the advice is practical and evidence-based.",
+  "thread_url": "https://www.reddit.com/r/developersIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/developersIndia sidebar before commenting."
+}

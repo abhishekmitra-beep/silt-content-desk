@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-19",
+  "platform": "reddit_comment",
+  "slot": 5,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "Nootropics",
+  "thread_title": "Find a post from the last 3 days: What ratio of caffeine to L-theanine do the studies actually use?",
+  "thread_url": "https://www.reddit.com/r/Nootropics/new/",
+  "thread_summary": "Look for someone asking about caffeine and L-theanine dosing or ratios.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "The classic studies mostly used around 1:2, for example 50 mg caffeine with 100 mg L-theanine, or 40 mg with 97 mg, and a few used higher doses like 150 mg with 250 mg. The most consistent findings were for attention and task switching, measured within a couple of hours, and the effects were small. There's no strong evidence that one exact ratio is best. In practice, keeping the caffeine moderate matters more than the ratio, and many people find the theanine takes the edge off jitters.",
+  "why": "Careful sub that values citations. Study doses only, no product.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/Nootropics sidebar before commenting.",
+  "id": "2026-11-19_c5"
+}

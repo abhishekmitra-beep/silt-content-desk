@@ -1,0 +1,24 @@
+{
+  "product": "mornings",
+  "pillar": "Adherence",
+  "angle": "Poll",
+  "format": "Poll (1 day)",
+  "trend": "Poll idea from the playbook: last caffeine of the day",
+  "why": "Wednesday is a poll day. The answers tell us how many of our audience drink caffeine too late, which feeds the sleep content.",
+  "source": "https://siltnutrition.com/pages/quiz",
+  "text": "Be honest. Your last caffeine of the day is usually...",
+  "poll": {
+    "options": [
+      "Before noon",
+      "12 to 3 PM",
+      "3 to 6 PM",
+      "After 6 PM"
+    ],
+    "duration": "1 day",
+    "followup": "Thursday: share the result, then the tip. Caffeine has a half-life of about 5 hours, so a 5 PM chai is still half there at 10 PM. Suggest moving the last cup before 2 PM for a week and seeing what changes."
+  },
+  "date": "2026-11-25",
+  "platform": "x",
+  "slot": 2,
+  "status": "pending"
+}

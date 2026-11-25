@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 2,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "developersIndia",
+  "thread_title": "Find a post from the last 3 days: Burnout: I can't switch off after work and my mind keeps racing at night",
+  "thread_url": "https://www.reddit.com/r/developersIndia/new/",
+  "thread_summary": "Look for a dev describing racing thoughts at night, overwork, or poor sleep after long days.",
+  "product": "nights",
+  "angle": "Community help",
+  "text": "A few things that help many people: a fixed shutdown time with a short written list of tomorrow's tasks, so your head stops holding them, and 10 minutes of slow breathing or a walk before bed. Keep the last coffee before 2 PM, since caffeine has a half-life of around 5 hours. If this has been going on for months or comes with low mood, talking to a doctor or therapist is worth it, and a supplement isn't a substitute.",
+  "why": "Racing mind at night is our core Nights audience. Advice is behavioural and safe.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/developersIndia sidebar before commenting.",
+  "id": "2026-11-18_c2"
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 6,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "productivity",
+  "thread_title": "Find a post from the last 3 days: what's the best time of day for deep work?",
+  "thread_summary": "Look for someone asking when to schedule focused work, or who can't focus after lunch.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "For most people it's the late morning, roughly 2 to 4 hours after waking, when alertness is climbing and the day's meetings haven't started. Night owls peak later, so test it: rate your focus every hour for a week and look for the pattern. Whatever your window is, guard one 90-minute block in it and put email and calls in the early-afternoon dip, when deep work is hardest anyway.",
+  "why": "Scheduling deep work is a weekly question in r/productivity, and the advice ties into our 3 PM slump theme without a pitch.",
+  "thread_url": "https://www.reddit.com/r/productivity/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/productivity sidebar before commenting."
+}

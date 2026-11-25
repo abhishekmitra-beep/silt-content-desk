@@ -1,0 +1,12 @@
+{
+  "name": "silt-content-desk",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "node scripts/teardown-digest.mjs --store && wrangler pages deploy public --project-name silt-content-desk --branch main",
+    "desk": "node scripts/desk.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.162.0"
+  }
+}

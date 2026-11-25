@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-20",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: is decaf worth it, and how much caffeine does it still have?",
+  "thread_summary": "Look for someone cutting down on caffeine, asking about decaf in India, or wanting coffee at night.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "Decaf isn't zero caffeine, but it's close. A cup usually has a few milligrams, against about 60 to 100 mg in a regular filter coffee. For most people that's low enough to drink in the evening without hurting sleep. The taste depends a lot on the decaf process and the roast, so try a couple of roasters before writing it off. If you're cutting down, swapping only your afternoon cup to decaf gets you most of the sleep benefit.",
+  "why": "Decaf comes up often among coffee lovers trying to sleep better, and it ties into our caffeine-timing message.",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting."
+}

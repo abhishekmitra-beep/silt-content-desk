@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-23",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: does cold brew have more caffeine than hot coffee?",
+  "thread_summary": "Look for someone comparing cold brew with hot coffee for caffeine, acidity or taste.",
+  "product": "mornings",
+  "angle": "Education",
+  "text": "It depends on how strong it's made and how much you drink. Cold brew is usually brewed as a concentrate with a lot of coffee, so an undiluted glass can carry more caffeine than a regular cup. Diluted 1 to 1, it often lands about the same. If you're watching caffeine for sleep, the timing matters more than the brew method, so keep the big glass of cold brew to the morning.",
+  "why": "A recurring coffee-community question that fits our caffeine-timing message without repeating 24 Nov's cut-off-time card.",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting."
+}

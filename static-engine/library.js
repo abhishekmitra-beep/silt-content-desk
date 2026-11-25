@@ -1,0 +1,40 @@
+// Finished statics made outside the engine (the team's Nights statics rebuilt on the new box, 25 Nov 2026,
+// Drive: SILT_Content_room / St(temp)). Shown in the funnel tabs as ready-made images (4:5 and 9:16 only).
+// `check` = a claim that needs proof on file before it runs.
+const L = (id, slug, product, funnel, concept, title, check) => ({ id, slug, product, funnel, concept, title, check, kind: "library",
+  files: { "4x5": `SILT_${product === "mornings" ? "Mornings" : "Nights"}_${slug}_4x5_1080x1350`, "9x16": `SILT_${product === "mornings" ? "Mornings" : "Nights"}_${slug}_9x16_1080x1920` } });
+
+export const LIBRARY = [
+  L("L01", "Sleep-like-your-life", "nights", "TOFU", "Relatable", "Sleep like your life depends on it"),
+  L("L02", "Plan-Zzz", "nights", "TOFU", "Pattern interrupt", "Plan A, Plan B, Plan Zzz"),
+  L("L03", "Another-hour-gone", "nights", "TOFU", "Relatable", "Another hour gone"),
+  L("L04", "Nervous-system-downshift", "nights", "TOFU", "Educational", "Nervous system downshift", "Text-heavy: consider a shorter version."),
+  L("L05", "Daily-reminder", "nights", "TOFU", "Relatable", "Daily reminder: sleep early, avoid drama"),
+  L("L06", "Sleep-is-overrated", "nights", "TOFU", "Pattern interrupt", "Sleep is overrated, said no one"),
+  L("L07", "Youre-not-resting-A", "nights", "TOFU", "Problem solution", "You're not resting (A)", "Character may not read as Indian: swap the photo for an Indian one before it runs."),
+  L("L08", "Youre-not-resting-B", "nights", "TOFU", "Problem solution", "You're not resting (B)", "Character may not read as Indian: swap the photo for an Indian one before it runs."),
+  L("L09", "Sleep-like-it-used-to-be", "nights", "TOFU", "Relatable", "Sleep like it used to be"),
+  L("L10", "Sleep-is-the-work", "nights", "TOFU", "Educational", "Sleep is the work", "Text-heavy, and the character may not read as Indian."),
+  L("L11", "Cant-sleep-A", "nights", "TOFU", "Problem solution", "Can't sleep? (A)"),
+  L("L12", "Cant-sleep-B", "nights", "TOFU", "Problem solution", "Can't sleep? (B)"),
+  L("L13", "Struggling-with-poor-sleep", "nights", "TOFU", "Relatable", "Struggling with poor sleep"),
+  L("L14", "Ugly-sleep", "nights", "TOFU", "Relatable", "Ugly sleep is the best sleep"),
+  L("L15", "Mind-the-sleep", "nights", "TOFU", "Educational", "Mind the sleep", "The 40% learning claim needs its source on file."),
+  L("L16", "Let-go", "nights", "TOFU", "Relatable", "Good sleep lets you let go", "Character may not read as Indian: swap the photo for an Indian one before it runs."),
+  L("L17", "Your-pillow-not-your-office", "nights", "TOFU", "Relatable", "Your pillow, not your second office"),
+  L("L18", "Natural-immunity-shot", "nights", "TOFU", "Educational", "Healthy sleep is your natural immunity shot", "Immunity wording: check with the team before it runs."),
+  L("L19", "We-do-deep-sleep", "nights", "MOFU", "Behind the scenes", "We do deep sleep"),
+  L("L20", "86-percent-fall-asleep-faster", "nights", "MOFU", "Social proof", "86% fell asleep faster", "Keep the 22-person consumer study on file (Meta / ASCI)."),
+  L("L21", "Melatonin-zombie", "nights", "MOFU", "Us vs them", "Took melatonin, now a zombie"),
+  L("L22", "Still-tired", "nights", "MOFU", "Educational", "Still tired after a full night?", "The magnesium '300+ reactions' line needs its source on file."),
+  L("L23", "10-15-minutes", "nights", "MOFU", "Educational", "Falling asleep should take 10 to 15 minutes"),
+  L("L24", "Morning-essentials-infographic", "mornings", "MOFU", "Educational", "Morning essentials infographic"),
+  L("L25", "Sleep-like-a-rock", "nights", "BOFU", "Offer-led / bundle", "Sleep like a rock"),
+  L("L26", "Sleep-like-a-bear", "nights", "BOFU", "Offer-led / bundle", "Sleep like a bear"),
+  L("L27", "Want-less-stress", "nights", "BOFU", "Offer-led / bundle", "Want less stress?"),
+  L("L28", "A-more-rested-you", "nights", "BOFU", "Offer-led / bundle", "A more rested you"),
+  L("L29", "Sleep-deeper-stress-lower", "nights", "BOFU", "Offer-led / bundle", "Sleep deeper, stress lower"),
+  L("L30", "Restock-15-steadier-mornings", "mornings", "RET", "Restock", "Restock: 15 steadier mornings"),
+  L("L31", "Restock-15-deeper-nights", "nights", "RET", "Restock", "Restock: 15 deeper nights"),
+  L("L32", "Repair-work", "nights", "RET", "Night ritual", "Your body does its best repair work while you sleep")
+];

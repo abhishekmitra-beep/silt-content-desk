@@ -1,0 +1,653 @@
+{
+  "title": "Retention: own the ritual",
+  "source": "SILT Plan of Action (Google Doc) + the 24 Nov retention meeting notes",
+  "based_on": "2026-11-25 (v3: checked against the detailed meeting notes)",
+  "summary": "Keep it simple: two cohorts. Cohort 1 is the first week after delivery (unboxing, how to use, setting a routine). Cohort 2 is adherence (helping people keep the routine). Trust and product-education messages go to both. Every message below says who gets it, what it says, when it goes, and how we'll know it worked. Ritual positioning (owning mornings and nights) is the direction the team leaned towards, but the exact benefit language is still open. Everything marked as an idea or open question still needs a decision.",
+  "persona": "The SILT Nutrition Buddy is a friend, not a parent. Tongue-in-cheek, with corporate puns (stand-ups, EOD reports, blocked calendars), short lines and one idea per message. No fear: it may work short term, but it doesn't build a brand. Images with a few short lines and one interaction tend to get read more than long copy. Every message has English and Hindi (Hinglish) copy. Send Hindi only to customers who asked for it (the first message offers it); never guess from the city. No em dashes, no cure claims, doses exactly as printed on the pack, and every health line checked before it goes live.",
+  "decisions": [
+    "Start with two retention cohorts: First week after delivery, and Adherence.",
+    "Trust and product-education messages can go to both cohorts.",
+    "For every message, write down who gets it, what they get, when it goes, and the success metric for its cohort.",
+    "Draft the messages in English and Hindi, but set each customer's language from their own preference.",
+    "Get a Quick Pass demo; it hasn't been looked at properly yet.",
+    "Meta stays the near-term acquisition focus."
+  ],
+  "ideas": [
+    "Ritual positioning: own the morning and the night, not only functional supplement language.",
+    "A first message the day after delivery: \"Thank you for being a part of the SILT family\".",
+    "A short-term cadence of one short message a day or every other day, on a calendar.",
+    "A day 4 check-in like \"Are your energy levels better?\" (wording and metric still to agree).",
+    "A ritual newsletter with a memorable name.",
+    "A rule of thumb of 2 ROAS after a creative's first week to scale it or replace it. Part of this was unclear in the recording; confirm the exact rule.",
+    "Explore ChatGPT ads in 1 to 2 months.",
+    "3 to 5 blogs a week from monthly search trends, plus aggregator, marketplace (Amazon, Flipkart) and paid listings for AI search visibility. Target, owner and quality bar not set.",
+    "Gamification, a leaderboard and a power-user community (further down this page)."
+  ],
+  "open_questions": [
+    "Current customer count: both 250 and 280 were said. Also the product mix and the repeat-order rate today.",
+    "Which success metric and how many messages a week for each cohort.",
+    "WhatsApp message types (utility vs marketing), consent, opt-out handling and send limits.",
+    "Which health and product lines are substantiated and approved (each message below lists what to check).",
+    "Can Shopify, the Leads tab or Goku reliably give the segmentation fields, and on what consent basis?",
+    "Is 2 ROAS after week 1 the agreed rule? Recheck all campaign figures in Ads Manager before using them.",
+    "Which game and community ideas are feasible and worth testing first.",
+    "What happened with the Quick Pass demo, and what it can really do."
+  ],
+  "experiment": {
+    "note": "Start with a small, measurable test before any automation.",
+    "steps": [
+      "Send Cohort 1 (r01 to r07) by hand from WhatsApp Business to the next 30 or so deliveries, only to customers who opted in.",
+      "Move each of them into Cohort 2 on day 8.",
+      "Track replies to r03, r05 and r07, opt-outs, and second orders by the day their box runs out.",
+      "Compare second-order rate with customers who got no messages (the ones before the test).",
+      "After two weeks, keep what got replies, cut what didn't, then automate."
+    ]
+  },
+  "insights": [
+    "A team member spoke to about 100 customers. Most hadn't finished their existing supplement stack.",
+    "Some weren't regular because of Diwali, travel or routines changing. The product isn't top of mind yet.",
+    "Some people may take a supplement break for 3 to 4 months a year (an investor said the same, informally). How common this is for SILT customers isn't known yet; treat it as something to check.",
+    "Customer count was given as both about 250 and about 280. At this size the job is the second order; detailed psychographic segmentation can wait until around 1,000 customers.",
+    "About 50 customers were said to come from Meta ads. Conversations in the Leads tab may give richer context than ad data alone."
+  ],
+  "pillars": [
+    {
+      "name": "Adherence",
+      "points": [
+        "Simple and convenient: one stick replaces the stack",
+        "Tasty: the tastiest night drink",
+        "Solves their problem, shown through reviews",
+        "Cool: wellness celebrated, not medicinal",
+        "Ritual: own the morning and the night, like chai"
+      ]
+    },
+    {
+      "name": "Trust",
+      "points": [
+        "100% honest",
+        "100% transparent",
+        "100% evidence backed",
+        "Why it's made this way (5 g PHGG fibre, no melatonin, every dose on the pack)"
+      ]
+    }
+  ],
+  "ritual": {
+    "note": "The ideas the meeting asked for. Use them in messages, the newsletter and ads.",
+    "angles": [
+      {
+        "name": "Mornings is the hero",
+        "detail": "Make the first 30 minutes sacred: no phone, one SILT Mornings. Plenty of CEOs guard their first hour; start with 30 minutes."
+      },
+      {
+        "name": "Your calendar is blocked. Mornings and nights are yours.",
+        "detail": "The corporate pun that carries the whole ritual. Calendar-invite images work well on WhatsApp."
+      },
+      {
+        "name": "Boring is interesting",
+        "detail": "Brushing, chai, SILT. The habits that work are the ones you stop thinking about."
+      },
+      {
+        "name": "Mornings benefit language (still open)",
+        "detail": "Gut health may not feel relevant to someone without a gut complaint. \"Feeling refreshed to take on the day\" was one suggestion. Any \"energy\" or before-and-after message has to be clearly defined and supported, using real customer words only."
+      },
+      {
+        "name": "Brainstorm: the washroom story",
+        "detail": "The founder's funny story about time in the washroom (the founder's wife jokingly cast as the \"chief architect\"), and a poll: \"Which kind of a washroom person are you? Once, twice, three times a day.\" Brainstorm only: the founder tells the story in their own words, and it gets a sensitivity check first."
+      },
+      {
+        "name": "Brainstorm: sleep humour",
+        "detail": "A joke about Nights making sleep so sound that a partner needs earplugs. Brainstorm only; check it for accuracy and brand fit."
+      }
+    ],
+    "lines": {
+      "note": "Candidates for a memorable line, like \"10,000 steps\". Pick one and use it everywhere.",
+      "options": [
+        "One for the grind, one for the unwind.",
+        "Two sticks. Twenty-four hours.",
+        "Your 60-second ritual.",
+        "AM sorted. PM sorted.",
+        "Mornings and nights aren't on the company calendar."
+      ]
+    },
+    "newsletter": {
+      "note": "A weekly ritual newsletter on WhatsApp and email: one image, three short lines, one poll. Names to pick from:",
+      "options": [
+        "60-Second Ritual Read (floated in the meeting)",
+        "1 AM PM (floated in the meeting)",
+        "The Daily Stand-up (Mornings) + EOD Report (Nights)",
+        "AM/PM Memo",
+        "Minutes of the Morning"
+      ]
+    }
+  },
+  "framework": {
+    "note": "WhatsApp marketing split into cohorts: acquisition, retention and cross-sell. The meeting didn't finalise cadence or metrics, so the frequency and metric in each row are our proposal for the team to confirm. Only the two retention cohorts marked Now are being built.",
+    "rows": [
+      {
+        "group": "Retention",
+        "cohort": "Cohort 1: First week",
+        "who": "Day 1 to 7 after delivery",
+        "goal": "Unboxing, set the routine, first check-in",
+        "frequency": "Daily",
+        "metric": "Day 4 and day 7 check-in reply rate",
+        "when": "Now"
+      },
+      {
+        "group": "Retention",
+        "cohort": "Cohort 2: Adherence",
+        "who": "Day 8 until the second order",
+        "goal": "Keep the ritual going, reorder before the last stick",
+        "frequency": "Every other day",
+        "metric": "Second-order rate (orders per customer)",
+        "when": "Now"
+      },
+      {
+        "group": "Retention (long term)",
+        "cohort": "Second box",
+        "who": "Customers on their second order",
+        "goal": "Make it a habit; streaks and score",
+        "frequency": "2 a week",
+        "metric": "Third-order rate",
+        "when": "Later"
+      },
+      {
+        "group": "Retention (long term)",
+        "cohort": "Ritual club",
+        "who": "Power users (3+ orders or regularity 80+)",
+        "goal": "Community, leaderboard, early access",
+        "frequency": "Weekly",
+        "metric": "Orders per customer, referrals",
+        "when": "Later"
+      },
+      {
+        "group": "Cross-sell",
+        "cohort": "Mornings only",
+        "who": "Bought Mornings, never Nights",
+        "goal": "Try Nights; Combo with COMBO10",
+        "frequency": "1 a week",
+        "metric": "Combo or Nights attach rate",
+        "when": "Later"
+      },
+      {
+        "group": "Cross-sell",
+        "cohort": "Nights only",
+        "who": "Bought Nights, never Mornings",
+        "goal": "Try Mornings; Combo with COMBO10",
+        "frequency": "1 a week",
+        "metric": "Combo or Mornings attach rate",
+        "when": "Later"
+      },
+      {
+        "group": "Acquisition",
+        "cohort": "Pre-bookers who never bought",
+        "who": "Signed up before launch, no order",
+        "goal": "First order",
+        "frequency": "1 a week",
+        "metric": "Sessions created, then checkouts",
+        "when": "Later"
+      },
+      {
+        "group": "Acquisition",
+        "cohort": "Quiz takers",
+        "who": "Took siltnutrition.com/pages/quiz, no order",
+        "goal": "First order, matched to their quiz answer",
+        "frequency": "1 a week",
+        "metric": "Sessions, time on page, checkouts",
+        "when": "Later"
+      }
+    ],
+    "metrics_note": "Metrics discussed: orders per customer, time browsed, sessions created, time on page, checkout progress. A message that brings someone back to the site is an early sign of interest; then look at what they do on the page and whether they check out."
+  },
+  "segmentation": {
+    "note": "No psychographic data yet, and at this size we don't need it. Start with basic customer and order data. Together these give the three cuts that make messaging programmatic: who to send to, what to send, and when.",
+    "params": [
+      {
+        "name": "Product bought",
+        "values": "Mornings, Nights, Combo",
+        "use": "Which messages apply (Mornings-only messages skip Nights buyers, and the other way round)."
+      },
+      {
+        "name": "Which ad or source they came from",
+        "values": "Replaces the stack, Retargeting, Proof",
+        "use": "Keep the story they bought into. Replaces-the-stack buyers get convenience lines; Proof buyers get the science and reviews."
+      },
+      {
+        "name": "Order count and recency",
+        "values": "Days since delivery, number of orders, pack size",
+        "use": "Which cohort, and the day in the flow."
+      },
+      {
+        "name": "Language preference",
+        "values": "English or Hindi, from the customer's own reply to r01",
+        "use": "Which copy they get. City alone doesn't decide it."
+      },
+      {
+        "name": "Age group, city and state",
+        "values": "From the order or the lead form",
+        "use": "Tone and references; later, city communities."
+      }
+    ],
+    "cuts": [
+      {
+        "name": "Who",
+        "detail": "Cohort (from order count and days since delivery) plus product bought."
+      },
+      {
+        "name": "What",
+        "detail": "The message for that day, in the language they chose, matching the ad they came from."
+      },
+      {
+        "name": "When",
+        "detail": "Morning messages at 8 AM, night messages at 9:30 PM, unless the customer gave their own times."
+      }
+    ],
+    "open": "Not confirmed: whether Shopify, the Leads tab or Goku can reliably give these fields, and on what consent basis."
+  },
+  "expectations": {
+    "note": "From our website's own timeline. Use it to set expectations, so nobody quits in week one waiting for something that takes a month. The 'you won't feel it' items are what the plan calls the placebo column: they work quietly, so trust content has to carry them.",
+    "rows": [
+      {
+        "product": "Mornings",
+        "benefit": "Energy, alertness and calm focus",
+        "when": "Within 1 week",
+        "feel": "Felt fast"
+      },
+      {
+        "product": "Mornings",
+        "benefit": "Digestion and good gut bacteria",
+        "when": "2 to 4 weeks",
+        "feel": "Felt slowly"
+      },
+      {
+        "product": "Mornings",
+        "benefit": "Everyday vitamin gaps filled",
+        "when": "Over the months",
+        "feel": "Not felt day to day"
+      },
+      {
+        "product": "Nights",
+        "benefit": "Falling asleep faster",
+        "when": "Within 1 week",
+        "feel": "Felt fast"
+      },
+      {
+        "product": "Nights",
+        "benefit": "Relaxed nerves and muscles",
+        "when": "2 to 4 weeks",
+        "feel": "Felt slowly"
+      },
+      {
+        "product": "Nights",
+        "benefit": "Lower stress and cortisol",
+        "when": "4 to 12 weeks",
+        "feel": "Not felt day to day"
+      }
+    ],
+    "rule": "For best results, use consistently for at least 3 months (as stated on our site)."
+  },
+  "stages": [
+    {
+      "id": "first_week",
+      "name": "Cohort 1: First week",
+      "days": "Day 1 to 7 after delivery · daily",
+      "goal": "Thank them, make the first sticks happen, set the routine, and ask how it's going on day 4 and day 7."
+    },
+    {
+      "id": "adherence",
+      "name": "Cohort 2: Adherence",
+      "days": "Day 8 to the second order · every other day",
+      "goal": "Keep the ritual top of mind through travel and festivals, and get the reorder in before the last stick."
+    },
+    {
+      "id": "both",
+      "name": "Trust and the newsletter: both cohorts",
+      "days": "Weekly",
+      "goal": "Why SILT is made this way. Sent to both cohorts."
+    },
+    {
+      "id": "lapsed",
+      "name": "When they slip",
+      "days": "Triggered",
+      "goal": "Missed days and supplement breaks, handled like a friend: no guilt, no fear."
+    }
+  ],
+  "messages": [
+    {
+      "id": "r01",
+      "stage": "first_week",
+      "day": "Day 1",
+      "trigger": "The day after delivery, 10 AM",
+      "who": "Every new customer",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Thank you, welcome to the family, and ask their language",
+      "image": "Unboxing flat lay of the real box with both sticks, warm morning light.",
+      "text": "Hi {first_name}, thank you for being a part of the SILT family! 🧡\n\nYour ritual in one line: Mornings any time in the morning, Nights 30 to 60 minutes before bed. One stick, one glass of water, 60 seconds.\n\nWe'll check in now and then, like a friend would. Reply STOP any time.\n\nHindi mein chahiye? Reply HINDI.\n\nSILT Nutrition Buddy",
+      "text_hi": "Hi {first_name}, SILT family ka hissa banne ke liye thank you! 🧡\n\nRitual ek line mein: Mornings subah kabhi bhi, Nights sone se 30 se 60 minute pehle. Ek stick, ek glass paani, bas 60 second.\n\nHum beech beech mein check-in karenge, ek dost ki tarah. Kabhi bhi STOP reply kar dijiye.\n\nEnglish mein chahiye? Reply ENGLISH.\n\nSILT Nutrition Buddy",
+      "branches": [
+        "HINDI: tag the customer as Hindi; every later message uses the Hindi copy.",
+        "No reply: stay on English. Never switch language based on the city alone.",
+        "STOP: remove them from every flow straight away."
+      ],
+      "check": "Opt-in and the WhatsApp template category (utility or marketing).",
+      "metric": "Opt-outs; share who reply HINDI."
+    },
+    {
+      "id": "r02",
+      "stage": "first_week",
+      "day": "Day 1",
+      "trigger": "Right after r01",
+      "who": "Every new customer",
+      "channel": "WhatsApp (utility)",
+      "format": "How-to video",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "How to use, as a utility message",
+      "image": "The 20-second how-to video: tear, pour, stir, sip. Hands only, real sound.",
+      "text": "The 20-second how-to 👇 Tear, pour into 200 to 250 ml of water, stir for 10 seconds, sip. The fibre dissolves clear, so no sludge at the bottom.",
+      "text_hi": "20 second ka how-to 👇 Stick kholo, 200 se 250 ml paani mein daalo, 10 second hilao, aur piyo. Fibre poora ghul jaata hai, neeche kuch nahi bachta.",
+      "check": "\"Dissolves clear\" and the 200 to 250 ml line against the pack.",
+      "metric": "Video views."
+    },
+    {
+      "id": "r03",
+      "stage": "first_week",
+      "day": "Day 2",
+      "trigger": "8 AM",
+      "who": "Every new customer",
+      "channel": "WhatsApp (quick replies)",
+      "format": "Text + quick replies",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Put the box where they'll see it",
+      "text": "Quick one: where does your SILT box live? 🏠\n1 Kitchen\n2 Work desk\n3 Bedside\n4 Still in the courier bag 😅\n\nHabit tip: if you can see it, you'll drink it.",
+      "text_hi": "Ek chhota sa sawaal: aapka SILT box kahan rehta hai? 🏠\n1 Kitchen\n2 Work desk\n3 Bedside\n4 Abhi bhi courier bag mein 😅\n\nHabit tip: jo dikhega, wahi piya jayega.",
+      "branches": [
+        "4: \"Unbox it tonight: Mornings next to the kettle, Nights next to the bed. Done.\"",
+        "1 to 3: \"Perfect spot. See you there tomorrow.\""
+      ],
+      "metric": "Reply rate."
+    },
+    {
+      "id": "r04",
+      "stage": "first_week",
+      "day": "Day 3",
+      "trigger": "7 AM",
+      "who": "Mornings or Combo buyers",
+      "channel": "WhatsApp",
+      "format": "Calendar-invite image + text",
+      "product": "Mornings",
+      "pillar": "Adherence",
+      "goal": "Mornings as the hero: 30 minutes without the phone",
+      "image": "A calendar invite: \"Blocked · 7:30 to 8:00 AM · Me time (no phone) · SILT Mornings\".",
+      "text": "Your calendar is full of other people's meetings. Mornings and nights are yours. 📅\n\nTry this tomorrow: block 30 minutes as \"Me time\". No phone, one SILT Mornings, one window. Plenty of CEOs guard their first hour. You can start with 30 minutes.",
+      "text_hi": "Aapka calendar doosron ki meetings se bhara hai. Subah aur raat aapki apni hai. 📅\n\nKal try kijiye: 30 minute \"Me time\" block kijiye. Phone nahi, ek SILT Mornings, ek khidki. Kai CEOs apna pehla ghanta bachate hain. Aap 30 minute se shuru kijiye.",
+      "check": "The CEO line is a general observation, not a claim; keep it that way.",
+      "metric": "Replies or reactions."
+    },
+    {
+      "id": "r05",
+      "stage": "first_week",
+      "day": "Day 4",
+      "trigger": "11 AM",
+      "who": "Every new customer (Nights-only buyers get the sleep version)",
+      "channel": "WhatsApp (quick replies)",
+      "format": "Text + quick replies",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "The \"energy better?\" check-in",
+      "text": "Day 4 check-in ☀️ Is your energy better than before you started?\n1 Yes, steadier\n2 A little\n3 Not yet\n4 I have taste feedback\n\n(Not yet is normal. Energy usually shows up within the first week. Gut and deeper sleep take 2 to 4 weeks.)",
+      "text_hi": "Day 4 check-in ☀️ Kya energy shuru karne se pehle se behtar hai?\n1 Haan, zyada steady\n2 Thodi si\n3 Abhi nahi\n4 Taste pe kuch kehna hai\n\n(Abhi nahi bilkul normal hai. Energy aam taur pe pehle hafte mein dikhti hai. Gut aur gehri neend mein 2 se 4 hafte lagte hain.)",
+      "branches": [
+        "Nights-only buyers get: \"Falling asleep any easier?\" with the same four replies.",
+        "1 or 2: \"Love that. Keep going, the next benefits build over 2 to 4 weeks.\" Tag as happy for the day 7 review ask.",
+        "3: \"Fair, and thanks for being straight with us. Give it till day 7 and tell us again?\"",
+        "4: a person on the team replies within a day."
+      ],
+      "check": "The timelines come from our website; confirm they're the approved wording. The team still has to agree this check-in's wording.",
+      "metric": "Reply rate; share answering 1 or 2."
+    },
+    {
+      "id": "r06",
+      "stage": "first_week",
+      "day": "Day 5",
+      "trigger": "9:30 PM",
+      "who": "Nights or Combo buyers",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "Nights",
+      "pillar": "Adherence",
+      "goal": "Own the night: the EOD report",
+      "image": "An \"EOD report\" checklist card: Laptop closed ✅ Tabs closed ✅ SILT Nights ✅ Phone down ⬜",
+      "text": "EOD report time 🌙\nLaptop closed? ✅\nTabs closed? ✅\nNow log off properly: SILT Nights 30 to 60 minutes before bed, then phone down. No melatonin, so nothing knocks you out. It just helps you wind down.",
+      "text_hi": "EOD report ka time 🌙\nLaptop band? ✅\nTabs band? ✅\nAb theek se log off kijiye: sone se 30 se 60 minute pehle SILT Nights, phir phone side mein. Melatonin nahi hai, toh koi zabardasti ki neend nahi. Bas dimaag shaant hota hai.",
+      "check": "\"Helps you wind down\" against approved Nights wording.",
+      "metric": "Replies or reactions."
+    },
+    {
+      "id": "r07",
+      "stage": "first_week",
+      "day": "Day 7",
+      "trigger": "11 AM",
+      "who": "Every new customer",
+      "channel": "WhatsApp (quick replies)",
+      "format": "Text + quick replies",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "One week done, review ask if happy",
+      "text": "One week of the SILT ritual! 🔥 Rate your week from 1 (meh) to 5 (obsessed).",
+      "text_hi": "SILT ritual ka ek hafta poora! 🔥 Apne hafte ko 1 (theek thaak) se 5 (fan ho gaye) tak rate kijiye.",
+      "branches": [
+        "4 or 5: \"Would you tell other busy people? A 30-second review helps more than you'd think: {review_link}\"",
+        "1 to 3: \"Thanks for the honesty. What would make it better: taste, timing, or results?\" A person replies."
+      ],
+      "metric": "Reply rate; reviews left."
+    },
+    {
+      "id": "r08",
+      "stage": "adherence",
+      "day": "Day 9",
+      "trigger": "8 AM",
+      "who": "Cohort 2",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Boring is interesting",
+      "image": "Three icons in a row: toothbrush, chai cup, SILT stick. Caption: \"Boring. Works.\"",
+      "text": "Hot take: boring is interesting. 😌 Brushing, chai, SILT. The habits that work are the ones you stop thinking about.\n\nYou're on day 9 of being wonderfully boring. Keep going.",
+      "text_hi": "Hot take: boring hi interesting hai. 😌 Brush, chai, SILT. Jo aadatein kaam karti hain, unke baare mein sochna nahi padta.\n\nAaj aapka boring hone ka 9th din hai. Lage rahiye.",
+      "metric": "Replies or reactions."
+    },
+    {
+      "id": "r09",
+      "stage": "adherence",
+      "day": "Day 10",
+      "trigger": "6 PM",
+      "who": "Cohort 2",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Travel and wedding season: take the ritual along",
+      "image": "Two sticks slipping into a laptop bag pocket.",
+      "text": "Travelling or shaadi-hopping this season? 🧳 The sticks fit in a laptop bag. Pack two for every day away, and the ritual comes with you. Mornings before the first meeting, Nights before bed, even in a hotel room.",
+      "text_hi": "Is season travel ya shaadiyon mein busy hain? 🧳 Sticks laptop bag mein aa jaati hain. Jitne din bahar, utne din ki do sticks rakh lijiye, ritual saath chalega. Mornings pehli meeting se pehle, Nights sone se pehle, hotel room mein bhi.",
+      "metric": "Replies or reactions."
+    },
+    {
+      "id": "r10",
+      "stage": "adherence",
+      "day": "Day 11 (15-pack) / Day 26 (30-pack)",
+      "trigger": "4 sticks left",
+      "who": "Cohort 2, no reorder yet",
+      "channel": "WhatsApp + email",
+      "format": "Text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Running out: reorder with the Combo offer",
+      "text": "Heads up: about 4 sticks left. Don't break the streak right when it starts working. 🙌 Reorder here: {reorder_link}\n\nOnly on one stick? The Combo (Mornings + Nights) gets an extra 10% off with code COMBO10. One for the grind, one for the unwind.",
+      "text_hi": "Heads up: lagbhag 4 sticks bachi hain. Jab kaam karna shuru ho raha hai, tab streak mat todiye. 🙌 Reorder yahan: {reorder_link}\n\nAbhi sirf ek stick le rahe hain? Combo (Mornings + Nights) pe COMBO10 code se extra 10% off. Ek kaam ke liye, ek aaram ke liye.",
+      "check": "COMBO10 is live and the reorder link works.",
+      "metric": "Clicks, then orders (second-order rate)."
+    },
+    {
+      "id": "r11",
+      "stage": "adherence",
+      "day": "Day 13 (15-pack) / Day 28 (30-pack)",
+      "trigger": "No reorder yet",
+      "who": "Cohort 2, no reorder yet",
+      "channel": "WhatsApp",
+      "format": "Text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Last call, protect the streak",
+      "text": "Kal khatam! Your last SILT stick is tomorrow. You've built a {streak}-day ritual, so let's not reset it to zero. {reorder_link} (COMBO10 still works on the Combo.)",
+      "text_hi": "Kal khatam! Kal aapki aakhri SILT stick hai. {streak} din ka ritual bana hai, use zero pe mat laaiye. {reorder_link} (Combo pe COMBO10 abhi bhi chalega.)",
+      "metric": "Orders before the box runs out."
+    },
+    {
+      "id": "r12",
+      "stage": "both",
+      "day": "Day 6 (cohort 1) / Day 12 (cohort 2)",
+      "trigger": "7 PM",
+      "who": "Mornings or Combo buyers",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "Mornings",
+      "pillar": "Trust",
+      "goal": "Why 5 g of fibre, and why PHGG",
+      "image": "The back-of-pack panel, cropped to the fibre line, with an orange marker on \"5 g\".",
+      "text": "Why 5 g of fibre, and why PHGG? 🤓\n\nMost of us eat about 12 g of fibre a day against a 25 to 30 g target. PHGG dissolves thin in water instead of turning to sludge, and it ferments more slowly than inulin in lab tests. So you actually keep drinking it. The right dose, in a form you won't skip.",
+      "text_hi": "5 g fibre kyun, aur PHGG kyun? 🤓\n\nHum mein se zyaadatar log din mein lagbhag 12 g fibre khaate hain, jabki target 25 se 30 g hai. PHGG paani mein ghul jaata hai, gaadha nahi hota, aur lab tests mein inulin se dheere ferment hota hai. Isliye log ise peete rehte hain. Sahi dose, aisi form mein jo aap skip na karein.",
+      "check": "Health lines to substantiate: the 12 g vs 25 to 30 g fibre figures and their source, and PHGG fermenting more slowly than inulin in lab tests.",
+      "metric": "Replies; clicks to the lab reports."
+    },
+    {
+      "id": "r13",
+      "stage": "both",
+      "day": "Day 8 (cohort 1 end) / Day 14 (cohort 2)",
+      "trigger": "9 PM",
+      "who": "Nights or Combo buyers",
+      "channel": "WhatsApp",
+      "format": "Image + text",
+      "product": "Nights",
+      "pillar": "Trust",
+      "goal": "Why no melatonin",
+      "image": "The Nights pack with four ingredient chips: 3 g glycine, 250 mg magnesium, 300 mg ashwagandha, 200 mg L-theanine.",
+      "text": "Why is there no melatonin in SILT Nights? 🌙 Because it's a hormone, and we'd rather help your body do its own thing. Instead: 3 g glycine for falling asleep, 250 mg magnesium for recovery, ashwagandha and L-theanine for the racing mind. Every dose is printed on the pack.",
+      "text_hi": "SILT Nights mein melatonin kyun nahi hai? 🌙 Kyunki woh ek hormone hai, aur hum chahte hain ki aapka body apna kaam khud kare. Iske badle: neend aane ke liye 3 g glycine, recovery ke liye 250 mg magnesium, aur bhaagte dimaag ke liye ashwagandha aur L-theanine. Har dose pack pe likha hai.",
+      "check": "Ingredient roles (glycine for falling asleep, magnesium for recovery, ashwagandha and L-theanine for a racing mind) against approved wording.",
+      "metric": "Replies or reactions."
+    },
+    {
+      "id": "r14",
+      "stage": "both",
+      "day": "Weekly, Sunday 9 AM",
+      "trigger": "Weekly",
+      "who": "Both cohorts",
+      "channel": "WhatsApp + email",
+      "format": "Newsletter: 1 image, 3 lines, 1 poll",
+      "product": "All",
+      "pillar": "Trust",
+      "goal": "The ritual newsletter, sample edition",
+      "image": "A newspaper-style masthead with the newsletter's name and \"Edition 1\".",
+      "text": "60-Second Ritual Read · Edition 1 📰\n\n1. Caffeine has a half-life of about 5 hours, so a 5 PM chai is still half there at 10 PM.\n2. Your Mornings stick pairs 80 mg caffeine with 200 mg L-theanine for focus without the jitters.\n3. Boring habits win. Same time, same place, every day.\n\nPoll: when's your last caffeine? Reply 1 before noon, 2 by 3 PM, 3 after 3 PM.",
+      "text_hi": "60-Second Ritual Read · Edition 1 📰\n\n1. Caffeine ki half-life lagbhag 5 ghante hai, toh shaam 5 baje ki chai raat 10 baje bhi aadhi body mein hoti hai.\n2. Aapki Mornings stick mein 80 mg caffeine ke saath 200 mg L-theanine hai: focus, bina ghabrahat ke.\n3. Boring aadatein jeet-ti hain. Same time, same jagah, roz.\n\nPoll: aapki aakhri caffeine kab hoti hai? Reply 1 dopahar se pehle, 2 teen baje tak, 3 teen baje ke baad.",
+      "check": "Caffeine half-life (about 5 hours) and the L-theanine line against approved wording.",
+      "metric": "Poll replies; site sessions from the link."
+    },
+    {
+      "id": "r15",
+      "stage": "lapsed",
+      "day": "Triggered",
+      "trigger": "No check-in for 3 days, or a call says they've been irregular",
+      "who": "Cohort 1 or 2",
+      "channel": "WhatsApp",
+      "format": "Text",
+      "product": "All",
+      "pillar": "Adherence",
+      "goal": "Missed days: no guilt, just restart",
+      "text": "Missed a few days? Totally normal. Festivals, travel, life. 🙂 No lecture from us. Just pick it up tomorrow morning, and we'll start a fresh streak from day 1.",
+      "text_hi": "Kuch din miss ho gaye? Bilkul normal hai. Tyohaar, travel, zindagi. 🙂 Hum lecture nahi denge. Bas kal subah se phir shuru kijiye, hum nayi streak day 1 se ginenge.",
+      "metric": "Check-ins restarted within 3 days."
+    },
+    {
+      "id": "r16",
+      "stage": "lapsed",
+      "day": "Triggered",
+      "trigger": "Says they're taking a break, or 20 days after running out with no reorder",
+      "who": "Anyone",
+      "channel": "WhatsApp or email",
+      "format": "Text",
+      "product": "All",
+      "pillar": "Trust",
+      "goal": "Supplement break: honest, friendly win-back",
+      "text": "Taking a supplement break? Some people do for a few months a year, and that's your call. Two small things: tell us in one line what made you pause (taste, price, results, or just life). Our founder reads every reply. And when you're back, COMBO10 gets you an extra 10% off the Combo. No spam in between, promise.",
+      "text_hi": "Supplement se break le rahe hain? Kuch log saal mein kuch mahine ka break lete hain, aur yeh aapka faisla hai. Bas do baatein: ek line mein bataiye kyun ruke (taste, price, results, ya bas zindagi). Hamare founder har reply padhte hain. Aur jab wapas aayein, COMBO10 se Combo pe extra 10% off. Beech mein koi spam nahi, promise.",
+      "check": "How common supplement breaks are among our customers is unverified, so the wording stays soft.",
+      "metric": "Replies with a reason; win-back orders."
+    }
+  ],
+  "mechanics": [
+    {
+      "name": "Daily check-in: \"Kya aapne SILT liya?\"",
+      "how": "One nudge at the customer's chosen time. They reply ✅ to log it. Skip days they've already logged, and never send more than two a day.",
+      "needs": "A WhatsApp Business API tool connected to Shopify orders."
+    },
+    {
+      "name": "Photo streaks",
+      "how": "To log a day, send a timestamped photo of the morning routine or a sleep-score screenshot at night. Photos and videos earn the same points, to keep it simple. Submissions could become UGC, but only with clear written permission and names hidden. Real screenshots only; we never make or edit them.",
+      "needs": "The WhatsApp tool's media inbox, a simple log, and a permission and privacy note."
+    },
+    {
+      "name": "Coins and offers",
+      "how": "Streak days and game scores earn coins; coins unlock offers (the CRED playbook as the analogy).",
+      "needs": "A points sheet to start, then a Shopify loyalty app."
+    },
+    {
+      "name": "A nostalgic game",
+      "how": "Ideas: brick breaker (a SILT Mornings paddle breaking \"Fatigue in the afternoon\" bricks, a few levels), Tetris, Snake, Snakes and Ladders, pinball. On a Shopify tab or behind login, not a separate website.",
+      "needs": "A technical scope (an action item from the meeting)."
+    },
+    {
+      "name": "Leaderboard and perks",
+      "how": "Scorecards and a leaderboard after login. First name and city only, opt-in.",
+      "needs": "Login on the site, consent, a monthly review."
+    },
+    {
+      "name": "Power-user community",
+      "how": "Roughly 50 to 60 power users, possibly split by city.",
+      "needs": "A community admin, moderation rules, incentives."
+    }
+  ],
+  "mechanics_note": "All exploratory. Technical feasibility, moderation, incentives, privacy and platform limits haven't been worked out yet.",
+  "data": {
+    "note": "Unverified estimates said during the meeting. Don't quote them until they're checked against the source data.",
+    "points": [
+      "Roughly 10,000 people and 14,000 visits, several hundred add-to-carts, and a possible 30% identification rate were mentioned.",
+      "The abandoned-cart sheet seems to hold only people who reached checkout and gave a phone number or logged in.",
+      "Quick Engage was described as CRM; Quick Pass as login and visitor identification. The claim that Quick Pass captures every visitor's number isn't verified. Hence the demo.",
+      "Trade-off: asking for a number early adds friction. A first-purchase incentive or a login flow could help.",
+      "Any use of visitor data needs consent and privacy checks first."
+    ],
+    "ask": [
+      "Visitor and add-to-cart volumes",
+      "For which time windows (30 or 90 days)",
+      "How many visitors can actually be identified",
+      "What share of visitors or customers gave a login or contact number"
+    ]
+  },
+  "setup": [
+    "Share keyword and search trends weekly (owner to confirm).",
+    "Work out the technical approach for gamification (owner to confirm).",
+    "Finalise the retention brand language and tone. This tab's English and Hindi copy is the first draft.",
+    "Get the Quick Pass demo.",
+    "Approve the cohort messages here (who, what, when), then load them into the WhatsApp tool as templates. Anything outside the 24-hour reply window needs a pre-approved template.",
+    "Ask the data contact the questions in the website data section.",
+    "Fix the date and time for the follow-up call once this structure is reviewed (the notes don't record it)."
+  ],
+  "inspiration": "Noom for check-ins and honest expectations, CRED for coins and offers, and chai for the ritual itself."
+}

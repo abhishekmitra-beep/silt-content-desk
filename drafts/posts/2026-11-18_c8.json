@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "reddit_comment",
+  "slot": 8,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "IndiaCoffee",
+  "thread_title": "Find a post from the last 3 days: Should I wait after waking before drinking coffee? Does coffee on an empty stomach hurt?",
+  "thread_url": "https://www.reddit.com/r/IndiaCoffee/new/",
+  "thread_summary": "Look for someone asking about the best time for the first coffee, or acidity and jitters on an empty stomach.",
+  "product": "mornings",
+  "angle": "Community help",
+  "text": "The advice to wait 90 minutes after waking to avoid a cortisol clash is popular, but the evidence behind it is thin. What is better supported: if coffee on an empty stomach gives you acidity or jitters, have it with or after food, and keep the total reasonable. Many adults do fine up to around 400 mg a day, and with a half-life of about 5 hours the last cup should be early afternoon. Try it for a week each way and see what your own body says.",
+  "why": "Honest myth-check on a common question. Reinforces that we are careful with evidence.",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/IndiaCoffee sidebar before commenting.",
+  "id": "2026-11-18_c8"
+}

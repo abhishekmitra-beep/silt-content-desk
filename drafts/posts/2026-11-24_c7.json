@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "platform": "reddit_comment",
+  "slot": 7,
+  "status": "pending",
+  "account": "u/Silt_Nutrition",
+  "subreddit": "StartUpIndia",
+  "thread_title": "Find a post from the last 3 days: how did you decide the price for your D2C product?",
+  "thread_summary": "Look for a founder asking how to price a consumer product, or whether they're too expensive.",
+  "product": "brand",
+  "angle": "Founder insight",
+  "text": "We make a wellness drink mix, and what helped us was pricing per day, not per pack. Rs 900 for 15 sticks sounds like a lot until you say it's about Rs 60 a day, and then the comparison becomes what it replaces in someone's routine. We also didn't try to be the cheapest, because there are always cheaper options. Pre-bookings told us whether the price held up before we'd made a box: 1,870 people booked at the real price. Test with your real price, never a discount.",
+  "why": "Founder-to-founder sub where saying who we are is fine. Different from earlier founder comments (validation, first 100 customers, trust, legal launch).",
+  "thread_url": "https://www.reddit.com/r/StartUpIndia/new/",
+  "max_age_days": 3,
+  "format": "Comment bank (pick a post from the last 3 days)",
+  "rules": "NON-NEGOTIABLE: reply only to a thread posted in the last 3 days (check the timestamp under the title). If nothing that recent fits, skip this comment and mark it Rejected with a note. Prefer threads with few comments, adapt the first line to what OP actually said, and add no links and no pitch. Check the r/StartUpIndia sidebar before commenting. Founder-friendly subreddit: it's fine to say who we are once, but don't link."
+}
