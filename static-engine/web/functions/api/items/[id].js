@@ -36,10 +36,22 @@ export async function onRequestPut({ request, env, params, data }) {
   return Response.json({ id, kind: row.kind, doc, status, updated_by: who, updated_at: now });
 }
 
-export async function onRequestDelete({ env, params, data }) {
+export async function onRequestDelete({ request, env, params, data }) {
   await ensure(env);
   const id = String(params.id || "");
   const now = new Date().toISOString();
+  // ?forever=1 (the delete bin, team 25 Nov: "removed for everyone, once for all"): a team click erases the item and its
+  // image files for good. Only a person on the site can do this; anything else just archives.
+  if (new URL(request.url).searchParams.get("forever") === "1" && data.actor === "team") {
+    const row = await env.DB.prepare("SELECT doc FROM se_items WHERE id = ?").bind(id).first();
+    if (!row) return Response.json({ ok: true, changed: 0 });
+    let doc = {}; try { doc = JSON.parse(row.doc); } catch {}
+    const fids = new Set([doc.files, doc.base_files, doc.files_before].flatMap(o => o && typeof o === "object" ? Object.values(o) : []).filter(v => typeof v === "string" && v.startsWith("F")));
+    for (const u of [doc.photo, doc.photo_b]) { const m = String(u || "").match(/\/api\/file\/(F[\w]+)/); if (m) fids.add(m[1]); }
+    for (const f of fids) await env.DB.prepare("DELETE FROM se_files WHERE id = ?").bind(f).run();
+    const r = await env.DB.prepare("DELETE FROM se_items WHERE id = ?").bind(id).run();
+    return Response.json({ ok: true, deleted: true, changed: r.meta?.changes ?? 0, files: fids.size });
+  }
   const r = await env.DB.prepare("UPDATE se_items SET status = 'archived', updated_by = ?, updated_at = ? WHERE id = ?").bind(data.name || "team", now, id).run();
   return Response.json({ ok: true, changed: r.meta?.changes ?? 0 });
 }

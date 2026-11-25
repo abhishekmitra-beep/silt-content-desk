@@ -4,7 +4,7 @@ import { checkCopy, wordCount, TEXT_LIMIT } from "../../public/engine.js";
 import { buildBrief, similar, headLine } from "./_brief.js";
 // The Checker: every static saved here (from the site, or from someone's own Claude / ChatGPT) gets the copy rules applied.
 function checker(doc) {
-  try { const f = checkCopy(doc); const w = wordCount(doc); if (w > (doc.t === "onestick" ? 48 : TEXT_LIMIT.max)) f.push(w + " words: too texty, trim it."); if (f.length) doc.flags = f; else delete doc.flags; } catch {}
+  try { const f = checkCopy(doc); const w = wordCount(doc); if (w > (["onestick", "callout"].includes(doc.t) ? 48 : TEXT_LIMIT.max)) f.push(w + " words: too texty, trim it."); if (f.length) doc.flags = f; else delete doc.flags; } catch {}
   return doc;
 }
 // Team statics and ideas, shared by everyone signed in to the SILT Static Engine.

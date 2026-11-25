@@ -187,6 +187,14 @@ const T = {
   // Relatable poll / quiz (no product): a question and 3 or 4 answers
   poll: s => `<div class="poll"><div class="kick">${esc(s.kicker || "Be honest")}</div><h1 class="top">${rich(s.question)}</h1>${s.options.map((o, i) => `<div class="opt"><span>${"ABCD"[i]}</span>${rich(o)}</div>`).join("")}${s.sub ? `<p class="lede">${rich(s.sub)}</p>` : ""}</div>`,
   // ONE STICK (Abhishek's playbook example): your problems switched off in red, the stick, the benefits switched on in green.
+  callout: s => { const two = s.product === "combo";
+    const SLOT = [[3, 6, 44, 30, "l"], [97, 6, 56, 26, "r"], [97, 46, 57, 50, "r"], [3, 46, 43, 52, "l"], [3, 84, 44, 74, "l"], [97, 84, 56, 76, "r"]];
+    const items = (s.items || []).slice(0, 6), sticks = two ? ["mornings", "nights"] : [s.product === "mornings" ? "mornings" : "nights"];
+    const lines = items.map((t, i) => { const [lx, ly, dx, dy] = SLOT[i]; return `<line x1="${lx < 50 ? lx + 25 : lx - 25}" y1="${ly + 3}" x2="${dx}" y2="${dy}"/><circle cx="${dx}" cy="${dy}" r=".9"/>`; }).join("");
+    return `<h1 class="coh">${rich(s.headline)}</h1><div class="co${two ? " two" : ""}"><div class="costicks">${sticks.map(p => `<img src="${s._A}${PRODUCTS[p].stick}" alt="SILT ${p} stick">`).join("")}</div>
+      <svg class="colines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>
+      ${items.map((t, i) => { const [lx, ly, , , side] = SLOT[i]; return `<div class="colab ${side}" style="${side === "l" ? "left" : "right"}:${side === "l" ? lx : 100 - lx}%;top:${ly}%">${esc(t)}</div>`; }).join("")}</div>
+      ${s.sub ? `<p class="cosub">${rich(s.sub)}</p>` : ""}<span class="patag cotag">${esc(s.price || (two ? "SILT Combo · Rs. 1,800 for 15 + 15 sticks" : "Rs. 900 for a box of 15 sticks"))}</span>`; },
   onestick: s => { const p = s.product === "mornings" ? "mornings" : "nights";
     const sticks = s.product === "combo" ? `<img class="osstick" src="${s._A}${PRODUCTS.mornings.stick}" alt="SILT Mornings stick"><img class="osstick" src="${s._A}${PRODUCTS.nights.stick}" alt="SILT Nights stick">` : `<img class="osstick" src="${s._A}${PRODUCTS[p].stick}" alt="SILT ${p} stick">`;
     return `<div class="os ${s.product}"><div class="osl"><div class="osk">${esc(s.kicker)}</div>${(s.problems || []).map(x => `<div class="osp"><span class="tg off"><i></i></span><span>${esc(x)}</span></div>`).join("")}</div>
@@ -202,7 +210,7 @@ const T = {
 // Templates that draw their own product (no separate product shot)
 const KICK_IN_BODY = new Set(["statement", "offer", "poll"]);
 const FULL_BLEED = new Set(["scene", "photoad"]);
-const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "problemsolution", "onestick"]);
+const OWN_PRODUCT = new Set(["beforeafter", "unbox", "ritual", "backpanel", "problemsolution", "onestick", "callout"]);
 // PROBLEM + SOLUTION, BOTH VISIBLE (house rules 27, 36, 39): formats with no solution of their own get a solution block:
 // a big bold solution line (spec.solution, or the product's), the three pack pointers, and the pack beside them.
 const SOLVE = new Set(["meme", "tweet", "poll", "chat", "notes", "checklist", "calendar", "email", "search", "forward", "bignum", "chips", "parts", "vs", "unbox", "bill", "timeline", "backpanel"]);
@@ -237,6 +245,12 @@ em.acc{font-style:normal;color:var(--acc)}b{font-weight:700}
 .pack.beside{height:${Math.round(z.pack * .78)}px;margin:0;align-self:flex-end}
 .solrow{flex:none;display:flex;align-items:flex-end;gap:2em;margin-top:auto;min-height:0}.solrow .pack{margin-top:0;height:${Math.round(z.pack * .82)}px;flex:none}.solrow .pack.duo{height:${Math.round(z.pack * .58)}px}
 .solb{flex:1;min-width:0;display:flex;flex-direction:column;gap:1.3em;padding-bottom:.4em}.soll{font-size:4.6em;font-weight:700;line-height:1.08;letter-spacing:-.01em;color:var(--ink)}
+/* callout */.coh{font-weight:700;font-size:5.6em;line-height:1.08;letter-spacing:.06em;text-transform:uppercase;text-align:center;color:var(--ink);margin:.2em 0 0}.coh em.acc{font-style:normal}
+.co{position:relative;flex:1;min-height:0}.costicks{position:absolute;inset:4% 0 2%;display:flex;justify-content:center;align-items:center;gap:3%}
+.costicks img{height:100%;width:auto;max-width:30%;object-fit:contain;transform:rotate(-8deg);filter:drop-shadow(0 1.4em 2em rgba(0,0,0,.35))}.co.two .costicks img:last-child{transform:rotate(8deg)}
+.colines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.colines line{stroke:var(--sub);stroke-width:.25;vector-effect:non-scaling-stroke;stroke-width:1.6px;opacity:.85}.colines circle{fill:var(--acc)}
+.colab{position:absolute;width:25%;font-weight:700;font-size:2.55em;line-height:1.2;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}.colab.r{text-align:right}
+.cosub{text-align:center;font-size:2.6em;color:var(--sub);margin:0}.cotag{align-self:center;margin:0}
 .plus{list-style:none;display:inline-flex;flex-direction:column;align-items:flex-start;align-self:flex-start;gap:0}.plus li.pl{align-self:center}.plus li{font-size:3.3em;font-weight:700;color:var(--ink);line-height:1.12;display:flex;align-items:center;gap:.4em}.plus li .sic{width:1.3em;height:1.3em}.plus li.pl{font-size:3.7em;font-weight:400;color:var(--acc);line-height:.85}
 .pa .plus li{color:#fff;text-shadow:0 .08em .5em rgba(0,0,0,.35)}.pa.light .plus li{color:#2A1E14;text-shadow:none}.pa .plus li.pl{color:#E9C46A}.pa.light .plus li.pl{color:#E2801A}
 .tk{width:1.25em;height:1.25em;border-radius:50%;background:#2FA84F;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 .1em .3em rgba(0,0,0,.2)}.tk svg{width:72%;height:72%;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
