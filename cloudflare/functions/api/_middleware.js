@@ -18,5 +18,6 @@ export async function onRequest(ctx) {
   const s = await readSession(request, env);
   if (!s) return json({ error: "Please sign in." }, 401);
   ctx.data.email = s.name; // reviewer name, stored as reviewed_by
+  ctx.data.open = env.DESK_OPEN === "1";
   return ctx.next();
 }

@@ -1,5 +1,5 @@
 {
- "built": "2026-11-25T07:45:17.972Z",
+ "built": "2026-11-26T07:30:46.574Z",
  "brands": [
   {
    "brand": "AG1",
@@ -717,6 +717,356 @@
    "totals": {
     "ads": 328,
     "statics": 1000
+   }
+  },
+  {
+   "brand": "HACK",
+   "page": "/teardowns/hackdaily.html",
+   "pulled": "2026-11-26",
+   "updated": "2026-11-26T07:30:46.332Z",
+   "account": "The Hack Daily page has advertised since April 2026 (its first ad, 18 Apr, is still live at 222 days) yet has only 41 page likes; all 58 harvested ads are live and every one of them sells HACK Focus.",
+   "alert": {
+    "title": "HACK Focus is a cheaper SILT Mornings rival, and HACK RELAX is aimed at sleep",
+    "text": "HACK Focus has the same 80 mg caffeine as SILT Mornings, with 60 mg L-theanine against SILT's 200 mg (their ads also list 300 mg L-tyrosine, 200 mg taurine, B6 and B12). It is a mouth-melt powder, no water needed. Their site sells it at Rs 545 (MRP 899) and claims \"complete clinical doses\" with 4.8 from 140 reviews; the ads quote ₹17 to ₹19 a sachet (13 ads) against SILT's about ₹60 a day, and 15 ads set it against coffee, energy drinks or Red Bull. HACK RELAX (\"Calm your system, not your mind to sleep\", Rs 545) is a sleep product on the same site, but none of the 58 Meta ads promote it yet. Watch for its first ads. They are starting to reach SILT's desk audience: 6 ads talk about the office, the 3 PM slump or feeling sleepy after lunch, 4 of them launched on 25 Nov (0 days, so tests), plus a 170-day static of a Meta ads consultant using it at work. SILT's answer is not price: the L-the…"
+   },
+   "patterns": [
+    {
+     "title": "Students first, one exam at a time",
+     "text": "34 of 58 ads land on a separate student page (hack-focus-students), and 12 of the 15 longest-running videos are study set-ups that link there. Statics are cut per exam and moment: CA, CAT, JEE and the IIT gate, Diwali, and GTA 6 (4 ads, 6 versions in 7 days)."
+    },
+    {
+     "title": "Music and one line of text, no script",
+     "text": "12 of the top 15 videos have no spoken pitch: a trend sound, one on-screen line, and the selling done in the caption (\"Read Caption\"). Only #5, #8 and #11 have a voice. The top videos average 22 seconds (median 19 s, range 12 to 46 s)."
+    },
+    {
+     "title": "A running clock is the proof",
+     "text": "Their two longest desk videos show a timer climbing for hours (#1 to 05:32:11, #4 to 04:22:14) and the skit ends with a clock at 05:03. 9 ads promise 5 to 6 hours of focus, the offer statics give away a study timer, and the brand sells one (Rs 349)."
+    },
+    {
+     "title": "Price against energy drinks and coffee",
+     "text": "13 ads quote ₹17 or ₹19 a sachet and 15 name coffee, energy drinks or Red Bull (\"1/5th the cost\", \"Red Bull ₹150 for 27 g sugar\"). 34 of 58 promise no jitters or no crash. The 194-day #2 is built entirely on this comparison."
+    },
+    {
+     "title": "Proof that looks like screenshots",
+     "text": "Instagram-story testimonials are a static format of their own (the 170-day static 1 is a Meta ads consultant giving it \"9/10\"; statics 5, 10 and 11 are students and office workers), and video #13 scrolls through praising comments. Claims like \"1,000+ students\" and \"Rated by 10k+ CA students\" fill the gaps."
+    },
+    {
+     "title": "One template, many top photos",
+     "text": "12 of the 21 longest-running statics use the same red bottom band (\"One sachet ₹19\", up to 6 hours, no jitters, locked in) under a swapped photo: lecture hall, IIT gate, Diwali window, GTA 6 scene, office monkey. Cheap to make, easy to test per audience."
+    }
+   ],
+   "ideas_for_silt": [
+    {
+     "product": "Mornings",
+     "hook": "Laptop open at 9:02. First look up at 12:40.",
+     "format": "Overhead desk timelapse, 20 to 25s, music only, running clock on screen",
+     "based_on": "#1, #4",
+     "outline": "Lock one overhead camera on a real SILT team member's desk for a morning. Stick into water at the start, clock ticking in the corner, phone face down. End on the stick with \"80 mg caffeine + 200 mg L-theanine, the dose used in studies\". The clock only shows the work block; no promise of hours."
+    },
+    {
+     "product": "Mornings",
+     "hook": "Quarter-end close. Board deck night. Appraisal week.",
+     "format": "Static series, one fixed bottom band, 4 to 6 swapped top photos",
+     "based_on": "statics 4 6 12 13 to 18",
+     "outline": "One SILT band (every dose printed, a lab report per ingredient, about ₹60 a day) under photos of desk-job moments instead of exams. Swap the top photo per moment and per city to test which job our buyers recognise."
+    },
+    {
+     "product": "Both",
+     "hook": "Not our words.",
+     "format": "Static + 15s scroll video of real reviews",
+     "based_on": "#13, statics 1 5 10",
+     "outline": "Screenshot-style proof using only SILT's real verified reviews (4.9/5) and real customer messages, shown unaltered. No invented quotes or scores."
+    },
+    {
+     "product": "Mornings",
+     "hook": "Read the label before you compare prices.",
+     "format": "Static, 4:5 and 9:16, plus a 12s label zoom",
+     "based_on": "#2, price statics",
+     "outline": "Answers the ₹17 sachet without naming anyone: the back-of-pack panel with 200 mg L-theanine next to 80 mg caffeine, plus 5 g PHGG fibre, 6 billion probiotics, D3, K2, B12 and C. Argue what is in the stick, never cheapness."
+    },
+    {
+     "product": "Nights",
+     "hook": "Close the laptop. Close the day.",
+     "format": "Music-only night routine, 20s, one line of text",
+     "based_on": "#11, #9",
+     "outline": "Laptop closes at 10:30, Nights stick into warm water, lamp off. On screen: 3 g glycine, 250 mg magnesium bisglycinate, 300 mg KSM-66, 200 mg L-theanine, no melatonin. Gets the night-routine format before a sleep rival starts advertising."
+    },
+    {
+     "product": "Both",
+     "hook": "The 9 to 7 desk routine. Read caption.",
+     "format": "12s loop + long caption, saveable",
+     "based_on": "#7, #10",
+     "outline": "A short desk clip whose job is to open the caption: Mornings stick at 9, 50-minute blocks with 10-minute breaks, a walk after lunch, Nights stick at 10:30. Useful enough to save, with the doses written in."
+    },
+    {
+     "product": "Mornings",
+     "hook": "15 workdays, one stick each morning. Comment MORNING for the plan.",
+     "format": "Creator UGC or team member, 20 to 30s, DM hook",
+     "based_on": "#15, #1",
+     "outline": "One SILT pack is 15 sticks, so the challenge matches the box. Day 1 on camera, a simple morning plan sent by DM, written as habits (breakfast, water, first deep-work block), not results."
+    }
+   ],
+   "top_videos": [
+    {
+     "days": 222,
+     "versions": 1,
+     "style": "Desk timelapse (founder)",
+     "product": "hack-focus",
+     "hook": "Let's finish the work in 4 hours (founder's office)",
+     "why": "Overhead shot of one desk with an on-screen clock running from 00:00:03 to 05:32:11: phone put away, sachet, \"Peak focus unlocked\", \"Comment FOCUS for the link\". The ticking clock does the proving, no one says a word. Their longest runner at 222 days.",
+     "transcript": "No era amor Eso fue lo que dijiste tú No era amor No era amor Pero a mí sí me partió en dos No era amor"
+    },
+    {
+     "days": 194,
+     "versions": 1,
+     "style": "Animation (8-bit game)",
+     "product": "hack-focus",
+     "hook": "HACK WORLD: Mario + HACK vs Mario + Red Bull",
+     "why": "Pixel-game parody: the energy-drink run ends in GAME OVER, the HACK run reaches the castle. End line \"Bulls doesn't last long, HACK does\", copy says 1/5th the cost at ₹17. Second-longest runner (194 days), but it borrows a game character and a rival brand, so…",
+     "transcript": "ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ ლ �"
+    },
+    {
+     "days": 98,
+     "versions": 1,
+     "style": "Creator UGC (music only)",
+     "product": "hack-focus-students",
+     "hook": "After college, lock in with me as a final year MBBS student",
+     "why": "Medical student with her textbooks, \"ft. Hack daily\" on screen, music instead of a script. The caption carries the 80 mg caffeine + L-theanine line. Identity first (MBBS student), product second.",
+     "transcript": "(upbeat music) ♪ I'm just trying to get closer ♪"
+    },
+    {
+     "days": 68,
+     "versions": 1,
+     "style": "Creator desk timelapse",
+     "product": "hack-focus-students",
+     "hook": "Don't be average when you have > Day 9/100",
+     "why": "Hands, notebook, red box, and a timer that climbs from 04:09 to 04:22:14 in 14 seconds. A 100-day series label makes it feel like a diary, not an ad.",
+     "transcript": "کیا تم سے کہو ہے ربکے کورتوں جانتوں بن کی پتیادارِ فرقت تو آئے امیلہ کا بکاتِ ناکٹھ دی ابرتِ"
+    },
+    {
+     "days": 68,
+     "versions": 1,
+     "style": "Creator UGC",
+     "product": "hack-focus",
+     "hook": "Life saviour genuinely @hackdaily.life",
+     "why": "A pile of sachets on a desk with a voice saying \"using this from around 8 months\" and \"it's not a paid promotion\". The repeat-buyer stash is the proof.",
+     "transcript": "using this from around 8 months now and generally saying this product has saved me like I felt very sticky I used to be very sticky and I ordered it like it's not a paid promotion something like that it's just a thing I want to share personally the watermelon flavor it's so good egg use I should try this for one and l…"
+    },
+    {
+     "days": 68,
+     "versions": 1,
+     "style": "Produced skit",
+     "product": "hack-focus-students",
+     "hook": "Unfocused you vs focused you",
+     "why": "Lying on the bed scrolling, a friend hands over the box, sachet straight into the mouth, then the same person at a dark desk with the clock at 05:03. A before and after in 18 seconds with no dialogue.",
+     "transcript": "[Music]"
+    },
+    {
+     "days": 67,
+     "versions": 1,
+     "style": "Caption-led UGC (Hinglish)",
+     "product": "hack-focus-students",
+     "hook": "How to Focus Even When You Don't Feel Like Studying",
+     "why": "A dim 13-second clip whose only job is to make you open a long Hinglish caption: ingredients explained one by one, then a 50-minute work, 10-minute break routine to save.",
+     "transcript": "ლ ლ ლ ლ ლ ლ ლ ლ ლ"
+    },
+    {
+     "days": 64,
+     "versions": 4,
+     "style": "Creator UGC (voiceover)",
+     "product": "hack-focus-students",
+     "hook": "When we come back from college, we are usually so tired and exhausted...",
+     "why": "The only fully scripted creator story in the top 15 and the most scaled (2 ads, 4 versions, 46 s). Tired after college, doom-scrolling, then the \"little study hack\": dose, no water needed, four flavours.",
+     "transcript": "When we come back from college, we are usually so trained and exhausted that we don't have energy left to concentrate on self-study. We often end up doom-scrolling or getting distracted by other activities. That's when I found my little study hack, Hack Daily Focus. It's a mouth-melting powder with etmg of caffeine an…"
+    },
+    {
+     "days": 63,
+     "versions": 1,
+     "style": "Creator UGC (music only)",
+     "product": "hack-focus-students",
+     "hook": "The feminine urge to do everything they say you couldn't",
+     "why": "Trend-format caption over a night desk set-up: water poured, red box placed, lamp on, studying. Motivation meme first, product as a prop.",
+     "transcript": "\"Don't be scared, don't be scared.\" \"Take it, take it, take it up to the ground.\" \"Don't stop, don't stop, don't stop.\""
+    },
+    {
+     "days": 63,
+     "versions": 1,
+     "style": "Caption-led UGC",
+     "product": "hack-focus-students",
+     "hook": "I want to study but I get easily distracted sometimes",
+     "why": "12 seconds of a student at a lamp-lit desk, then \"Read Caption\". The caption reframes the problem (\"your brain isn't lazy, your routine is draining you\") and lists each ingredient with what it does.",
+     "transcript": "Haydi haydi haydi haydi herkes kendini kaptırsın"
+    }
+   ],
+   "top_statics": [
+    {
+     "days": 170,
+     "versions": 1,
+     "product": "hack-focus",
+     "copy": "Scaling brands on meta is what i love to do."
+    },
+    {
+     "days": 161,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "@hackdaily.life launching something exclusively for students."
+    },
+    {
+     "days": 132,
+     "versions": 1,
+     "product": "hack-focus",
+     "copy": "We generally stay out of stock"
+    },
+    {
+     "days": 70,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "CA exams need focus"
+    },
+    {
+     "days": 70,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "I am fully focussed for CAT 2026"
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "JEE jan'27 need focus"
+    },
+    {
+     "days": 48,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "Studying more doesn't mean better study"
+    },
+    {
+     "days": 36,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "Limited time offer"
+    },
+    {
+     "days": 36,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "Limited time offer"
+    },
+    {
+     "days": 29,
+     "versions": 1,
+     "product": "hack-focus",
+     "copy": "Got hands on this viral find"
+    },
+    {
+     "days": 29,
+     "versions": 1,
+     "product": "hack-focus",
+     "copy": "5 coffees a day used to give me jitters, crashes and acidity"
+    },
+    {
+     "days": 27,
+     "versions": 1,
+     "product": "hack-focus-students",
+     "copy": "CA final need focus"
+    }
+   ],
+   "top_concepts": [
+    {
+     "days": 222,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "For me, it was impossible to focus."
+    },
+    {
+     "days": 194,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Time to move on from sugary energy drinks."
+    },
+    {
+     "days": 170,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "Scaling brands on meta is what i love to do."
+    },
+    {
+     "days": 161,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "@hackdaily.life launching something exclusively for students."
+    },
+    {
+     "days": 132,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "We generally stay out of stock"
+    },
+    {
+     "days": 98,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Lock in with me with @hackdaily.life , 80mg caffeine along with l-theanine , helps me focus and stay consistent for a lo"
+    },
+    {
+     "days": 70,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "CA exams need focus"
+    },
+    {
+     "days": 70,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "static"
+     ],
+     "copy": "I am fully focussed for CAT 2026"
+    },
+    {
+     "days": 68,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Hack focus is for people who want more"
+    },
+    {
+     "days": 68,
+     "ads": 1,
+     "versions": 1,
+     "types": [
+      "video"
+     ],
+     "copy": "Using this for 8 months,"
+    }
+   ],
+   "totals": {
+    "ads": 58,
+    "statics": 24
    }
   },
   {

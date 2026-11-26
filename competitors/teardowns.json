@@ -69,6 +69,43 @@
             "link": "https://www.facebook.com/ads/library/?id=2217863322153355"
           }
         ]
+      },
+      "day": {
+        "date": "2026-11-26",
+        "since": "2026-11-23",
+        "active": 240,
+        "capped": true,
+        "started": 102,
+        "stopped": null,
+        "watchHits": 88,
+        "longest": {
+          "days": 72,
+          "text": "{{product.short_description}}",
+          "format": "DPA"
+        },
+        "newAds": [
+          {
+            "text": "60 days of Supply6 360 + a FREE glass bottle & frother. 🎁 Everything you need to build a daily nutrition habit, packed into one Welcome Ki…",
+            "format": "IMAGE",
+            "versions": 4,
+            "started": "2026-11-24",
+            "link": "https://www.facebook.com/ads/library/?id=1513771317285031"
+          },
+          {
+            "text": "comment for the link 🔗 @supply6 . . [healthy lifestyle, daily wellness, gut health, wellness routine, supply6] . . #supply6 #wellness #hea…",
+            "format": "VIDEO",
+            "versions": 3,
+            "started": "2026-11-24",
+            "link": "https://www.facebook.com/ads/library/?id=2000154838072668"
+          },
+          {
+            "text": "Your gut deserves better care. 🌿 Make smarter choices for your daily wellness routine with @supply6 #Supply6 #supplements #GutHealth #Dige…",
+            "format": "VIDEO",
+            "versions": 3,
+            "started": "2026-11-25",
+            "link": "https://www.facebook.com/ads/library/?id=1023431460049354"
+          }
+        ]
       }
     },
     {
@@ -126,6 +163,43 @@
             "versions": 2,
             "started": "2026-11-21",
             "link": "https://www.facebook.com/ads/library/?id=2060973221232619"
+          }
+        ]
+      },
+      "day": {
+        "date": "2026-11-26",
+        "since": "2026-11-23",
+        "active": 94,
+        "capped": true,
+        "started": 12,
+        "stopped": null,
+        "watchHits": 11,
+        "longest": {
+          "days": 37,
+          "text": "Glycine + fully chelated magnesium bisglycinate. A clean, two-product approach to supporting better-quality sleep and recovery.",
+          "format": "VIDEO"
+        },
+        "newAds": [
+          {
+            "text": "We often work hard towards our goals but neglect the recovery we NEED. Glad that @thestack_club got me covered 👌 #recovery #workout #ad",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-25",
+            "link": "https://www.facebook.com/ads/library/?id=2043627622964594"
+          },
+          {
+            "text": "out of office now, but booked, busy and well rested 💤",
+            "format": "VIDEO",
+            "versions": 2,
+            "started": "2026-11-25",
+            "link": "https://www.facebook.com/ads/library/?id=1863113991395622"
+          },
+          {
+            "text": "We obsess over the workout plan and the meal plan, but almost nobody has a sleep plan. 🌙 After coaching over 500 clients, I can tell you t…",
+            "format": "DCO",
+            "versions": 2,
+            "started": "2026-11-23",
+            "link": "https://www.facebook.com/ads/library/?id=4651414895144053"
           }
         ]
       }
@@ -187,6 +261,65 @@
             "link": "https://www.facebook.com/ads/library/?id=1120432177407640"
           }
         ]
+      },
+      "day": {
+        "date": "2026-11-26",
+        "since": "2026-11-23",
+        "active": 40,
+        "capped": true,
+        "started": 10,
+        "stopped": null,
+        "watchHits": 10,
+        "longest": {
+          "days": 24,
+          "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+          "format": "VIDEO"
+        },
+        "newAds": [
+          {
+            "text": "Wake up Refreshed and say No to Groggy Mornings. Glycine is the secret to a restful night's sleep. Non-melatonin, non-habit forming.",
+            "format": "VIDEO",
+            "versions": 1,
+            "started": "2026-11-23",
+            "link": "https://www.facebook.com/ads/library/?id=4638786029736414"
+          },
+          {
+            "text": "Powered by Glycine, Passionflower & L-Theanine Fast-Acting · Non-Sedative · Non-Habit Forming",
+            "format": "IMAGE",
+            "versions": 1,
+            "started": "2026-11-24",
+            "link": "https://www.facebook.com/ads/library/?id=29262906593363845"
+          },
+          {
+            "text": "We’ve all heard that sleep is important, but it’s easy to overlook it when life gets busy. Of late, my wife’s sleep wasn’t great, so we dec…",
+            "format": "VIDEO",
+            "versions": 1,
+            "started": "2026-11-23",
+            "link": "https://www.facebook.com/ads/library/?id=1139977315488478"
+          }
+        ]
+      }
+    },
+    {
+      "brand": "HACK",
+      "date": "2026-11-26",
+      "url": "/teardowns/hackdaily.html",
+      "summary": "58 ads, all live, every one selling HACK Focus: 80 mg caffeine (same as Mornings) with 60 mg L-theanine, quoted at Rs 17 to 19 a sachet. Aimed at students, exam by exam.",
+      "highlights": [
+        "12 of their 15 longest videos have nobody pitching: music, one line of text, and a desk clock running for hours as the proof. Longest runner: 222 days.",
+        "15 ads pitch it against coffee, energy drinks or Red Bull. 6 now talk about the office and the 3 PM slump (4 launched 25 Nov, still tests).",
+        "HACK RELAX (sleep) is on their site with no Meta ads yet: watch for its first ones.",
+        "Best idea for SILT: an overhead desk timelapse of a real morning, music only, a running clock, ending on the dose used in studies."
+      ],
+      "country": "IN",
+      "watch": "Mornings rival: Focus",
+      "reel": {
+        "avg": 22,
+        "median": 19,
+        "min": 12,
+        "max": 46,
+        "all_avg": 23,
+        "all_n": 34
       }
     },
     {
@@ -538,5 +671,6 @@
       }
     }
   ],
-  "weekly_checked": "2026-11-23"
+  "weekly_checked": "2026-11-23",
+  "daily_checked": "2026-11-26"
 }

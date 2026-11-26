@@ -16,3 +16,5 @@ database_id = "722c1c48-c0f8-4c54-ae5a-5a8c313274bf"
 # The content agent runs through ChatGPT Plus (copy, paste, upload). Set to "api" to use the OpenAI API with credits.
 [vars]
 AGENT_MODE = "plus"
+# "1" = no password: anyone with the link can view and edit (set 26 Nov 2026 at the team's request). "0" brings the login back.
+DESK_OPEN = "1"

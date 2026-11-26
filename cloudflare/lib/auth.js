@@ -40,7 +40,22 @@ export async function makeSession(name, env) {
   return `${payload}.${sig}`;
 }
 
+// DESK_OPEN = "1" (wrangler.toml [vars]) turns the password off: everyone counts as signed in.
+// Their name comes from the x-desk-name header the page sends (the name saved in the browser), else "Team".
+function openSession(request, env) {
+  if (env.DESK_OPEN !== "1") return null;
+  let raw = request.headers.get("x-desk-name") || "";
+  try { raw = decodeURIComponent(raw); } catch { raw = ""; }
+  const name = String(raw).replace(/[^\p{L}\p{N} .'-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 40);
+  return { name: name || "Team", open: true };
+}
+
 export async function readSession(request, env) {
+  const s = await readCookieSession(request, env);
+  return s || openSession(request, env);
+}
+
+async function readCookieSession(request, env) {
   const m = (request.headers.get("cookie") || "").match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`));
   if (!m) return null;
   const [payload, sig] = m[1].split(".");

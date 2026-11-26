@@ -97,6 +97,10 @@ button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible
 .pollnote{font-size:12.5px;color:var(--muted)}
 .weekbox{border:1px solid var(--info);background:var(--info-soft);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;font-size:13px}
 .weekbox ul{margin:0;padding-left:18px}
+.teardowns.watchgrid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.daybox{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.daybox ul{margin:0;padding-left:18px}
+.daybox .hack{background:var(--sunk);border-radius:6px;padding:6px 8px}
 .agerule{border:1px solid var(--bad);background:var(--bad-soft);color:var(--fg);border-radius:6px;padding:7px 10px;font-size:13px;font-weight:500;max-width:72ch}
 .imgidea{border:1px solid var(--gold);background:var(--gold-soft);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:13px;max-width:72ch}
 .imgidea a{color:var(--info);font-size:12.5px}
@@ -247,7 +251,7 @@ details.howto summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--
       <h1>Content Desk</h1>
       <p>Five X posts and eight Reddit comments a day, plus LinkedIn on Monday, Wednesday and Friday, drafted each morning for your review.</p>
     </div>
-    <div class="who" id="who" hidden>Signed in as <b id="whoName"></b> <button id="logoutBtn" type="button">Sign out</button></div>
+    <div class="who" id="who" hidden><span id="whoLabel">Signed in as</span> <b id="whoName"></b> <button id="logoutBtn" type="button">Sign out</button></div>
     <div class="daynav" aria-label="Choose a day">
       <button id="prevDay" aria-label="Previous day">&#8249;</button>
       <select id="daySel" aria-label="Day"></select>
@@ -824,6 +828,8 @@ async function loadCompetitors(){
 }
 const THREAT={high:"bad",medium:"warn",low:"ok"};
 function list(a){return (a||[]).length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+// Catalogue ads carry template copy like {{product.short_description}}; say what it is instead.
+const adText=t=>/\{\{[^}]*\}\}/.test(t||"")&&!String(t).replace(/\{\{[^}]*\}\}/g,"").trim()?"Catalogue ad (copy filled per product)":(t||"(no copy)");
 function teardownCard(x){
   const meta=[x.country==="US"?"US ads":x.kind==="tool"?"":"India ads",x.date?`pulled ${new Date(x.date+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})}`:""].filter(Boolean).join(" · ");
   const r=x.reel;
@@ -832,10 +838,15 @@ function teardownCard(x){
   const fmtD=d=>d?new Date(d+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}):"";
   const week=w?`<div class="weekbox"><span class="k">This week · checked ${esc(fmtD(w.date))}${w.since?` vs ${esc(fmtD(w.since))}`:""}</span>
       <span><b>${esc(w.active)}</b> ads running${w.capped?"+":""} · <b>+${esc(w.started)}</b> new${w.stopped!=null?` · <b>${esc(w.stopped)}</b> stopped`:""}${w.watchHits?` · <b>${esc(w.watchHits)}</b> new in our categories`:""}</span>
-      ${w.longest&&w.longest.days?`<span><b>Longest running:</b> ${esc(w.longest.days)} days${w.longest.text?`, "${esc(w.longest.text)}"`:""}</span>`:""}
-      ${(w.newAds||[]).length?`<span><b>New ads to look at:</b></span><ul>${w.newAds.map(a=>`<li>${esc(a.text||"(no copy)")}${a.versions>1?` <span class="count">(${esc(a.versions)} versions)</span>`:""}${a.link?` <a href="${esc(a.link)}" target="_blank" rel="noopener">open</a>`:""}</li>`).join("")}</ul>`:""}
+      ${w.longest&&w.longest.days?`<span><b>Longest running:</b> ${esc(w.longest.days)} days${w.longest.text?`, "${esc(adText(w.longest.text))}"`:""}</span>`:""}
+      ${(w.newAds||[]).length?`<span><b>New ads to look at:</b></span><ul>${w.newAds.map(a=>`<li>${esc(adText(a.text))}${a.versions>1?` <span class="count">(${esc(a.versions)} versions)</span>`:""}${a.link?` <a href="${esc(a.link)}" target="_blank" rel="noopener">open</a>`:""}</li>`).join("")}</ul>`:""}
     </div>`:"";
-  return `<div class="teardown"><div class="meta"><b>${esc(x.brand)}</b>${x.watch?`<span class="chip status bad">${esc(x.watch)}</span>`:""}</div>${meta?`<span class="count">${esc(meta)}</span>`:""}${reel}${week}<span>${esc(x.summary||"")}</span>${(x.highlights||[]).length?`<ul>${x.highlights.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}<a class="btn" style="align-self:flex-start" href="${esc(x.url)}" target="_blank" rel="noopener">${x.kind==="tool"?"Open the prompts":"Open the full teardown"}</a></div>`;
+  const d=x.watch?x.day:null;
+  const today=d?`<div class="daybox"><span class="k">Today · checked ${esc(fmtD(d.date))}${d.since?` vs ${esc(fmtD(d.since))}`:""}</span>
+      <span><b>+${esc(d.started)}</b> new ads${d.stopped!=null?` · <b>${esc(d.stopped)}</b> stopped`:""}${d.watchHits?` · <b>${esc(d.watchHits)}</b> in our categories`:""} · <b>${esc(d.active)}</b> running${d.capped?"+":""}</span>
+      ${(d.newAds||[]).length?`<ul>${d.newAds.map(a=>`<li>${esc(adText(a.text))}${a.versions>1?` <span class="count">(${esc(a.versions)} versions)</span>`:""}${a.link?` <a href="${esc(a.link)}" target="_blank" rel="noopener">open</a>`:""}</li>`).join("")}</ul>`:`<span class="count">No new ads since the last check.</span>`}
+    </div>`:"";
+  return `<div class="teardown"><div class="meta"><b>${esc(x.brand)}</b>${x.watch?`<span class="chip status bad">${esc(x.watch)}</span>`:""}</div>${meta?`<span class="count">${esc(meta)}</span>`:""}${reel}${today}${week}<span>${esc(x.summary||"")}</span>${(x.highlights||[]).length?`<ul>${x.highlights.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}<a class="btn" style="align-self:flex-start" href="${esc(x.url)}" target="_blank" rel="noopener">${x.kind==="tool"?"Open the prompts":"Open the full teardown"}</a></div>`;
 }
 function renderTeardownsTab(){
   if(state.comp==null&&state.teardowns===undefined)return `<div class="empty"><b>Loading the ad teardowns…</b></div>`;
@@ -843,14 +854,14 @@ function renderTeardownsTab(){
   if(!t.length)return `<div class="empty"><b>No ad teardowns yet</b><span>Each brand's teardown appears here once it's added.</span></div>`;
   const tools=t.filter(x=>x.kind==="tool"), brands=t.filter(x=>x.kind!=="tool");
   const watch=brands.filter(x=>x.watch), india=brands.filter(x=>!x.watch&&x.country!=="US"), global=brands.filter(x=>!x.watch&&x.country==="US");
-  const sec=(title,lede,list)=>list.length?`<div class="brief"><h2>${title}</h2>${lede?`<p class="lede">${lede}</p>`:""}<div class="teardowns">${list.map(teardownCard).join("")}</div></div>`:"";
+  const sec=(title,lede,list,cls)=>list.length?`<div class="brief"><h2>${title}</h2>${lede?`<p class="lede">${lede}</p>`:""}<div class="teardowns${cls?" "+cls:""}">${list.map(teardownCard).join("")}</div></div>`:"";
   const withReel=brands.filter(x=>x.reel&&x.reel.avg);
   const inR=withReel.filter(x=>x.country!=="US"), usR=withReel.filter(x=>x.country==="US");
   const avgOf=a=>a.length?Math.round(a.reduce((s,x)=>s+x.reel.avg,0)/a.length):null;
   const reelLine=withReel.length?`<p class="reelline"><b>Reel length:</b> the longest-running videos average <b>${avgOf(withReel)}s</b> across these ${withReel.length} brands${inR.length&&usR.length?` (${avgOf(inR)}s for the Indian brands, ${avgOf(usR)}s for the US ones)`:""}. Shortest average: ${withReel.slice().sort((a,b)=>a.reel.avg-b.reel.avg)[0].brand} at ${withReel.slice().sort((a,b)=>a.reel.avg-b.reel.avg)[0].reel.avg}s. Longest: ${withReel.slice().sort((a,b)=>b.reel.avg-a.reel.avg)[0].brand} at ${withReel.slice().sort((a,b)=>b.reel.avg-a.reel.avg)[0].reel.avg}s. Every teardown opens with its own length breakdown, and every video plays on the page.</p>`:"";
   return `<div class="comp">
     <div class="brief"><h2>Ad teardowns</h2><p class="lede">What competitors run on Meta: their longest-running videos and statics, how many versions each got, how long each ran, and what SILT can borrow. Ads that keep running are the ones that pay for themselves, so days running is the signal to read.</p>${state.teardownsChecked?`<p class="lede"><b>Checked weekly.</b> Last check ${esc(new Date(state.teardownsChecked+"T00:00:00").toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"}))}: each brand card shows what they started and stopped since the previous check. The full teardowns are from the date shown on each card.</p>`:""}${reelLine}</div>
-    ${sec("Watch closely","Brands selling the same thing as SILT Nights or Mornings.",watch)}
+    ${sec("Watch closely","Brands selling the same thing as SILT Nights or Mornings. Their ads are checked every morning.",watch,"watchgrid")}
     ${sec("Make ads from this","",tools)}
     ${sec("Indian brands","",india)}
     ${sec("Global brands","US ads from the category leaders, translated into what works for SILT in India.",global)}
@@ -1059,7 +1070,8 @@ function renderDays(){
 }
 
 async function api(path,opts){
-  const r=await fetch(path,{credentials:"same-origin",cache:"no-store",...opts,headers:{"content-type":"application/json",...(opts&&opts.headers)}});
+  let who="";try{who=localStorage.getItem("silt-desk-name")||""}catch(e){}
+  const r=await fetch(path,{credentials:"same-origin",cache:"no-store",...opts,headers:{"content-type":"application/json",...(who?{"x-desk-name":encodeURIComponent(who)}:{}),...(opts&&opts.headers)}});
   let body=null;try{body=await r.json()}catch(e){}
   if(r.status===401&&path!=="/api/login"){showLogin();const e=new Error("signed out");e.signedOut=true;throw e}
   if(!r.ok)throw new Error((body&&body.error)||("HTTP "+r.status));
@@ -1145,6 +1157,7 @@ async function boot(){
     $("#loginWrap").hidden=true;$("#deskWrap").hidden=false;
     state.me=res.me;state.days=res.days;state.loaded=true;
     $("#whoName").textContent=res.me||"";$("#who").hidden=!res.me;
+    if(res.open){state.open=true;$("#whoLabel").textContent="You are";$("#logoutBtn").textContent="Change name"}
     selectDay(state.days[0]||null);render();
   }catch(e){if(e.signedOut)return;state.loaded=true;notice("Couldn't load the desk ("+e.message+").");render()}
 }
@@ -1159,7 +1172,16 @@ $("#loginForm").addEventListener("submit",async ev=>{
   }catch(e){err.textContent=e.message;err.hidden=false}
   finally{btn.disabled=false;btn.textContent="Sign in"}
 });
-$("#logoutBtn").addEventListener("click",async()=>{try{await api("/api/logout",{method:"POST",body:"{}"})}catch(e){}state.posts=[];state.days=[];showLogin()});
+$("#logoutBtn").addEventListener("click",async()=>{
+  if(state.open){
+    // No password: the button just changes the name saved in this browser, which reviews and ideas show.
+    let cur="";try{cur=localStorage.getItem("silt-desk-name")||""}catch(e){}
+    const n=(prompt("Your name (shown on your reviews and ideas):",cur)||"").replace(/\s+/g," ").trim().slice(0,40);
+    if(!n)return;
+    try{localStorage.setItem("silt-desk-name",n)}catch(e){}
+    $("#whoName").textContent=n;state.me=n;return;
+  }
+  try{await api("/api/logout",{method:"POST",body:"{}"})}catch(e){}state.posts=[];state.days=[];showLogin()});
 boot();
 </script>
 </body>

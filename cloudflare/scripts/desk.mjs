@@ -90,11 +90,14 @@ if (cmd === "exists" || cmd === "count") {
   const sql = [...files.map(f => postSql(f.replace(/\.json$/, ""), readJson(path.join(postsDir, f)), replace)), briefSql(readJson(briefFile))].join("\n");
   runFile(sql);
   console.log(`Loaded ${files.length} posts and the brief for ${arg}${replace ? " (unreviewed posts replaced)" : ""}.`);
-} else if (cmd === "weekly-ads") {
+} else if (cmd === "weekly-ads" || cmd === "daily-ads" || cmd === "store-teardowns") {
   // node scripts/desk.mjs weekly-ads  -> re-harvests competitor Meta ads (silt-ad-tools/weekly-diff.mjs),
   // writes "this week" into competitors/teardowns.json, then stores it for the Ad teardowns tab.
+  // node scripts/desk.mjs daily-ads   -> same for the "Watch closely" brands only, written as "today" (field `day`).
+  // node scripts/desk.mjs store-teardowns -> just stores competitors/teardowns.json (after adding the hack of the day).
   const tools = process.env.SILT_AD_TOOLS || path.resolve(root, "..", "..", "silt-ad-tools");
-  execFileSync(process.execPath, [path.join(tools, "weekly-diff.mjs"), ...(arg ? [arg] : [])], { stdio: "inherit", timeout: 3 * 60 * 60 * 1000 });
+  if (cmd === "weekly-ads") execFileSync(process.execPath, [path.join(tools, "weekly-diff.mjs"), ...(arg ? [arg] : [])], { stdio: "inherit", timeout: 3 * 60 * 60 * 1000 });
+  if (cmd === "daily-ads") execFileSync(process.execPath, [path.join(tools, "weekly-diff.mjs"), arg || "supply6,thestack,theupside,hackdaily", "--daily"], { stdio: "inherit", timeout: 90 * 60 * 1000 });
   const file = path.resolve(root, "..", "competitors", "teardowns.json");
   const body = JSON.stringify(readJson(file));
   runFile(`INSERT INTO docs (key, doc, updated_at) VALUES ('teardowns', ${q(body)}, ${q(new Date().toISOString())}) ON CONFLICT(key) DO UPDATE SET doc = excluded.doc, updated_at = excluded.updated_at;`);
