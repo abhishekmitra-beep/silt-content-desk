@@ -63,8 +63,7 @@ export async function buildBrief(env, { maxLines = 90 } = {}) {
   const all = [];
   // Newest first: what the team and the AI made lately matters most for "don't repeat".
   for (const i of items.filter(i => i.kind !== "decision")) all.push({ src: i.kind, t: i.doc.t || "image", funnel: i.doc.funnel, product: i.doc.product, line: line(i.doc), status: i.status });
-  for (const s of STATICS) all.push({ src: "built-in", t: s.t, funnel: s.funnel, product: s.product, line: line(s), status: decided[s.id] || "pending" });
-  for (const l of LIBRARY) all.push({ src: "library", t: "image", funnel: l.funnel, product: l.product, line: l.title, status: decided[l.id] || "pending" });
+  // The old built-in and Library sets are gone (team reset, 26 Nov): only what is in the database counts as existing.
   const good = all.filter(x => x.status === "approved" || x.status === "ai_approved");
   const bad = all.filter(x => x.status === "rejected" || x.status === "ai_rejected");
   const seen = new Set(), existing = [];

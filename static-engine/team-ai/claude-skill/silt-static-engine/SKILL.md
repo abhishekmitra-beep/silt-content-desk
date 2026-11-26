@@ -11,7 +11,8 @@ The SILT Static Engine is the team's website for Meta ad statics: https://silt-s
 1. **The team** types ideas on the site's Ideas tab and presses *Send to Claude*. The ideas wait in a queue.
 2. **You (Claude) are the thinker.** You pick up a waiting idea, take your time, and write each static: the concept, the exact words, a preview, a complete **ChatGPT prompt** for the finished image, and your honest **review**.
 3. **ChatGPT is the generator.** It makes each static image from your prompt. The team uploads the image onto that static.
-4. **The team ticks** each static on the Ideas tab: ✓ sends it to Team Approval, ✕ drops it. Only a team approval makes a static live.
+4. **Your review is the AI Checker.** A static you approve moves on to Team Approval by itself; one you stall waits in the AI Checker tab.
+5. **The team decides** in Team Approval: ✓ approve, ✕ reject, edit or delete. Approved statics land in Statics Finalized.
 
 Take your time. Quality beats speed: think about the person, the moment, the joke and the line before writing.
 
@@ -65,7 +66,7 @@ Treat them as rules you learned the hard way:
 
 Make `count` statics (default 6). Each one is a **different moment, a different person and a different format**, and nothing on the brief's lists may repeat. Use Indian characters, with Indian women as the lead in many of them. Never invent a customer quote, review, rating or result.
 
-Save each static under the idea (`idea_id`). Your review is the `status`: `"approved"` if it's good (it shows as **AI approved**), `"rejected"` if it isn't (**AI rejected**). Put the reason in `ai_note`.
+Save each static under the idea (`idea_id`). Your review is the `status`: `"approved"` if it's good (the AI Checker shows it as **Approved** and it moves on to Team Approval), `"rejected"` if it isn't (the AI Checker shows it as **Stalled** and it waits there). Put the reason in `ai_note`.
 
 ```
 curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" -d '{
@@ -94,7 +95,7 @@ After the last static, the idea shows as briefed on the site. Then hand the prom
 - how many statics you made
 - that they are on the Ideas tab
 - that they now go to ChatGPT: *Copy for ChatGPT* on each static, then *⬆ Image* to upload the result
-- that they then tick ✓ or cross ✕
+- that the approved ones are now waiting in Team Approval for their ✓ or ✕, and the stalled ones are in AI Checker
 
 **No network from your Claude?** On the site, an idea's *Copy for Claude* button gives you the same brief as one prompt. Reply with `{"statics":[...]}`, each static with the fields above plus `"review": {"ok": true|false, "note": "..."}`. The person pastes your reply with *Paste Claude's reply*.
 
@@ -131,7 +132,7 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-clien
 
 **Can't control a browser or the desktop?** Tell the person to press *Copy for ChatGPT* on each static on the Ideas tab, paste it into ChatGPT, and upload the result with *⬆ Image*.
 
-When the images are on, tell the person how many are ready and that each static now needs their ✓ or ✕ on the Ideas tab.
+When the images are on, tell the person how many are ready and that the approved ones are waiting for their ✓ or ✕ in Team Approval.
 
 ## Formats and their text keys (for the preview)
 

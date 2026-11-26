@@ -61,12 +61,18 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 .stage{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.2);align-self:center}.stage iframe{border:0;transform-origin:0 0;position:absolute;left:0;top:0}
 @media (max-width:820px){.ed{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}header.top,main{padding-left:16px;padding-right:16px}}
 .cgrid{border-collapse:collapse;margin:4px 0 12px;font-size:13px}.cgrid caption{text-align:left;font-weight:700;padding:0 0 4px;opacity:.8}.cgrid th,.cgrid td{border:1px solid var(--line,#ddd);padding:4px 12px;text-align:center}.cgrid tbody th{text-align:left}.cgrid .tot td,.cgrid .tot th{background:rgba(0,0,0,.04)}
-.dl .bin{margin-left:auto;padding:.35em .6em;font-size:1.05em;line-height:1;border-color:transparent;background:transparent;opacity:.75}.dl .bin:hover{opacity:1;background:var(--bad,#c0392b);color:#fff;border-color:transparent}
+.card,.istat{position:relative}.selbox{position:absolute;top:8px;left:8px;z-index:4;width:22px;height:22px;accent-color:var(--acc);cursor:pointer;margin:0}.selbox.inline{position:static;flex:none;margin-top:3px}
+#selbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;background:var(--ink);color:var(--bg);border-radius:999px;padding:10px 12px 10px 20px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.35);min-width:min(420px,92vw)}
+#selbar button{background:transparent;color:inherit;border-color:currentColor}#selbar button.danger{background:var(--bad);border-color:var(--bad);color:#fff;font-weight:700}
+.intro{margin:0 0 10px;font-size:14px}.dlset{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.dlset .lab{font-size:11px;width:100%}.dlset button{font-size:12px;padding:4px 9px}.dl+.dl{padding-top:0;margin-top:-4px}.chip.stall{background:var(--warn-bg);color:var(--warn)}
+.tabs button{font-size:15px}.tabs button[aria-pressed=true] .sub{color:inherit;opacity:.8}
+.start summary{cursor:pointer;font-size:16px}.start .steps{margin:4px 0 0 20px;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px}.start code{font-size:12px;background:var(--chip);padding:1px 5px;border-radius:5px}
+.dl .bin,.idea .bin{margin-left:auto;padding:.35em .6em;font-size:1.05em;line-height:1;border-color:transparent;background:transparent;opacity:.75}.dl .bin:hover,.idea .bin:hover{opacity:1;background:var(--bad,#c0392b);color:#fff;border-color:transparent}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head><body>
 <header class="top">
-  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="redBtn" title="Show Meta's no-go zones (red) on every thumbnail">Red lines</button><button id="zipAll">Download everything (ZIP)</button></div>
+  <div class="row"><h1>SILT Static Engine</h1><span class="spacer"></span><button id="connectAI" title="Connect your own Claude or ChatGPT to this site">🔌 Connect Claude / ChatGPT</button><button id="redBtn" title="Show Meta's no-go zones (red) on every thumbnail">Red lines</button></div>
   <div class="tabs" id="tabs"></div>
 </header>
 <main id="view"></main>
@@ -75,19 +81,18 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
   <div class="pane"><div class="row"><b id="edTitle" style="font-size:17px"></b><span class="spacer"></span><button id="close">Close</button></div><div id="fields"></div>
     <p class="sub">Write **bold** for bold and *word* for the accent colour. Lists take one item per line. Keep it to about 22 words.</p></div>
   <div class="pane"><div class="row" id="edSize"></div><div class="row" id="edPos" style="justify-content:center;gap:6px;flex-wrap:wrap;margin:6px 0"><span class="sub" style="width:100%;text-align:center">Drag the words, the pack or the button on the preview to move them (saved for this size).</span><button data-al="left">Left</button><button data-al="center">Centre</button><button data-al="right">Right</button><button data-al="reset">Reset placement and size</button></div><div class="row" id="edFs" style="justify-content:center;gap:4px 10px;flex-wrap:wrap;margin:0 0 6px"></div><div class="stage" id="stage"><iframe id="frame" title="Preview"></iframe></div><div id="live"></div>
-    <div class="row" style="justify-content:center"><button class="primary" id="save">Save</button><button id="export">Export PNG</button><button id="exportAll">Export all 3 sizes</button><button id="del" hidden>Delete</button></div><p class="status" id="edMsg" style="text-align:center"></p></div>
+    <div class="row" style="justify-content:center"><button class="primary" id="save">Save</button><button id="export">Export PNG</button><button id="exportAll">Export all sizes</button><button id="del" hidden>Delete</button></div><p class="status" id="edMsg" style="text-align:center"></p></div>
 </div></dialog>
 
 <script type="module">
 import { render, fileName, SIZES, THEMES, TEMPLATES, SCENES, checkCopy, wordCount, TEXT_LIMIT, batchPrompt, META_FIELDS, BRAND_BRIEF, MOVE, MOVE_NAMES } from "/engine.js";
 import { STATICS } from "/statics.js";
 import { openImgEditor } from "/imgedit.js";
-import { LIBRARY } from "/library.js";
 
-const TABS = [["IDEAS", "Ideas"], ["AIAPP", "AI Approval"], ["TEAMAPP", "Team Approval"], ["TOFU", "TOFU"], ["MOFU", "MOFU"], ["BOFU", "BOFU"], ["RET", "Retention"], ["RULES", "Rules"]];
-const FUN = { TOFU: "New audience · Replaces the stack", MOFU: "Retargeting · Replaces the stack, with proof", BOFU: "Ready to buy · Replaces the stack + COMBO10", RET: "Existing customers · the ritual" };
-const st = { tab: "IDEAS", prod: "all", size: "4x5", apf: "all", aiv: "ai_approved", items: [], rules: [], q: "", img: null, thumb: null, gCount: "6", gFunnel: "auto", gProd: "auto" };
-try { const p = JSON.parse(localStorage.getItem("silt-se-ui") || "{}"); if (p.tab === "APPROVAL") p.tab = "TEAMAPP"; if (p.tab && TABS.some(t => t[0] === p.tab)) st.tab = p.tab; if (p.size) st.size = p.size; } catch {}
+const TABS = [["IDEAS", "1 · Ideas"], ["AIAPP", "2 · AI Checker"], ["TEAMAPP", "3 · Team Approval"], ["FINAL", "4 · Statics Finalized"], ["RULES", "Rules"]];
+const FUN = { TOFU: "TOFU: new audience", MOFU: "MOFU: retargeting", BOFU: "BOFU: ready to buy", RET: "Retention: existing customers" };
+const st = { tab: "IDEAS", prod: "all", fin: "all", size: "4x5", apf: "all", aiv: "ai_approved", sel: new Set(), items: [], rules: [], q: "", img: null, thumb: null, gCount: "6", gFunnel: "auto", gProd: "auto" };
+try { const p = JSON.parse(localStorage.getItem("silt-se-ui") || "{}"); if (p.tab === "APPROVAL") p.tab = "TEAMAPP"; if (["TOFU", "MOFU", "BOFU", "RET"].includes(p.tab)) p.tab = "FINAL"; if (p.tab && TABS.some(t => t[0] === p.tab)) st.tab = p.tab; if (p.size) st.size = p.size; } catch {}
 const saveUi = () => { try { localStorage.setItem("silt-se-ui", JSON.stringify({ tab: st.tab, size: st.size })); } catch {} };
 const $ = id => document.getElementById(id), esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 let myName = ""; try { myName = localStorage.getItem("silt-se-name") || ""; } catch {}
@@ -98,54 +103,45 @@ async function api(path, opts = {}) {
 }
 
 // ---------- data ----------
+// Everything lives in the team database (team reset, 26 Nov): statics written from ideas, edited statics and uploaded
+// images. The old built-in and Library sets are no longer shown; the St(temp) statics were imported as editable uploads.
+const KINDS = ["static", "override", "upload"];
+const asStatic = i => ({ ...i.doc, ...(i.kind === "upload" ? { kind: "upload" } : {}), _item: i });
 const LIVE = i => i.status === "approved";
-const PENDING = i => ["approval", "changes", "active"].includes(i.status) || (i.status === "draft" && !i.doc?.idea_id);
-const team = () => st.items.filter(i => i.kind === "static" && LIVE(i)).map(i => ({ ...i.doc, _item: i }));
-const overrides = () => Object.fromEntries(st.items.filter(i => i.kind === "override" && LIVE(i)).map(i => [i.id, i]));
-// Built-in and library statics start unapproved too (user, 25 Nov: "nothing is approved yet"). A decision item records the team's call.
-const decisions = () => Object.fromEntries(st.items.filter(i => i.kind === "decision").map(i => [i.doc.id, i.status]));
-const pendingOverrideFor = () => new Set(st.items.filter(i => i.kind === "override" && (PENDING(i) || AI(i))).map(i => i.id));
-// AI verdicts (Claude / ChatGPT over the API) wait in AI Approval; only a team click makes a static live.
+// The AI Checker's verdict: approved moves on to Team Approval by itself; stalled waits in the AI Checker tab.
 const AI = i => i.status === "ai_approved" || i.status === "ai_rejected";
-function aiList() {
-  const out = st.items.filter(i => ["static", "override", "upload"].includes(i.kind) && AI(i)).map(i => ({ ...i.doc, ...(i.kind === "upload" ? { kind: "upload" } : {}), _item: i, _verdict: i.status }));
-  for (const i of st.items.filter(i => i.kind === "decision" && AI(i))) {
-    const s = STATICS.find(x => x.id === i.doc.id) || LIBRARY.find(x => x.id === i.doc.id);
-    if (s && !out.some(o => o._item && o._item.kind === "override" && o._item.id === s.id)) out.push({ ...s, _dec: i, _verdict: i.status });
-  }
-  return out;
-}
-const pending = () => { const d = decisions(), o = overrides(), po = pendingOverrideFor();
-  return [...st.items.filter(i => (i.kind === "static" || i.kind === "override") && PENDING(i)).map(i => ({ ...i.doc, _item: i })),
-    ...STATICS.filter(s => !d[s.id] && !o[s.id] && !po.has(s.id)), ...LIBRARY.filter(s => !d[s.id]), ...uploads(PENDING)]; };
-function allStatics() { const o = overrides(), d = decisions(); return [...team(), ...STATICS.filter(s => o[s.id] || d[s.id] === "approved").map(s => o[s.id] ? { ...o[s.id].doc, _item: o[s.id] } : s), ...LIBRARY.filter(s => d[s.id] === "approved"), ...uploads(LIVE)]; }
+const PENDING = i => ["approval", "changes", "active", "ai_approved"].includes(i.status) || (i.status === "draft" && !i.doc?.idea_id);
+const aiList = () => st.items.filter(i => KINDS.includes(i.kind) && AI(i)).map(i => ({ ...asStatic(i), _verdict: i.status }));
+const pending = () => st.items.filter(i => KINDS.includes(i.kind) && PENDING(i)).map(asStatic);
+const allStatics = () => st.items.filter(i => KINDS.includes(i.kind) && LIVE(i)).map(asStatic);
 const ideas = () => st.items.filter(i => i.kind === "idea" && i.status !== "archived");
-// Uploaded finished statics (kind "upload"): images stored as they are, files = { "4x5": fileId, "9x16": fileId, ... }
-const uploads = test => st.items.filter(i => i.kind === "upload" && test(i)).map(i => ({ ...i.doc, kind: "upload", _item: i }));
-const isImg = s => s.kind === "library" || s.kind === "upload" || !!(s.files && Object.keys(s.files).length);
-const imgUrl = (s, k, small) => s.kind === "library" ? (small ? "/library/thumb/" + s.files[k] + ".jpg" : "/library/png/" + s.files[k] + ".png") : "/api/file/" + s.files[k];
-const imgName = (s, k) => s.kind === "library" ? s.files[k] + ".png" : (s.names?.[k] || s.files[k] + ".jpg");
-const findAny = id => { const it = st.items.find(i => i.id === id && (i.kind === "static" || i.kind === "override")); return it ? { ...it.doc, _item: it } : allStatics().find(s => s.id === id); };
+const isImg = s => s.kind === "upload" || !!(s.files && Object.keys(s.files).length);
+const imgUrl = (s, k) => "/api/file/" + s.files[k];
+const imgName = (s, k) => s.names?.[k] || s.files[k] + ".jpg";
+const findAny = id => { const it = st.items.find(i => i.id === id && KINDS.includes(i.kind)); return it ? asStatic(it) : null; };
 async function load() {
   // If the API is down (e.g. Cloudflare's daily free limit), keep the built-in statics usable instead of breaking the page.
-  try { const r = await api("/api/items"); if (!r || !Array.isArray(r.items)) throw new Error("the team database isn't answering"); st.items = r.items; } catch (e) { st.items = st.items || []; status("Team items couldn't load (" + e.message + "). Saved statics, ideas and approvals come back when it answers again; built-ins still work."); }
+  try { const r = await api("/api/items"); if (!r || !Array.isArray(r.items)) throw new Error("the team database isn't answering"); st.items = r.items; } catch (e) { st.items = st.items || []; status("Team items couldn't load (" + e.message + "). Everything comes back when it answers again."); }
   try { st.rules = (await api("/api/rules")).rules || []; } catch {}
   draw();
 }
 
 // ---------- shell ----------
 function drawTabs() {
-  const n = id => id === "IDEAS" ? ideas().filter(i => !allDropped(i)).length : id === "RULES" ? st.rules.length : id === "TEAMAPP" ? pending().length : id === "AIAPP" ? aiList().filter(s => s._verdict === "ai_approved").length : allStatics().filter(s => s.funnel === id).length;
+  const n = id => id === "IDEAS" ? ideas().filter(i => !allDropped(i)).length : id === "RULES" ? st.rules.length : id === "TEAMAPP" ? pending().length : id === "AIAPP" ? aiList().length : allStatics().length;
   $("tabs").innerHTML = TABS.map(([id, name]) => `<button data-tab="${id}" aria-pressed="${st.tab === id}">${name} <span class="sub">${n(id)}</span></button>`).join("");
 }
-$("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (!b) return; st.tab = b.dataset.tab; saveUi(); draw(); });
-function draw() { drawTabs(); (st.tab === "IDEAS" ? drawIdeas : st.tab === "RULES" ? drawRules : st.tab === "TEAMAPP" ? () => drawApproval("TEAM") : st.tab === "AIAPP" ? () => drawApproval("AI") : drawFunnel)(); hydrate(); }
+$("tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (!b) return; st.tab = b.dataset.tab; st.sel.clear(); st.apf = st.prod = st.fin = "all"; saveUi(); draw(); });
+function draw() {
+  for (const k of [...st.sel]) if (!st.items.some(i => i.id === k)) st.sel.delete(k);
+  drawTabs(); (st.tab === "IDEAS" ? drawIdeas : st.tab === "RULES" ? drawRules : st.tab === "TEAMAPP" ? () => drawApproval("TEAM") : st.tab === "AIAPP" ? () => drawApproval("AI") : drawFinal)(); hydrate(); drawSelBar();
+}
 function status(t) { const el = $("genMsg") || $("zipMsg"); if (el) el.textContent = t; }
 const chips = (key, opts) => opts.map(([v, l]) => `<button data-k="${key}" data-v="${v}" aria-pressed="${st[key] === v}">${l}</button>`).join("");
 
 function thumb(s, size = st.size) {
   const z = SIZES[size];
-  if (isImg(s)) { const k = s.files[size] ? size : (s.files["4x5"] ? "4x5" : Object.keys(s.files)[0]); const zz = SIZES[k]; return `<div class="thumb" data-z="${k}" style="aspect-ratio:${zz ? zz.w + "/" + zz.h : "4/5"}"><img loading="lazy" src="${imgUrl(s, k, true)}" alt="${esc(s.title)}"></div>`; }
+  if (isImg(s)) { const k = s.files[size] ? size : (s.files["4x5"] ? "4x5" : Object.keys(s.files)[0]); const zz = SIZES[k]; return `<div class="thumb" data-z="${k}" style="aspect-ratio:${zz ? zz.w + "/" + zz.h : "4/5"}"><img loading="lazy" src="${imgUrl(s, k)}" alt="${esc(s.title)}"></div>`; }
   if (s._item) return `<div class="thumb" data-z="${size}" data-live="${esc(s._item.id)}" data-size="${size}" style="aspect-ratio:${z.w}/${z.h}"></div>`;
   return `<div class="thumb" data-z="${size}" style="aspect-ratio:${z.w}/${z.h}"><img loading="lazy" src="/thumb/${fileName(s, size)}.jpg" alt="${esc(s.id)}"></div>`;
 }
@@ -155,21 +151,47 @@ function hydrate() {
     const f = document.createElement("iframe"); f.style.width = z.w + "px"; f.style.height = z.h + "px"; f.style.transform = `scale(${el.clientWidth / z.w})`; f.srcdoc = render(s, el.dataset.size || st.size, "/"); f.title = s.id; el.appendChild(f);
   });
 }
+const FNAME = { TOFU: "TOFU", MOFU: "MOFU", BOFU: "BOFU", RET: "Retention" };
+const titleText = s => String(isImg(s) && s.title ? s.title : (s.headline || s.problem || s.question || s.top || s.title || s.quote || s.text || s.format || s.t || "")).replace(/\*/g, "");
+const whoOf = s => esc((s.kind === "upload" ? "Uploaded" : s._item.kind === "override" ? "Edited" : "From an idea") + " · " + (s._item.updated_by || s._item.created_by || ""));
+// Every static can be edited: engine statics open the words editor, image statics open the image editor.
+const editBtn = s => `<button data-${isImg(s) ? "imgedit" : "edit"}="${esc(s._item.id)}" title="Edit this static">✎ Edit</button>`;
+const bin = s => `<button class="bin" data-del="${esc(s._item.id)}" title="Delete this static" aria-label="Delete this static">🗑</button>`;
+// Download in all four ad formats: Feed 4:5, Square 1:1, Stories 9:16, Reels 9:16 (team, 26 Nov).
+const ZNAME = { "4x5": "Feed 4:5", "1x1": "Square 1:1", "9x16": "Stories 9:16", reels: "Reels 9:16" };
+const dlBtns = s => `<span class="dlset"><span class="lab">⬇ Download</span>${Object.keys(SIZES).map(k => `<button data-dl="${esc(s._item.id)}" data-z="${k}" title="Download the ${ZNAME[k]} file${isImg(s) && !s.files[k] ? " (built from this static's other size)" : ""}">${ZNAME[k]}</button>`).join("")}</span>`;
+const metaBtn = s => `<button data-metaprev="${esc(s._item.id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>`;
 function card(s) {
-  const lib = isImg(s), gen = !!s._item && !lib, id = s._item ? s._item.id : s.id;
-  const dl = lib ? Object.keys(s.files).map(k => `<a class="btn" href="${imgUrl(s, k)}${s.kind === "upload" ? "?dl=1" : ""}" download="${esc(imgName(s, k))}">${SIZES[k]?.name || k}</a>`).join("")
-    : Object.keys(SIZES).map(k => gen ? `<button data-dl="${esc(id)}" data-z="${k}">${SIZES[k].name}</button>` : `<a class="btn" href="/png/${fileName(s, k)}.png" download>${SIZES[k]?.name || k}</a>`).join("");
-  const tag = lib ? `<span class="chip${s.kind === "upload" ? " team" : ""}">${s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : "Library"}</span>` : gen ? `<span class="chip team">${s._item.kind === "override" ? "Edited" : "From an idea"} · ${esc(s._item.updated_by || s._item.created_by || "")}</span>` : "";
-  const warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
-  const aiNote = s.ai_note || s._dec?.doc?.ai_note || (decisions()[s.id] ? (st.items.find(i => i.id === "D-" + s.id)?.doc?.ai_note || "") : "");
-  return `<article class="card">${thumb(s)}<div class="meta"><div class="t">${esc(lib && s.title ? s.title : (s.headline || s.question || s.title || s.quote || s.top || s.format || s.t || "").replace(/\*/g, ""))}</div>
-    <div class="chips"><span class="chip">${esc(s.concept || "")}</span><span class="chip">${esc(s.product)}</span>${tag}</div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}${aiNote ? `<div class="sub ainote"><b>AI:</b> ${esc(aiNote)}</div>` : ""}</div>
-    <div class="dl">${dl}${lib ? `<button data-imgedit="${esc(id)}">Edit</button>` : `<button data-edit="${esc(id)}">Edit</button>`}<button data-metaprev="${esc(id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>${bin(s)}</div></article>`;
+  const img = isImg(s), id = s._item.id, warn = s.flags || [];
+  const dl = dlBtns(s);
+  return `<article class="card">${selBox(id)}${thumb(s)}<div class="meta"><div class="t">${esc(titleText(s))}</div>
+    <div class="chips"><span class="chip">${esc(FNAME[s.funnel] || s.funnel || "")}</span><span class="chip">${esc(s.product || "")}</span>${s.concept ? `<span class="chip">${esc(s.concept)}</span>` : ""}<span class="chip team">${whoOf(s)}</span></div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}</div>
+    <div class="dl">${editBtn(s)}${metaBtn(s)}${bin(s)}</div><div class="dl">${dl}</div></article>`;
 }
-// Delete bin (team, 25 Nov: "add a Delete button as well, reject is okay; the bin at the bottom right").
-// Team items are archived; built-in and Library statics get a "deleted" decision so they leave every list.
-const bin = s => `<button class="bin" data-del="${esc(s._item ? s._item.id : "s:" + s.id)}" title="Delete this static" aria-label="Delete this static">🗑</button>`;
 
+// ---------- select and delete (team, 26 Nov: "add a selection thing so that we can select and delete") ----------
+const selBox = (key, inline) => `<input type="checkbox" class="selbox${inline ? " inline" : ""}" data-sel="${esc(key)}"${st.sel.has(key) ? " checked" : ""} aria-label="Select" title="Select">`;
+const selAllBtn = `<button id="selAll" title="Select everything shown here (press again to clear)">☑ Select all</button>`;
+function drawSelBar() {
+  let bar = $("selbar"); const n = st.sel.size;
+  if (!n) { bar?.remove(); return; }
+  if (!bar) { bar = document.createElement("div"); bar.id = "selbar"; document.body.appendChild(bar);
+    bar.addEventListener("click", e => { if (e.target.id === "selClear") { st.sel.clear(); draw(); } if (e.target.id === "selDel") deleteIds([...st.sel]);
+      if (e.target.id === "selDl") { const list = [...st.sel].map(findAny).filter(Boolean); if (!list.length) return status("Select statics to download (ideas have no files)."); zip(list, "all", "SILT_Statics_Selected", { set textContent(v) { status(v); } }); } }); }
+  bar.innerHTML = `<b>${n} selected</b><span class="spacer"></span><button id="selClear">Clear</button><button id="selDl" title="All 4 ad formats of each selected static, in one ZIP">⬇ Download selected</button><button id="selDel" class="danger">🗑 Delete selected</button>`;
+}
+// Deleting is for everyone and for good. An idea goes with its statics that aren't finalized yet.
+async function deleteIds(ids) {
+  const items = ids.map(id => st.items.find(i => i.id === id)).filter(Boolean); if (!items.length) return;
+  const extra = new Set();
+  for (const i of items) if (i.kind === "idea") for (const m of i.doc.made || []) { const x = st.items.find(y => y.id === m && y.kind === "static"); if (x && x.status !== "approved" && !ids.includes(m)) extra.add(m); }
+  const nI = items.filter(i => i.kind === "idea").length, nS = items.length - nI + extra.size;
+  const what = [nI ? nI + (nI === 1 ? " idea" : " ideas") : "", nS ? nS + (nS === 1 ? " static" : " statics") : ""].filter(Boolean).join(" and ");
+  if (!confirm(`Delete ${what} for everyone, once and for all? This can't be undone.`)) return;
+  const all = [...extra, ...items.filter(i => i.kind !== "idea").map(i => i.id), ...items.filter(i => i.kind === "idea").map(i => i.id)]; let n = 0;
+  for (const id of all) { status(`Deleting ${++n} of ${all.length}…`); await api("/api/items/" + encodeURIComponent(id) + "?forever=1", { method: "DELETE" }).catch(() => {}); }
+  st.sel.clear(); await load(); status(`Deleted ${what}.`);
+}
 // ---------- Ideas (home): Claude thinks, ChatGPT makes, the team ticks ----------
 // 1. Someone types an idea and sends it to Claude (it waits in the queue).
 // 2. Someone's Claude (SILT skill, or copy / paste) thinks it through and writes each static: the words, a preview, a
@@ -177,7 +199,7 @@ const bin = s => `<button class="bin" data-del="${esc(s._item ? s._item.id : "s:
 // 3. ChatGPT makes each image from its prompt; it's uploaded onto that static.
 // 4. The team ticks (Team Approval) or crosses (dropped) each static right here.
 const ISTATE = { waiting: "⏳ Waiting for Claude", working: "✍️ Claude is working on it", briefed: "", active: "" };
-const SLABEL = { draft: "Draft", ai_approved: "AI ✓ approved", ai_rejected: "AI ✕ rejected", approval: "In Team Approval", changes: "In Team Approval", approved: "✓ Live", rejected: "✕ Dropped" };
+const SLABEL = { draft: "Not checked yet", ai_approved: "Checker ✓ · in Team Approval", ai_rejected: "Checker ⏸ stalled", approval: "In Team Approval", changes: "In Team Approval", approved: "✓ Finalized", rejected: "✕ Rejected" };
 const hasImg = s => !!(s.files && Object.keys(s.files).length);
 // An idea whose statics were all dropped (✕ / rejected / deleted) leaves the history (user, 25 Nov). It's archived, not
 // erased, and an idea still waiting for Claude or being worked on always stays.
@@ -191,50 +213,64 @@ async function sweepIdeas() {
   if (gone.length) { await load(); status(gone.length === 1 ? "All its statics were dropped, so the idea was removed from the history." : gone.length + " ideas with every static dropped were removed from the history."); }
 }
 function ideaStatic(s) {
-  const it = s._item, id = it.id, stt = it.status, done = stt === "approved" || stt === "rejected";
-  return `<div class="istat${stt === "rejected" ? " dropped" : ""}"><div data-edit="${esc(id)}" title="Open">${thumb(s, "4x5")}</div>
-    <div class="ist ${stt}">${SLABEL[stt] || stt}${hasImg(s) ? " · ChatGPT image" : s.chatgpt_prompt ? " · needs image" : ""}</div>
+  const it = s._item, id = it.id, stt = it.status;
+  return `<div class="istat${stt === "rejected" ? " dropped" : ""}">${selBox(id)}<div data-${hasImg(s) ? "imgedit" : "edit"}="${esc(id)}" title="Open to edit">${thumb(s, "4x5")}</div>
+    <div class="ist ${stt}">${SLABEL[stt] || stt}${hasImg(s) ? " · image added" : s.chatgpt_prompt ? " · needs image" : ""}</div>
     ${s.ai_note ? `<div class="sub inote" title="${esc(s.ai_note)}">${esc(s.ai_note)}</div>` : ""}
     ${s.flags?.length ? `<div class="check" title="${esc(s.flags.join(" · "))}">${esc(s.flags[0])}</div>` : ""}
-    <div class="row tick">${done ? "" : `<button class="ok" data-tick="${esc(id)}" title="Good: send to Team Approval">✓</button><button class="no" data-cross="${esc(id)}" title="Drop it">✕</button>`}
+    <div class="row tick">${["draft", "ai_rejected"].includes(stt) ? `<button class="ok" data-tick="${esc(id)}" title="Send it to Team Approval">→ Team</button>` : ""}
       ${s.chatgpt_prompt ? `<button data-gpt="${esc(id)}" title="Copy Claude's prompt, paste it into ChatGPT">Copy for ChatGPT</button><label class="btn attach" title="Upload the image ChatGPT made">⬆ Image<input type="file" data-attach="${esc(id)}" accept="image/png,image/jpeg,image/webp"></label>` : ""}<button data-metaprev="${esc(id)}" title="See it in every Meta placement">📱</button></div></div>`;
 }
 function drawIdeas() {
   const q = st.q.toLowerCase();
   const xs = ideas().filter(i => !allDropped(i) && (!q || (i.doc.text || "").toLowerCase().includes(q)));
   const hits = q ? [...allStatics(), ...pending()].filter(s => JSON.stringify([s.headline, s.sub, s.title, s.question, s.top, s.bottom, s.concept, s.quote, s.text, s.items, s.options]).toLowerCase().includes(q)).slice(0, 24) : [];
+  const ready = !!conn.claude, open = st.startOpen ?? !ready;
   $("view").innerHTML = `
+  <details class="panel start" id="startBox"${open ? " open" : ""}><summary><b>${ready ? "✓ Your Claude is connected. Setup steps" : "Start here: connect your Claude (one time, about 2 minutes)"}</b></summary>
+    <div id="ideaConn">${connRows()}</div>
+    <ol class="steps">
+      <li><b>Download your Claude skill.</b> It is made for this browser and already includes the ChatGPT connector: Claude opens ChatGPT in your browser, makes each image and uploads it here. <button class="primary" id="getSkill">⬇ Download my Claude skill</button></li>
+      <li><b>Add it to Claude.</b> In the Claude app: Settings → Capabilities → Skills → upload the zip. In Claude Code: unzip it into the <code>.claude/skills</code> folder.</li>
+      <li><b>For the images,</b> stay signed in to ChatGPT in this browser and add the Claude in Chrome extension, so Claude can use ChatGPT for you.</li>
+      <li><b>Type an idea below</b> and press Send to Claude. Then tell Claude: <b>“make the waiting SILT ideas”</b>.</li>
+    </ol>
+    <div class="row"><button id="connectAI2">More setup help</button><span class="sub">This box ticks ✓ by itself the first time your Claude reaches the site.</span></div></details>
   <div class="ideabar"><input type="text" id="idea" placeholder="Type an idea for Claude… e.g. a CA during tax season" value="${esc(st.q)}" aria-label="Idea or search">
     <span id="imgSlot">${st.img ? `<span class="imgchip"><img src="${st.thumb}" alt="">reference added <button id="imgX" style="padding:0 6px">✕</button></span>` : `<label class="btn attach" title="Add a reference image for Claude">🖼 Reference<input type="file" id="imgIn" accept="image/*"></label>`}</span>
     <select id="gCount" aria-label="How many"><option value="6">6 statics</option><option value="12">12</option><option value="30">30</option></select>
     <select id="gFunnel" aria-label="Funnel"><option value="auto">Any funnel</option><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
     <select id="gProd" aria-label="Product"><option value="auto">Any product</option><option>mornings</option><option>nights</option><option>combo</option></select>
     <button class="primary go" id="send">Send to Claude</button>
-    <button class="go" id="angle" title="Fills in an angle the engine hasn't covered yet (from everything already made)">✨ New angle</button></div>
-  <div class="flow"><span><b>1 · Claude thinks</b> Reads everything made so far, takes its time, writes each static, a ChatGPT prompt for it, and reviews its own work (AI Approval).</span>
-    <span><b>2 · ChatGPT makes</b> Paste each static's prompt into ChatGPT and upload the image onto the static (⬆ Image).</span>
-    <span><b>3 · You tick</b> ✓ sends it to Team Approval, ✕ drops it.</span></div>
-  <p class="status" id="genMsg">Claude runs on your own computer: in Claude (with the SILT skill) say <b>“make the waiting SILT ideas”</b>. No skill? Use <i>Copy for Claude</i> on an idea and paste the reply back. Setup: <a href="#" id="connectAI2">connect Claude / ChatGPT</a>.</p>
+    <button class="go" id="angle" title="Fills in an angle nothing covers yet (from everything already made)">✨ New angle</button></div>
+  <div class="flow"><span><b>1 · Ideas</b> Type an idea. Claude writes the statics and ChatGPT makes the images.</span>
+    <span><b>2 · AI Checker</b> Every static is checked. Approved moves on; stalled waits there.</span>
+    <span><b>3 · Team Approval</b> You ✓ approve, ✕ reject, ✎ edit or 🗑 delete.</span>
+    <span><b>4 · Statics Finalized</b> Approved statics, ready to download.</span></div>
+  <p class="status" id="genMsg"></p>
   ${hits.length ? `<div class="panel"><h2>Statics matching “${esc(st.q)}”</h2><div class="grid">${hits.map(card).join("")}</div></div>` : ""}
+  ${xs.length ? `<div class="row" style="margin-top:14px"><b style="font-size:17px">Your ideas (${xs.length})</b><span class="spacer"></span>${selAllBtn}</div>` : ""}
   ${xs.map(i => { const d = i.doc, made = (d.made || []).map(id => findAny(id)).filter(s => s && s._item), live = made.filter(s => s._item.status !== "rejected"), drop = made.length - live.length;
-    return `<div class="idea"><div class="head">${d.image ? `<img src="${d.image}" alt="">` : ""}<div style="flex:1"><h3>${esc(d.text || "Image idea")}</h3>
-      <div class="sub">${ISTATE[i.status] ? `<b class="qst">${ISTATE[i.status]}${i.status === "working" && i.updated_by ? " (" + esc(i.updated_by) + ")" : ""}</b> · ` : ""}asked by ${esc(i.created_by || "")} · ${new Date(i.updated_at).toLocaleString()} · ${live.length} statics${drop ? ` (${drop} dropped)` : ""} · ${esc(d.funnel || "auto")} · ${esc(d.product || "auto")}</div></div>
-      <div class="row"><button data-cl="${esc(i.id)}" title="Copy a full prompt for Claude (everything already made + this idea)">Copy for Claude</button><button data-paste="${esc(i.id)}">Paste Claude's reply</button>${["waiting", "working"].includes(i.status) ? "" : `<button data-again="${esc(i.id)}" title="Put it back in the queue for more statics">Ask Claude for more</button>`}</div></div>
+    return `<div class="idea"><div class="head">${selBox(i.id, true)}${d.image ? `<img src="${d.image}" alt="">` : ""}<div style="flex:1"><h3>${esc(d.text || "Image idea")}</h3>
+      <div class="sub">${ISTATE[i.status] ? `<b class="qst">${ISTATE[i.status]}${i.status === "working" && i.updated_by ? " (" + esc(i.updated_by) + ")" : ""}</b> · ` : ""}asked by ${esc(i.created_by || "")} · ${new Date(i.updated_at).toLocaleString()} · ${live.length} statics${drop ? ` (${drop} rejected)` : ""} · ${esc(d.funnel || "auto")} · ${esc(d.product || "auto")}</div></div>
+      <div class="row"><button data-cl="${esc(i.id)}" title="Copy a full prompt for Claude (everything already made + this idea)">Copy for Claude</button><button data-paste="${esc(i.id)}">Paste Claude's reply</button>${["waiting", "working"].includes(i.status) ? "" : `<button data-again="${esc(i.id)}" title="Put it back in the queue for more statics">Ask Claude for more</button>`}<button class="bin" data-del="${esc(i.id)}" title="Delete this idea and its unfinished statics" aria-label="Delete this idea">🗑</button></div></div>
       ${st.paste === i.id ? `<div class="pastebox"><textarea id="pasteTxt" rows="5" placeholder="Paste Claude's whole reply here"></textarea><div class="row"><button class="primary" data-pasteadd="${esc(i.id)}">Add these statics</button><button data-paste="">Cancel</button></div></div>` : ""}
       <div class="strip">${live.map(ideaStatic).join("")}</div></div>`; }).join("") || (q ? "" : `<p class="sub">No ideas yet. Type one above and send it to Claude.</p>`)}
-  <div class="panel"><h2>Upload finished statics</h2>
-    <p class="sub">Already have a finished static (Canva, ChatGPT, Photoshop)? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. They go to Team Approval.</p>
+  <div class="panel"><h2>Already have a finished static? Upload it</h2>
+    <p class="sub">Made in Canva, ChatGPT or Photoshop? Upload it as it is. Files that share a name apart from the size (for example <i>pillow_4x5.jpg</i> and <i>pillow_9x16.jpg</i>) become one static. Uploads go straight to Team Approval, and you can still edit them there.</p>
     <div class="row"><label class="btn attach">⬆ Choose images<input type="file" id="upIn" accept="image/png,image/jpeg,image/webp" multiple></label>
       <select id="upFunnel" aria-label="Funnel"><option>TOFU</option><option>MOFU</option><option>BOFU</option><option value="RET">Retention</option></select>
       <select id="upProd" aria-label="Product"><option>nights</option><option>mornings</option><option>combo</option></select>
       <button class="primary" id="upGo" ${st.up?.length ? "" : "disabled"}>Upload ${st.up?.length || ""} to Team Approval</button></div>
     ${(st.up || []).map(g => `<div class="sub">• ${esc(g.title)}: ${g.files.map(f => esc(f.name)).join(", ")}</div>`).join("")}<p class="status" id="upMsg"></p></div>`;
   for (const k of ["gCount", "gFunnel", "gProd"]) $(k).value = st[k];
-  if (!st.paste) { const i = $("idea"); i.focus(); i.setSelectionRange(i.value.length, i.value.length); } else $("pasteTxt")?.focus();
+  $("startBox").addEventListener("toggle", e => { st.startOpen = e.target.open; });
+  if (st.paste) $("pasteTxt")?.focus();
 }
 $("view").addEventListener("input", e => { if (e.target.id === "idea") { st.q = e.target.value; clearTimeout(st.t); st.t = setTimeout(() => { draw(); }, 350); } });
 $("view").addEventListener("keydown", e => { if (e.target.id === "idea" && e.key === "Enter") $("send").click(); });
 $("view").addEventListener("change", async e => {
+  if (e.target.dataset.sel) { e.target.checked ? st.sel.add(e.target.dataset.sel) : st.sel.delete(e.target.dataset.sel); return drawSelBar(); }
   if (e.target.id === "upIn") { st.up = groupFiles([...e.target.files]); return draw(); }
   if (["gCount", "gFunnel", "gProd"].includes(e.target.id)) { st[e.target.id] = e.target.value; return; }
   if (e.target.dataset.attach && e.target.files[0]) return attachImage(e.target.dataset.attach, e.target.files[0]);
@@ -255,7 +291,7 @@ async function attachImage(id, file) {
     fd.append("file", file.size > 1_800_000 ? await (await fetch(await shrink(file, 2160, .9))).blob() : file, file.name);
     const r = await fetch("/api/upload", { method: "POST", body: fd, headers: { "x-silt-name": encodeURIComponent(myName || "team"), "x-silt-actor": "team" } });
     const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || r.statusText);
-    await load(); status("Image added. Tick ✓ to send it to Team Approval.");
+    await load(); status("Image added.");
   } catch (er) { status("Upload failed: " + er.message); }
 }
 async function sendToClaude(text) {
@@ -308,7 +344,7 @@ async function pasteReply(ideaId) {
       delete doc.check;
       await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "static", doc, status: x.review ? (x.review.ok ? "ai_approved" : "ai_rejected") : "draft" }) }); n++;
     }
-    st.paste = null; await load(); status(`Added ${n} statics from Claude. Next: Copy for ChatGPT on each, upload the image, then ✓ or ✕.`);
+    st.paste = null; await load(); status(`Added ${n} statics from Claude. Next: Copy for ChatGPT on each and upload the image. The checked ones show up in AI Checker.`);
   } catch (er) { status("Couldn't read that reply: " + er.message); }
 }
 const copyText = async (t, msg) => { try { await navigator.clipboard.writeText(t); status(msg); } catch { prompt("Copy this:", t); } };
@@ -326,7 +362,7 @@ const PLACEMENTS = [
   ["Threads", "#000", [["Feed", "4x5", [], "Name above, text and Shop now below."]]],
   ["WhatsApp", "#25d366", [["Status", "9x16", Z_STORY, "Same no-go zones as Stories."]]]
 ];
-const anyStatic = id => findAny(id) || [...pending(), ...aiList(), ...allStatics()].find(s => (s._item ? s._item.id : s.id) === id || s.id === id);
+const anyStatic = id => findAny(id);
 function metaPreview(s) {
   const img = isImg(s), has = z => !img || !!s.files?.[z];
   const missing = ["4x5", "1x1", "9x16", "reels"].filter(z => !has(z));
@@ -346,33 +382,32 @@ function metaPreview(s) {
   d.addEventListener("close", () => d.remove());
 }
 
-// ---------- Approval: every new or edited static waits here (TOFU / MOFU / BOFU / Retention inside) ----------
+// ---------- AI Checker and Team Approval ----------
+// AI Checker: the checker's verdict on every static made from an idea. Approved ones show up in Team Approval by
+// themselves; stalled ones wait (team, 26 Nov: "Approved and stall, instead of reject").
+// Team Approval: ✓ approve (goes to Statics Finalized), ✕ reject, ✎ edit, 🗑 delete.
 function drawApproval(mode) {
-  const ai = mode === "AI", base = ai ? aiList().filter(s => s._verdict === st.aiv) : pending();
-  const all = base, xs = all.filter(s => st.apf === "all" || s.funnel === st.apf);
+  const ai = mode === "AI", every = ai ? aiList() : pending(), base = ai ? every.filter(s => s._verdict === st.aiv) : every;
+  const xs = base.filter(s => (st.apf === "all" || s.funnel === st.apf) && (st.prod === "all" || s.product === st.prod));
   st.apList = xs;
-  const c = f => all.filter(s => s.funnel === f).length;
-  const key = s => s._item ? s._item.id : "s:" + s.id;
-  const aiCounts = ai ? aiList() : [];
-  const head = s => (s.headline || s.problem || s.question || s.top || s.title || s.text || s.format || "").replace(/\*/g, "");
-  $("view").innerHTML = (ai ? '<p class="sub" style="margin:0 0 8px"><b>AI Approval.</b> What an AI (Claude or ChatGPT, over the API) has reviewed. Its verdict is only a suggestion: nothing here is live. A team member approves to send a static to its funnel tab, or rejects it.</p>'
-        + '<div class="row" style="margin-bottom:6px">' + chips("aiv", [["ai_approved", "AI approved " + aiCounts.filter(s => s._verdict === "ai_approved").length], ["ai_rejected", "AI rejected " + aiCounts.filter(s => s._verdict === "ai_rejected").length]]) + '</div>'
-      : '<p class="sub" style="margin:0 0 8px"><b>Team Approval.</b> Statics nobody has reviewed yet: the built-in ones, the library, uploads, and everything made from an idea or edited. The Checker\'s notes are in orange. Approve to send a static to its funnel tab and the downloads.</p>')
-    + countGrid(all, (ai ? "AI reviewed" : "Waiting for approval") + " by product and funnel") + '<div class="row">' + chips("apf", [["all", "All " + all.length], ["TOFU", "TOFU " + c("TOFU")], ["MOFU", "MOFU " + c("MOFU")], ["BOFU", "BOFU " + c("BOFU")], ["RET", "Retention " + c("RET")]])
-    + '<span class="lab">Preview</span>' + chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")])) + '<span class="spacer"></span>'
-    + (xs.length ? '<button class="primary" id="apAll">Approve all ' + xs.length + ' shown</button>' : "") + '</div><p class="status" id="zipMsg"></p>'
-    + '<div class="grid">' + (xs.map(s => { const id = key(s), warn = [...(s.flags || []), ...(s.check ? ["Check: " + s.check] : [])];
-      const verdict = s._verdict ? '<span class="chip ' + (s._verdict === "ai_approved" ? "team" : "") + '">' + (s._verdict === "ai_approved" ? "AI approved" : "AI rejected") + " · " + esc((s._item || s._dec).updated_by || "") + '</span>' : "";
-      const who = s.kind === "upload" ? "Uploaded · " + esc(s._item.created_by || "") : s._item ? (s._item.kind === "override" ? "Edit of " + esc(s._item.id) : "New") + " · " + esc(s._item.updated_by || s._item.created_by || "") : s.kind === "library" ? "Library" : "Built-in";
-      return '<article class="card">' + thumb(s) + '<div class="meta"><div class="t">' + esc(isImg(s) ? s.title : head(s)) + '</div>'
-        + '<div class="chips"><span class="chip">' + esc(s.funnel) + '</span><span class="chip">' + esc(s.product) + '</span><span class="chip">' + esc(s.concept || "") + '</span><span class="chip team">' + who + '</span>' + verdict + '</div>'
-        + (warn.length ? '<div class="check"><b>Checker:</b> ' + warn.map(esc).join("<br>") + '</div>' : '<div class="sub" style="color:var(--ok)">Checker: no problems found.</div>')
-        + (s.source ? '<div class="sub">Idea: ' + esc(s.source) + '</div>' : "")
-        + ((s.ai_note || s._dec?.doc?.ai_note) ? '<div class="sub ainote"><b>AI:</b> ' + esc(s.ai_note || s._dec.doc.ai_note) + '</div>' : "") + '</div>'
-        + '<div class="dl"><button class="primary" data-appr="' + esc(id) + '">Approve</button>' + (isImg(s) ? '<button data-imgedit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>' : '<button data-edit="' + esc(s._item ? s._item.id : s.id) + '">Edit</button>') + '<button data-rej="' + esc(id) + '">Reject</button><button data-metaprev="' + esc(s._item ? s._item.id : s.id) + '" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>' + bin(s) + '</div></article>'; }).join("")
-      || '<p class="sub">' + (ai ? "Nothing here. When Claude or ChatGPT reviews statics over the API, its verdicts land here." : "Nothing waiting. New statics from the Ideas tab land here.") + '</p>') + '</div>';
+  const inF = base.filter(s => st.apf === "all" || s.funnel === st.apf), c = f => base.filter(s => s.funnel === f).length, pc = p => inF.filter(s => s.product === p).length;
+  const intro = ai ? `<p class="sub intro"><b>AI Checker.</b> Every static made from an idea is checked here first. <b>Approved</b> ones move on to Team Approval by themselves. <b>Stalled</b> ones wait here: edit them, send them on anyway, or delete them.</p>
+      <div class="row" style="margin-bottom:8px">${chips("aiv", [["ai_approved", "✓ Approved " + every.filter(s => s._verdict === "ai_approved").length], ["ai_rejected", "⏸ Stalled " + every.filter(s => s._verdict === "ai_rejected").length]])}</div>`
+    : `<p class="sub intro"><b>Team Approval.</b> Everything waiting for the team: checked statics and uploads. <b>✓ Approve</b> sends a static to Statics Finalized, <b>✕ Reject</b> removes it from the flow, <b>✎ Edit</b> changes it, <b>🗑</b> deletes it for good.</p>`;
+  const cardOf = s => { const id = esc(s._item.id), v = s._item.status, warn = s.flags || [];
+    const verdict = v === "ai_approved" ? `<span class="chip team">Checker ✓ approved</span>` : v === "ai_rejected" ? `<span class="chip stall">Checker ⏸ stalled</span>` : "";
+    const acts = ai ? (v === "ai_rejected" ? `<button class="primary" data-tick="${id}" title="Send it to Team Approval anyway">→ Send to team</button>` : `<button data-stall="${id}" title="Hold it back from Team Approval">⏸ Stall</button>`)
+      : `<button class="primary" data-appr="${id}" title="Approve: it goes to Statics Finalized">✓ Approve</button><button data-rej="${id}" title="Reject it">✕ Reject</button>`;
+    return `<article class="card">${selBox(s._item.id)}${thumb(s)}<div class="meta"><div class="t">${esc(titleText(s))}</div>
+      <div class="chips"><span class="chip">${esc(FNAME[s.funnel] || s.funnel || "")}</span><span class="chip">${esc(s.product || "")}</span>${s.concept ? `<span class="chip">${esc(s.concept)}</span>` : ""}<span class="chip team">${whoOf(s)}</span>${verdict}</div>
+      ${warn.length ? `<div class="check"><b>Check:</b> ${warn.map(esc).join("<br>")}</div>` : ""}${s.source ? `<div class="sub">Idea: ${esc(s.source)}</div>` : ""}${s.ai_note ? `<div class="sub ainote"><b>Checker:</b> ${esc(s.ai_note)}</div>` : ""}</div>
+      <div class="dl">${acts}${editBtn(s)}${metaBtn(s)}${bin(s)}</div><div class="dl">${dlBtns(s)}</div></article>`; };
+  $("view").innerHTML = intro
+    + `<div class="row"><span class="lab">Funnel</span>${chips("apf", [["all", "All " + base.length], ["TOFU", "TOFU " + c("TOFU")], ["MOFU", "MOFU " + c("MOFU")], ["BOFU", "BOFU " + c("BOFU")], ["RET", "Retention " + c("RET")]])}
+      <span class="lab">Product</span>${chips("prod", [["all", "All " + inF.length], ["mornings", "Mornings " + pc("mornings")], ["nights", "Nights " + pc("nights")], ["combo", "Combo " + pc("combo")]])}</div>
+    <div class="row" style="margin-top:8px"><span class="lab">Preview</span>${chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")]))}<span class="spacer"></span>${xs.length ? selAllBtn : ""}${!ai && xs.length ? `<button class="primary" id="apAll">✓ Approve all ${xs.length} shown</button>` : ""}</div>
+    <p class="status" id="zipMsg"></p><div class="grid">${xs.map(cardOf).join("") || `<p class="sub">${ai ? (st.aiv === "ai_approved" ? "Nothing here yet. Statics the checker approves show up here, and in Team Approval." : "Nothing stalled.") : "Nothing waiting. Checked statics and uploads land here."}</p>`}</div>`;
 }
-
 // ---------- uploads ----------
 function groupFiles(files) {
   const groups = {};
@@ -398,7 +433,7 @@ async function uploadGroups() {
     const product = /mornings?/.test(name) ? "mornings" : /nights?/.test(name) ? "nights" : /combo/.test(name) ? "combo" : $("upProd").value;
     await api("/api/upload", { method: "POST", body: JSON.stringify({ title: g.title, funnel, product, concept: "Uploaded", files }) });
   }
-  st.up = null; await load(); status("Uploaded " + gs.length + " statics. They're waiting in Approval.");
+  st.up = null; await load(); status("Uploaded " + gs.length + " statics. They're waiting in Team Approval.");
 }
 
 // ---------- funnel tabs ----------
@@ -410,31 +445,33 @@ function countGrid(list, title) {
     + P.map(([p, n]) => `<tr><th>${n}</th>${F.map(([fu]) => `<td>${c(p, fu) || "·"}</td>`).join("")}<td><b>${c(p)}</b></td></tr>`).join("")
     + `<tr class="tot"><th>All</th>${F.map(([fu]) => `<td><b>${c(null, fu)}</b></td>`).join("")}<td><b>${list.length}</b></td></tr></tbody></table>`;
 }
-function drawFunnel() {
-  const inTab = allStatics().filter(s => s.funnel === st.tab), pc = p => inTab.filter(s => s.product === p).length;
-  const xs = allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod));
-  $("view").innerHTML = `<p class="sub" style="margin:0 0 8px"><b>${FUN[st.tab]}</b></p>${countGrid(allStatics(), "Live statics by product and funnel")}<div class="row"><span class="lab">Product</span>${chips("prod", [["all", "All " + inTab.length], ["mornings", "Mornings " + pc("mornings")], ["nights", "Nights " + pc("nights")], ["combo", "Combo " + pc("combo")]])}
-    <span class="lab">Preview</span>${chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")]))}<span class="spacer"></span>
-    <select id="zipSize" aria-label="Sizes in the ZIP"><option value="all">All sizes</option>${Object.keys(SIZES).map(z => `<option value="${z}">${z.replace("x", ":")} only</option>`).join("")}</select><button class="primary" id="zipTab">Download this tab (ZIP)</button></div>
-    <p class="status" id="zipMsg"></p><div class="grid">${xs.map(card).join("") || `<p class="sub">Nothing here yet.</p>`}</div>`;
+// ---------- Statics Finalized: everything the team approved, by funnel stage and product ----------
+function drawFinal() {
+  const all = allStatics(), inF = all.filter(s => st.fin === "all" || s.funnel === st.fin), xs = inF.filter(s => st.prod === "all" || s.product === st.prod);
+  st.finList = xs;
+  const fc = f => all.filter(s => s.funnel === f).length, pc = p => inF.filter(s => s.product === p).length;
+  $("view").innerHTML = `<p class="sub intro"><b>Statics Finalized.</b> Everything the team approved, ready to download. Pick a funnel stage and a product to narrow it down.${st.fin !== "all" ? " <b>" + FUN[st.fin] + ".</b>" : ""}</p>
+    <div class="row"><span class="lab">Funnel</span>${chips("fin", [["all", "All " + all.length], ["TOFU", "TOFU " + fc("TOFU")], ["MOFU", "MOFU " + fc("MOFU")], ["BOFU", "BOFU " + fc("BOFU")], ["RET", "Retention " + fc("RET")]])}
+      <span class="lab">Product</span>${chips("prod", [["all", "All " + inF.length], ["mornings", "Mornings " + pc("mornings")], ["nights", "Nights " + pc("nights")], ["combo", "Combo " + pc("combo")]])}</div>
+    <div class="row" style="margin-top:8px"><span class="lab">Preview</span>${chips("size", Object.keys(SIZES).map(z => [z, z.replace("x", ":")]))}<span class="spacer"></span>${xs.length ? selAllBtn : ""}
+      <select id="zipSize" aria-label="Sizes in the ZIP"><option value="all">All sizes</option>${Object.keys(SIZES).map(z => `<option value="${z}">${z.replace("x", ":")} only</option>`).join("")}</select><button class="primary" id="zipTab"${xs.length ? "" : " disabled"}>⬇ Download ${xs.length} shown (ZIP)</button></div>
+    <p class="status" id="zipMsg"></p>${all.length ? countGrid(all, "Finalized statics by product and funnel") : ""}<div class="grid">${xs.map(card).join("") || `<p class="sub">Nothing finalized here yet. Statics land here when the team presses ✓ Approve in Team Approval.</p>`}</div>`;
 }
-
 // ---------- Rules ----------
 function drawRules() {
   if (!st.lessonsLoaded) { st.lessonsLoaded = true; api("/api/lessons").then(l => { st.lessons = l; if (st.tab === "RULES") draw(); }).catch(() => {}); }
   const L = st.lessons;
-  $("view").innerHTML = `<div class="panel"><h2>Lessons from rejections</h2><p class="sub">Every time the team rejects a static, the site asks why. These reasons go to the top of the brief every AI reads, and each new static is tested against them before it is saved.</p>
-    ${L && L.total ? `<ul class="lessons">${L.rules.map(r => `<li>${esc(r)}</li>`).join("")}</ul><details><summary class="sub">Recent rejections (${L.recent.length})</summary><ul class="lessons">${L.recent.map(r => `<li class="sub">${esc(r)}</li>`).join("")}</ul></details>` : `<p class="sub">No reasons yet. The next Reject or ✕ will ask why, and the lesson shows up here.</p>`}</div>
-    <div class="panel"><h2>House rules</h2><p class="sub">Every static generated here follows these, on top of the brand facts and the Plan of Action. They come from Abhishek (or his Claude). Anyone can read them; changing them needs the rules key.</p>
-    ${st.rules.map((r, i) => `<div class="rule"><b>${i + 1}.</b><div style="flex:1">${esc(r.text)}<div class="sub">${esc(r.by)} · ${new Date(r.at).toLocaleDateString()}</div></div>${rulesKey ? `<button data-rm="${esc(r.id)}">Remove</button>` : ""}</div>`).join("") || `<p class="sub">No house rules yet.</p>`}
-    <label class="lab" for="rk">Rules key</label><input id="rk" type="password" placeholder="Only needed to add or remove rules" value="${esc(rulesKey)}" autocomplete="off">
-    <label class="lab" for="rNew">New rule</label><textarea id="rNew" rows="2" placeholder="e.g. Never show a phone screen with a fake notification"></textarea>
+  $("view").innerHTML = `<div class="panel"><h2>Rules</h2><p class="sub">The rules every new static must follow. Claude reads them before it writes, and the AI Checker tests each static against them. Anyone can read them; adding or removing one needs the rules key.</p>
+    ${st.rules.map((r, i) => `<div class="rule"><b>${i + 1}.</b><div style="flex:1">${esc(r.text)}<div class="sub">${esc(r.by)} · ${new Date(r.at).toLocaleDateString()}</div></div>${rulesKey ? `<button data-rm="${esc(r.id)}">Remove</button>` : ""}</div>`).join("") || `<p><b>No rules yet.</b> <span class="sub">Add the first one below.</span></p>`}
+    <label class="lab" for="rNew">New rule</label><textarea id="rNew" rows="2" placeholder="Write one rule, e.g. Never show a phone screen with a fake notification"></textarea>
+    <label class="lab" for="rk">Rules key</label><input id="rk" type="password" placeholder="Needed to add or remove rules" value="${esc(rulesKey)}" autocomplete="off">
     <div class="row"><button class="primary" id="rAdd">Add rule</button><span class="status" id="rMsg"></span></div></div>
-    <div class="panel"><h2>For Abhishek's Claude</h2><p class="sub">His Claude can add rules directly (the key is in the rules-key file on the PC that set up the site):</p>
-    <pre style="white-space:pre-wrap;font-size:12.5px;background:var(--bg);padding:10px;border-radius:8px">curl -X POST ${location.origin}/api/rules -H "content-type: application/json" -H "x-silt-name: Abhishek" -H "x-rules-key: THE_KEY" -d '{"add":"Your rule here"}'</pre>
-    <p class="sub">Replace all rules at once with {"replace": ["rule 1", "rule 2"]}. Read them with GET ${location.origin}/api/rules.</p></div>`;
+    ${L && L.total ? `<div class="panel"><h2>Lessons from rejections</h2><p class="sub">Every time the team rejects a static, the site asks why. Claude reads these reasons before it writes.</p>
+      <ul class="lessons">${L.rules.map(r => `<li>${esc(r)}</li>`).join("")}</ul><details><summary class="sub">Recent rejections (${L.recent.length})</summary><ul class="lessons">${L.recent.map(r => `<li class="sub">${esc(r)}</li>`).join("")}</ul></details></div>` : ""}
+    <details class="panel"><summary><b>Add rules through Claude instead</b></summary><p class="sub">Claude can add rules directly with the rules key:</p>
+    <pre style="white-space:pre-wrap;font-size:12.5px;background:var(--bg);padding:10px;border-radius:8px">curl -X POST ${location.origin}/api/rules -H "content-type: application/json" -H "x-silt-name: YOUR NAME" -H "x-rules-key: THE_KEY" -d '{"add":"Your rule here"}'</pre>
+    <p class="sub">Replace all rules at once with {"replace": ["rule 1", "rule 2"]}. Read them with GET ${location.origin}/api/rules.</p></details>`;
 }
-
 // Approve / reject: team items change status; built-in and library statics get a decision record.
 function decide(key, status, reason) {
   const why = reason ? { reject_reason: reason.text, reject_tags: reason.tags } : {};
@@ -466,23 +503,19 @@ const titleOf = key => { const s = anyStatic(key.replace(/^s:/, "")); return s ?
 $("view").addEventListener("click", async e => {
   const t = e.target, id = t.id, b = q => t.closest(q);
   const k = b("[data-k]"); if (k) { st[k.dataset.k] = k.dataset.v; saveUi(); return draw(); }
+  if (id === "selAll") { const boxes = [...document.querySelectorAll("#view [data-sel]")], allOn = boxes.length && boxes.every(x => st.sel.has(x.dataset.sel)); for (const x of boxes) allOn ? st.sel.delete(x.dataset.sel) : st.sel.add(x.dataset.sel); return draw(); }
+  if (id === "getSkill") { t.disabled = true; try { await downloadMySkill(); t.textContent = "✓ Downloaded. Now add it to Claude"; } catch (er) { t.textContent = "Couldn't build it: " + er.message; } t.disabled = false; return; }
+  const sl = b("[data-stall]"); if (sl) { sl.disabled = true; await api("/api/items/" + encodeURIComponent(sl.dataset.stall), { method: "PUT", body: JSON.stringify({ status: "ai_rejected" }) }).catch(er => alert(er.message)); await load(); return status("Stalled. It waits in AI Checker until someone sends it on."); }
   const ap = b("[data-appr]"); if (ap) { ap.disabled = true; await decide(ap.dataset.appr, "approved").catch(er => alert(er.message)); return load(); }
   const rj = b("[data-rej]"); if (rj) { const why = await askReason(titleOf(rj.dataset.rej)); if (!why) return; await decide(rj.dataset.rej, "rejected", why).catch(er => alert(er.message)); return load(); }
-  if (id === "apAll") { if (!confirm("Approve all the statics shown? They go live in their funnel tabs.")) return; t.disabled = true; const xs = st.apList || [];
+  if (id === "apAll") { if (!confirm("Approve all the statics shown? They go to Statics Finalized.")) return; t.disabled = true; const xs = st.apList || [];
     let n = 0; for (const s of (st.apList || xs)) { $("zipMsg").textContent = "Approving " + (++n) + " of " + (st.apList || xs).length + "…"; await decide(s._item ? s._item.id : "s:" + s.id, "approved").catch(() => {}); } return load(); }
   // Image statics (uploads, ChatGPT images, Library) open the image editor: cover old words, add new ones in brand fonts.
-  // Delete bin: removed for everyone, once and for all (team, 25 Nov). Team items and their images are erased; a built-in or
-  // Library static (and an edited built-in) gets a permanent "deleted" decision so it never comes back.
-  const del = b("[data-del]"); if (del) { if (!confirm("Delete this static for everyone, once and for all? This can't be undone.")) return; del.disabled = true;
-    const k = del.dataset.del, it = st.items.find(i => i.id === k), builtin = k.startsWith("s:") ? k.slice(2) : it && it.kind === "override" ? it.id : null;
-    try {
-      if (!k.startsWith("s:")) await api("/api/items/" + encodeURIComponent(k) + "?forever=1", { method: "DELETE" });
-      if (builtin) await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "decision", doc: { id: builtin, deleted: true }, status: "rejected" }) });
-    } catch (er) { alert(er.message); } return load(); }
+  const del = b("[data-del]"); if (del) return deleteIds([del.dataset.del]);
   const ie = b("[data-imgedit]"); if (ie) return openImgEditor(anyStatic(ie.dataset.imgedit), { imgUrl, name: () => myName, onSaved: load });
   const ed = b("[data-edit]"); if (ed) return openEditor(anyStatic(ed.dataset.edit));   // anyStatic also finds statics still waiting in Team Approval
-  const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { save(await pngBlob(s, dl.dataset.z), fileName(s, dl.dataset.z) + ".png"); } finally { dl.disabled = false; } return; }
-  if (id === "zipTab") return zip(allStatics().filter(s => s.funnel === st.tab && (st.prod === "all" || s.product === st.prod)), $("zipSize").value, `SILT_Statics_${st.tab}`, $("zipMsg"));
+  const dl = b("[data-dl]"); if (dl) { const s = findAny(dl.dataset.dl); dl.disabled = true; try { const bl = await pngBlob(s, dl.dataset.z); save(bl, baseName(s) + "_" + SIZES[dl.dataset.z].meta + extOf(bl)); } catch (er) { status("Download failed: " + er.message); } finally { dl.disabled = false; } return; }
+  if (id === "zipTab") return zip(st.finList || [], $("zipSize").value, "SILT_Statics" + (st.fin !== "all" ? "_" + st.fin : "") + (st.prod !== "all" ? "_" + st.prod : ""), $("zipMsg"));
   if (id === "imgX") { st.img = st.thumb = null; return draw(); }
   if (id === "upGo") { t.disabled = true; try { await uploadGroups(); } catch (er) { $("upMsg").textContent = "Upload failed: " + er.message; t.disabled = false; } return; }
   if (id === "send") { const text = $("idea").value.trim(); if (!text) return status("Type an idea first (or press ✨ New angle)."); return sendToClaude(text); }
@@ -502,12 +535,29 @@ $("view").addEventListener("click", async e => {
     try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ add: txt }) })).rules; draw(); } catch (er) { $("rMsg").textContent = er.message; } return; }
   const rm = b("[data-rm]"); if (rm) { try { st.rules = (await api("/api/rules", { method: "POST", headers: { "x-rules-key": rulesKey }, body: JSON.stringify({ remove: rm.dataset.rm }) })).rules; draw(); } catch (er) { alert(er.message); } return; }
 });
-$("zipAll").addEventListener("click", () => { st.tab !== "IDEAS" || draw(); zip(allStatics(), "all", "SILT_Statics_All", { set textContent(v) { const el = $("genMsg") || $("zipMsg"); if (el) el.textContent = v; } }); });
-
 // ---------- PNG + ZIP ----------
 let h2i;
+const extOf = b => /jpe?g/.test(b.type) ? ".jpg" : ".png";
+const baseName = s => (isImg(s) ? (s.title || s._item.id) : fileName(s, "4x5").replace(/_Feed_4x5_1080x1350$/, "")).replace(/[^A-Za-z0-9_-]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 70);
+// An uploaded static usually has only 4:5 and 9:16. The other formats are built from them, the way the placement playbook
+// does it: the artwork is never stretched or cropped, it is placed inside that placement's safe box on a soft blurred
+// extension of itself. Square 1:1 = the 4:5 fitted to the height. Stories = the 4:5 master unscaled at y 285.
+// Reels = the 4:5 fitted into y 269 to 1248.
+async function imgBlobFor(s, z) {
+  if (s.files[z]) return (await fetch(imgUrl(s, z))).blob();
+  const src = s.files["4x5"] ? "4x5" : s.files["9x16"] ? "9x16" : s.files.reels ? "reels" : Object.keys(s.files)[0];
+  if ((z === "reels" || z === "9x16") && !s.files["4x5"] && (s.files["9x16"] || s.files.reels)) return (await fetch(imgUrl(s, s.files["9x16"] ? "9x16" : "reels"))).blob();
+  const bmp = await createImageBitmap(await (await fetch(imgUrl(s, src))).blob()), { w: W, h: H } = SIZES[z];
+  const c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d");
+  const cover = Math.max(W / bmp.width, H / bmp.height) * 1.15, cw = bmp.width * cover, ch = bmp.height * cover;
+  x.filter = "blur(42px) brightness(.96)"; x.drawImage(bmp, (W - cw) / 2, (H - ch) / 2, cw, ch); x.filter = "none";
+  const box = z === "9x16" ? [0, 285, 1080, 1350] : z === "reels" ? [0, 269, 1080, 979] : [0, 0, W, H];
+  const fit = Math.min(box[2] / bmp.width, box[3] / bmp.height), dw = bmp.width * fit, dh = bmp.height * fit;
+  x.drawImage(bmp, box[0] + (box[2] - dw) / 2, box[1] + (box[3] - dh) / 2, dw, dh);
+  return new Promise(r => c.toBlob(r, "image/jpeg", .93));
+}
 async function pngBlob(s, z) {
-  if (isImg(s)) return (await fetch(imgUrl(s, z))).blob();
+  if (isImg(s)) return imgBlobFor(s, z);
   if (!s._item && !s._dirty) return (await fetch(`/png/${fileName(s, z)}.png`)).blob();
   h2i = h2i || await import("https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm");
   const S = SIZES[z], f = document.createElement("iframe"); f.style.cssText = `position:fixed;left:-99999px;top:0;width:${S.w}px;height:${S.h}px;border:0`; document.body.appendChild(f);
@@ -519,22 +569,21 @@ function save(blob, name) { const a = document.createElement("a"); a.href = URL.
 const GROUP = { TOFU: "1_TOFU", MOFU: "2_MOFU", BOFU: "3_BOFU", RET: "4_Retention" };
 async function zip(list, size, name, msgEl) {
   if (!window.JSZip) return (msgEl.textContent = "The ZIP library didn't load. Reload the page.");
-  const jobs = []; for (const s of list) for (const k of (size === "all" ? Object.keys(SIZES) : [size])) if (!isImg(s) || s.files[k]) jobs.push([s, k]);
-  const zf = new JSZip(); let n = 0; const missing = [];
-  const baseOf = s => (isImg(s) ? (s.title || s.id) : fileName(s, "4x5").replace(/_Feed_4x5_1080x1350$/, "")).replace(/[^A-Za-z0-9_-]+/g, "_").slice(0, 70);
-  if (size === "all") for (const s of list) { const lack = Object.keys(SIZES).filter(k => isImg(s) && !s.files[k]); if (lack.length) missing.push(baseOf(s) + ": no " + lack.map(k => SIZES[k].name).join(", ")); }
-  for (const [s, k] of jobs) { msgEl.textContent = `Preparing ${++n} of ${jobs.length}…`; const b = baseOf(s); const ext = isImg(s) && /\.jpe?g$/i.test(imgName(s, k)) ? ".jpg" : ".png";
-    zf.file(`${name}/${GROUP[s.funnel] || s.funnel}/${b}/${b}_${SIZES[k].meta}${ext}`, await pngBlob(s, k)); }
-  zf.file(`${name}/README_meta_placements.txt`, `SILT statics, built to the placement playbook (25 Nov).
-Every static has four files. Upload all four to ONE ad as a placement-customised creative (optimization_type PLACEMENT), creative enhancements all OFF.
+  const jobs = []; for (const s of list) for (const k of (size === "all" ? Object.keys(SIZES) : [size])) jobs.push([s, k]);
+  const zf = new JSZip(); let n = 0;
+  for (const [s, k] of jobs) { msgEl.textContent = `Preparing ${++n} of ${jobs.length}…`; const b = baseName(s), bl = await pngBlob(s, k);
+    zf.file(`${name}/${GROUP[s.funnel] || s.funnel || "Other"}/${b}/${b}_${SIZES[k].meta}${extOf(bl)}`, bl); }
+  zf.file(`${name}/README_meta_placements.txt`, `SILT statics. Every static has four files, one per Meta placement group.
+Upload all four to ONE ad as a placement-customised creative, with creative enhancements OFF.
 
 feed_4x5    1080 x 1350  Instagram feed, Explore, profile feed; Facebook feed, video feeds, profile feed, notifications; Threads feed
 square_1x1  1080 x 1080  Instagram Explore home, search; Facebook right column, Marketplace, search, business explore; Messenger inbox
 story_9x16  1080 x 1920  Instagram Stories, Facebook Stories, WhatsApp Status (top and bottom 269 px are covered)
 vert_9x16   1080 x 1920  Instagram Reels, profile Reels, Facebook Reels (covered above 269 px and below 1248 px, and the right 65 px)
 
-Check Stories, Reels and Explore in Meta's preview before publishing.
-${missing.length ? "\nMissing files (make them before running these as placement-customised ads):\n" + missing.join("\n") + "\n" : ""}`);
+For an uploaded image, a size it did not come with is built from its 4:5 file (placed inside the safe box on a soft
+blurred background). Check Stories, Reels and Explore in Meta's preview before publishing.
+`);
   msgEl.textContent = "Zipping…"; save(await zf.generateAsync({ type: "blob" }), `${name}${size === "all" ? "" : "_" + size}.zip`); msgEl.textContent = `Downloaded ${jobs.length} files.`;
 }
 
@@ -590,7 +639,7 @@ const docOf = () => { const d = Object.fromEntries(Object.entries(cur).filter(([
 $("save").addEventListener("click", async () => { $("save").disabled = true;
   try { if (cur._kind === "static") await api("/api/items/" + encodeURIComponent(cur._itemId), { method: "PUT", body: JSON.stringify({ doc: docOf(), status: "approval" }) });
     else await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "override", doc: { ...docOf(), id: cur._itemId || cur.id }, status: "approval" }) });
-    $("edMsg").textContent = "Saved. It's waiting in the Approval tab; the live version stays until it's approved."; await load(); } catch (e) { $("edMsg").textContent = "Couldn't save: " + e.message; } finally { $("save").disabled = false; } });
+    $("edMsg").textContent = "Saved. It's waiting in Team Approval."; await load(); } catch (e) { $("edMsg").textContent = "Couldn't save: " + e.message; } finally { $("save").disabled = false; } });
 $("del").addEventListener("click", async () => { if (!confirm("Delete this static for everyone?")) return; await api("/api/items/" + encodeURIComponent(cur._itemId), { method: "DELETE" }).catch(e => alert(e.message)); dlg.close(); load(); });
 async function exp(sizes) { $("edMsg").textContent = "Exporting…"; try { for (const z of sizes) save(await pngBlob({ ...cur, _dirty: true }, z), fileName(cur, z) + ".png"); $("edMsg").textContent = "Downloaded."; } catch (e) { $("edMsg").textContent = "Export failed: " + e.message; } }
 $("export").addEventListener("click", () => exp([edSize])); $("exportAll").addEventListener("click", () => exp(Object.keys(SIZES)));
@@ -614,7 +663,7 @@ async function checkConn() {
   b.textContent = c && g ? "✓ Claude & ChatGPT connected" + via : c ? "✓ Claude connected · ChatGPT not yet" : g ? "✓ ChatGPT connected" + via + " · Claude not yet" : "🔌 Connect Claude / ChatGPT";
   b.classList.toggle("connected", c || g);
   b.title = c || g ? "Verified: your AI reached the site with this browser's code. Click for details." : "Not connected yet. Click to connect your Claude and ChatGPT.";
-  const box = $("wState"); if (box) box.innerHTML = connRows();
+  const box = $("wState"); if (box) box.innerHTML = connRows(); const ic = $("ideaConn"); if (ic) ic.innerHTML = connRows();
   return conn;
 }
 const connRows = () => [["claude", "Claude (the thinker)"], ["chatgpt", "ChatGPT (the generator)"]].map(([k, n]) =>
@@ -631,7 +680,7 @@ async function welcome(force = false) {
   const d = document.createElement("dialog"); d.id = "welcome";
   d.innerHTML = '<div style="padding:22px;max-width:580px;display:flex;flex-direction:column;gap:12px">'
     + '<div class="row"><b style="font-size:20px">Connect your Claude and ChatGPT</b><span class="spacer"></span><button id="wX" aria-label="Close">✕</button></div>'
-    + '<p class="sub" style="margin:0"><b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images. Everything waits for the team\'s ✓.</p>'
+    + '<p class="sub" style="margin:0"><b>Claude is the thinker</b>: it picks up the ideas waiting here, reads everything already made, and writes each static with a prompt for ChatGPT. <b>ChatGPT is the generator</b>: it makes the static images. Each static then goes through the AI Checker and Team Approval.</p>'
     + '<div id="wState" class="panel" style="margin:0;gap:6px">' + connRows() + '</div>'
     + '<div class="panel" style="margin:0"><b>1 · Claude</b><span class="sub">Download <b>your</b> Claude skill (it already has your code inside). In Claude: Settings → Capabilities → Skills → upload the zip. In Claude Code, unzip it into ~/.claude/skills. That\'s it: the first time you use it, this window ticks ✓ by itself.</span><div class="row"><button class="primary" id="wSkill">⬇ Download my Claude skill</button></div></div>'
     + '<details class="panel help" style="margin:0"' + (conn.claude ? '' : ' open') + '><summary><b>Claude still ○? Step by step</b></summary><ol class="sub">'

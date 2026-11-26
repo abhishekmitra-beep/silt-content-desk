@@ -35,3 +35,6 @@ static-engine/web/public/statics.js
 static-engine/web/public/library.js
 static-engine/web/public/teardowns.json
 static-engine/web/wrangler.toml
+
+# Local database backups (made before resets)
+static-engine/backups/
