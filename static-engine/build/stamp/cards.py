@@ -238,8 +238,44 @@ def r_doses(c, P):
     y += pad - 20; card = blank(y); card.alpha_composite(tmp.crop((0, 0, CW, y)), (0, 0)); return card
 
 
+# ---------- dark chat screenshot look (the real exchange, no app name / logo / contact name) ----------
+RB, RR = "Roboto-Bold.ttf", "Roboto-Regular.ttf"
+def r_wa(c, P):
+    f = FW(RR, 33); ft = FW(RR, 22); fday = FW(RR, 26); d0 = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
+    BG, OUT, INC, TX, TM = (17, 25, 23, 255), (21, 76, 55, 255), (36, 45, 47, 255), (233, 237, 239), (150, 163, 165)
+    msgs = c["msgs"]; items = []; prev = None
+    for side, text, tm in msgs:
+        lines = wrap(d0, text, f, 700); tw_ = max(d0.textlength(t, font=f) for t in lines); last = d0.textlength(lines[-1], font=f)
+        tmw = d0.textlength(tm, font=ft) + (34 if side == "R" else 0)
+        inline = last + 18 + tmw <= max(tw_, 700) + 0.1 and last + 18 + tmw <= 700
+        w = int(max(tw_, (last + 18 + tmw) if inline else tmw)) + 44; h = 42 * len(lines) + 30 + (0 if inline else 30)
+        items.append((side, lines, tm, w, h, inline, side != prev)); prev = side
+    top = 40 + 56 + 26; h = top + sum(it[4] + (22 if it[6] else 10) for it in items) + 34
+    card = Image.new("RGBA", (CW, h), BG); d = ImageDraw.Draw(card)
+    # faint doodle texture so it reads as a chat wallpaper
+    rng = np.random.RandomState(7)
+    for _ in range(170):
+        x, y = rng.randint(0, CW), rng.randint(0, h); r = rng.randint(4, 11); g = rng.randint(1, 3)
+        d.ellipse((x - r, y - r, x + r, y + r), outline=(30, 40, 38, 255), width=g)
+    dw = int(d.textlength(c.get("day", "Today"), font=fday)) + 44; d.rounded_rectangle(((CW - dw) // 2, 34, (CW + dw) // 2, 88), 18, fill=(33, 44, 48, 255)); d.text((CW // 2, 61), c.get("day", "Today"), font=fday, fill=(170, 182, 186), anchor="mm")
+    y = top
+    for side, lines, tm, w, h_, inline, first in items:
+        y += 22 if first else 10; S3 = 3; b = Image.new("RGBA", (w * S3, h_ * S3), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
+        corners = (True, not (first and side == "R"), True, True) if side == "R" else (not first, True, True, True)
+        bd.rounded_rectangle((0, 0, w * S3 - 1, h_ * S3 - 1), 22 * S3, fill=OUT if side == "R" else INC, corners=corners); b = b.resize((w, h_), Image.LANCZOS)
+        x = CW - 34 - w if side == "R" else 34; card.alpha_composite(b, (x, y)); dd = ImageDraw.Draw(card)
+        for i, t in enumerate(lines): dd.text((x + 22, y + 15 + 21 + i * 42), t, font=f, fill=TX, anchor="lm")
+        ty = y + h_ - 22; tx = x + w - 20
+        if side == "R":
+            for off in (0, 10):
+                px = tx - 22 + off; dd.line((px, ty, px + 5, ty + 6, px + 16, ty - 8), fill=(160, 178, 184), width=3)
+            tx -= 34
+        dd.text((tx, ty), tm, font=ft, fill=TM, anchor="rm"); y += h_
+    m = Image.new("L", (CW, h), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, CW - 1, h - 1), 34, fill=255); card.putalpha(m); return card
+
+
 R = dict(news=r_news, note=r_note, chat=r_chat, forward=r_forward, search=r_search, notes=r_notes, post=r_post, email=r_email, big=r_big,
-         objection=r_objection, receipt=r_receipt, list=r_list, letter=r_letter, compare=r_compare, split=r_split, doses=r_doses)
+         objection=r_objection, receipt=r_receipt, list=r_list, letter=r_letter, compare=r_compare, split=r_split, doses=r_doses, wa=r_wa)
 PAL = {"nights": dict(avatar=(31, 58, 107), accent_dark=(31, 58, 107), highlight=(222, 232, 250, 255), hl_text=(31, 58, 107), accent_fill=(159, 192, 255), on_accent=(10, 24, 60), ink=(244, 240, 230)),
        "mornings": dict(avatar=(200, 110, 40), accent_dark=(200, 110, 40), highlight=(253, 235, 200, 255), hl_text=(150, 70, 18), accent_fill=(235, 184, 88), on_accent=(43, 33, 28), ink=(43, 33, 28)),
        "combo": dict(avatar=(31, 58, 107), accent_dark=(31, 58, 107), highlight=(253, 235, 200, 255), hl_text=(31, 58, 107), accent_fill=(235, 200, 120), on_accent=(10, 24, 60), ink=(244, 240, 230))}
@@ -264,7 +300,15 @@ def build(spec, H):
         x, yy, h = L["pack"]; pb = S.paste_pack(img, prod, x, yy, h); chk.append(("pack", pb)); panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
         chk += S.right_block(img, prod, L, H, P["ink"], panel, pb); block_top = yy
     card = R[spec["fmt"]](spec["data"], P)
-    top = lo + 24; avail = block_top - 34 - top; maxw = 900
+    top = lo + 24
+    if spec.get("title"):   # big caption above the card: first line in the accent colour, rest in ink (wrapped), all inside the red lines
+        d = ImageDraw.Draw(img); k = {1920: 0.74, 1350: 0.9, 1080: 0.74}[H]; a, _, rest = spec["title"].partition("|")
+        f1, f2 = S.F(S.JOSTB, int(72 * k)), S.F(S.JOSTB, int(38 * k)); acc = P["accent_fill"] if prod != "mornings" else (200, 80, 16); ink2 = P["ink"]
+        w1 = S.tw(d, a, f1, 4); S.text_sp(d, (W - w1) / 2, top, a, f1, acc, 4); chk.append(("title1", ((W - w1) / 2, top, (W + w1) / 2, top + int(72 * k)))); ty = top + int(88 * k)
+        for ln in wrap(d, rest, f2, 880):
+            w2 = S.tw(d, ln, f2, 2); S.text_sp(d, (W - w2) / 2, ty, ln, f2, ink2, 2); chk.append(("title2", ((W - w2) / 2, ty, (W + w2) / 2, ty + int(42 * k)))); ty += int(50 * k)
+        top = ty + int(18 * k)
+    avail = block_top - 34 - top; maxw = 900
     sc = min(1.0, avail / card.height, maxw / card.width) if spec["fmt"] != "split" else min(1.0, avail / card.height)
     if sc < 1: card = card.resize((int(card.width * sc), int(card.height * sc)), Image.LANCZOS)
     if spec["fmt"] not in ("big", "objection", "split"): sh, pad = shadowed(card)
