@@ -149,6 +149,33 @@ def right_block(img, prod, L, H, ink, panel, pack_bbox):
     return [("benefits", (x0, top, x0 + panel_w, top + panel_h)), ("price", pr), ("url", un)]
 
 
+def combo_geom(H):
+    """Heights of the Combo bottom block (packs + two-column benefits | price | offer pill | url), stacked up from the red line."""
+    lo, hi = SAFE[H]; ph = 190 if H != 1080 else 170; isz, fsz, pitch = (34, 24, 56) if H != 1080 else (30, 22, 52)
+    panel_h = 34 + 3 * pitch - (pitch - isz) + 36; row_h = max(panel_h, ph); big = 33 if H == 1920 else 30 if H == 1350 else 28
+    pill_sz = 24 if H == 1920 else 22; total = row_h + 22 + (big + 30) + 16 + (pill_sz + 30) + 16 + 32
+    return dict(top=hi - total - 4, ph=ph, isz=isz, fsz=fsz, pitch=pitch, panel_h=panel_h, row_h=row_h, big=big, small=(21 if H == 1920 else 20 if H == 1350 else 19), pill_sz=pill_sz)
+
+
+def combo_block(img, H, ink, panel):
+    """Combo: both real packs on the left, ONE two-column benefits panel on the right (Mornings | Nights), then the Combo price,
+    the COMBO10 pill and the URL, centred. Returns the red-line boxes."""
+    g = combo_geom(H); d = ImageDraw.Draw(img); chk = []; top = g["top"]; ph = g["ph"]; yy = top + (g["row_h"] - ph) / 2
+    b1 = paste_pack(img, "mornings", 72, yy, ph); b2 = paste_pack(img, "nights", b1[2] + 34, yy, ph); chk += [("pack1", b1), ("pack2", b2)]
+    x0 = int(b2[2] + 36); pw = 1015 - x0; py0 = int(top + (g["row_h"] - g["panel_h"]) / 2); S3 = 3
+    pl = Image.new("RGBA", (pw * S3, g["panel_h"] * S3), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, pw * S3 - 1, g["panel_h"] * S3 - 1), 26 * S3, fill=panel)
+    img.alpha_composite(pl.resize((pw, g["panel_h"]), Image.LANCZOS), (x0, py0)); f = F(JOSTB, g["fsz"]); fh = F(JOSTB, 18); col = (pw - 40) / 2
+    for ci, (em, key, head, hc) in enumerate((("EM_AM", "mornings", "MORNINGS", P["mornings"]["acc"]), ("EM_PM", "nights", "NIGHTS", P["nights"]["acc"]))):
+        cx0 = x0 + 20 + col * ci; text_sp(d, cx0 + 4, py0 + 20, head, fh, hc, 4)
+        for r, lab in enumerate(P[key]["labels"]):
+            cy = py0 + 34 + 24 + r * g["pitch"] + g["isz"] / 2; gl = glyph(em, r + 1, g["isz"], ink)
+            img.alpha_composite(gl, (int(cx0 + 4 + (g["isz"] - gl.width) / 2), int(cy - gl.height / 2))); d.text((cx0 + 4 + g["isz"] + 12, cy), lab, font=f, fill=ink, anchor="lm")
+    chk.append(("benefits", (x0, py0, x0 + pw, py0 + g["panel_h"])))
+    y = top + g["row_h"] + 22; pr = price_pill(img, 540, y, "nights", g["big"], g["small"], ("SILT Combo", " · Rs. 1,800 for 15 + 15 sticks"))
+    pl2 = outline_pill(img, 540, pr[3] + 16, "Make it a combo – Use code COMBO10 for extra 10% off", g["pill_sz"], GOLD); un = url(img, 540, pl2[3] + 16, ink)
+    return chk + [("price", pr), ("pill", pl2), ("url", un)]
+
+
 def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900):
     """The three official benefit icons + labels in one row (auto-centred). Returns its bbox."""
     p = P[prod]; d = ImageDraw.Draw(img); f = F(JOSTB, fsz); h = isz + 46; x0 = (W - width) // 2; y0 = int(cy - h / 2)
@@ -232,7 +259,7 @@ def build_one(spec, H):
     plate = Image.open(spec["plate"]).convert("RGBA")
     if str(H) in spec.get("dy", {}): dy = spec["dy"][str(H)]
     else:   # put the subject between the headline block and the pack block
-        head_bottom = L["head"] + (250 if spec.get("sub") else 200); pack_top = L["cpack"][1] if combo else L["pack"][1]
+        head_bottom = L["head"] + (250 if spec.get("sub") else 200); pack_top = combo_geom(H)["top"] if combo else L["pack"][1]
         st, sb = subject_center(plate); off = (1920 - H) / 2
         target = (head_bottom + pack_top) / 2 + (30 if H == 1920 else 0); dy = target - ((st + sb) / 2 - off)
         top_c = st + dy - off
@@ -250,12 +277,7 @@ def build_one(spec, H):
     bb, y = headline(img, L["head"], spec["headline"], ink, acc, size=88 if H == 1920 else (84 if H == 1350 else 70), shadow=not dark_ink); chk = [("headline", bb)]
     if spec.get("sub"): b2, y = subline(img, y + L["sub_gap"], spec["sub"], ink, 34 if H != 1080 else 30); chk.append(("sub", b2))
     if combo:
-        x, yy, h = L["cpack"]
-        b1 = paste_pack(img, "mornings", x, yy, h); b2_ = paste_pack(img, "nights", b1[2] + 56, yy, h); chk += [("pack1", b1), ("pack2", b2_)]
-        cx = (b1[0] + b2_[2]) / 2; g = L["cgap"]; big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
-        pr = price_pill(img, 540, yy + h + g, "nights", big, small, ("SILT Combo", " · Rs. 1,800 for 15 + 15 sticks")); chk.append(("price", pr))
-        pl = outline_pill(img, 540, pr[3] + 18, "Make it a combo – Use code COMBO10 for extra 10% off", 24 if H == 1920 else 22, GOLD); chk.append(("pill", pl))
-        chk.append(("url", url(img, 540, pl[3] + 18, ink)))
+        chk += combo_block(img, H, ink, (6, 16, 40, 150))
     else:
         x, yy, h = L["pack"]; pb = paste_pack(img, prod, x, yy, h); chk.append(("pack", pb))
         chk += right_block(img, prod, L, H, ink, ((255, 248, 236, 150) if dark_ink else (6, 16, 40, 105)), pb)

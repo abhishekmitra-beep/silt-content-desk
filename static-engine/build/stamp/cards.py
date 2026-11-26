@@ -259,10 +259,7 @@ def build(spec, H):
     img = background(prod, H); chk = []
     # bottom block
     if combo:
-        x, yy, h = L["cpack"]; b1 = S.paste_pack(img, "mornings", x, yy, h); b2 = S.paste_pack(img, "nights", b1[2] + 56, yy, h); chk += [("pack1", b1), ("pack2", b2)]
-        big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
-        pr = S.price_pill(img, 540, yy + h + L["cgap"], "nights", big, small, ("SILT Combo", " · Rs. 1,800 for 15 + 15 sticks")); pl = S.outline_pill(img, 540, pr[3] + 18, "Make it a combo – Use code COMBO10 for extra 10% off", 24 if H == 1920 else 22, S.GOLD)
-        un = S.url(img, 540, pl[3] + 18, P["ink"]); chk += [("price", pr), ("pill", pl), ("url", un)]; block_top = yy
+        chk += S.combo_block(img, H, P["ink"], (6, 16, 40, 150)); block_top = S.combo_geom(H)["top"]
     else:
         x, yy, h = L["pack"]; pb = S.paste_pack(img, prod, x, yy, h); chk.append(("pack", pb)); panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
         chk += S.right_block(img, prod, L, H, P["ink"], panel, pb); block_top = yy
