@@ -134,6 +134,19 @@ def benefits_list(img, prod, x, y, isz, fsz, pitch, ink, panel=None):
     return (x, y, right, y + 3 * pitch - (pitch - isz))
 
 
+def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900):
+    """The three official benefit icons + labels in one row (auto-centred). Returns its bbox."""
+    p = P[prod]; d = ImageDraw.Draw(img); f = F(JOSTB, fsz); h = isz + 46; x0 = (W - width) // 2; y0 = int(cy - h / 2)
+    if panel:
+        S3 = 3; pl = Image.new("RGBA", (width * S3, h * S3), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, width * S3 - 1, h * S3 - 1), 26 * S3, fill=panel)
+        img.alpha_composite(pl.resize((width, h), Image.LANCZOS), (x0, y0))
+    cell = width / 3
+    for i, lab in enumerate(p["labels"]):
+        g = glyph(p["em"], i + 1, isz, ink); tw_ = tw(d, lab, f); item = g.width + 14 + tw_; x = x0 + cell * i + (cell - item) / 2
+        img.alpha_composite(g, (int(x), int(cy - g.height / 2))); d.text((x + g.width + 14, cy), lab, font=f, fill=ink, anchor="lm")
+    return (x0, y0, x0 + width, y0 + h)
+
+
 def price_pill(img, cx, y, prod, big, small, text=None):
     p = P[prod]; d = ImageDraw.Draw(img)
     main, rest = text if text else ("Rs. 900", " for a box of 15 sticks")
@@ -157,14 +170,20 @@ def url(img, cx, y, ink, size=24, sp=6):
 
 
 # ---------- plate -> canvas ----------
-def canvas(plate, H, zoom=1.0, dx=0, dy=0):
+def canvas(plate, H, zoom=1.0, dx=0, dy=0, bgmode="blur"):
     """Cover the plate to 1080x1920*zoom, then take the centred 1080xH window shifted by dy; gaps are filled with a blurred copy."""
     base = max(W / plate.width, 1920 / plate.height) * zoom
     fw, fh = round(plate.width * base), round(plate.height * base); fg = plate.resize((fw, fh), Image.LANCZOS)
     x = (W - fw) // 2 + dx; y = (1920 - fh) // 2 + dy - (1920 - H) // 2
-    cv = max(W / plate.width, H / plate.height) * 1.12
-    bb = plate.resize((round(plate.width * cv), round(plate.height * cv)), Image.LANCZOS)
-    bb = bb.crop(((bb.width - W) // 2, (bb.height - H) // 2, (bb.width - W) // 2 + W, (bb.height - H) // 2 + H)).filter(ImageFilter.GaussianBlur(40)).convert("RGBA")
+    if bgmode == "right":   # plain fill: each row takes the colour of the plate's right edge strip, rows beyond the plate the top / bottom edge
+        arr = np.asarray(fg.convert("RGB")).astype(float); k = max(4, fw // 30); rowc = arr[:, -k:].mean(1); col = np.zeros((H, 3))
+        for yy in range(H):
+            r = yy - y; col[yy] = rowc[0] if r < 0 else (rowc[-1] if r >= fh else rowc[r])
+        bb = Image.fromarray(np.repeat(col[:, None, :], W, 1).astype("uint8")).filter(ImageFilter.GaussianBlur(25)).convert("RGBA")
+    else:
+        cv = max(W / plate.width, H / plate.height) * 1.12
+        bb = plate.resize((round(plate.width * cv), round(plate.height * cv)), Image.LANCZOS)
+        bb = bb.crop(((bb.width - W) // 2, (bb.height - H) // 2, (bb.width - W) // 2 + W, (bb.height - H) // 2 + H)).filter(ImageFilter.GaussianBlur(40)).convert("RGBA")
     m = Image.new("L", (fw, fh), 255); a = np.asarray(m).astype(float); fe = 90
     ramp = np.linspace(0, 255, fe)
     if x > 0: a[:, :fe] = np.minimum(a[:, :fe], ramp[None, :])
@@ -232,14 +251,14 @@ def build_one(spec, H):
     return img.convert("RGB"), bad
 
 
-# ---------- newspaper front page (editorial format: the masthead may carry the name "SiLT Nutrition") ----------
+# ---------- newspaper front page (editorial format: the masthead may carry the name "SILT Nutrition") ----------
 def build_news(spec, H):
     prod = spec["product"]; p = P[prod]; L = LAY[H]; d0 = None
     paper = (243, 236, 220); ink = (31, 58, 107) if prod == "nights" else (43, 33, 28); rule = ink
     img = Image.new("RGBA", (W, H), paper + (255,)); rng = np.random.default_rng(7)
     n = (rng.normal(0, 3.0, (H, W, 1)) * np.ones((1, 1, 3))); arr = np.clip(np.asarray(img.convert("RGB")).astype(float) + n, 0, 255).astype("uint8"); img = Image.fromarray(arr).convert("RGBA")
     d = ImageDraw.Draw(img); lo, hi = SAFE[H]; top = lo + 25; chk = []
-    f = ImageFont.truetype(GEORGIA_B, 84 if H == 1920 else 74); t = "SiLT Nutrition"; w = tw(d, t, f); d.text(((W - w) / 2, top), t, font=f, fill=ink); chk.append(("masthead", ((W - w) / 2, top, (W + w) / 2, top + 90)))
+    f = ImageFont.truetype(GEORGIA_B, 84 if H == 1920 else 74); t = "SILT Nutrition"; w = tw(d, t, f); d.text(((W - w) / 2, top), t, font=f, fill=ink); chk.append(("masthead", ((W - w) / 2, top, (W + w) / 2, top + 90)))
     y = top + 104; d.line((110, y, W - 110, y), fill=rule, width=4); d.line((110, y + 9, W - 110, y + 9), fill=rule, width=2); y += 26
     tag = {"nights": "A BEDTIME DRINK MIX", "mornings": "A DAILY DRINK MIX"}[prod]; ft = F(JOST, 22); tw_ = tw(d, tag, ft, 7); text_sp(d, (W - tw_) / 2, y, tag, ft, ink, 7); y += 58
     m = re.match(r"^(.*?)\*(.+?)\*(.*)$", spec["headline"]); parts = [x for x in ([m.group(1).strip(), m.group(2).strip(), m.group(3).strip()] if m else [spec["headline"]]) if x]
@@ -259,12 +278,13 @@ def build_news(spec, H):
         y += 8; sy0 = y
         for ln in lines: d.text((110, y), ln, font=fi, fill=ink); y += 42
         chk.append(("deck", (110, sy0, 970, y)))
-    y += 22; ph = max(180, min(L["news_ph"], hi - 118 - 26 - 6 - y)); box = (110, y, W - 110, y + ph)
+    y += 22; ph = max(170, min(L["news_ph"], hi - 118 - 26 - 6 - 104 - y)); box = (110, y, W - 110, y + ph)
     # framed studio photo: smooth gradient + the real pack
     g = np.linspace(0, 1, ph)[:, None, None]; c0 = np.array((22, 44, 96) if prod == "nights" else (246, 190, 110)); c1 = np.array((8, 22, 60) if prod == "nights" else (200, 120, 52))
     pg = (c0 * (1 - g) + c1 * g) * np.ones((1, W - 220, 3)); photo = Image.fromarray(np.clip(pg, 0, 255).astype("uint8")).convert("RGBA")
     ph_h = int(ph * 0.66); pk, pad, pw_ = pack(prod, ph_h); photo.alpha_composite(pk, ((photo.width - pw_) // 2 - pad, ph - ph_h - pad - int(ph * .08)))
-    img.alpha_composite(photo, (110, y)); d.rectangle(box, outline=rule, width=3); chk.append(("photo", box)); y += ph + 26
+    img.alpha_composite(photo, (110, y)); d.rectangle(box, outline=rule, width=3); chk.append(("photo", box)); y += ph + 20
+    bs = benefits_strip(img, prod, y + 42, ink, None, 34, 25, 860); d.line((110, bs[3] + 8, W - 110, bs[3] + 8), fill=rule, width=2); chk.append(("benefits", bs)); y = bs[3] + 24
     pr = "Rs. 900 for a box of 15 sticks"; fp = ImageFont.truetype(GEORGIA_B, 40); pwid = tw(d, pr, fp)
     d.rectangle((110, y, W - 110, y + 118), outline=rule, width=3); d.text((W / 2, y + 40), pr, font=fp, fill=ink, anchor="mm"); fu = F(JOST, 24)
     text_sp(d, (W - tw(d, "siltnutrition.com", fu, 6)) / 2, y + 74, "siltnutrition.com", fu, ink, 6); chk.append(("price", (110, y, W - 110, y + 118)))
