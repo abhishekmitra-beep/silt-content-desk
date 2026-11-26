@@ -290,11 +290,28 @@ def background(prod, H):
     return Image.fromarray(np.clip(a, 0, 255).astype("uint8")).convert("RGBA")
 
 
+def combo_block_cta(img, H, ink):
+    """Combo block WITHOUT the benefits panel: both real packs centred, the Combo price, a BOLD solid CTA pill, the URL."""
+    lo, hi = S.SAFE[H]; ph = 190 if H != 1080 else 160; big = 33 if H == 1920 else 30 if H == 1350 else 28; cs = 30 if H != 1080 else 26; ch_ = cs + 40
+    total = ph + 22 + (big + 30) + 16 + ch_ + 18 + 34; top = hi - total - 4; d = ImageDraw.Draw(img)
+    dummy = Image.new("RGBA", (W, H)); w1 = S.paste_pack(dummy, "mornings", 0, 0, ph); w2 = S.paste_pack(dummy, "nights", 0, 0, ph)
+    tot = (w1[2] - w1[0]) + 44 + (w2[2] - w2[0]); x = (W - tot) / 2
+    b1 = S.paste_pack(img, "mornings", x, top, ph); b2 = S.paste_pack(img, "nights", b1[2] + 44, top, ph)
+    pr = S.price_pill(img, 540, top + ph + 22, "nights", big, 21 if H == 1920 else 20 if H == 1350 else 19, ("SILT Combo", " · Rs. 1,800 for 15 + 15 sticks"))
+    t = "Make it a combo – Use code COMBO10 for extra 10% off"; f = S.F(S.JOSTB, cs); w = int(S.tw(d, t, f, 1) + 80); y = pr[3] + 16; x0 = int((W - w) / 2); s3 = 3
+    pl = Image.new("RGBA", (w * s3, ch_ * s3), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, w * s3 - 1, ch_ * s3 - 1), ch_ * s3 // 2, fill=S.GOLD + (255,))
+    img.alpha_composite(pl.resize((w, ch_), Image.LANCZOS), (x0, y)); S.text_sp(ImageDraw.Draw(img), 540 - S.tw(d, t, f, 1) / 2, y + (ch_ - cs) / 2 - 3, t, f, (10, 24, 60), 1)
+    un = S.url(img, 540, y + ch_ + 18, ink, size=26, sp=6)
+    return [("pack1", b1), ("pack2", b2), ("price", pr), ("cta", (x0, y, x0 + w, y + ch_)), ("url", un)], top
+
+
 def build(spec, H):
     prod = spec["product"]; P = PAL[prod]; combo = prod == "combo"; L = S.LAY[H]; lo, hi = S.SAFE[H]
     img = background(prod, H); chk = []
     # bottom block
-    if combo:
+    if combo and spec.get("bold_cta"):
+        c_, block_top = combo_block_cta(img, H, P["ink"]); chk += c_
+    elif combo:
         chk += S.combo_block(img, H, P["ink"], (6, 16, 40, 150)); block_top = S.combo_geom(H)["top"]
     else:
         x, yy, h = L["pack"]; pb = S.paste_pack(img, prod, x, yy, h); chk.append(("pack", pb)); panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
