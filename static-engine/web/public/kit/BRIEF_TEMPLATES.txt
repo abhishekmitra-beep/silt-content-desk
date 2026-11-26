@@ -1,0 +1,78 @@
+SILT BRIEF TEMPLATES: copy, fill in the [brackets], paste into a NEW chat
+inside the SiLT Creatives project, with the images listed in 00_START_HERE.txt
+attached.
+
+--------------------------------------------------------------------
+1) NEED COPY FIRST
+--------------------------------------------------------------------
+Write copy for a SILT [Mornings / Nights / Combo] static. Bucket: [benefit /
+ingredient / price / proof / restock / replace the stack / festive]. Idea:
+[one line]. Follow COPY_RULES.txt: insight, twist, 8 headlines, scores, top 3
+and a recommendation, kicker and support line. Every headline must carry a
+subtle benefit nudge. Do not generate an image yet.
+
+--------------------------------------------------------------------
+2) STANDARD STATIC (not restock)
+--------------------------------------------------------------------
+New SILT [MORNINGS / NIGHTS] creative. Copy is final, so skip copy options and
+generate. 9:16, exactly 1080x1920, generated natively tall. Same premium world
+as Image 1 (REF_[Mornings/Nights]_PREMIUM). HERO: [describe the one idea /
+hero object]. PRODUCT: the SILT [Mornings/Nights] box FULL and CLOSED with the
+lid on, an exact copy of PACK_[Mornings/Nights]_box+stick; ONE stick, an exact
+copy of PACK_[Mornings/Nights]_stick (long and slim, about 1:4.3, artwork
+running along its length), lying flat or leaning, with a soft contact shadow;
+ONE clear glass of the drink ([flat pale orange-yellow / flat milky white]).
+TYPE: lockup "SiLT Nutrition | [A DAILY DRINK MIX / A BEDTIME DRINK MIX]";
+kicker "[KICKER]"; headline "[HEADLINE]" with "[KEY WORDS]" in bold italic
+caps; support line "[SUPPORT LINE]"; "Rs. 900 for a box of 15 sticks"; thin
+gold OUTLINE pill with letter-spaced "siltnutrition.com". Top 4% and bottom 6%
+free of text. No other text, badges or claims. Give the 1080x1920 PNG.
+
+--------------------------------------------------------------------
+3) RESTOCK STATIC
+--------------------------------------------------------------------
+New SILT [MORNINGS / NIGHTS] RESTOCK creative. Copy is final, so generate.
+9:16, exactly 1080x1920. Layout and look exactly like Image 1
+(3_Approved_Examples/Restock_[Mornings/Nights].png). BOX: OPEN, exact real
+construction from BOX_[Mornings/Nights]_open_front_straight: printed sleeve
+below, flush inner wall above with a shallow U-notch, "Thank you for choosing
+us", a thin "WELCOME To SILT FAMILY" card strip. Only [1 / 2] stick(s) left,
+leaning naturally inside (never standing upright on their own). COPY: kicker
+"DOWN TO YOUR LAST STICK?"; headline "Restock" / "[15 Deeper Nights. /
+15 Steadier Mornings.]"; line "For best results, use consistently for at
+least 3 months."; gold outline pill "Make it a combo – Use code COMBO10 for
+extra 10% off"; "siltnutrition.com". Give the 1080x1920 PNG.
+
+--------------------------------------------------------------------
+4) REPLACE THE STACK
+--------------------------------------------------------------------
+New SILT [MORNINGS / NIGHTS] creative, bucket "replace the stack". Layout and
+look like Image 1 (3_Approved_Examples/Replace_The_Stack_[Mornings/Nights].png).
+A real-looking Indian man in his late 30s seen from behind, hands on head, in
+front of a shelf of plain UNBRANDED bottles labelled only with the product's
+actives:
+  Mornings (10): CAFFEINE, TAURINE, L-THEANINE, PREBIOTIC FIBRE, PROBIOTICS,
+                 DIGESTIVE HERBS, VITAMIN D3, VITAMIN K2, VITAMIN B12, VITAMIN C
+  Nights (4):    L-GLYCINE, MAGNESIUM BISGLYCINATE, ASHWAGANDHA, L-THEANINE
+Foreground: full CLOSED box + 1 stick lying flat + 1 glass. Headline
+"[Ten / Four] bottles." / "Or ONE STICK." Give the 1080x1920 PNG.
+
+--------------------------------------------------------------------
+FIX LINES: send in the SAME chat; keep everything else identical
+--------------------------------------------------------------------
+- Stick wrong: "Replace the stick with an EXACT copy of PACK_<product>_stick:
+  long and slim, about 1:4.3, artwork running along its length (every text
+  line set across the stick's width), rotated as one piece. Not a short wide
+  sachet or horizontal label."
+- Box wrong (not restock): "The box must be FULL and CLOSED with the lid on,
+  exactly like PACK_<product>_box+stick. No inner wall, no U-notch, no
+  Thank-you card."
+- Floating or standing stick: "The stick must be physically supported: lying
+  flat on the stone with a contact shadow, or leaning against the box. Never
+  standing on its own."
+- Looks flat or cheap: "Apply rule 0 BRAND LANGUAGE and the section 2 LOOK
+  strictly: cinematic still life, like REF_<product>_PREMIUM."
+- Wrong size: "Resize to exactly 1080x1920 WITHOUT stretching: scale to
+  1920 px tall and extend the background at the sides."
+- Text typo: "Fix only this text: '[wrong]' must read '[right]'. Same font,
+  size, colour and position; everything else pixel-identical."

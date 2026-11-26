@@ -400,19 +400,22 @@ export function fileName(spec, sizeId) {
 export const TEMPLATES = Object.keys(T);
 
 // ---------- Copy check (shared by render.mjs and the website) ----------
-export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
-const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai", "ai_note", "rewritten_from", "pos", "logo", "caption", "ad_headline", "pack_top", "img"]);
+export const FACT_NUMBERS = ["80", "200", "5", "6", "3", "250", "300", "900", "15", "60", "10", "1,800", "19", "293", "0", "72", "2", "100", "30", "4", "1", "7", "9", "8", "11", "12", "2019", "1:07", "7:30", "9:00", "11:00", "2:00", "5:30", "8:00", "8:02", "66", "99", "99.4", "256", "1,400", "1400", "550", "1.8", "8.8", "8.6", "132", "129", "1,125", "2,250", "3,300", "4,500", "55", "54", "50", "85", "1080", "1920"];  // 99.4 (glycine purity) and 256 (magnesium bisglycinate mg) are lab proof facts allowed by house rule 10
+const META_KEYS = new Set(["id", "slug", "product", "funnel", "concept", "format", "t", "theme", "shot", "check", "files", "_new", "_team", "status", "created_by", "updated_by", "updated_at", "check_report", "review_note", "maker", "inspired_by", "made_on", "scene", "scene_a", "scene_b", "scene_problem", "scene_solution", "idea_id", "flags", "source", "photo", "photo_b", "photo_brief", "chatgpt_prompt", "chatgpt_followups", "files_before", "photo_made_with", "photo_y", "price", "landing", "reject_reason", "reject_tags", "rejected_by", "rejected_at", "ai_reviewed_by", "names", "made_with", "ai_note", "ai_verdict", "made_by_ai", "ai_note", "rewritten_from", "pos", "attach", "bucket", "logo", "caption", "ad_headline", "pack_top", "img"]);
 export const META_FIELDS = [...META_KEYS];
 // Returns a list of problems; empty means the copy passes. Numbers outside the fact list need a team check.
 export function checkCopy(s) {
   const out = [];
   const text = JSON.stringify(Object.fromEntries(Object.entries(s).filter(([k]) => !META_KEYS.has(k) && !k.startsWith("_") && !(s.t === "vs" && k === "rows"))));
-  if (/[—–]/.test(text)) out.push("Has an em or en dash. Use a comma, a full stop or \"to\".");
-  if (/AG1|Supply ?6|Oziva|Upside|Wellbeing Nutrition|Stack Club|Fast&Up|Whole Truth|Cosmix|IM8/i.test(text)) out.push("Names a competitor. Compare against \"the usual stack\" instead.");
+  // Checks from the SILT Creative Kit v2 (the house rules since 26 Nov) plus two standing facts (no returns, one drink).
+  if (/AG1|Supply ?6|Oziva|Upside|Wellbeing Nutrition|Stack Club|Fast&Up|Whole Truth|Cosmix|IM8|Seed\b|Aesop/i.test(text)) out.push("Names another brand. Never show third-party names; never use another brand's line.");
   if (/easy return|money.?back|guarantee|full refund|no.questions/i.test(text)) out.push("Promises returns or a guarantee. Our policy is no returns; damaged or wrong products are replaced within 72 hours.");
-  if (/★|\d ?stars?\b|5-star/i.test(text)) out.push("Shows a star rating we haven't verified.");
-  if (/warm/i.test(text)) out.push("Says warm: it is one drink, never a warm drink (team, 25 Nov).");
-  if (/melatonin-free|cure|treat|clinically proven|doctor recommended/i.test(text)) out.push("Medical-sounding claim (cure, treat, clinically proven...). Check with the team.");
+  if (/★|\d ?stars?\b|5-star/i.test(text)) out.push("Shows a star rating: no invented claims or badges.");
+  if (/\bwarm (drink|mug|cup|glass|sip|silt)/i.test(text)) out.push("Says a warm drink: it is one drink, not a warm one.");
+  if (/!/.test(text.replace(/\\"/g, ""))) out.push("Has an exclamation mark (kit copy rule: never).");
+  const cl = text.match(/\b(unlock|elevate|game.?changer|revolutionary|journey|wellness redefined|fuel your day|sleep like a baby)\b/i); if (cl) out.push(`Cliche "${cl[0]}" (kit copy rule: never).`);
+  const med = text.match(/\b(cures?|treats?|insomnia|anxiety|prevents?|immunity|detox|weight loss|life depends on it|clinically proven|doctor recommended|melatonin-free)\b/i); if (med) out.push(`Fear or disease claim "${med[0]}": SILT does not treat any condition.`);
+  if (/\b\d{1,3} ?%/.test(text) && !/100 ?%|99\.4 ?%|10 ?%/.test(text)) out.push("A percentage that is not in the facts: no survey or study result unless the brand team supplies the study.");
   const nums = [...new Set((text.match(/\d[\d,:]*/g) || []).map(n => n.replace(/,$/, "")))].filter(n => !FACT_NUMBERS.includes(n) && !/^\d{1,2}:\d{2}$/.test(n));
   if (nums.length) out.push(`Numbers not on the pack or website: ${nums.join(", ")}. Check them before this goes live.`);
   if (!TEMPLATES.includes(s.t)) out.push(`Unknown format "${s.t}".`);
@@ -421,19 +424,14 @@ export function checkCopy(s) {
 }
 
 // ---------- Brand brief for the team's own Claude / ChatGPT ----------
-export const BRAND_BRIEF = `You are helping the SILT Nutrition team write copy for a Meta ad static (an Indian wellness drink-mix brand).
-FACTS (use only these numbers):
-- SILT Mornings stick: 80 mg caffeine + 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, vitamins D3, K2, B12 and C at 100% RDA. Lemon Orange.
-- SILT Nights stick: 3 g glycine, 250 mg magnesium (bisglycinate), 300 mg KSM-66 ashwagandha, 200 mg L-theanine. Chamomile Lemon. No melatonin.
-- No added sugar, no maltodextrin, every dose printed on the pack. 19 ingredients, 293 lab checks, 0 failed (lab reports on siltnutrition.com).
-- Rs 900 for 15 sticks (Rs 60 a stick). Combo = Mornings + Nights, Rs 1,800. Code COMBO10 = extra 10% off the Combo.
-- Damaged or wrong product: photos within 72 hours, we replace it. NO returns otherwise. Delivery 2 to 10 working days.
-- Real verified review you may quote: "Taste of SILT Night is really amazing."
-MESSAGE:
-- TOFU, MOFU, BOFU (acquisition): "Replaces the stack" (Mornings replaces the morning stack, Nights the sleep stack, the Combo the whole stack).
-- Retention (existing customers): the ritual and routine (own the morning and the night; boring is interesting; no discount push).
-PEOPLE: every person, name and setting is Indian (Indian faces in images; names like Priya, Rohan, Ananya, Arjun; chai, autos, Bengaluru traffic, Diwali, wedding season, back-to-back calls).
-RULES: "we" brand voice, LESS TEXT (about 22 words per image), short lines, no em or en dashes, never name competitors, no star ratings, no cure or treat claims, no fake reviews, testimonials or results, no fake urgency. Use *word* to colour one word and **word** for bold.`;
+export const BRAND_BRIEF = `You are the creative partner for SILT Nutrition's static ads (SILT Mornings, SILT Nights, SILT Combo): an Indian brand of evidence-backed wellness drink mixes for busy professionals. The SILT Creative Kit v2 is the source of truth; the HOUSE RULES below are that kit and override everything else.
+FACTS (use only these):
+- SILT Mornings (8.8 g stick, LEMON ORANGE): caffeine 80 mg, taurine 1,400 mg, L-theanine 200 mg, Sunfiber PHGG prebiotic fibre 5 g, probiotics 6 billion CFU, digestive herbs 550 mg (amla, fennel, cumin, ajwain), vitamins D3, K2, B12 and C at 100% RDA each.
+- SILT Nights (8.6 g stick, CHAMOMILE LEMON): L-glycine 3 g, magnesium bisglycinate 1.8 g (250 mg magnesium), KSM-66 ashwagandha 300 mg, L-theanine 200 mg. Melatonin 0 mg. Added sugar 0 mg.
+- Price line: "Rs. 900 for a box of 15 sticks". Combo: "SILT Combo · Rs. 1,800 for 15 + 15 sticks". COMBO10 = extra 10% off the Combo.
+- Damaged or wrong product: photos within 72 hours and we replace it. No returns otherwise.
+THE CREATIVE: one idea, one photographable hero, a cinematic luxury still life like REF_Nights_PREMIUM / REF_Mornings_PREMIUM, real photography only, 9:16 (1080 x 1920). The box is full and closed with 1 stick and 1 glass (open only for restock). People only when needed: real-looking Indian men over 30, never women.
+THE COPY: insight, then twist, then the headline (7 words or fewer). The main message is the biggest text and carries a subtle benefit nudge. Smart, warm, a little wry. No cliches, exclamation marks, fear or disease claims, invented numbers, or another brand's line. Use *word* for the key words.`;
 
 export function aiPrompt(spec, ask) {
   const clean = Object.fromEntries(Object.entries(spec).filter(([k]) => !k.startsWith("_") && !["files", "status", "created_by", "updated_by", "updated_at"].includes(k)));

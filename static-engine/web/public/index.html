@@ -321,14 +321,14 @@ IDEA: ${d.text}
 Make ${d.count || 6} statics. Funnel: ${d.funnel === "auto" || !d.funnel ? "spread across TOFU, MOFU, BOFU and RET" : d.funnel}. Product: ${d.product === "auto" || !d.product ? "mornings, nights or combo, whichever fits" : d.product}.
 ${made.length ? "ALREADY MADE FOR THIS IDEA (make completely different ones): " + made.join(" | ") : ""}
 
-Each static is a different moment, a different person and a different format. Indian characters, and Indian women as the lead in many of them. Never invent a customer quote, review, rating or result. About 22 words per static at most.
+Each creative is ONE idea with ONE photographable hero, in the kit's premium still-life look. Run the copy engine first (insight, twist, 8 headlines of 7 words or fewer, pick the best). The main message is the biggest text and carries a subtle benefit nudge. People only when the idea needs one: real-looking Indian men over 30, never women. Never invent a quote, review, rating, result or number.
 
-Reply with ONLY this JSON: {"statics": [ ... ]}. Each static:
-- "t": the format, one of: ${Object.keys(SK).join(", ")}
-- "funnel", "product", "concept" (2 to 4 words), "cta" (max 5 words)
-- the text keys of its format, for the site's preview: ${Object.entries(SK).map(([t, k]) => t + " " + JSON.stringify(Object.keys(k).filter(x => !["t", "funnel", "product", "concept", "format", "slug", "id", "cta"].includes(x)))).join("; ")}
-- "chatgpt_prompt": a complete prompt to paste into ChatGPT's image generator that makes the FINISHED static at 1080 x 1350 (4:5): every word to print, in quotes, exactly as written; who is in the picture (Indian, age, man or woman, what they wear, where they are, their expression); the layout; SILT's look (clean, warm, Mornings = sunrise yellow and orange, Nights = deep navy blue); and "Place the SILT pack from the attached image in the lower right, about a third of the image height, on a soft shadow. Don't redraw the logo or add any other text."
-- "review": {"ok": true or false, "note": "one line: why it works, or what's wrong"}: your honest check against the brand rules, the house rules and the list of what already exists.`;
+Reply with ONLY this JSON: {"statics": [ ... ]}. Each one:
+- "t": "statement" (the words preview on the site), "funnel", "product" (mornings, nights or combo), "bucket" (benefit, ingredient, price, proof, restock, replace the stack or festive), "concept" (2 to 4 words), "cta": "siltnutrition.com"
+- "kicker" (optional, max 5 words, caps), "headline" (the main message, max 7 words, key words in *stars*), "sub" (support line, max 12 words)
+- "attach": the kit images to attach in ChatGPT, the look first, e.g. ["REF_Nights_PREMIUM", "PACK_Nights_box_stick", "PACK_Nights_stick"]
+- "chatgpt_prompt": the kit's brief template (standard, restock or replace the stack) with every bracket filled in: 9:16, exactly 1080 x 1920, the premium world of Image 1, the hero, the product (box FULL and CLOSED with 1 stick lying flat or leaning and 1 glass; OPEN only for restock), the type (lockup, kicker, main message with the key words in bold italic caps, support line, the exact price line, a thin gold OUTLINE pill with letter-spaced "siltnutrition.com"), and "No other text, badges or claims."
+- "review": {"ok": true or false, "note": "one line: which rules you checked, or what fails"}: your honest check against the house rules (look, box state, main message biggest, facts and price exact, people rule, no repeats).`;
 }
 async function pasteReply(ideaId) {
   const txt = $("pasteTxt")?.value || "";
@@ -337,10 +337,10 @@ async function pasteReply(ideaId) {
     let arr = JSON.parse(m[0]); if (!Array.isArray(arr)) arr = arr.statics || [];
     let n = 0;
     for (const x of arr.slice(0, 30)) {
-      const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "problemsolution");
+      const base = STATICS.find(s => s.t === x.t) || STATICS.find(s => s.t === "statement");
       const doc = { ...JSON.parse(JSON.stringify(base)), ...Object.fromEntries(Object.entries(x).filter(([k, v]) => k in base && typeof v === typeof base[k])), t: base.t, format: base.format, id: "new", slug: "claude", concept: String(x.concept || "Idea").slice(0, 50),
         funnel: ["TOFU", "MOFU", "BOFU", "RET"].includes(x.funnel) ? x.funnel : base.funnel, product: ["mornings", "nights", "combo"].includes(x.product) ? x.product : base.product,
-        idea_id: ideaId, chatgpt_prompt: String(x.chatgpt_prompt || "").slice(0, 3000), ai_note: String(x.review?.note || "").slice(0, 300), made_by_ai: "Claude" };
+        idea_id: ideaId, chatgpt_prompt: String(x.chatgpt_prompt || "").slice(0, 3000), bucket: String(x.bucket || "").slice(0, 30), attach: (Array.isArray(x.attach) ? x.attach : []).map(a => String(a).slice(0, 60)).slice(0, 8), ai_note: String(x.review?.note || "").slice(0, 300), made_by_ai: "Claude" };
       delete doc.check;
       await api("/api/items", { method: "POST", body: JSON.stringify({ kind: "static", doc, status: x.review ? (x.review.ok ? "ai_approved" : "ai_rejected") : "draft" }) }); n++;
     }
@@ -524,9 +524,9 @@ $("view").addEventListener("click", async e => {
   const mp = b("[data-metaprev]"); if (mp) { const sx = anyStatic(mp.dataset.metaprev); if (sx) metaPreview(sx); return; }
   const tk = b("[data-tick]"); if (tk) { tk.disabled = true; await api("/api/items/" + encodeURIComponent(tk.dataset.tick), { method: "PUT", body: JSON.stringify({ status: "approval" }) }).catch(er => alert(er.message)); await load(); return status("Sent to Team Approval."); }
   const cr = b("[data-cross]"); if (cr) { const why = await askReason(titleOf(cr.dataset.cross)); if (!why) return; cr.disabled = true; await api("/api/items/" + encodeURIComponent(cr.dataset.cross), { method: "PUT", body: JSON.stringify({ status: "rejected", reason: why }) }).catch(er => alert(er.message)); await load(); await sweepIdeas(); return; }
-  const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt); const pk = p => location.origin + "/assets/" + p + "_boxstick_cut.png";
-    const pack = sx.product === "combo" ? pk("mornings") + " and " + pk("nights") : pk(sx.product === "nights" ? "nights" : "mornings");
-    return copyText(sx.chatgpt_prompt + "\n\n(Attach the SILT pack image: " + pack + ")", "ChatGPT prompt copied. Paste it into ChatGPT with the pack image attached, then upload the result here (⬆ Image)."); }
+  const gp = b("[data-gpt]"); if (gp) { const sx = findAny(gp.dataset.gpt), pr = sx.product === "mornings" ? "Mornings" : "Nights";
+    const att = (sx.attach?.length ? sx.attach : sx.product === "combo" ? ["REF_Mornings_PREMIUM", "REF_Nights_PREMIUM", "PACK_Mornings_box_stick", "PACK_Nights_box_stick", "PACK_Mornings_stick", "PACK_Nights_stick"] : ["REF_" + pr + "_PREMIUM", "PACK_" + pr + "_box_stick", "PACK_" + pr + "_stick"]).map(a => location.origin + "/kit/" + a + ".jpg");
+    return copyText(sx.chatgpt_prompt + "\n\n(Attach these images to this first message, the look first: " + att.join(" , ") + ")", "ChatGPT brief copied. In ChatGPT (the SiLT Creatives project, a new chat) attach the kit images listed at the end, paste, then upload the result here (⬆ Image)."); }
   const cl = b("[data-cl]"); if (cl) { const i = ideas().find(x => x.id === cl.dataset.cl); if (i) { cl.disabled = true; const p = await claudePrompt(i); cl.disabled = false; return copyText(p, "Prompt for Claude copied. Paste it into Claude, then press Paste Claude's reply and paste its answer."); } return; }
   const ps = b("[data-paste]"); if (ps) { st.paste = ps.dataset.paste || null; return draw(); }
   const pa = b("[data-pasteadd]"); if (pa) { pa.disabled = true; return pasteReply(pa.dataset.pasteadd); }

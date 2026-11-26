@@ -58,162 +58,107 @@ curl -s -X PUT https://silt-static-engine.pages.dev/api/items/<idea id> -H "cont
 The brief starts with **LESSONS FROM TEAM REJECTIONS**: every static the team rejected, with the reason they gave, and the lessons ranked by how often they come up. Also at `GET /api/lessons`.
 
 Treat them as rules you learned the hard way:
-- Before you save a static, **test it against every lesson**. If it would earn the same rejection (too much text, words in Meta's red zones, a weak hook, a repeat, the wrong problem for the product, a hidden pack...), rewrite it first.
+- Before you save a static, **test it against every lesson**. If it would earn the same rejection (too much text, a weak hook, a repeat, the wrong problem for the product, a wrong or hidden pack...), rewrite it first.
 - Say in `ai_note` which lessons you checked it against, e.g. "Checked: red zones, too much text, repeats."
 - If the team keeps rejecting the same thing, change your approach, not just the words.
 
-## 3. Think, then write each static
+## 3. Think, then write each static (the SILT Creative Kit v2 way)
 
-Make `count` statics (default 6). Each one is a **different moment, a different person and a different format**, and nothing on the brief's lists may repeat. Use Indian characters, with Indian women as the lead in many of them. Never invent a customer quote, review, rating or result.
+**The house rules you just read are the SILT Creative Kit v2. They are the law for every creative.** What follows is how to apply them here; if anything below ever disagrees with the house rules, the house rules win.
 
-Save each static under the idea (`idea_id`). Your review is the `status`: `"approved"` if it's good (the AI Checker shows it as **Approved** and it moves on to Team Approval), `"rejected"` if it isn't (the AI Checker shows it as **Stalled** and it waits there). Put the reason in `ai_note`.
+Make `count` creatives (default 6). Each one is **one idea with one photographable hero**, in the premium still-life look, and nothing on the brief's lists may repeat. For each:
+
+1. **Pick the product and the bucket**: benefit, ingredient, price, proof, restock, replace the stack or festive.
+2. **Run the copy engine** (house rule COPY ENGINE) before anything else: the insight, the twist, 8 headlines of 7 words or fewer across the 8 routes, score them, keep the best. Add one optional kicker (max 5 words, caps) and one support line (max 12 words). The main message is the biggest text and carries a subtle benefit nudge.
+3. **Check every fact, dose and price** against the FACTS and PRICES rules. If a number isn't there, don't use it.
+4. **Write the ChatGPT brief from the kit's templates**: `curl -s https://silt-static-engine.pages.dev/kit/BRIEF_TEMPLATES.txt`. Use the standard static, restock or replace-the-stack template and fill in every [bracket]. Always 9:16, exactly 1080 x 1920.
+5. **Check your own work** against the CHECK BEFORE APPROVING rule. That check is your verdict.
+
+People appear only when the idea needs one, and then only real-looking Indian men over 30, never women. Never invent a customer quote, review, rating, result or study number.
+
+Save each creative under the idea (`idea_id`). Your verdict is the `status`: `"approved"` if it passes every rule (the AI Checker shows it as **Approved** and it moves on to Team Approval), `"rejected"` if it doesn't (the AI Checker shows it as **Stalled** and it waits there). Put the reason in `ai_note`, naming the rules you checked.
 
 ```
 curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type: application/json" -H "x-silt-client: claude" -H "x-silt-name: <your name>" -d '{
   "kind":"static", "status":"approved",
   "doc":{
     "idea_id":"<idea id>",
-    "t":"scene", "funnel":"TOFU", "product":"nights", "concept":"Tax season", "cta":"Try Nights",
-    "scene":"ceiling-2am", "headline":"ITR filed. *Mind still filing.*", "sub":"SILT Nights. Log off properly.",
-    "chatgpt_prompt":"<the full prompt for ChatGPT, see below>",
-    "ai_note":"New persona (CA in tax season), new line, on brand."
+    "t":"statement", "funnel":"TOFU", "product":"nights", "bucket":"benefit", "concept":"Benefit: same bed",
+    "kicker":"YOUR NIGHT STACK", "headline":"Same bed. *BETTER NIGHTS.*", "sub":"Deep sleep, recovery and stress relief. One stick, every night.",
+    "cta":"siltnutrition.com",
+    "attach":["REF_Nights_PREMIUM","PACK_Nights_box_stick","PACK_Nights_stick"],
+    "chatgpt_prompt":"<the filled-in kit brief>",
+    "ai_note":"Checked: look, box state, main message biggest, facts and price, people rule. New insight (replaying meetings at 1 AM)."
   }}'
 ```
 
-- `t` and its text keys (the table below) make the site's **preview** of the static until ChatGPT's image arrives. Wrap a word in `*stars*` to highlight it.
-- `chatgpt_prompt` must be complete enough for ChatGPT to make the **finished** static on its own:
-  - the size: 1080 x 1350 (4:5), the master, with every word inside x 65 to 1015, y 135 to 1215; then the 1:1, Stories 9:16 and Reels 9:16 files (see the placement playbook below)
-  - every word to print, in quotes, exactly as written
-  - who is in the picture: Indian; age; man or woman; what they wear; where they are; their expression
-  - the layout: where the words and the person go
-  - SILT's look: clean and warm. Mornings is sunrise yellow and orange, Nights is deep navy blue.
-  - always end it with: *"Place the SILT pack from the attached image in the lower right, about a third of the image height, on a soft shadow. Don't redraw the logo or add any other text."*
+- `t: "statement"` with `kicker`, `headline` and `sub` is only the **words preview** on the site until ChatGPT's image arrives. The ChatGPT image is the creative. Wrap the key words in `*stars*`.
+- `attach` lists the kit images to attach in ChatGPT (step 4).
+- `chatgpt_prompt` is the filled-in kit brief, word for word in the template's order: size, the premium world of Image 1, the hero, the product (box state, 1 stick, 1 glass, drink colour), the type (lockup, kicker, main message with the key words in bold italic caps, support line, price line, gold outline pill with the URL), and "No other text, badges or claims."
 
-  The site adds a download link for the real pack image when the team copies the prompt.
+After the last creative, the idea shows as briefed on the site. Then hand the briefs to ChatGPT yourself (step 4), if you can. Otherwise tell the person:
+- how many creatives you made, and how many you approved or stalled
+- that each one needs its ChatGPT image: *Copy for ChatGPT* on the Ideas tab, attach the kit images, then *⬆ Image* to upload the result
+- that the approved ones are waiting in Team Approval for their ✓ or ✕, and the stalled ones are in AI Checker
 
-After the last static, the idea shows as briefed on the site. Then hand the prompts to ChatGPT yourself (step 4), if you can. Otherwise tell the person:
-- how many statics you made
-- that they are on the Ideas tab
-- that they now go to ChatGPT: *Copy for ChatGPT* on each static, then *⬆ Image* to upload the result
-- that the approved ones are now waiting in Team Approval for their ✓ or ✕, and the stalled ones are in AI Checker
+**No network from your Claude?** On the site, an idea's *Copy for Claude* button gives you the same brief as one prompt. Reply with `{"statics":[...]}`, each with the fields above plus `"review": {"ok": true|false, "note": "..."}`. The person pastes your reply with *Paste Claude's reply*.
 
-**No network from your Claude?** On the site, an idea's *Copy for Claude* button gives you the same brief as one prompt. Reply with `{"statics":[...]}`, each static with the fields above plus `"review": {"ok": true|false, "note": "..."}`. The person pastes your reply with *Paste Claude's reply*.
+## 4. The ChatGPT connector: make each image in ChatGPT and bring it back
 
-## 4. The ChatGPT connector: hand each prompt to ChatGPT and bring the image back
-
-ChatGPT is the generator. If you can control a browser or the desktop, do the handover yourself, one static at a time. The list is `need_images` from `/api/queue`.
+ChatGPT draws the image. If you can control a browser or the desktop, do the handover yourself, one creative at a time. The list is `need_images` from `/api/queue`.
 
 **Through the browser** (Claude in Chrome, or any browser tool you have):
-1. Open https://chatgpt.com in a new tab. If the GPT "SILT Statics" exists in the sidebar, use it; otherwise use a normal chat with image generation.
+1. Open https://chatgpt.com. If the project **SiLT Creatives** is in the sidebar, open it and start a **new chat inside it**. If it isn't there, use a normal new chat and put the kit's project instructions at the top of your message, before the brief: `curl -s https://silt-static-engine.pages.dev/kit/PROJECT_INSTRUCTIONS.txt`. Tell the person that setting up the SiLT Creatives project once (the kit's How To Use guide) gives steadier results.
 2. The person must already be signed in to ChatGPT. **Never type a password or sign in for them**; if it asks, stop and ask the person to sign in.
-3. Attach the official SILT pack image. Download it first, then attach it with the upload button:
-   - Mornings: https://silt-static-engine.pages.dev/assets/mornings_boxstick_cut.png
-   - Nights: https://silt-static-engine.pages.dev/assets/nights_boxstick_cut.png
-   - Combo: attach both.
-4. Paste the static's `chatgpt_prompt` and send. Wait until the image is finished. Generation can take a minute or two, so don't rush.
-5. Look at the image before keeping it:
-   - every quoted word is spelled exactly right
-   - the person matches the prompt (Indian, man or woman as asked)
-   - the pack is the real one, not redrawn, and nothing covers a face or the headline
-   - no invented text, ratings or claims
+3. **One new chat per creative. Always attach the images to the first message**; without them ChatGPT guesses the pack. Download them from `https://silt-static-engine.pages.dev/kit/<name>.jpg` and attach them in this order (the look first, as Image 1):
 
-   If something is wrong, ask ChatGPT to fix that one thing; at most two retries.
-6. Download the image, then upload it onto its static:
+   | Creative | Attach |
+   |---|---|
+   | Mornings (not restock) | REF_Mornings_PREMIUM, PACK_Mornings_box_stick, PACK_Mornings_stick, BOX_Mornings_closed_front_straight |
+   | Nights (not restock) | REF_Nights_PREMIUM, PACK_Nights_box_stick, PACK_Nights_stick |
+   | Restock | REF_Mornings_PREMIUM or REF_Nights_PREMIUM, BOX_Mornings_open_front_straight or BOX_Nights_open_front_straight, the matching PACK_*_stick |
+   | Replace the stack | EX_Replace_The_Stack_Mornings or EX_Replace_The_Stack_Nights, then the product's PACK images |
+   | Combo | REF_Mornings_PREMIUM, REF_Nights_PREMIUM, both PACK_*_box_stick, both PACK_*_stick |
+
+4. Paste the creative's `chatgpt_prompt` and send. Wait 1 to 2 minutes and don't type anything while the image is being made.
+5. **Check it** against the CHECK BEFORE APPROVING rule. Open the image large and zoom in on the box, the stick, the text and the price. Fix one thing at a time in the same chat with the kit's fix lines (bottom of BRIEF_TEMPLATES.txt), always ending with "keep everything else identical". If more than 3 things are wrong, start a new chat with the images attached.
+6. Download the image and make it **exactly 1080 x 1920 without stretching**: scale it to 1920 px tall, then extend or trim the background at the sides. Upload it onto its creative, with `_9x16` in the file name:
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<downloaded image>
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<name>_9x16.jpg
 ```
 
-   Images over 1.9 MB: save as JPG first. Resize to the exact size (ChatGPT often returns 1122 x 1402; scale it to 1080 x 1350).
+   Images over 1.9 MB: save as JPG first. If the final image fails the check and you couldn't fix it, set the creative to stalled: `PUT /api/items/<id>` with `{"status":"rejected"}` and say why in `ai_note`.
 
-   Then ask ChatGPT, in the same chat, for the 1:1, the Stories 9:16 and the Reels 9:16 versions (the prompt already says how), and upload each onto the same static. Name the files with the size so the site files them right: `_1x1`, `_story`, `_reels`. The site adds each size to the static; it doesn't replace the others.
+**Through the ChatGPT desktop app** (computer use): the same steps in the app.
 
-**Through the ChatGPT desktop app** (computer use): same steps in the app. Open it, start a chat (or the SILT Statics GPT), attach the pack image, paste the prompt, wait, save the image, upload it as above.
-
-**Can't control a browser or the desktop?** Tell the person to press *Copy for ChatGPT* on each static on the Ideas tab, paste it into ChatGPT, and upload the result with *⬆ Image*.
+**Can't control a browser or the desktop?** Tell the person to press *Copy for ChatGPT* on each creative on the Ideas tab, attach the kit images from the table above, paste, and upload the result with *⬆ Image*.
 
 When the images are on, tell the person how many are ready and that the approved ones are waiting for their ✓ or ✕ in Team Approval.
 
-## Formats and their text keys (for the preview)
-
-**Our signature format is `problemsolution`, our version of a before / after.** Use it often, but not for every static.
-
-```
-{"t":"problemsolution","scene_problem":"night-phone","scene_solution":"product","problem":"1 AM. Still wide awake.","solution":"SILT Nights. Log off."}
-```
-
-| Format | Text keys |
-|---|---|
-| problemsolution | problem, solution, scene_problem (a scene key or "jars"), scene_solution ("product") |
-| scene | headline, sub, scene |
-| meme | top, bottom, scene_a, scene_b |
-| poll | kicker, question, options (3 or 4) |
-| tweet | text |
-| notes | title, items (list), last |
-| chat | with, msgs (list of {t, me}) |
-| email | from, subject, lines (list), sig |
-| calendar | title, items |
-| checklist | title, items |
-| statement | kicker, headline, sub |
-| newscard | dateline, headline, good |
-| offer | kicker, headline, code, sub |
-| mistakes | headline, items, turn |
-| vs | headline, us, them, rows ([label, 1/0, 1/0]) |
-| onestick | kicker ("Your morning" / "Your night"), headline ("One stick."), problems (list, the red switches), sub ("All in one stick pack."), price ("Rs. 900"), price_note ("for a box of 15 sticks"); set "shot": "none" |
-
-Formats with no solution field of their own (meme, tweet, poll, chat, notes, checklist, calendar, email, search, forward and the proof formats) automatically get a solution block: a big bold line, the three pack pointers and the pack. Set your own line with a `solution` field, e.g. `"solution": "Made for deep sleep. *One warm drink.*"`; otherwise the product's line is used.
-
-Scene keys for the preview photo: tired-3pm, ceiling-2am, mug-calm, jar-january, founder-2am, night-phone, pillow-office, bear, awake-eyes, peek-blanket, eye-bw, pillow-hug, ugly-sleep, onesie, cloud, morning-light, deep-dark, outdoors, eye-mask, brain-glow, line-drawn, blinds, curled-night, peek-blinds, purple-top, clay-tired. These are all men or nobody. When your static needs a woman, say so in the ChatGPT prompt; ChatGPT's image replaces the preview photo.
-
 ## Publishing finished images you already have
 
-Upload them as they are. One static takes up to 3 files (its 4:5, 1:1 and 9:16 versions), each at most 1.9 MB as a JPG. They go to Team Approval.
+Upload them as they are. They go to Team Approval, where the team can still edit them.
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F title="Pillow not office" -F funnel=TOFU -F product=nights -F file=@pillow_4x5.jpg -F file=@pillow_9x16.jpg
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F title="Same bed, better nights" -F funnel=TOFU -F product=nights -F file=@same_bed_9x16.jpg
 ```
 
-To put ChatGPT's image onto a static you wrote, add `-F static_id=<static id>`. It then becomes that static's image.
+To put ChatGPT's image onto a creative you wrote, add `-F static_id=<static id>`. It then becomes that creative's image. The site builds the Feed 4:5, Square 1:1 and Reels downloads from the file it has.
 
-**Placement playbook (25 Nov): every static ships as FOUR files.** Anything to read (words, price, logo) stays inside its text box:
-- **4:5 master, 1080 x 1350** (feeds, Threads): x 65 to 1015, y 135 to 1215. Design this first.
-- **1:1, 1080 x 1080** (Explore home, search, right column, Marketplace, Messenger): re-lay out, 65 px from every edge; headline and price readable at 200 px wide.
-- **Stories 9:16, 1080 x 1920** (Stories, WhatsApp Status): the 4:5 master unscaled at y 285 to 1635, background extended above and below (blur and grain, no streaks); nothing to read in the top or bottom 269 px.
-- **Reels 9:16, 1080 x 1920** (Reels): re-lay out; every word, the price tag and the pack above y 1248; nothing within 65 px of the right edge.
-Never shrink the whole artwork to fit; move or trim. Same headline, price, claims and pack in all four.
+## The rules
 
-## The rules every static follows
+**The rules live on the site, not in this file.** Read `house_rules` from `/api/queue` every time before you write (also at `GET /api/rules`). Right now they are the SILT Creative Kit v2. The ones most often broken:
 
-**Facts (use only these numbers):**
-- **Mornings:** 80 mg caffeine + 200 mg L-theanine, 5 g PHGG fibre, 6 billion probiotics, vitamins D3, K2, B12, C at 100% RDA.
-- **Nights:** 3 g glycine, 250 mg magnesium, 300 mg KSM-66 ashwagandha, 200 mg L-theanine. No melatonin.
-- No added sugar.
-- Rs 900 for 15 sticks.
-- COMBO10 = extra 10% off the Combo.
-- Damaged or wrong products are replaced (photos within 72 hours). There are no returns.
+- **Look:** cinematic luxury still life like REF_Nights_PREMIUM / REF_Mornings_PREMIUM. Real photography only; one idea, one hero, 40% of the frame empty.
+- **Size:** 9:16, exactly 1080 x 1920, never stretched.
+- **Box state:** open only for restock. Every other creative: the box full and closed, 1 stick lying flat or leaning, 1 glass.
+- **Pack:** identical to the PACK photos, with real proportions. The stick is long and slim and never stands on its own.
+- **Copy:** the main message is the biggest text, with a benefit nudge. No cliches, exclamation marks, or fear or disease claims.
+- **Facts and prices:** only the ones in the FACTS and PRICES rules. "Rs. 900 for a box of 15 sticks".
+- **People:** only when needed; real-looking Indian men over 30, never women.
 
-**Plan of Action:**
-- Hook > Problem > Solution > Reason to believe > CTA.
-- Pillars: Adherence and Trust.
-- TOFU, MOFU and BOFU say "Replaces the stack". RET (existing customers) is about the ritual, with no discount push.
-
-**Product placement (Abhishek's rules):** the engine places the pack in its previews, and your ChatGPT prompt must ask for the same. It's always the box + stick together (the hero, about a third of the image height, lower right on a soft shadow; the Combo shows both packs, Mornings left and Nights right), never a lone stick, never on a face, the headline or the CTA. In problemsolution the Solution side is always the pack. Sizes follow the placement playbook below.
-
-**People:** every person, name and setting is Indian: Indian faces, names like Priya, Rohan, Ananya or Arjun, and Indian moments (chai, autos, Bengaluru traffic, Diwali, wedding season, back-to-back calls).
-
-**Relatable first:** at least 6 in 10 statics show real moments of busy Indian professionals, not a product shot.
-
-**Less text:** about 22 words per static, 32 at most.
-
-**Never:**
-- em or en dashes
-- competitor names
-- star ratings
-- invented reviews, results, sleep scores, numbers or deadlines
-- cure or treat claims
-- "easy returns"
-
-**Tone:** a friend, not a parent. Tongue-in-cheek; corporate puns welcome.
+The kit's files are on the site: `/kit/PROJECT_INSTRUCTIONS.txt`, `/kit/COPY_RULES.txt`, `/kit/BRIEF_TEMPLATES.txt` and the reference images listed in step 4.
 
 ## Adding a house rule (Abhishek only)
 
