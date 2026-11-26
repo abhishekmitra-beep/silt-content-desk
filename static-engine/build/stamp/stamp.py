@@ -118,11 +118,11 @@ def subline(img, y, text, ink, size=34):
     return (x0, y0, x1, y), y
 
 
-def benefits_list(img, prod, x, y, isz, fsz, pitch, ink, panel=None):
+def benefits_list(img, prod, x, y, isz, fsz, pitch, ink, panel=None, panel_w=None):
     p = P[prod]; d = ImageDraw.Draw(img); f = F(JOSTB, fsz); right = x
     if panel:   # soft backing so the rows stay legible on any scene
         wmax = max(tw(d, lab, f) for lab in p["labels"]) + isz + 22; pad = 24; S = 3
-        h = 3 * pitch - (pitch - isz) + pad * 2; w = int(wmax + pad * 2)
+        h = 3 * pitch - (pitch - isz) + pad * 2; w = int(panel_w or (wmax + pad * 2))
         pl = Image.new("RGBA", (w * S, h * S), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, w * S - 1, h * S - 1), 26 * S, fill=panel)
         img.alpha_composite(pl.resize((w, h), Image.LANCZOS), (int(x - pad), int(y - pad)))
     for i, lab in enumerate(p["labels"]):
@@ -132,6 +132,21 @@ def benefits_list(img, prod, x, y, isz, fsz, pitch, ink, panel=None):
         if i < 2:
             ry = int(yy + pitch - (pitch - isz) / 2); d.line((x, ry, x + (right - x) + 4, ry), fill=ink + (110,), width=2)
     return (x, y, right, y + 3 * pitch - (pitch - isz))
+
+
+def right_block(img, prod, L, H, ink, panel, pack_bbox):
+    """Benefits panel, price pill and URL as ONE aligned block: same width, same centre, centred vertically on the pack
+    and horizontally in the space to the right of it."""
+    p = P[prod]; d = ImageDraw.Draw(img); bx, by, isz, fsz, pitch = L["ben"]; big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
+    f = F(JOSTB, fsz); wtext = max(tw(d, lab, f) for lab in p["labels"]) + isz + 22
+    fb, fs = F(JOSTB, big), F(JOST, small); pill_w = int(tw(d, "Rs. 900", fb) + tw(d, " for a box of 15 sticks", fs) + 70)
+    pad = 24; panel_w = max(int(wtext + pad * 2), pill_w); panel_h = 3 * pitch - (pitch - isz) + pad * 2; pill_h = big + 30
+    gap = 16; block_h = panel_h + gap + pill_h + 18 + 32
+    px0, py0, px1, py1 = pack_bbox; cx = (px1 + 40 + 1015) / 2; x0 = int(cx - panel_w / 2); top = int(py0 + (py1 - py0 - block_h) / 2)
+    tx = x0 + (panel_w - wtext) / 2
+    benefits_list(img, prod, tx, top + pad, isz, fsz, pitch, ink, panel=panel, panel_w=panel_w)
+    pr = price_pill(img, cx, top + panel_h + gap, prod, big, small, None, fixed_w=panel_w); un = url(img, cx, pr[3] + 16, ink)
+    return [("benefits", (x0, top, x0 + panel_w, top + panel_h)), ("price", pr), ("url", un)]
 
 
 def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900):
@@ -147,12 +162,12 @@ def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900):
     return (x0, y0, x0 + width, y0 + h)
 
 
-def price_pill(img, cx, y, prod, big, small, text=None):
+def price_pill(img, cx, y, prod, big, small, text=None, fixed_w=None):
     p = P[prod]; d = ImageDraw.Draw(img)
     main, rest = text if text else ("Rs. 900", " for a box of 15 sticks")
-    fb, fs = F(JOSTB, big), F(JOST, small); w = tw(d, main, fb) + tw(d, rest, fs); h = big + 30; pw = int(w + 70); x0 = int(cx - pw / 2)
+    fb, fs = F(JOSTB, big), F(JOST, small); w = tw(d, main, fb) + tw(d, rest, fs); h = big + 30; pw = int(fixed_w or (w + 70)); x0 = int(cx - pw / 2)
     S = 3; pl = Image.new("RGBA", (pw * S, h * S), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, pw * S - 1, h * S - 1), h * S // 2, fill=p["pill_bg"] + (255,))
-    img.alpha_composite(pl.resize((pw, h), Image.LANCZOS), (x0, y)); tx = x0 + 35
+    img.alpha_composite(pl.resize((pw, h), Image.LANCZOS), (x0, y)); tx = x0 + (pw - w) / 2
     d.text((tx, y + h / 2), main, font=fb, fill=p["pill_fg"], anchor="lm"); d.text((tx + tw(d, main, fb), y + h / 2 + 3), rest, font=fs, fill=p["pill_fg"], anchor="lm")
     return (x0, y, x0 + pw, y + h)
 
@@ -242,10 +257,8 @@ def build_one(spec, H):
         pl = outline_pill(img, 540, pr[3] + 18, "Make it a combo – Use code COMBO10 for extra 10% off", 24 if H == 1920 else 22, GOLD); chk.append(("pill", pl))
         chk.append(("url", url(img, 540, pl[3] + 18, ink)))
     else:
-        x, yy, h = L["pack"]; chk.append(("pack", paste_pack(img, prod, x, yy, h)))
-        bx, by, isz, fsz, pitch = L["ben"]; bb_ = benefits_list(img, prod, bx, by, isz, fsz, pitch, ink, panel=((255, 248, 236, 150) if dark_ink else (6, 16, 40, 105))); chk.append(("benefits", bb_))
-        cx = (bx + 1010) / 2 - 25; big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
-        pr = price_pill(img, cx, bb_[3] + L["gap"], prod, big, small); chk.append(("price", pr)); chk.append(("url", url(img, cx, pr[3] + 20, ink)))
+        x, yy, h = L["pack"]; pb = paste_pack(img, prod, x, yy, h); chk.append(("pack", pb))
+        chk += right_block(img, prod, L, H, ink, ((255, 248, 236, 150) if dark_ink else (6, 16, 40, 105)), pb)
     for n, (x0, y0, x1, y1) in chk:
         if y0 < lo - 1 or y1 > hi + 1 or x0 < SIDE - 1 or x1 > W - SIDE + 1: bad.append((n, int(x0), int(y0), int(x1), int(y1)))
     return img.convert("RGB"), bad

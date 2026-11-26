@@ -264,11 +264,8 @@ def build(spec, H):
         pr = S.price_pill(img, 540, yy + h + L["cgap"], "nights", big, small, ("SILT Combo", " · Rs. 1,800 for 15 + 15 sticks")); pl = S.outline_pill(img, 540, pr[3] + 18, "Make it a combo – Use code COMBO10 for extra 10% off", 24 if H == 1920 else 22, S.GOLD)
         un = S.url(img, 540, pl[3] + 18, P["ink"]); chk += [("price", pr), ("pill", pl), ("url", un)]; block_top = yy
     else:
-        x, yy, h = L["pack"]; chk.append(("pack", S.paste_pack(img, prod, x, yy, h))); bx = L["ben"][0]; cx = (bx + 1010) / 2 - 25
-        big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
-        bx, by, isz, fsz, pitch = L["ben"]; panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
-        bb_ = S.benefits_list(img, prod, bx, by, isz, fsz, pitch, P["ink"], panel=panel); chk.append(("benefits", bb_))
-        pr = S.price_pill(img, cx, bb_[3] + L["gap"], prod, big, small); un = S.url(img, cx, pr[3] + 20, P["ink"]); chk += [("price", pr), ("url", un)]; block_top = yy
+        x, yy, h = L["pack"]; pb = S.paste_pack(img, prod, x, yy, h); chk.append(("pack", pb)); panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
+        chk += S.right_block(img, prod, L, H, P["ink"], panel, pb); block_top = yy
     card = R[spec["fmt"]](spec["data"], P)
     top = lo + 24; avail = block_top - 34 - top; maxw = 900
     sc = min(1.0, avail / card.height, maxw / card.width) if spec["fmt"] != "split" else min(1.0, avail / card.height)
