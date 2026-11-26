@@ -64,9 +64,10 @@ def build(spec, H):
         for k, t in enumerate(lines): S.text_sp(d, tx, ly - 13 + (k - (len(lines) - 1) / 2) * 30, t, f, cink, 3)
         chk.append((f"call{i}", (tx, ly - 16 * len(lines), tx + tw_, ly + 16 * len(lines))))
     # price + url
-    isz, fsz = (40, 28) if H == 1920 else (36, 26) if H == 1350 else (32, 24); panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
-    bs = S.benefits_strip(img, prod, sc_y, cink, panel, isz, fsz); chk.append(("benefits", bs))
-    pr = S.price_pill(img, 540, py, prod, big, small); un = S.url(img, 540, pr[3] + 20, cink); chk += [("price", pr), ("url", un)]
+    isz, fsz = (32, 24) if H == 1920 else (32, 23) if H == 1350 else (30, 22); PCX = 690;   # hand sits lower-left: panels go to the right of it
+    panel = (255, 248, 236, 150) if prod == "mornings" else (6, 16, 40, 105)
+    bs = S.benefits_strip(img, prod, sc_y, cink, panel, isz, fsz, width=650, cx=PCX); chk.append(("benefits", bs))
+    pr = S.price_pill(img, PCX, py, prod, big, small); un = S.url(img, PCX, pr[3] + 20, cink); chk += [("price", pr), ("url", un)]
     bad = []
     for n, (x0, y0, x1, y1) in chk:
         if y0 < lo - 1 or y1 > hi + 1 or x0 < S.SIDE - 1 or x1 > W - S.SIDE + 1: bad.append((n, int(x0), int(y0), int(x1), int(y1)))

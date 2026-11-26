@@ -176,9 +176,9 @@ def combo_block(img, H, ink, panel):
     return chk + [("price", pr), ("pill", pl2), ("url", un)]
 
 
-def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900):
+def benefits_strip(img, prod, cy, ink, panel=None, isz=38, fsz=27, width=900, cx=540):
     """The three official benefit icons + labels in one row (auto-centred). Returns its bbox."""
-    p = P[prod]; d = ImageDraw.Draw(img); f = F(JOSTB, fsz); h = isz + 46; x0 = (W - width) // 2; y0 = int(cy - h / 2)
+    p = P[prod]; d = ImageDraw.Draw(img); f = F(JOSTB, fsz); h = isz + 46; x0 = int(cx - width / 2); y0 = int(cy - h / 2)
     if panel:
         S3 = 3; pl = Image.new("RGBA", (width * S3, h * S3), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, width * S3 - 1, h * S3 - 1), 26 * S3, fill=panel)
         img.alpha_composite(pl.resize((width, h), Image.LANCZOS), (x0, y0))
