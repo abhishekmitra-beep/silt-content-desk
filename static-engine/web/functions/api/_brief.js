@@ -8,29 +8,19 @@ import { TEMPLATES } from "../../public/engine.js";
 const line = d => String(d.headline || d.problem || d.question || d.top || d.title || d.text || d.quote || "").replace(/\*/g, "").replace(/\s+/g, " ").trim().slice(0, 110);
 
 // Angles to explore. Each generation is pushed into a few of these that the engine hasn't covered much.
-export const LENSES = [
-  "a new Indian persona: a working mother doing the school run before standup",
-  "a new Indian persona: a first-job fresher in a Bengaluru PG",
-  "a new Indian persona: a founder answering investor emails at midnight",
-  "a new Indian persona: a CA during tax season",
-  "a new Indian persona: a sales rep living out of a cab",
-  "a new Indian persona: a doctor or nurse coming off a night shift",
-  "a new Indian persona: a student in exam season",
-  "a woman as the main character (most statics so far show men)",
-  "a new moment: 6 AM before the gym",
-  "a new moment: the 4 PM chai break",
-  "a new moment: Sunday-night scaries",
-  "a new moment: 11:59 PM, one more episode",
-  "a new moment: the Monday metro or office cab",
-  "an Indian cultural moment: wedding season",
-  "an Indian cultural moment: the Diwali week hangover",
-  "an Indian cultural moment: IPL late nights",
-  "an Indian cultural moment: monsoon traffic",
-  "an Indian cultural moment: appraisal season",
-  "a new emotion: smug, relieved, guilty, petty or nostalgic",
-  "a new metaphor: the ritual as a calendar invite, a standup, a cheat code or an out-of-office",
-  "a playful corporate pun (KPI, EOD, OOO, circle back, bandwidth)",
-  "a desi family moment (mummy's advice, the family WhatsApp group, a dadi remedy)"
+export const LENSES = [   // angles in the SILT Creative Kit v2 way: one photographable hero object that acts out the message
+  "bucket benefit: one sculptural hero object that acts out deeper nights or steadier mornings",
+  "bucket ingredient: one hero built from a real ingredient (glycine, magnesium, KSM-66, L-theanine, PHGG fibre, amla, fennel)",
+  "bucket proof: the Nights lab facts as clean typeset information, like a premium spec sheet",
+  "bucket price: Rs. 900 for 15 sticks against what it replaces",
+  "bucket replace the stack: ten bottles (Mornings) or four bottles (Nights), or one stick",
+  "bucket restock: down to the last stick",
+  "a work object at rest as the hero: a closed laptop, a silenced phone face down, a switched-off desk lamp",
+  "a time object as the hero: an alarm clock, a calendar page, an hourglass",
+  "a new metaphor as a real object: the ritual as a calendar invite, a standup, a cheat code or an out-of-office",
+  "a quiet corporate wink (EOD, OOO, circle back, bandwidth) as the headline, the hero kept serene",
+  "an Indian cultural moment shot as a still life: Diwali diya, wedding-season mithai box, monsoon window, IPL night",
+  "a man over 30 seen from behind or in profile, only if the idea truly needs a person"
 ];
 
 // What each rejection reason teaches (the tags on the Reject window).
@@ -41,7 +31,7 @@ export const REJECT_TAGS = {
   "Wrong product or problem": "Match the problem to the product: Mornings = gut, 3 PM slump, vitamins; Nights = sleep, 3 AM, waking unrecovered.",
   "Repeats an existing static": "New situation, new line, new format. Check the list of what exists.",
   "Pack wrong or hidden": "The real pack, large, lower right, never covered, never redrawn.",
-  "Not Indian / wrong person": "A real-looking Indian person, 28 to 40, in an Indian setting.",
+  "Not Indian / wrong person": "Only when needed: a real-looking Indian man over 30, never women; a real photograph, not AI-looking.",
   "Spelling or wrong words": "Print the exact words, spelled right; check every word before saving.",
   "Off-brand look": "Follow the kit look: premium, clean, calm, one idea, about 40% empty.",
   "Claim or fact problem": "Only facts, doses and prices from the brief and the pack; no promises."
@@ -129,8 +119,7 @@ ${b.lessons.recent.map(r => "  " + r).join("\n")}
 - AVOID (rejected, don't make anything like these): ${b.rejected.length ? "\n  " + b.rejected.join("\n  ") : "none yet"}
 - ALREADY SAID (do not reuse these lines or ideas): ${b.existing.join(" | ")}
 - IDEAS ALREADY EXPLORED (go somewhere new; you may build on one, never redo it): ${b.ideas.length ? b.ideas.join(" | ") : "none yet"}
-- Formats used least (use these more): ${b.least_used_formats.join(", ")}. Used most (go easy): ${b.most_used_formats.join(", ")}.
-- Only about ${b.women_share} of statics feature women: include Indian women as main characters.
+- Follow the house rules (the SILT Creative Kit v2): one idea, one photographable hero, premium still life, 9:16. People only when needed: real-looking Indian men over 30, never women.
 EXPLORE NEW GROUND in this batch. Each static should take one of these angles (spread them):
 ${lenses.map(l => "- " + l).join("\n")}
 Every static must be a genuinely new idea: a new situation, a new joke, a new line. No near-copies of anything above.`;

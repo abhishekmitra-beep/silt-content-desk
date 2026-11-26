@@ -418,6 +418,9 @@ export function checkCopy(s) {
   if (/\b\d{1,3} ?%/.test(text) && !/100 ?%|99\.4 ?%|10 ?%/.test(text)) out.push("A percentage that is not in the facts: no survey or study result unless the brand team supplies the study.");
   const nums = [...new Set((text.match(/\d[\d,:]*/g) || []).map(n => n.replace(/,$/, "")))].filter(n => !FACT_NUMBERS.includes(n) && !/^\d{1,2}:\d{2}$/.test(n));
   if (nums.length) out.push(`Numbers not on the pack or website: ${nums.join(", ")}. Check them before this goes live.`);
+  const wc = v => String(v || "").replace(/\*/g, "").split(/\s+/).filter(Boolean).length;   // LESS TEXT house rule (team, 26 Nov)
+  if (s.t === "statement" && wc(s.kicker) + wc(s.headline) + wc(s.sub) >= 20) out.push(`Too much text: ${wc(s.kicker) + wc(s.headline) + wc(s.sub)} words of own copy (kicker, main message, support line). Keep it under 20; cut the kicker or support line first.`);
+  if (s.t === "statement" && wc(s.headline) > 7) out.push("Main message is over 7 words.");
   if (!TEMPLATES.includes(s.t)) out.push(`Unknown format "${s.t}".`);
   if (!["mornings", "nights", "combo"].includes(s.product)) out.push(`Product must be mornings, nights or combo.`);
   return out;

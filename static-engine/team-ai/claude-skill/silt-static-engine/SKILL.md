@@ -128,7 +128,7 @@ ChatGPT draws the image. If you can control a browser or the desktop, do the han
 curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<name>_9x16.jpg
 ```
 
-   Images over 1.9 MB: save as JPG first. If the final image fails the check and you couldn't fix it, set the creative to stalled: `PUT /api/items/<id>` with `{"status":"rejected"}` and say why in `ai_note`.
+   Images over 1.9 MB: save as JPG first. If the final image fails the check and you couldn't fix it, set the creative to stalled: `PUT /api/items/<id>` with `{"status":"rejected"}`. **A PUT that sends `doc` replaces the whole doc**, so to change `ai_note` send the full doc back (GET it first, change the note, PUT it all).
 
 **Through the ChatGPT desktop app** (computer use): the same steps in the app.
 
@@ -154,6 +154,7 @@ To put ChatGPT's image onto a creative you wrote, add `-F static_id=<static id>`
 - **Size:** 9:16, exactly 1080 x 1920, never stretched.
 - **Box state:** open only for restock. Every other creative: the box full and closed, 1 stick lying flat or leaning, 1 glass.
 - **Pack:** identical to the PACK photos, with real proportions. The stick is long and slim and never stands on its own.
+- **Less text:** the creative's own words (kicker + main message + support line) stay under 20; cut the kicker or support line first.
 - **Copy:** the main message is the biggest text, with a benefit nudge. No cliches, exclamation marks, or fear or disease claims.
 - **Facts and prices:** only the ones in the FACTS and PRICES rules. "Rs. 900 for a box of 15 sticks".
 - **People:** only when needed; real-looking Indian men over 30, never women.
