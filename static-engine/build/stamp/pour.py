@@ -24,19 +24,28 @@ def key_stick(plate1):
     if u[0] < 0: u = -u
     Ld = max(rw, rh); Wd = min(rw, rh); right = np.array([u[1], -u[0]])
     art = S.asset("mornings_stick_cut.png"); aw, ah = art.size
-    bg = tuple(int(v) for v in np.asarray(art.convert("RGB")).reshape(-1, 3).mean(0)); base = Image.new("RGBA", art.size, bg + (255,)); base.alpha_composite(art)
+    # artwork without its cut-out edge: crop a few pixels in, fill any transparent corner from its neighbours (no pale rim)
+    art = art.crop((8, 14, aw - 8, ah - 14)); aw, ah = art.size; arr = np.asarray(art); hole = (arr[:, :, 3] < 250).astype("uint8") * 255
+    rgb0 = cv2.inpaint(np.ascontiguousarray(arr[:, :, :3]), hole, 4, cv2.INPAINT_TELEA); base = Image.fromarray(rgb0).convert("RGBA")
     c = np.array([cx, cy]); src = np.float32([[0, 0], [aw, 0], [0, ah]])
     dst = np.float32([c + (-.5) * Wd * right + (-.5) * Ld * u, c + (.5) * Wd * right + (-.5) * Ld * u, c + (-.5) * Wd * right + (.5) * Ld * u])
     M = cv2.getAffineTransform(src, dst)
-    warp = cv2.warpAffine(np.asarray(base.convert("RGB")), M, (plate1.width, plate1.height), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE).astype(float)
-    # alpha: the keyed green (soft edge), grown 2 px so no green fringe; thumb and fingers stay in front because they are not green
-    near = cv2.dilate(blob, np.ones((15, 15), np.uint8)).astype(float)
-    soft = np.clip((key - 2) / 10.0, 0, 1) * near
-    mi = Image.fromarray((soft * 255).astype("uint8")).filter(ImageFilter.MaxFilter(7)).filter(ImageFilter.GaussianBlur(0.8))
-    Lg = np.asarray(Image.fromarray(np.clip(g, 0, 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.2))).astype(float)
-    ref = np.percentile(Lg[blob > 0], 70); shade = np.clip(1 + (Lg / ref - 1) * 2.4, 0.40, 1.22)
-    rgb = warp * shade[:, :, None]; hi_ = np.clip((Lg / ref - 1.04) * 3.0, 0, 0.30)[:, :, None]; rgb = rgb + (255 - rgb) * hi_ * 0.5
-    over = Image.fromarray(np.clip(rgb, 0, 255).astype("uint8")).convert("RGBA"); out = plate1.copy(); out.paste(over, (0, 0), mi)
+    # supersample: warp the artwork at 4x inside the stick's box, then average down (no aliasing, crisp print)
+    ys_, xs_ = np.nonzero(blob); X0, X1, Y0, Y1 = max(0, xs_.min() - 14), min(plate1.width, xs_.max() + 15), max(0, ys_.min() - 14), min(plate1.height, ys_.max() + 15); SS = 4
+    dst4 = (dst - np.float32([X0, Y0])) * SS; M4 = cv2.getAffineTransform(src, dst4.astype(np.float32))
+    warp = cv2.warpAffine(np.asarray(base.convert("RGB")), M4, ((X1 - X0) * SS, (Y1 - Y0) * SS), flags=cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REPLICATE)
+    warp = cv2.resize(warp, (X1 - X0, Y1 - Y0), interpolation=cv2.INTER_AREA).astype(float)
+    # alpha: the keyed green (soft edge); thumb and fingers stay in front because they are not green
+    kc = key[Y0:Y1, X0:X1]; bc = blob[Y0:Y1, X0:X1]; near = cv2.dilate(bc, np.ones((13, 13), np.uint8)).astype(float)
+    soft = np.clip((kc - 8) / 12.0, 0, 1) * near
+    mi = Image.fromarray((soft * 255).astype("uint8")).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(0.6))
+    # light: the green's brightness inside the shape only (edges blend with the backdrop and would draw a dark rim), pushed out to the rim
+    gc = np.clip(g[Y0:Y1, X0:X1], 0, 255).astype("uint8"); inner = cv2.erode(bc, np.ones((7, 7), np.uint8))
+    ring = ((cv2.dilate(bc, np.ones((15, 15), np.uint8)) > 0) & (inner == 0)).astype("uint8") * 255
+    gfix = cv2.inpaint(gc, ring, 5, cv2.INPAINT_TELEA); Lg = cv2.GaussianBlur(gfix.astype(np.float32), (0, 0), 1.2)
+    ref = float(np.median(Lg[inner > 0])); shade = np.clip(1 + (Lg / ref - 1) * 1.0, 0.82, 1.10) * 1.05
+    rgb = np.clip(warp * shade[:, :, None], 0, 255)
+    over = Image.fromarray(rgb.astype("uint8")).convert("RGBA"); out = plate1.copy(); out.paste(over, (X0, Y0), mi)
     return out, (cx, cy), (Ld, Wd), u
 
 
