@@ -73,7 +73,7 @@ Make `count` creatives (default 6). Each one is **one idea with one photographab
 1. **Pick the product and the bucket**: benefit, ingredient, price, proof, restock, replace the stack or festive.
 2. **Run the copy engine** (house rule COPY ENGINE) before anything else: the insight, the twist, 8 headlines of 7 words or fewer across the 8 routes, score them, keep the best. Add one optional kicker (max 5 words, caps) and one support line (max 12 words). The main message is the biggest text and carries a subtle benefit nudge.
 3. **Check every fact, dose and price** against the FACTS and PRICES rules. If a number isn't there, don't use it.
-4. **Write the ChatGPT brief from the kit's templates**: `curl -s https://silt-static-engine.pages.dev/kit/BRIEF_TEMPLATES.txt`. Use the standard static, restock or replace-the-stack template and fill in every [bracket]. Always 9:16, exactly 1080 x 1920.
+4. **Write the ChatGPT brief from the kit's templates**: `curl -s https://silt-static-engine.pages.dev/kit/BRIEF_TEMPLATES.txt`. Use the standard static, restock or replace-the-stack template and fill in every [bracket]. Ask for the Feed 4:5 (1080 x 1350) first; the 1:1 and 9:16 versions follow in the same chat (step 4). Every word inside each size's red lines.
 5. **Check your own work** against the CHECK BEFORE APPROVING rule. That check is your verdict.
 
 People appear only when the idea needs one, and then only real-looking Indian men over 30, never women. Never invent a customer quote, review, rating, result or study number.
@@ -124,10 +124,10 @@ ChatGPT draws the image. If you can control a browser or the desktop, do the han
 
 4. Paste the creative's `chatgpt_prompt` and send. Wait 1 to 2 minutes and don't type anything while the image is being made.
 5. **Check it** against the CHECK BEFORE APPROVING rule. Open the image large and zoom in on the box, the stick, the text and the price. Fix one thing at a time in the same chat with the kit's fix lines (bottom of BRIEF_TEMPLATES.txt), always ending with "keep everything else identical". If more than 3 things are wrong, start a new chat with the images attached.
-6. Download the image and make it **exactly 1080 x 1920 without stretching**: scale it to 1920 px tall, then extend or trim the background at the sides. Upload it onto its creative, with `_9x16` in the file name:
+6. Then ask, in the same chat, for the **1:1 (1080 x 1080)** and the **9:16 (1080 x 1920)** versions: "keep everything identical, re-lay out for this size, every word inside its red lines". Check each one (pack check too). Download all three, make each exact without stretching (scale evenly, then trim or extend only empty background), and upload them onto the creative with the size in the file name: `_4x5`, `_1x1`, `_9x16` (the 9:16 is used for Stories and Reels):
 
 ```
-curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<name>_9x16.jpg
+curl -s -X POST https://silt-static-engine.pages.dev/api/upload -H "x-silt-client: claude" -H "x-silt-name: <your name>" -F static_id=<static id> -F made_with=ChatGPT -F file=@<name>_4x5.jpg -F file=@<name>_1x1.jpg -F file=@<name>_9x16.jpg
 ```
 
    Images over 1.9 MB: save as JPG first. If the final image fails the check and you couldn't fix it, set the creative to stalled: `PUT /api/items/<id>` with `{"status":"rejected"}`. **A PUT that sends `doc` replaces the whole doc**, so to change `ai_note` send the full doc back (GET it first, change the note, PUT it all).
@@ -153,7 +153,7 @@ To put ChatGPT's image onto a creative you wrote, add `-F static_id=<static id>`
 **The rules live on the site, not in this file.** Read `house_rules` from `/api/queue` every time before you write (also at `GET /api/rules`). Right now they are the SILT Creative Kit v2. The ones most often broken:
 
 - **Look:** cinematic luxury still life like REF_Nights_PREMIUM / REF_Mornings_PREMIUM. Real photography only; one idea, one hero, 40% of the frame empty.
-- **Size:** 9:16, exactly 1080 x 1920, never stretched.
+- **Sizes:** all 4 Meta sizes (4:5, 1:1, Stories 9:16, Reels 9:16), each exact, never stretched, every word inside its red lines.
 - **Box state:** open only for restock. Every other creative: the box full and closed, 1 stick lying flat or leaning, 1 glass.
 - **Pack:** identical to the PACK photos, with real proportions. The stick is long and slim and never stands on its own.
 - **Less text:** the creative's own words (kicker + main message + support line) stay under 20; cut the kicker or support line first.

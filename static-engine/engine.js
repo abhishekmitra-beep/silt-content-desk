@@ -433,7 +433,7 @@ FACTS (use only these):
 - SILT Nights (8.6 g stick, CHAMOMILE LEMON): L-glycine 3 g, magnesium bisglycinate 1.8 g (250 mg magnesium), KSM-66 ashwagandha 300 mg, L-theanine 200 mg. Melatonin 0 mg. Added sugar 0 mg.
 - Price line: "Rs. 900 for a box of 15 sticks". Combo: "SILT Combo · Rs. 1,800 for 15 + 15 sticks". COMBO10 = extra 10% off the Combo.
 - Damaged or wrong product: photos within 72 hours and we replace it. No returns otherwise.
-THE CREATIVE: one idea, one photographable hero, a cinematic luxury still life like REF_Nights_PREMIUM / REF_Mornings_PREMIUM, real photography only, 9:16 (1080 x 1920). The box is full and closed with 1 stick and 1 glass (open only for restock). People only when needed: real-looking Indian men over 30, never women.
+THE CREATIVE: one idea, one photographable hero, a cinematic luxury still life like REF_Nights_PREMIUM / REF_Mornings_PREMIUM, real photography only, in all 4 Meta sizes (4:5, 1:1, 9:16 Stories and Reels) with every word inside the red lines. The box is full and closed with 1 stick and 1 glass (open only for restock). People only when needed: real-looking Indian men over 30, never women.
 THE COPY: insight, then twist, then the headline (7 words or fewer). The main message is the biggest text and carries a subtle benefit nudge. Smart, warm, a little wry. No cliches, exclamation marks, fear or disease claims, invented numbers, or another brand's line. Use *word* for the key words.`;
 
 export function aiPrompt(spec, ask) {

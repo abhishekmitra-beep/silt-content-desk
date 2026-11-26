@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>SILT Static Engine guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  @page{size:1240px 1530px;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{width:1240px;background:#F6F1E8}
+  body{font-family:Jost,system-ui,sans-serif;color:#1F2A44;padding:44px 48px 36px}
+  header{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid #1F3A6B;padding-bottom:14px;margin-bottom:22px}
+  h1{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:700;font-size:46px;line-height:1;color:#1F3A6B}
+  h1 b{color:#C9962F}
+  .url{font-size:17px;font-weight:600;color:#1F3A6B;text-align:right}
+  .url span{display:block;font-weight:400;font-size:14px;color:#5A6478}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .step{background:#fff;border:1px solid #E3DACB;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+  .step.wide{grid-column:1 / -1;flex-direction:row;align-items:center;gap:18px}
+  .step.wide .txt{flex:1}
+  .n{display:inline-flex;width:28px;height:28px;border-radius:50%;background:#1F3A6B;color:#fff;font-weight:700;align-items:center;justify-content:center;font-size:15px;margin-right:8px;flex:none}
+  h2{font-size:19px;font-weight:700;display:flex;align-items:center;color:#1F3A6B}
+  p,li{font-size:14.5px;line-height:1.42}
+  ul{padding-left:18px}
+  img{width:100%;border-radius:8px;border:1px solid #E3DACB;display:block}
+  .step.wide img{width:560px}
+  .rules{background:#1F3A6B;color:#fff;border-radius:14px;padding:16px 20px;margin-top:16px;display:grid;grid-template-columns:1fr 190px;gap:22px;align-items:center}
+  .rules figure{font-size:12px;color:#D8E2F5;text-align:center}.rules figure img{width:190px;margin-bottom:4px}
+  .rules h2{color:#F0B967;margin-bottom:6px}
+  .rules ul{columns:2;column-gap:22px}
+  .rules li{font-size:13.5px;margin-bottom:4px;break-inside:avoid}
+  .rules img{border:0}
+  .say{background:#FFF4DC;border:1px solid #F0D89A;border-radius:8px;padding:6px 10px;font-size:14px}
+  footer{margin-top:14px;font-size:12.5px;color:#5A6478;display:flex;justify-content:space-between}
+</style></head><body>
+<header>
+  <h1>SILT Static Engine: <b>how to use it</b></h1>
+  <div class="url">silt-static-engine.pages.dev<span>Open site, no login · 26 Nov 2026</span></div>
+</header>
+
+<div class="grid">
+  <div class="step wide">
+    <div class="txt">
+      <h2><span class="n">1</span>Connect your Claude (one time)</h2>
+      <p>On <b>1 · Ideas</b>, open <b>Start here</b> and press <b>⬇ Download my Claude skill</b>. Add the zip in Claude: Settings → Capabilities → Skills. Stay signed in to ChatGPT in the same browser, with the Claude in Chrome extension. The box turns ✓ green by itself.</p>
+    </div>
+    <img src="img/1_connect.jpg" alt="Start here box and idea bar">
+  </div>
+
+  <div class="step">
+    <h2><span class="n">2</span>Give Claude an idea</h2>
+    <p>Type an idea and press <b>Send to Claude</b>, or take one of the three daily picks in <b>💡 Today's inspiration</b> (from our Ad teardowns) with <b>Use as idea</b>. Then tell Claude:</p>
+    <p class="say">“make the waiting SILT ideas” · or “make today's SILT daily copy”</p>
+    <img src="img/2_inspiration.jpg" alt="Today's inspiration from Ad teardowns">
+  </div>
+
+  <div class="step">
+    <h2><span class="n">3</span>AI Checker</h2>
+    <p>Claude writes each creative, ChatGPT makes the images, and the checker tests them against the Rules. <b>✓ Approved</b> moves on by itself. <b>⏸ Stalled</b> waits here with the reason: edit it, send it on anyway, or delete it.</p>
+    <img src="img/3_checker.jpg" alt="AI Checker tab">
+  </div>
+
+  <div class="step">
+    <h2><span class="n">4</span>Team Approval</h2>
+    <p><b>✓ Approve</b>, <b>✕ Reject</b> (give a reason; Claude learns from it), <b>✎ Edit</b> (cover old words, add new ones), <b>🗑</b> delete. Tick the boxes to download or delete several at once.</p>
+    <img src="img/4_team.jpg" alt="Approve, Reject, Edit, Meta, download buttons and the selection bar">
+  </div>
+
+  <div class="step">
+    <h2><span class="n">5</span>Statics Finalized</h2>
+    <p>Everything approved, ready to run. Filter by <b>TOFU / MOFU / BOFU / Retention</b> and <b>Mornings / Nights / Combo</b>. Download each static in all 4 Meta sizes: Feed 4:5, Square 1:1, Stories 9:16, Reels 9:16. Or ZIP what is shown.</p>
+    <img src="img/5_final.jpg" alt="Statics Finalized with funnel and product filters">
+  </div>
+</div>
+
+<div class="rules">
+  <div>
+    <h2>Rules tab (31 rules) · the ones that matter most</h2>
+    <ul>
+      <li>One idea, one hero, lots of empty space</li>
+      <li><b>Less text:</b> under 20 words of own copy</li>
+      <li>No plinth, no props, no leaf shadows, no drink</li>
+      <li><b>Real pack:</b> check the box and stick word by word</li>
+      <li>Stick leans upright on the box, as in the pack photo</li>
+      <li><b>All 4 sizes</b>, every word inside the <b>Red lines</b></li>
+      <li>Price: “Rs. 900 for a box of 15 sticks”</li>
+      <li>Facts only from the rules or siltnutrition.com</li>
+      <li>No cure / treat / insomnia / anxiety claims</li>
+      <li>People only if needed: Indian men 30+</li>
+    </ul>
+  </div>
+  <figure><img src="img/7_redlines.jpg" alt="Red lines over a 9:16 static">Red lines on: no words in the red</figure>
+</div>
+
+<footer><span>Press <b>Red lines</b> (top right) to see Meta's no-go zones on every static.</span><span>Claude thinks · ChatGPT draws · the team approves</span></footer>
+</body></html>
