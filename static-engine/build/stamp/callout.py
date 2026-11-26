@@ -11,6 +11,29 @@ import stamp as S
 W = 1080
 
 
+def apply_stick(plate1, st, prod):
+    """Wrap the REAL stick artwork onto the blank sachet in the photo: the photo's own light and shadow (including the crimp
+    ridges) are multiplied onto the artwork, its outline comes from the photographed sachet, and the thumb / fingers stay in front."""
+    a = np.asarray(plate1.convert("RGB")).astype(float); mx, mn, lum = a.max(2), a.min(2), a.mean(2)
+    m = ((mx - mn) < 42) & (lum > 95); m[:, :300] = False; m[:, 800:] = False
+    cols = np.nonzero(m.sum(0) > 0.30 * m.sum(0).max())[0]; x0, x1 = cols.min(), cols.max()
+    rows = np.nonzero(m[:, x0:x1 + 1].sum(1) > 0.5 * (x1 - x0))[0]; y0, y1 = rows.min(), rows.max()
+    box = np.zeros_like(m); box[y0:y1 + 1, x0:x1 + 1] = True; m = m & box
+    mi = Image.fromarray((m * 255).astype("uint8")).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.MinFilter(9)).filter(ImageFilter.GaussianBlur(1.1))
+    sw, sh = int(x1 - x0 + 1), int(y1 - y0 + 1)
+    art = st.resize((sw, sh), Image.LANCZOS); base = Image.new("RGBA", (sw, sh), tuple(int(v) for v in np.asarray(art.convert("RGB")).reshape(-1, 3).mean(0)) + (255,)); base.alpha_composite(art); art = base
+    L = np.asarray(Image.fromarray(lum.astype("uint8")).filter(ImageFilter.GaussianBlur(1.6))).astype(float)[y0:y1 + 1, x0:x1 + 1]
+    ref = np.percentile(L[np.asarray(mi)[y0:y1 + 1, x0:x1 + 1] > 128], 68); shade = np.clip(L / ref, 0.42, 1.28)
+    rgb = np.asarray(art.convert("RGB")).astype(float) * shade[:, :, None] ** 1.05
+    hi_ = np.clip((L / ref - 1.10) * 1.4, 0, 0.35)[:, :, None]; rgb = rgb + (255 - rgb) * hi_ * 0.55
+    over = Image.new("RGBA", (sw, sh)); over.paste(Image.fromarray(np.clip(rgb, 0, 255).astype("uint8")).convert("RGBA"), (0, 0))
+    out = plate1.copy(); alpha = mi.crop((x0, y0, x1 + 1, y1 + 1)); out.paste(over, (x0, y0), alpha)
+    # thumb / fingers in front: where the ORIGINAL pixel is skin, restore it
+    skin = ((a[:, :, 0] - a[:, :, 2]) > 38) & (a[:, :, 0] > 95); sm = Image.fromarray((skin * 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.0))
+    keep = Image.new("L", plate1.size, 0); keep.paste(sm.crop((x0 - 6, y0 - 6, x1 + 7, y1 + 7)), (x0 - 6, y0 - 6)); out.paste(plate1, (0, 0), keep)
+    return out, int(x0), int(y0), sw, sh
+
+
 def build(spec, H):
     prod = spec["product"]; p = S.P[prod]; L = S.LAY[H]; lo, hi = S.SAFE[H]
     plate = Image.open(spec["plate"]).convert("RGBA")
@@ -18,19 +41,16 @@ def build(spec, H):
     st = S.asset(p["stick"])
     plate1 = Image.new("RGBA", (W, 1920)); base = max(W / plate.width, 1920 / plate.height); fw, fh = round(plate.width * base), round(plate.height * base)
     plate1.alpha_composite(plate.resize((fw, fh), Image.LANCZOS), ((W - fw) // 2, (1920 - fh) // 2))
-    a = np.asarray(plate1.convert("RGB")).astype(int); white = (a.min(2) > 150) & ((a.max(2) - a.min(2)) < 45)       # the blank sachet
-    ys_, xs_ = np.nonzero(white); keep = (xs_ > 300) & (xs_ < 800); ys_, xs_ = ys_[keep], xs_[keep]
-    x1_, x99_ = np.percentile(xs_, 0.5), np.percentile(xs_, 99.5); sy = int(np.percentile(ys_, 0.5)); sw = int(x99_ - x1_ + 10); sh = int(sw * st.height / st.width); sx = int((x1_ + x99_) / 2 - sw / 2)
-    stk = st.resize((sw, sh), Image.LANCZOS); orig = plate1.copy(); plate1.alpha_composite(stk, (sx, sy))
-    # keep the thumb and finger in FRONT of the stick: where the original pixel is skin, restore it
-    o = np.asarray(orig.convert("RGB")).astype(int); skin = ((o[:, :, 0] - o[:, :, 2]) > 38) & (o[:, :, 0] > 95); m = Image.fromarray((skin * 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.2))
-    box = Image.new("L", (W, 1920), 0); box.paste(m.crop((sx - 4, sy - 4, sx + sw + 4, sy + sh + 4)), (sx - 4, sy - 4)); plate1.paste(orig, (0, 0), box)
+    plate1, sx, sy, sw, sh = apply_stick(plate1, st, prod)
     big, small = (33, 21) if H == 1920 else (30, 20) if H == 1350 else (28, 19)
     py = hi - 112; sc_y = py - 60
     img0 = None; band_top = L["head"] + 250; band_bot = sc_y - 41 - 22; z = min(1.0, (band_bot - band_top) / sh); tcy = (band_top + band_bot) / 2
     pcx, pcy = sx + sw / 2, sy + sh / 2
     dy = tcy - pcy * z - (1920 - 1920 * z) / 2 + (1920 - H) / 2
     fw_ = round(1080 * z); img = S.canvas(plate1, H, z, (fw_ - W) // 2, int(dy), bgmode="right"); d = ImageDraw.Draw(img); ink, acc = p["ink"], p["acc"]
+    if prod == "mornings":
+        arr = np.asarray(img.convert("RGB")).astype(float); yr = min(H - 1, L["head"] + 300); ref = arr[yr, 20:200].mean(0); fade = np.clip(1 - np.arange(H) / max(1, yr), 0, 1) ** 0.8
+        top = Image.new("RGBA", (W, H), tuple(int(v) for v in ref) + (0,)); top.putalpha(Image.fromarray((np.repeat(fade[:, None], W, 1) * 235).astype("uint8"))); img.alpha_composite(top)
     S.scrim(img, 0, L["head"] + 330, 150 if H == 1920 else 130, 0)
     bb, y = S.headline(img, L["head"], spec["headline"], ink, acc, size=88 if H == 1920 else (84 if H == 1350 else 70)); chk = [("headline", bb)]
     ww, hh = sw * z, sh * z; scx = pcx * z; scy = tcy
