@@ -47,6 +47,8 @@ curl -s -X POST https://silt-static-engine.pages.dev/api/items -H "content-type:
   -d '{"kind":"idea","status":"waiting","doc":{"text":"<the idea>","count":6,"funnel":"auto","product":"auto","made":[]}}'
 ```
 
+**Daily inspiration from the Ad teardowns.** The queue also has `inspiration_today`: three picks a day from the Content Desk competitor teardowns (what works for other brands, and ideas written for SILT), each with an `as_idea` text. When no idea is waiting, or when asked for the **daily copy**, make today's ideas from these: send each pick as an idea (its `as_idea` text), then write the creatives as in step 3. Keep only the idea; never their words, layout, colours or claims.
+
 ## 2. Claim the idea, so nobody else works on it
 
 ```

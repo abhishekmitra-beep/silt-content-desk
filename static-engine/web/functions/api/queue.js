@@ -3,6 +3,7 @@
 // image from ChatGPT (Claude wrote the prompt; ChatGPT makes the picture; someone uploads it onto the static).
 import { ensure } from "./_db.js";
 import { buildBrief, briefText, pickLenses, headLine } from "./_brief.js";
+import { inspirationFor, inspirationIdea } from "../../public/inspiration.js";
 
 export async function onRequestGet({ env }) {
   await ensure(env);
@@ -20,5 +21,7 @@ export async function onRequestGet({ env }) {
   const rulesRow = await env.DB.prepare("SELECT doc FROM se_items WHERE id = 'house-rules'").first();
   const rules = rulesRow ? (JSON.parse(rulesRow.doc).rules || []).map(r => r.text) : [];
   const b = await buildBrief(env, { maxLines: 200 });
-  return Response.json({ ideas, need_images: needImg, house_rules: rules, brief: briefText(b, pickLenses(4)) }, { headers: { "cache-control": "no-store" } });
+  const day = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);   // India date
+  const inspiration_today = inspirationFor(day).map(i => ({ ...i, as_idea: inspirationIdea(i) }));
+  return Response.json({ ideas, need_images: needImg, house_rules: rules, inspiration_today, brief: briefText(b, pickLenses(4)) }, { headers: { "cache-control": "no-store" } });
 }

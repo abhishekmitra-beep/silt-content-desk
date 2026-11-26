@@ -12,3 +12,7 @@
   Cache-Control: no-cache
 /imgedit.js
   Cache-Control: no-cache
+/inspiration.js
+  Cache-Control: no-cache
+/teardowns.js
+  Cache-Control: no-cache

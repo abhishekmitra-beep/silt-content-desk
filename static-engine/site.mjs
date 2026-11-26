@@ -31,6 +31,12 @@ binding = "AI"
 `);
 // Competitor patterns for the Maker ("copy the skill, not the words"), from the Content Desk's teardown digest.
 const dg = JSON.parse(fs.readFileSync(path.resolve(here, "..", "cloudflare", "lib", "teardown-digest.json"), "utf8"));
-fs.writeFileSync(path.join(pub, "teardowns.json"), JSON.stringify((dg.brands || []).map(b => ({ brand: b.brand, patterns: (b.patterns || []).map(p => ({ title: p.title, text: String(p.text || "").slice(0, 420) })) }))));
+// Plus hand-written entries for brands without a full teardown yet (build/teardown_extra.json, e.g. Delta State).
+const extra = JSON.parse(fs.readFileSync(path.resolve(here, "build", "teardown_extra.json"), "utf8"));
+const TD = [...(dg.brands || []), ...extra].map(b => ({ brand: b.brand, pulled: b.pulled || "",
+  patterns: (b.patterns || []).map(p => ({ title: p.title, text: String(p.text || "").slice(0, 420) })),
+  ideas: (b.ideas_for_silt || []).map(i => ({ product: i.product || "", hook: String(i.hook || "").replace(/[“”]/g, '"').slice(0, 160), format: String(i.format || "").slice(0, 160), outline: String(i.outline || "").slice(0, 320) })) }));
+fs.writeFileSync(path.join(pub, "teardowns.json"), JSON.stringify(TD));
+fs.writeFileSync(path.join(pub, "teardowns.js"), "// Built by site.mjs from the Content Desk's Ad teardowns (+ build/teardown_extra.json). Do not edit by hand.\nexport const TEARDOWNS = " + JSON.stringify(TD) + ";\n");
 console.log("assets:", [...used].join(", "));
 console.log("pngs:", fs.readdirSync(path.join(pub, "png")).length, "thumbs:", fs.readdirSync(path.join(pub, "thumb")).length);
