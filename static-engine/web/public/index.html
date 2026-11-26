@@ -233,7 +233,7 @@ function inspBox() {
     <div class="insprow">${xs.map((i, n) => `<div class="inspcard"><div class="sub"><b>${esc(i.brand)}</b> · ${i.kind === "idea" ? "idea for SILT" : "what works for them"}${i.product ? " · " + esc(i.product) : ""}</div>
       <h4>${esc(i.title)}</h4><p>${esc(String(i.text || "").slice(0, 220))}${String(i.text || "").length > 220 ? "…" : ""}</p>
       <button data-insp="${n}">Use as idea</button></div>`).join("")}</div>
-    <div class="row"><a href="${DESK}" target="_blank" rel="noopener">All Ad teardowns in the Content Desk ↗</a><span class="sub">(team password) Keep the idea, never their words.</span></div></details>`;
+    <div class="row"><a href="${DESK}" target="_blank" rel="noopener">All Ad teardowns in the Content Desk ↗</a><span class="sub">Keep the idea, never their words.</span></div></details>`;
 }
 function drawIdeas() {
   const q = st.q.toLowerCase();
