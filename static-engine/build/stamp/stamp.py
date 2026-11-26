@@ -329,13 +329,71 @@ def build_news(spec, H):
     return img.convert("RGB"), bad
 
 
+# ---------- frosted card layout (team, 26 Nov: headline + benefits + price in ONE glass card that auto-fits any scene) ----------
+CARD = {
+    "nights":   dict(fill=(255, 255, 255, 206), ink=(11, 24, 58), key=(47, 95, 196), keyink=(255, 255, 255), pill=(11, 24, 58), pillink=(255, 255, 255)),
+    "mornings": dict(fill=(255, 248, 236, 214), ink=(43, 33, 28), key=(226, 124, 44), keyink=(255, 255, 255), pill=(43, 33, 28), pillink=(255, 248, 236)),
+}
+
+
+def build_card(spec, H):
+    prod = spec["product"]; p = P[prod]; c = CARD[prod]; lo, hi = SAFE[H]; ink = c["ink"]
+    k = {1920: 1.0, 1350: 0.92, 1080: 0.76}[H]; plate = Image.open(spec["plate"]).convert("RGBA"); d0 = ImageDraw.Draw(Image.new("RGB", (4, 4)))
+    pad = int(46 * k); cw = 900; cx0 = (W - cw) // 2
+    parts = spec["headline"].split("|"); l1 = parts[0].replace("*", "").strip() if len(parts) > 1 else ""; last = parts[-1].strip()
+    m = re.match(r"^(.*?)\*(.+?)\*(.*)$", last); pre, key = (m.group(1).strip(), m.group(2).strip()) if m else (last, "")
+    f1, f2, f2k = F(CORM[500], int(92 * k)), F(CORM[500], int(62 * k)), F(CORM[500], int(62 * k))
+    while l1 and tw(d0, l1, f1) > cw - 2 * pad: f1 = F(CORM[500], f1.size - 2)
+    # --- measure
+    kp = int(16 * k); kw = int(tw(d0, key, f2k) + 2 * kp) if key else 0; pw_ = int(tw(d0, pre, f2)) + (int(18 * k) if (pre and key) else 0)
+    while pre and pw_ + kw > cw - 2 * pad: f2 = F(CORM[500], f2.size - 2); f2k = F(CORM[500], f2k.size - 2); kw = int(tw(d0, key, f2k) + 2 * kp) if key else 0; pw_ = int(tw(d0, pre, f2)) + (int(18 * k) if (pre and key) else 0)
+    h1 = int(f1.size * 1.02) if l1 else 0; h2 = int(f2.size * 1.34); isz, fsz, pitch = int(38 * k), int(29 * k), int(56 * k); lst = 3 * pitch - (pitch - isz)
+    pill_h = int(64 * k); big, small = int(34 * k), int(21 * k); gapa, gapb, gapc = int(30 * k), int(24 * k), int(16 * k); url_h = int(30 * k)
+    ch = pad + h1 + h2 + gapa + lst + gapb + pill_h + gapc + url_h + pad - int(8 * k)
+    cy0 = hi - 26 - ch
+    # --- scene: subject centred in the space above the card, a little behind it (glass shows it through)
+    z = 1.12 if H != 1080 else 1.0; st, sb = subject_center(plate); sc = (st + sb) / 2; off = (1920 - H) / 2
+    tcy = lo + (cy0 + 60 - lo) / 2 + (30 if H == 1920 else 0); dy = int(max(-420, min(420, tcy - sc * z - (1920 - 1920 * z) / 2 + off)))
+    img = canvas(plate, H, z, 0, dy)
+    # --- frosted card
+    S3 = 3; box = (cx0, cy0, cx0 + cw, cy0 + ch); blur = img.crop(box).filter(ImageFilter.GaussianBlur(16))
+    msk = Image.new("L", (cw * S3, ch * S3), 0); ImageDraw.Draw(msk).rounded_rectangle((0, 0, cw * S3 - 1, ch * S3 - 1), int(34 * k) * S3, fill=255); msk = msk.resize((cw, ch), Image.LANCZOS)
+    glass = Image.alpha_composite(blur, Image.new("RGBA", (cw, ch), c["fill"])); img.paste(glass, (cx0, cy0), msk)
+    d = ImageDraw.Draw(img); chk = [("card", box)]
+    x = cx0 + pad; y = cy0 + pad - int(6 * k)
+    if l1: d.text((x, y), l1, font=f1, fill=ink); y += h1
+    ty = y + h2 * 0.5
+    if pre: d.text((x, ty), pre, font=f2, fill=ink, anchor="lm")
+    if key:
+        kx = x + pw_; kh = int(f2.size * 1.12); d.rectangle((kx, ty - kh / 2, kx + kw, ty + kh / 2), fill=c["key"]); d.text((kx + kp, ty), key, font=f2k, fill=c["keyink"], anchor="lm")
+    y += h2 + gapa
+    # benefits (official icons) left, pack right
+    fb = F(JOSTB, fsz); right = x
+    for i, lab in enumerate(p["labels"]):
+        yy = y + i * pitch; g = glyph(p["em"], i + 1, isz, ink); img.alpha_composite(g, (int(x + (isz - g.width) / 2), int(yy + (isz - g.height) / 2)))
+        d.text((x + isz + 22, yy + isz / 2), lab, font=fb, fill=ink, anchor="lm"); right = max(right, x + isz + 22 + tw(d, lab, fb))
+    hp = int(min(lst + gapb + pill_h + gapc + url_h, 300 * k)); pk_w = pack(prod, hp)[2]
+    pb = paste_pack(img, prod, cx0 + cw - pad - pk_w, y + (lst - hp) / 2 + (hp - lst) * 0.0 + (lst + gapb + pill_h - hp) / 2 * 0.0 + 0, hp) if False else None
+    py = y + (lst + gapb + pill_h + gapc + url_h - hp) / 2 - int(6 * k); pb = paste_pack(img, prod, cx0 + cw - pad - pk_w, py, hp); chk.append(("pack", pb))
+    y += lst + gapb
+    main, rest = "Rs. 900", " for a box of 15 sticks"; fbg, fsm = F(JOSTB, big), F(JOST, small); pw = int(tw(d, main, fbg) + tw(d, rest, fsm) + 2 * int(30 * k))
+    pl = Image.new("RGBA", (pw * S3, pill_h * S3), (0, 0, 0, 0)); ImageDraw.Draw(pl).rounded_rectangle((0, 0, pw * S3 - 1, pill_h * S3 - 1), pill_h * S3 // 2, fill=c["pill"] + (255,))
+    img.alpha_composite(pl.resize((pw, pill_h), Image.LANCZOS), (int(x), int(y))); tx = x + int(30 * k)
+    d.text((tx, y + pill_h / 2), main, font=fbg, fill=c["pillink"], anchor="lm"); d.text((tx + tw(d, main, fbg), y + pill_h / 2 + 2), rest, font=fsm, fill=c["pillink"], anchor="lm")
+    y += pill_h + gapc; fu = F(JOST, int(23 * k)); text_sp(d, x + int(8 * k), y, "siltnutrition.com", fu, ink + (230,), 5)
+    bad = []
+    for n, (x0, y0, x1, y1) in chk:
+        if y0 < lo - 1 or y1 > hi + 1 or x0 < SIDE - 1 or x1 > W - SIDE + 1: bad.append((n, int(x0), int(y0), int(x1), int(y1)))
+    return img.convert("RGB"), bad
+
+
 if __name__ == "__main__":
     specs = json.load(open(sys.argv[1], encoding="utf-8")); only = sys.argv[2:]
     for s in specs:
         if only and s["key"] not in only: continue
         os.makedirs(s["out"], exist_ok=True)
         for H, tag in ((1350, "4x5"), (1080, "1x1"), (1920, "9x16")):
-            try: im, bad = (build_news if s.get("layout") == "news" else build_one)(s, H)
+            try: im, bad = (build_news if s.get("layout") == "news" else build_card if s.get("layout") == "card" else build_one)(s, H)
             except Exception as e: print(s["key"], tag, "ERROR", repr(e)); raise
             im.save(f"{s['out']}/{s['key']}_{tag}.jpg", quality=93)
             print(s["key"], tag, "SAFE" if not bad else "PROBLEMS " + str(bad))
