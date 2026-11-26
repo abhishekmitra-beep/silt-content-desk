@@ -12,26 +12,31 @@ W = 1080
 
 
 def apply_stick(plate1, st, prod):
-    """Wrap the REAL stick artwork onto the blank sachet in the photo: the photo's own light and shadow (including the crimp
-    ridges) are multiplied onto the artwork, its outline comes from the photographed sachet, and the thumb / fingers stay in front."""
-    a = np.asarray(plate1.convert("RGB")).astype(float); mx, mn, lum = a.max(2), a.min(2), a.mean(2)
-    m = ((mx - mn) < 42) & (lum > 95); m[:, :300] = False; m[:, 800:] = False
-    cols = np.nonzero(m.sum(0) > 0.30 * m.sum(0).max())[0]; x0, x1 = cols.min(), cols.max()
-    rows = np.nonzero(m[:, x0:x1 + 1].sum(1) > 0.5 * (x1 - x0))[0]; y0, y1 = rows.min(), rows.max()
-    box = np.zeros_like(m); box[y0:y1 + 1, x0:x1 + 1] = True; m = m & box
-    mi = Image.fromarray((m * 255).astype("uint8")).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.MinFilter(9)).filter(ImageFilter.GaussianBlur(1.1))
-    sw, sh = int(x1 - x0 + 1), int(y1 - y0 + 1)
-    art = st.resize((sw, sh), Image.LANCZOS); base = Image.new("RGBA", (sw, sh), tuple(int(v) for v in np.asarray(art.convert("RGB")).reshape(-1, 3).mean(0)) + (255,)); base.alpha_composite(art); art = base
-    L = np.asarray(Image.fromarray(lum.astype("uint8")).filter(ImageFilter.GaussianBlur(1.6))).astype(float)[y0:y1 + 1, x0:x1 + 1]
-    ref = np.percentile(L[np.asarray(mi)[y0:y1 + 1, x0:x1 + 1] > 128], 68); shade = np.clip(L / ref, 0.42, 1.28)
-    rgb = np.asarray(art.convert("RGB")).astype(float) * shade[:, :, None] ** 1.05
-    hi_ = np.clip((L / ref - 1.10) * 1.4, 0, 0.35)[:, :, None]; rgb = rgb + (255 - rgb) * hi_ * 0.55
-    over = Image.new("RGBA", (sw, sh)); over.paste(Image.fromarray(np.clip(rgb, 0, 255).astype("uint8")).convert("RGBA"), (0, 0))
-    out = plate1.copy(); alpha = mi.crop((x0, y0, x1 + 1, y1 + 1)); out.paste(over, (x0, y0), alpha)
-    # thumb / fingers in front: where the ORIGINAL pixel is skin, restore it
-    skin = ((a[:, :, 0] - a[:, :, 2]) > 38) & (a[:, :, 0] > 95); sm = Image.fromarray((skin * 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.0))
-    keep = Image.new("L", plate1.size, 0); keep.paste(sm.crop((x0 - 6, y0 - 6, x1 + 7, y1 + 7)), (x0 - 6, y0 - 6)); out.paste(plate1, (0, 0), keep)
-    return out, int(x0), int(y0), sw, sh
+    """Chroma-key version: ChatGPT makes the hand plate with a pure-green blank sachet. The green gives the exact outline (no rim,
+    no guessing), its luminance gives the light / crimp shading that is multiplied onto the REAL stick artwork, and the thumb
+    stays in front because it is simply not green."""
+    a = np.asarray(plate1.convert("RGB")).astype(float); r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
+    key = g - np.maximum(r, b)
+    hard = key > 45
+    ys, xs = np.nonzero(hard)
+    # biggest blob only: columns / rows that carry real mass
+    cols = np.nonzero(hard.sum(0) > 8)[0]; x0, x1 = int(cols.min()), int(cols.max())
+    rows = np.nonzero(hard[:, x0:x1 + 1].sum(1) > 8)[0]; y0, y1 = int(rows.min()), int(rows.max())
+    sw, sh = x1 - x0 + 1, y1 - y0 + 1
+    soft = np.clip((key - 2) / 10.0, 0, 1); win = np.zeros_like(soft); win[max(0, y0 - 6):y1 + 7, max(0, x0 - 6):x1 + 7] = 1; soft *= win
+    mi = Image.fromarray((soft * 255).astype("uint8")).filter(ImageFilter.MaxFilter(7)).filter(ImageFilter.GaussianBlur(0.8))   # 2 px wider than the green: no green fringe
+    PAD = 10
+    ar = st.resize((sw, sh), Image.LANCZOS); base = Image.new("RGBA", (sw, sh), tuple(int(v) for v in np.asarray(ar.convert("RGB")).reshape(-1, 3).mean(0)) + (255,)); base.alpha_composite(ar)
+    # shading from the green channel (saturated green: its brightness is the photographed light)
+    Lg = np.asarray(Image.fromarray(np.clip(g, 0, 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.2))).astype(float)
+    Lc = Lg[y0:y1 + 1, x0:x1 + 1]; inside = hard[y0:y1 + 1, x0:x1 + 1]; ref = np.percentile(Lc[inside], 70)
+    shade = np.clip(1 + (Lc / ref - 1) * 2.4, 0.40, 1.22)
+    rgb = np.asarray(base.convert("RGB")).astype(float) * shade[:, :, None]
+    hi_ = np.clip((Lc / ref - 1.04) * 3.0, 0, 0.30)[:, :, None]; rgb = rgb + (255 - rgb) * hi_ * 0.5
+    rgbp = np.pad(rgb, ((PAD, PAD), (PAD, PAD), (0, 0)), mode="edge")
+    over = Image.fromarray(np.clip(rgbp, 0, 255).astype("uint8")).convert("RGBA")
+    out = plate1.copy(); ox, oy = x0 - PAD, y0 - PAD; alpha = mi.crop((ox, oy, ox + over.width, oy + over.height)); out.paste(over, (ox, oy), alpha)
+    return out, x0, y0, sw, sh
 
 
 def build(spec, H):

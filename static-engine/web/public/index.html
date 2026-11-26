@@ -64,6 +64,7 @@ dialog{border:0;border-radius:16px;padding:0;width:min(1200px,97vw);max-height:9
 .card,.istat{position:relative}.selbox{position:absolute;top:8px;left:8px;z-index:4;width:22px;height:22px;accent-color:var(--acc);cursor:pointer;margin:0}.selbox.inline{position:static;flex:none;margin-top:3px}
 .insp summary{cursor:pointer}.insp a{color:#2F62C8;font-weight:600}@media (prefers-color-scheme:dark){.insp a{color:#9FC0FF}}.insprow{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:12px 0}
 .inspcard{border:1px solid var(--line,rgba(127,127,127,.25));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}.inspcard h4{margin:0;font-size:15px}.inspcard p{margin:0;font-size:13px;opacity:.85;flex:1}.inspcard button{align-self:flex-start}
+.inspo{display:flex;align-items:center;gap:8px;margin:6px 0;padding:4px;border:1px solid rgba(127,127,127,.25);border-radius:8px;font-size:12px;text-decoration:none;color:inherit}.inspo img{width:38px;height:48px;object-fit:cover;border-radius:4px}.inspo .ph{font-size:20px;width:38px;text-align:center}
 #selbar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:20;background:#fff;color:#1F3A6B;border:1px solid rgba(31,58,107,.18);border-radius:999px;padding:10px 12px 10px 20px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);min-width:min(420px,92vw)}
 #selbar button{background:#fff;color:#1F3A6B;border-color:rgba(31,58,107,.35)}#selbar button.danger{background:var(--bad);border-color:var(--bad);color:#fff;font-weight:700}
 .intro{margin:0 0 10px;font-size:14px}.dlset{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.dlset .lab{font-size:11px;width:100%}.dlset button{font-size:12px;padding:4px 9px}.dl+.dl{padding-top:0;margin-top:-4px}.chip.stall{background:var(--warn-bg);color:var(--warn)}
@@ -114,8 +115,11 @@ const LIVE = i => i.status === "approved";
 // The AI Checker's verdict: approved moves on to Team Approval by itself; stalled waits in the AI Checker tab.
 const AI = i => i.status === "ai_approved" || i.status === "ai_rejected";
 const PENDING = i => ["approval", "changes", "active", "ai_approved"].includes(i.status) || (i.status === "draft" && !i.doc?.idea_id);
-const aiList = () => st.items.filter(i => KINDS.includes(i.kind) && AI(i)).map(i => ({ ...asStatic(i), _verdict: i.status }));
-const pending = () => st.items.filter(i => KINDS.includes(i.kind) && PENDING(i)).map(asStatic);
+// A static Claude wrote waits on the Ideas tab (image pending) until ChatGPT's image is on it; only then does it show in
+// AI Checker and Team Approval (team, 26 Nov: "hide until image").
+const WAITING = i => !!i.doc?.chatgpt_prompt && !(i.doc.files && Object.keys(i.doc.files).length);
+const aiList = () => st.items.filter(i => KINDS.includes(i.kind) && AI(i) && !WAITING(i)).map(i => ({ ...asStatic(i), _verdict: i.status }));
+const pending = () => st.items.filter(i => KINDS.includes(i.kind) && PENDING(i) && !WAITING(i)).map(asStatic);
 const allStatics = () => st.items.filter(i => KINDS.includes(i.kind) && LIVE(i)).map(asStatic);
 const ideas = () => st.items.filter(i => i.kind === "idea" && i.status !== "archived");
 const isImg = s => s.kind === "upload" || !!(s.files && Object.keys(s.files).length);
@@ -164,11 +168,16 @@ const bin = s => `<button class="bin" data-del="${esc(s._item.id)}" title="Delet
 const ZNAME = { "4x5": "Feed 4:5", "1x1": "Square 1:1", "9x16": "Stories 9:16", reels: "Reels 9:16" };
 const dlBtns = s => `<span class="dlset"><span class="lab">⬇ Download</span>${Object.keys(SIZES).map(k => `<button data-dl="${esc(s._item.id)}" data-z="${k}" title="Download the ${ZNAME[k]} file${isImg(s) && !s.files[k] ? " (built from this static's other size)" : ""}">${ZNAME[k]}</button>`).join("")}</span>`;
 const metaBtn = s => `<button data-metaprev="${esc(s._item.id)}" title="See it in every Meta placement, with the no-go zones">📱 Meta</button>`;
+// The creative that inspired a static (a St(temp) layout, a competitor ad, a Pinterest pin), shown small on its card
+// (team, 26 Nov: "put the pinterest or inspiration creative and add into statics").
+const inspo = s => { const i = s.inspiration; if (!i || !(i.image || i.url)) return "";
+  const href = i.url || i.image, safe = /^(https?:\/\/|\/)/.test(href) ? href : "#";
+  return `<a class="inspo" href="${esc(safe)}" target="_blank" rel="noopener" title="${esc(i.note || i.label || "")}">${i.image ? `<img src="${esc(i.image)}" alt="" loading="lazy">` : "<span class=\"ph\">📌</span>"}<span><b>Inspired by</b> ${esc(i.label || "reference")}</span></a>`; };
 function card(s) {
   const img = isImg(s), id = s._item.id, warn = s.flags || [];
   const dl = dlBtns(s);
   return `<article class="card">${selBox(id)}${thumb(s)}<div class="meta"><div class="t">${esc(titleText(s))}</div>
-    <div class="chips"><span class="chip">${esc(FNAME[s.funnel] || s.funnel || "")}</span><span class="chip">${esc(s.product || "")}</span>${s.concept ? `<span class="chip">${esc(s.concept)}</span>` : ""}<span class="chip team">${whoOf(s)}</span></div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}</div>
+    <div class="chips"><span class="chip">${esc(FNAME[s.funnel] || s.funnel || "")}</span><span class="chip">${esc(s.product || "")}</span>${s.concept ? `<span class="chip">${esc(s.concept)}</span>` : ""}<span class="chip team">${whoOf(s)}</span></div>${warn.length ? `<div class="check">${warn.map(esc).join("<br>")}</div>` : ""}${inspo(s)}</div>
     <div class="dl">${editBtn(s)}${metaBtn(s)}${bin(s)}</div><div class="dl">${dl}</div></article>`;
 }
 
@@ -218,8 +227,8 @@ async function sweepIdeas() {
 function ideaStatic(s) {
   const it = s._item, id = it.id, stt = it.status;
   return `<div class="istat${stt === "rejected" ? " dropped" : ""}">${selBox(id)}<div data-${hasImg(s) ? "imgedit" : "edit"}="${esc(id)}" title="Open to edit">${thumb(s, "4x5")}</div>
-    <div class="ist ${stt}">${SLABEL[stt] || stt}${hasImg(s) ? " · image added" : s.chatgpt_prompt ? " · needs image" : ""}</div>
-    ${s.ai_note ? `<div class="sub inote" title="${esc(s.ai_note)}">${esc(s.ai_note)}</div>` : ""}
+    <div class="ist ${stt}">${SLABEL[stt] || stt}${hasImg(s) ? " · image added" : s.chatgpt_prompt ? " · 🎨 image pending" : ""}</div>
+    ${inspo(s)}${s.ai_note ? `<div class="sub inote" title="${esc(s.ai_note)}">${esc(s.ai_note)}</div>` : ""}
     ${s.flags?.length ? `<div class="check" title="${esc(s.flags.join(" · "))}">${esc(s.flags[0])}</div>` : ""}
     <div class="row tick">${["draft", "ai_rejected"].includes(stt) ? `<button class="ok" data-tick="${esc(id)}" title="Send it to Team Approval">→ Team</button>` : ""}
       ${s.chatgpt_prompt ? `<button data-gpt="${esc(id)}" title="Copy Claude's prompt, paste it into ChatGPT">Copy for ChatGPT</button><label class="btn attach" title="Upload the image ChatGPT made">⬆ Image<input type="file" data-attach="${esc(id)}" accept="image/png,image/jpeg,image/webp"></label>` : ""}<button data-metaprev="${esc(id)}" title="See it in every Meta placement">📱</button></div></div>`;
@@ -341,7 +350,7 @@ IDEA: ${d.text}
 Make ${d.count || 6} statics. Funnel: ${d.funnel === "auto" || !d.funnel ? "spread across TOFU, MOFU, BOFU and RET" : d.funnel}. Product: ${d.product === "auto" || !d.product ? "mornings, nights or combo, whichever fits" : d.product}.
 ${made.length ? "ALREADY MADE FOR THIS IDEA (make completely different ones): " + made.join(" | ") : ""}
 
-Each creative is ONE idea with ONE photographable hero, in the kit's premium still-life look. Run the copy engine first (insight, twist, 8 headlines of 7 words or fewer, pick the best). The main message is the biggest text and carries a subtle benefit nudge. People only when the idea needs one: real-looking Indian men over 30, never women. Never invent a quote, review, rating, result or number.
+Each creative is ONE idea with ONE photographable hero, in the kit's premium still-life look. Run the copy engine first (insight, twist, 8 headlines of 7 words or fewer, pick the best). The main message is the biggest text and carries a subtle benefit nudge. People only when the idea needs one: real-looking Indian adults over 25, about 1 in 4 persona statics a woman (25% of buyers are women; never stereotyped or sexualised). Never invent a quote, review, rating, result or number.
 
 Reply with ONLY this JSON: {"statics": [ ... ]}. Each one:
 - "t": "statement" (the words preview on the site), "funnel", "product" (mornings, nights or combo), "bucket" (benefit, ingredient, price, proof, restock, replace the stack or festive), "concept" (2 to 4 words), "cta": "siltnutrition.com"
@@ -420,7 +429,7 @@ function drawApproval(mode) {
       : `<button class="primary" data-appr="${id}" title="Approve: it goes to Statics Finalized">✓ Approve</button><button data-rej="${id}" title="Reject it">✕ Reject</button>`;
     return `<article class="card">${selBox(s._item.id)}${thumb(s)}<div class="meta"><div class="t">${esc(titleText(s))}</div>
       <div class="chips"><span class="chip">${esc(FNAME[s.funnel] || s.funnel || "")}</span><span class="chip">${esc(s.product || "")}</span>${s.concept ? `<span class="chip">${esc(s.concept)}</span>` : ""}<span class="chip team">${whoOf(s)}</span>${verdict}</div>
-      ${warn.length ? `<div class="check"><b>Check:</b> ${warn.map(esc).join("<br>")}</div>` : ""}${s.source ? `<div class="sub">Idea: ${esc(s.source)}</div>` : ""}${s.ai_note ? `<div class="sub ainote"><b>Checker:</b> ${esc(s.ai_note)}</div>` : ""}</div>
+      ${warn.length ? `<div class="check"><b>Check:</b> ${warn.map(esc).join("<br>")}</div>` : ""}${s.source ? `<div class="sub">Idea: ${esc(s.source)}</div>` : ""}${inspo(s)}${s.ai_note ? `<div class="sub ainote"><b>Checker:</b> ${esc(s.ai_note)}</div>` : ""}</div>
       <div class="dl">${acts}${editBtn(s)}${metaBtn(s)}${bin(s)}</div><div class="dl">${dlBtns(s)}</div></article>`; };
   $("view").innerHTML = intro
     + `<div class="row"><span class="lab">Funnel</span>${chips("apf", [["all", "All " + base.length], ["TOFU", "TOFU " + c("TOFU")], ["MOFU", "MOFU " + c("MOFU")], ["BOFU", "BOFU " + c("BOFU")], ["RET", "Retention " + c("RET")]])}

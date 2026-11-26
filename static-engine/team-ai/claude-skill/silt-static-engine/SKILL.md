@@ -76,7 +76,7 @@ Make `count` creatives (default 6). Each one is **one idea with one photographab
 4. **Write the ChatGPT brief from the kit's templates**: `curl -s https://silt-static-engine.pages.dev/kit/BRIEF_TEMPLATES.txt`. Use the standard static, restock or replace-the-stack template and fill in every [bracket]. Ask for the Feed 4:5 (1080 x 1350) first; the 1:1 and 9:16 versions follow in the same chat (step 4). Every word inside each size's red lines.
 5. **Check your own work** against the CHECK BEFORE APPROVING rule. That check is your verdict.
 
-People appear only when the idea needs one, and then only real-looking Indian men over 30, never women. Never invent a customer quote, review, rating, result or study number.
+People appear only when the idea needs one, and then only real-looking Indian adults over 25, about 1 in 4 persona statics a woman (25% of buyers are women: working professionals, mothers, doctors, founders, teachers, never stereotyped or sexualised), the rest men. Never invent a customer quote, review, rating, result or study number.
 
 Save each creative under the idea (`idea_id`). Your verdict is the `status`: `"approved"` if it passes every rule (the AI Checker shows it as **Approved** and it moves on to Team Approval), `"rejected"` if it doesn't (the AI Checker shows it as **Stalled** and it waits there). Put the reason in `ai_note`, naming the rules you checked.
 
@@ -159,7 +159,7 @@ To put ChatGPT's image onto a creative you wrote, add `-F static_id=<static id>`
 - **Less text:** the creative's own words (kicker + main message + support line) stay under 20; cut the kicker or support line first.
 - **Copy:** the main message is the biggest text, with a benefit nudge. No cliches, exclamation marks, or fear or disease claims.
 - **Facts and prices:** only the ones in the FACTS and PRICES rules. "Rs. 900 for a box of 15 sticks".
-- **People:** only when needed; real-looking Indian men over 30, never women.
+- **People:** only when needed; real-looking Indian adults over 25, about 1 in 4 persona statics a woman (25% of buyers are women: working professionals, mothers, doctors, founders, teachers, never stereotyped or sexualised), the rest men.
 
 The kit's files are on the site: `/kit/PROJECT_INSTRUCTIONS.txt`, `/kit/COPY_RULES.txt`, `/kit/BRIEF_TEMPLATES.txt` and the reference images listed in step 4.
 

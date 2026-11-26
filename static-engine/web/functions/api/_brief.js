@@ -31,7 +31,7 @@ export const REJECT_TAGS = {
   "Wrong product or problem": "Match the problem to the product: Mornings = gut, 3 PM slump, vitamins; Nights = sleep, 3 AM, waking unrecovered.",
   "Repeats an existing static": "New situation, new line, new format. Check the list of what exists.",
   "Pack wrong or hidden": "The real pack, large, lower right, never covered, never redrawn.",
-  "Not Indian / wrong person": "Only when needed: a real-looking Indian man over 30, never women; a real photograph, not AI-looking.",
+  "Not Indian / wrong person": "Only when needed: a real-looking Indian adult over 25 (about 1 in 4 persona statics a woman, never stereotyped); a real photograph, not AI-looking.",
   "Spelling or wrong words": "Print the exact words, spelled right; check every word before saving.",
   "Off-brand look": "Follow the kit look: premium, clean, calm, one idea, about 40% empty.",
   "Claim or fact problem": "Only facts, doses and prices from the brief and the pack; no promises."
@@ -119,7 +119,7 @@ ${b.lessons.recent.map(r => "  " + r).join("\n")}
 - AVOID (rejected, don't make anything like these): ${b.rejected.length ? "\n  " + b.rejected.join("\n  ") : "none yet"}
 - ALREADY SAID (do not reuse these lines or ideas): ${b.existing.join(" | ")}
 - IDEAS ALREADY EXPLORED (go somewhere new; you may build on one, never redo it): ${b.ideas.length ? b.ideas.join(" | ") : "none yet"}
-- Follow the house rules (the SILT Creative Kit v2): one idea, one photographable hero, premium still life, 9:16. People only when needed: real-looking Indian men over 30, never women.
+- Follow the house rules (the SILT Creative Kit v2): one idea, one photographable hero, premium still life, 9:16. People only when needed: real-looking Indian adults over 25, about 1 in 4 persona statics a woman (25% of buyers are women: working professionals, mothers, doctors, founders, teachers, never stereotyped or sexualised), the rest men.
 EXPLORE NEW GROUND in this batch. Each static should take one of these angles (spread them):
 ${lenses.map(l => "- " + l).join("\n")}
 Every static must be a genuinely new idea: a new situation, a new joke, a new line. No near-copies of anything above.`;
