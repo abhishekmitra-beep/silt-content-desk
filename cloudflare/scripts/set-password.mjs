@@ -11,7 +11,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const bin = path.join(root, "node_modules", "wrangler", "bin", "wrangler.js");
-const PROJECT = "silt-content-desk";
+import { siteConfig } from "../../site-config.mjs";
+const PROJECT = siteConfig().deskProject;
 
 // 4 groups of 4 from an alphabet without look-alike characters: about 79 bits.
 const alphabet = "abcdefghjkmnpqrstuvwxyz23456789";
@@ -34,7 +35,7 @@ putSecret("DESK_PASSWORD", password);
 const out = path.join(root, "TEAM_PASSWORD.txt");
 fs.writeFileSync(out, [
   "SILT Content Desk team password",
-  "Site: https://silt-content-desk.pages.dev",
+  `Site: https://${PROJECT}.pages.dev`,
   "",
   password,
   "",

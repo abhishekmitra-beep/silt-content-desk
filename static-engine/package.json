@@ -6,7 +6,7 @@
     "render": "node render.mjs",
     "sheet": "node contact.mjs 4x5",
     "site": "node site.mjs",
-    "deploy": "node site.mjs && cd web && node ../../cloudflare/node_modules/wrangler/bin/wrangler.js pages deploy public --project-name silt-static-engine --branch main --commit-dirty=true",
+    "deploy": "node ../deploy.mjs engine",
     "build-and-deploy": "node render.mjs && npm run deploy"
   }
 }

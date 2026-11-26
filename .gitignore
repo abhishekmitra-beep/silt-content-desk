@@ -7,6 +7,9 @@ RULES_KEY*.txt
 *.pem
 *.key
 
+# ---- This copy's own Cloudflare names (made by setup.mjs) ----
+site.config.json
+
 # ---- Installed / local tool state ----
 node_modules/
 .wrangler/

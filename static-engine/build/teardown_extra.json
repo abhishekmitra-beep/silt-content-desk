@@ -1,0 +1,19 @@
+[
+  {
+    "brand": "Delta State",
+    "pulled": "2026-11-26",
+    "note": "Deep Sleep Complex (magnesium bisglycinate, glycine, L-theanine, saffron), a nightly sachet: a direct SILT Nights rival. 22 ads, all started 18 to 25 Nov 2026, so nothing is a proven long runner yet.",
+    "patterns": [
+      { "title": "One bold question, three benefit chips", "text": "Their statics are one giant question in heavy caps (\"Overthinking at night?\", \"Sleep-deprived?\"), one line naming the product, a person peeking over a duvet or dozing on the commute, and three short chips (Calm mind, Deeper sleep, Non-habit forming). Almost no other text." },
+      { "title": "Buying it separately costs more", "text": "\"Still taking magnesium and glycine separately?\" shows two plain bottles with prices adding up to Rs 2,000 against one tub at Rs 1,399. The enemy is the pile of single-ingredient bottles; the answer is one sachet." },
+      { "title": "Magnesium is not the whole answer", "text": "Six of 22 ads question single-ingredient magnesium (\"Magnesium is everywhere right now. But is it the whole sleep solution?\", \"Sleep isn't a one-ingredient job\") and list each active with its one job. They ride the magnesium trend instead of fighting it." },
+      { "title": "One product, many sleepless people", "text": "The same formula is pitched to the metro commuter, the night-shift worker, the gym-goer who wakes up sore and the skincare buyer. Each ad opens on that person's moment, then the same four actives." },
+      { "title": "Check the dose, ask for the report", "text": "\"Ever wondered what's really in your magnesium supplement? Check the form, elemental content and demand a Certificate of Analysis.\" Transparency as the hook, with exact milligrams in the copy." }
+    ],
+    "ideas_for_silt": [
+      { "product": "Nights", "hook": "Four bottles. Or one stick.", "format": "Still life: four plain unbranded bottles (L-GLYCINE, MAGNESIUM BISGLYCINATE, ASHWAGANDHA, L-THEANINE) beside the closed Nights box and one stick", "outline": "Their price-math idea in the SILT look: the pile of single bottles against one stick. Only SILT's own facts and the Rs. 900 for 15 sticks price line." },
+      { "product": "Nights", "hook": "Read the lab report, not the label.", "format": "Premium spec-sheet static", "outline": "The transparency hook with SILT's own Nights lab facts (glycine 99.4% pure, L-theanine 100% pure, melatonin 0 mg), typeset cleanly. No lab name, batch or report numbers." },
+      { "product": "Nights", "hook": "Laptop shut. Mind too.", "format": "Still life: the closed Nights box on a closed laptop", "outline": "Their late-night overthinking moment without a person: the work object at rest is the hero. Main message, price and URL only." }
+    ]
+  }
+]
